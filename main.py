@@ -5,13 +5,15 @@
 # pip3 install pandas
 # pip3 install xlrd
 # pip3 install faster_than_requests NB:(Mi ha richiesto Microsoft Visual C++ 14.0)
+# pip install xlsxwriter
 
-# Per leggere il file Xlsx
+# Per scrivere sul file Xlsx
 import pandas as pd
 # HTTP getter
 import requests as requests
 # Per le operazioni dell'OS
 import os
+import xml.etree.ElementTree as et 
 
 """
 Input:
@@ -22,32 +24,32 @@ Input:
 Output:
     - dataframe of link to download
 """
-df = pd.read_excel("BPMNMODELSGITHUB.xlsx", sheet_name="BPMN", usecols=[2])
 
-# Trasformo la colonna in lista per le operazioni di estrazione
-list_link_to_download = df["link_file"].tolist()
+# Creazione file metriche
+writer = pd.ExcelWriter('BPMN-metrics-output.xlsx', engine='xlsxwriter')
 
 
-# Creazione di una cartella in cui inserire i file .BPMN che genererò
-bpmn_folder_name = "bpmn_files"
-if not os.path.exists(bpmn_folder_name):
-    os.makedirs(bpmn_folder_name)
-# Cambio directory
-os.chdir(bpmn_folder_name)
+# Ora che ho creato il file, leggo il contenuto del file xml
 
-# Ciclo i link
-for (i, link) in enumerate(list_link_to_download):
-    # Ottengo la risposta di ogni link e la metto in response
-    response = requests.get(link)
-    # Se la risposta non è errore 404 cioè che il file non esiste più:
-    if response.status_code != 404:
-        # Assegno il nome del file con l'indice
-        file_name = str(i)+".bpmn"
-        # Stampo la creazione dei file
-        print(f"{i} -> creato {file_name}")
-        # Scrivo nel file il contenuto della riga
-        with open(file_name, 'w', encoding='utf8') as out:
-            out.write(response.text)
-    else:
-        # Se è not found notifico che non creo il file
-        print(f"{i} -> Not found, file non creato")
+fileName = "test";
+nStartEvent= "0";
+
+
+
+# dataframe da inserire nella riga del file excel
+df = pd.DataFrame({'BPMN_File_Name': [fileName],
+                   'Start_Event': [nStartEvent]})
+
+# Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
+df.to_excel(writer, sheet_name='Sheet1', index=False)
+writer.save()
+
+'''
+import lxml.etree
+namespace = "bpmn:";
+doc = lxml.etree.parse('bpmn_files/129.bpmn')
+count=  doc.xpath('count(//bpmn:task )', namespaces={
+  'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+  })
+print(count) 
+'''
