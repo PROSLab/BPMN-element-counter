@@ -13,8 +13,7 @@ import pandas as pd
 import requests as requests
 # Per le operazioni dell'OS
 import os
-import xml.etree.ElementTree as et 
-
+import lxml.etree
 """
 Input:
     - Nome del file XLSX (Deve stare nella stessa cartella dello script main.py)
@@ -28,28 +27,36 @@ Output:
 # Creazione file metriche
 writer = pd.ExcelWriter('BPMN-metrics-output.xlsx', engine='xlsxwriter')
 
-
+namespace = "bpmn:";
+doc = lxml.etree.parse('bpmn_files/129.bpmn')
+nTask=  doc.xpath('count(//bpmn:task )', namespaces={
+  'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+  })
+nStartEvent=  doc.xpath('count(//bpmn:startEvent )', namespaces={
+  'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+  })
+nProcess=  doc.xpath('count(//bpmn:process )', namespaces={
+  'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+  })
 # Ora che ho creato il file, leggo il contenuto del file xml
 
-fileName = "test";
-nStartEvent= "0";
+fileName = 'test'
 
-
-
-# dataframe da inserire nella riga del file excel
+# dataframe da inserire nella riga del +file excel
 df = pd.DataFrame({'BPMN_File_Name': [fileName],
-                   'Start_Event': [nStartEvent]})
+                   'Start_Event': [nStartEvent],
+                   'Process_element' : [nProcess],
+                   'Task_element' : [nTask]})
 
 # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
 df.to_excel(writer, sheet_name='Sheet1', index=False)
 writer.save()
 
 '''
-import lxml.etree
 namespace = "bpmn:";
 doc = lxml.etree.parse('bpmn_files/129.bpmn')
-count=  doc.xpath('count(//bpmn:task )', namespaces={
+nTask=  doc.xpath('count(//bpmn:task )', namespaces={
   'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
   })
-print(count) 
+print(nTask) 
 '''
