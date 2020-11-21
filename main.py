@@ -187,8 +187,48 @@ for files in os.listdir('bpmn_files'):
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
     #######################################################
-    # Event - Intermediate
-    
+    # Event - Intermediate Catch
+    nIntermediateCatchEvent=  doc.xpath('count(//bpmn:intermediateCatchEvent )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateCatchMessageEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent//bpmn:messageEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateCatchTimerEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent//bpmn:timerEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateCatchConditionalEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent//bpmn:conditionalEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateCatchLinkEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent//bpmn:linkEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateSignalMessageEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent//bpmn:signaleEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    #######################################################
+    # Event - Intermediate Throw
+    nIntermediateThrowEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateThrowMessageEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:messageEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateThrowEscalationEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:escalationEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateThrowLinkEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:linkEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateThrowSignalEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:signalEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateThrowCompensateEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:compensateEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nIntermediateThrowCancelEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:cancelEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
     #######################################################
     # Event - Boundary
     
@@ -198,9 +238,10 @@ for files in os.listdir('bpmn_files'):
     # Ora che ho creato il file, leggo il contenuto del file xml
     # Setting the file name
     fileName = files
+    bpmnModeler = "Camunda" # TODO or Signavio
     
     # dataframe da inserire nella riga del file excel
-    df = pd.DataFrame({'BPMN_File_Name': [fileName],'nTask': [nTask],'nSendTask': [nSendTask],'nUserTask' : [nUserTask],'nManualTask' : [nManualTask],
+    df = pd.DataFrame({'BPMN_File_Name': [fileName],'BPMN_Modeler': [bpmnModeler],'nTask': [nTask],'nSendTask': [nSendTask],'nUserTask' : [nUserTask],'nManualTask' : [nManualTask],
                        'nBusinessRuleTask': [nBusinessRuleTask],'nServiceTask': [nServiceTask],'nScriptTask': [nScriptTask],'nCallActivity' : [nCallActivity],
                        'nSubProcess' : [nSubProcess],'nTransaction' : [nTransaction],'nAdHocSubProcess' : [nAdHocSubProcess],'nGroup': [nGroup],
                        'nCollaboration': [nCollaboration],'nLaneSet': [nLaneSet],'nLane' : [nLane],'nDataObject' : [nDataObject],'nDataObjectReference': [nDataObjectReference],'nDataStore': [nDataStore],
@@ -212,7 +253,21 @@ for files in os.listdir('bpmn_files'):
                        'nEndMessageEventDefinition': [nEndMessageEventDefinition],
                        'nEndErrorEventDefinition': [nEndErrorEventDefinition],
                        'nEndCompensateEventDefinition': [nEndCompensateEventDefinition],
-                       'nEndCancelEventDefinition': [nEndCancelEventDefinition]})
+                       'nEndCancelEventDefinition': [nEndCancelEventDefinition],
+                       
+                       'nIntermediateCatchEvent': [nIntermediateCatchEvent],
+                       'nIntermediateCatchMessageEventDefinition': [nIntermediateCatchMessageEventDefinition],
+                       'nIntermediateCatchTimerEventDefinition': [nIntermediateCatchTimerEventDefinition],
+                       'nIntermediateCatchConditionalEventDefinition': [nIntermediateCatchConditionalEventDefinition],
+                       'nIntermediateCatchLinkEventDefinition': [nIntermediateCatchLinkEventDefinition],
+                       'nIntermediateSignalMessageEventDefinition': [nIntermediateSignalMessageEventDefinition],
+                       'nIntermediateThrowEventDefinition': [nIntermediateThrowEventDefinition],
+                       'nIntermediateThrowMessageEventDefinition': [nIntermediateThrowMessageEventDefinition],
+                       'nIntermediateThrowEscalationEventDefinition': [nIntermediateThrowEscalationEventDefinition],
+                       'nIntermediateThrowLinkEventDefinition': [nIntermediateThrowLinkEventDefinition],
+                       'nIntermediateThrowSignalEventDefinition': [nIntermediateThrowSignalEventDefinition],
+                       'nIntermediateThrowCompensateEventDefinition': [nIntermediateThrowCompensateEventDefinition],
+                       'nIntermediateThrowCancelEventDefinition': [nIntermediateThrowCancelEventDefinition],})
     print(" File "+fileName+"  succesfully analyzed ")
     
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
