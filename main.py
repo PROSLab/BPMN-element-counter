@@ -164,16 +164,41 @@ for files in os.listdir('bpmn_files'):
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
     #######################################################
-    # Event - Start
+    # Event - End
+    nEndEvent=  doc.xpath('count(//bpmn:endEvent )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nEndTerminateEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:terminateEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nEndEscalationEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:escalationEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nEndMessageEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:messageEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nEndErrorEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:errorEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nEndCompensateEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:compensateEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nEndCancelEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:cancelEventDefinition )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    #######################################################
+    # Event - Intermediate
     
     #######################################################
-    # Event - Start
+    # Event - Boundary
     
+    #######################################################
+    # Statistical paramethers
     
     # Ora che ho creato il file, leggo il contenuto del file xml
-
-    fileName = 'test'
-
+    # Setting the file name
+    fileName = files
+    
     # dataframe da inserire nella riga del file excel
     df = pd.DataFrame({'BPMN_File_Name': [fileName],'nTask': [nTask],'nSendTask': [nSendTask],'nUserTask' : [nUserTask],'nManualTask' : [nManualTask],
                        'nBusinessRuleTask': [nBusinessRuleTask],'nServiceTask': [nServiceTask],'nScriptTask': [nScriptTask],'nCallActivity' : [nCallActivity],
@@ -183,8 +208,13 @@ for files in os.listdir('bpmn_files'):
                        'nExclusiveGateway' : [nExclusiveGateway],'nParallelGateway' : [nParallelGateway],'nInclusiveGateway': [nInclusiveGateway],'nEventBasedGateway' : [nEventBasedGateway],'nCondition': [nCondition],
                        'nIntermediateThrowEvent' : [nIntermediateThrowEvent],'nStartEvent' : [nStartEvent],'nStartSignalEventDefinition' : [nStartSignalEventDefinition],'nStartConditionalEventDefinition': [nStartConditionalEventDefinition],
                        'nStartTimerEventDefinition': [nStartTimerEventDefinition],'nStartMessageEventDefinition' : [nStartMessageEventDefinition],'nStartCompensateEventDefinition' : [nStartCompensateEventDefinition],'nStartCancelEventDefinition': [nStartCancelEventDefinition],
-                       'nStartEscalationEventDefinition': [nStartEscalationEventDefinition],'nStartErrorEventDefinition': [nStartErrorEventDefinition],})
-
+                       'nStartEscalationEventDefinition': [nStartEscalationEventDefinition],'nStartErrorEventDefinition': [nStartErrorEventDefinition],'nEndEvent': [nEndEvent],'nEndTerminateEventDefinition' : [nEndTerminateEventDefinition],'nEndEscalationEventDefinition' : [nEndEscalationEventDefinition],
+                       'nEndMessageEventDefinition': [nEndMessageEventDefinition],
+                       'nEndErrorEventDefinition': [nEndErrorEventDefinition],
+                       'nEndCompensateEventDefinition': [nEndCompensateEventDefinition],
+                       'nEndCancelEventDefinition': [nEndCancelEventDefinition]})
+    print(" File "+fileName+"  succesfully analyzed ")
+    
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
     df.to_csv('BPMN-metrics-output.csv', index=False, mode = 'a')
 
