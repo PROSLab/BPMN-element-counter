@@ -230,27 +230,49 @@ for files in os.listdir('bpmn_files'):
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
     #######################################################
-    # Event - Boundary
-    nBoundaryIntermediateEventDefinition=  doc.xpath('count(//bpmn:boundaryIntermediateEvent)', namespaces={
+    # Event - Boundary 
+    nBoundaryEventDefinition=  doc.xpath('count(//bpmn:boundaryEvent)', namespaces={
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
-    nBoundaryIntermediateTimerEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryTimerEvent )', namespaces={
+    nBoundaryMessageEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerMessageDefinition)', namespaces={
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
-    nBoundaryIntermediateCancelEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryCancelEvent )', namespaces={
+    nBoundaryTimerEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerEventDefinition)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryCancelEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:cancelEventDefinition)', namespaces={
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })    
-    nBoundaryIntermediateConditionalEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryConditionalEvent )', namespaces={
+    nBoundaryConditionalEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:conditionalEventDefinition)', namespaces={
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
-    nBoundaryIntermediateEscalationEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryEscalationEvent )', namespaces={
+    nBoundaryEscalationEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:escalationEventDefinition)', namespaces={
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
-    nBoundaryIntermediateErrorEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryErrorEvent )', namespaces={
+    nBoundaryErrorEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:errorEventDefinition)', namespaces={
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
-    
-    nBoundaryIntermediateMessageEventCatching=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryIntermediateMessageEventCatching )', namespaces={
+    nBoundarySignalEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:signalEventDefinition)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryCompensateEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:compensateEventDefinition)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    #######################################################
+    # Event - Boundary Non-Interrupting PROBLEM
+    nBoundaryTimerEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerEventDefinition)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryEscalationEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:escalationEventDefinition)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryConditionalEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:conditionalEventDefinition)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundarySignalEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:signalEventDefinition)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryMessageEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerMessageDefinition)', namespaces={
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
     #######################################################
@@ -271,24 +293,17 @@ for files in os.listdir('bpmn_files'):
                        'nIntermediateThrowEvent' : [nIntermediateThrowEvent],'nStartEvent' : [nStartEvent],'nStartSignalEventDefinition' : [nStartSignalEventDefinition],'nStartConditionalEventDefinition': [nStartConditionalEventDefinition],
                        'nStartTimerEventDefinition': [nStartTimerEventDefinition],'nStartMessageEventDefinition' : [nStartMessageEventDefinition],'nStartCompensateEventDefinition' : [nStartCompensateEventDefinition],'nStartCancelEventDefinition': [nStartCancelEventDefinition],
                        'nStartEscalationEventDefinition': [nStartEscalationEventDefinition],'nStartErrorEventDefinition': [nStartErrorEventDefinition],'nEndEvent': [nEndEvent],'nEndTerminateEventDefinition' : [nEndTerminateEventDefinition],'nEndEscalationEventDefinition' : [nEndEscalationEventDefinition],
-                       'nEndMessageEventDefinition': [nEndMessageEventDefinition],
-                       'nEndErrorEventDefinition': [nEndErrorEventDefinition],
-                       'nEndCompensateEventDefinition': [nEndCompensateEventDefinition],
-                       'nEndCancelEventDefinition': [nEndCancelEventDefinition],
-                       
-                       'nIntermediateCatchEvent': [nIntermediateCatchEvent],
-                       'nIntermediateCatchMessageEventDefinition': [nIntermediateCatchMessageEventDefinition],
-                       'nIntermediateCatchTimerEventDefinition': [nIntermediateCatchTimerEventDefinition],
-                       'nIntermediateCatchConditionalEventDefinition': [nIntermediateCatchConditionalEventDefinition],
-                       'nIntermediateCatchLinkEventDefinition': [nIntermediateCatchLinkEventDefinition],
-                       'nIntermediateSignalMessageEventDefinition': [nIntermediateSignalMessageEventDefinition],
-                       'nIntermediateThrowEventDefinition': [nIntermediateThrowEventDefinition],
-                       'nIntermediateThrowMessageEventDefinition': [nIntermediateThrowMessageEventDefinition],
-                       'nIntermediateThrowEscalationEventDefinition': [nIntermediateThrowEscalationEventDefinition],
-                       'nIntermediateThrowLinkEventDefinition': [nIntermediateThrowLinkEventDefinition],
-                       'nIntermediateThrowSignalEventDefinition': [nIntermediateThrowSignalEventDefinition],
-                       'nIntermediateThrowCompensateEventDefinition': [nIntermediateThrowCompensateEventDefinition],
-                       'nIntermediateThrowCancelEventDefinition': [nIntermediateThrowCancelEventDefinition],})
+                       'nEndMessageEventDefinition': [nEndMessageEventDefinition],'nEndErrorEventDefinition': [nEndErrorEventDefinition],'nEndCompensateEventDefinition': [nEndCompensateEventDefinition],
+                       'nEndCancelEventDefinition': [nEndCancelEventDefinition],'nIntermediateCatchEvent': [nIntermediateCatchEvent],'nIntermediateCatchMessageEventDefinition': [nIntermediateCatchMessageEventDefinition],
+                       'nIntermediateCatchTimerEventDefinition': [nIntermediateCatchTimerEventDefinition],'nIntermediateCatchConditionalEventDefinition': [nIntermediateCatchConditionalEventDefinition],'nIntermediateCatchLinkEventDefinition': [nIntermediateCatchLinkEventDefinition],
+                       'nIntermediateSignalMessageEventDefinition': [nIntermediateSignalMessageEventDefinition],'nIntermediateThrowEventDefinition': [nIntermediateThrowEventDefinition],'nIntermediateThrowMessageEventDefinition': [nIntermediateThrowMessageEventDefinition],
+                       'nIntermediateThrowEscalationEventDefinition': [nIntermediateThrowEscalationEventDefinition],'nIntermediateThrowLinkEventDefinition': [nIntermediateThrowLinkEventDefinition],
+                       'nIntermediateThrowSignalEventDefinition': [nIntermediateThrowSignalEventDefinition],'nIntermediateThrowCompensateEventDefinition': [nIntermediateThrowCompensateEventDefinition],'nIntermediateThrowCancelEventDefinition': [nIntermediateThrowCancelEventDefinition],                       
+                       'nBoundaryEventDefinition': [nBoundaryEventDefinition],'nBoundaryMessageEvent': [nBoundaryMessageEvent],'nBoundaryTimerEvent': [nBoundaryTimerEvent],
+                       'nBoundaryCancelEvent': [nBoundaryCancelEvent],'nBoundaryConditionalEvent': [nBoundaryConditionalEvent],'nBoundaryEscalationEvent': [nBoundaryEscalationEvent],
+                       'nBoundaryErrorEvent': [nBoundaryErrorEvent],'nBoundarySignalEvent': [nBoundarySignalEvent],'nBoundaryCompensateEvent': [nBoundaryCompensateEvent],
+                       'nBoundaryTimerEventCancel': [nBoundaryTimerEventCancel],'nBoundaryEscalationEventCancel': [nBoundaryEscalationEventCancel],'nBoundaryConditionalEventCancel': [nBoundaryConditionalEventCancel],
+                       'nBoundaryMessageEventCancel': [nBoundaryMessageEventCancel],})
     print(" File "+fileName+"  succesfully analyzed ")
     
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
