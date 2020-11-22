@@ -80,6 +80,11 @@ for files in os.listdir('bpmn_files'):
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
     })
     #######################################################
+    # Message Flow
+    nMessageFlow=  doc.xpath('count(//bpmn:messageFlow )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    #######################################################
     # Group
     nGroup=  doc.xpath('count(//bpmn:group )', namespaces={
     'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
@@ -313,10 +318,10 @@ for files in os.listdir('bpmn_files'):
                        'nBoundaryCancelEvent': [nBoundaryCancelEvent],'nBoundaryConditionalEvent': [nBoundaryConditionalEvent],'nBoundaryEscalationEvent': [nBoundaryEscalationEvent],
                        'nBoundaryErrorEvent': [nBoundaryErrorEvent],'nBoundarySignalEvent': [nBoundarySignalEvent],'nBoundaryCompensateEvent': [nBoundaryCompensateEvent],
                        'nBoundaryTimerEventCancel': [nBoundaryTimerEventCancel],'nBoundaryEscalationEventCancel': [nBoundaryEscalationEventCancel],'nBoundaryConditionalEventCancel': [nBoundaryConditionalEventCancel],
-                       'nBoundaryMessageEventCancel': [nBoundaryMessageEventCancel],})
+                       'nBoundaryMessageEventCancel': [nBoundaryMessageEventCancel],'nGroup': [nGroup],'nMessageFlow': [nMessageFlow]})
     print("Metrics of "+fileName+" file with: "+bpmnModeler+" Modeler are succesfully extracted ")
-    
+
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
-    df.to_csv('BPMN-metrics-output.csv', index=False, mode = 'a')
+    df.to_csv('BPMN-metrics-output.csv', header=1, index=False, mode = 'a')
 
 
