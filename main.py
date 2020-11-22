@@ -231,7 +231,28 @@ for files in os.listdir('bpmn_files'):
     })
     #######################################################
     # Event - Boundary
+    nBoundaryIntermediateEventDefinition=  doc.xpath('count(//bpmn:boundaryIntermediateEvent)', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryIntermediateTimerEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryTimerEvent )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryIntermediateCancelEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryCancelEvent )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })    
+    nBoundaryIntermediateConditionalEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryConditionalEvent )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryIntermediateEscalationEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryEscalationEvent )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
+    nBoundaryIntermediateErrorEvent=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryErrorEvent )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
     
+    nBoundaryIntermediateMessageEventCatching=  doc.xpath('count(//bpmn:boundaryIntermediateEvent//bpmn:boundaryIntermediateMessageEventCatching )', namespaces={
+    'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+    })
     #######################################################
     # Statistical paramethers
     
