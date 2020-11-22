@@ -25,7 +25,21 @@ Output:
 for files in os.listdir('bpmn_files'):
     namespace = "bpmn:";
     doc = lxml.etree.parse('bpmn_files/'+files);
+    str = open('bpmn_files/'+files,'r').read()
+    
+    # Discover the modeler type
+    if str.find('camunda') != -1:
+        bpmnModeler = "Camunda"
 
+    elif str.find('signavio') != -1:
+        bpmnModeler = "Signavio"
+        
+    else: 
+        bpmnModeler = "Undefined"
+        
+    # Setting the file name
+    fileName = files
+    
     # Calcolo metriche dei file
     #######################################################
     # Task
@@ -279,10 +293,6 @@ for files in os.listdir('bpmn_files'):
     # Statistical paramethers
     
     # Ora che ho creato il file, leggo il contenuto del file xml
-    # Setting the file name
-    fileName = files
-    bpmnModeler = "Camunda" # TODO or Signavio
-    
     # dataframe da inserire nella riga del file excel
     df = pd.DataFrame({'BPMN_File_Name': [fileName],'BPMN_Modeler': [bpmnModeler],'nTask': [nTask],'nSendTask': [nSendTask],'nUserTask' : [nUserTask],'nManualTask' : [nManualTask],
                        'nBusinessRuleTask': [nBusinessRuleTask],'nServiceTask': [nServiceTask],'nScriptTask': [nScriptTask],'nCallActivity' : [nCallActivity],
@@ -304,7 +314,7 @@ for files in os.listdir('bpmn_files'):
                        'nBoundaryErrorEvent': [nBoundaryErrorEvent],'nBoundarySignalEvent': [nBoundarySignalEvent],'nBoundaryCompensateEvent': [nBoundaryCompensateEvent],
                        'nBoundaryTimerEventCancel': [nBoundaryTimerEventCancel],'nBoundaryEscalationEventCancel': [nBoundaryEscalationEventCancel],'nBoundaryConditionalEventCancel': [nBoundaryConditionalEventCancel],
                        'nBoundaryMessageEventCancel': [nBoundaryMessageEventCancel],})
-    print(" File "+fileName+"  succesfully analyzed ")
+    print("Metrics of "+fileName+" file with: "+bpmnModeler+" Modeler are succesfully extracted ")
     
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
     df.to_csv('BPMN-metrics-output.csv', index=False, mode = 'a')
