@@ -28,7 +28,7 @@ Output:
 
 with open(sys.argv[2],'w',newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nCondition","nIntermediateThrowEvent","nStartEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEvent","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nIntermediateThrowCancelEventDefinition","nBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventCancel","nBoundaryEscalationEventCancel","nBoundaryConditionalEventCancel","nBoundaryMessageEventCancel","ngroup","nMessageFlow"])
+    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nCondition","nIntermediateThrowEvent","nStartEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEvent","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nIntermediateThrowCancelEventDefinition","nBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryConditionalEventNonInt","nBoundaryMessageEventNonInt","ngroup","nMessageFlow"])
 
    
 for files in os.listdir(sys.argv[1]):
@@ -262,49 +262,48 @@ for files in os.listdir(sys.argv[1]):
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         #######################################################
-        # Event - Boundary 
+        # Event - Boundary Non-Interrupting PROBLEM
+        nBoundaryTimerEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:timerEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nBoundaryEscalationEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:escalationEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nBoundaryConditionalEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:conditionalEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nBoundarySignalEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:signalEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nBoundaryMessageEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:timerMessageDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        ######################################################
+        nBoundaryMessageEvent=  (doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerMessageDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nBoundaryMessageEventNonInt)
+        nBoundaryTimerEvent=  (doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nBoundaryTimerEventNonInt)  
+        nBoundaryConditionalEvent= (doc.xpath('count(//bpmn:boundaryEvent//bpmn:conditionalEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nBoundaryConditionalEventNonInt)
+        nBoundaryEscalationEvent=  (doc.xpath('count(//bpmn:boundaryEvent//bpmn:escalationEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nBoundaryEscalationEventNonInt)
+        nBoundarySignalEvent= (doc.xpath('count(//bpmn:boundaryEvent//bpmn:signalEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nBoundarySignalEventNonInt)
         nBoundaryEventDefinition=  doc.xpath('count(//bpmn:boundaryEvent)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nBoundaryMessageEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerMessageDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nBoundaryTimerEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
         nBoundaryCancelEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:cancelEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })    
-        nBoundaryConditionalEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:conditionalEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nBoundaryEscalationEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:escalationEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         nBoundaryErrorEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:errorEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nBoundarySignalEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:signalEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
         nBoundaryCompensateEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:compensateEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        #######################################################
-        # Event - Boundary Non-Interrupting PROBLEM
-        nBoundaryTimerEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nBoundaryEscalationEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:escalationEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nBoundaryConditionalEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:conditionalEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nBoundarySignalEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:signalEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nBoundaryMessageEventCancel=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerMessageDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         #######################################################
@@ -331,8 +330,8 @@ for files in os.listdir(sys.argv[1]):
                         ,nBoundaryEventDefinition,nBoundaryMessageEvent,nBoundaryTimerEvent
                         ,nBoundaryCancelEvent,nBoundaryConditionalEvent ,nBoundaryEscalationEvent
                         ,nBoundaryErrorEvent,nBoundarySignalEvent,nBoundaryCompensateEvent
-                        ,nBoundaryTimerEventCancel,nBoundaryEscalationEventCancel,nBoundaryConditionalEventCancel
-                        ,nBoundaryMessageEventCancel,nGroup,nMessageFlow])
+                        ,nBoundaryTimerEventNonInt,nBoundaryEscalationEventNonInt,nBoundaryConditionalEventNonInt
+                        ,nBoundaryMessageEventNonInt,nGroup,nMessageFlow])
         print("Metrics of "+fileName+" file with: "+bpmnModeler+" Modeler are succesfully extracted ")
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
     #df.to_csv('BPMN-metrics-output.csv', header=1, index=False, mode = 'a')
