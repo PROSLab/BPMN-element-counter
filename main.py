@@ -338,7 +338,7 @@ for files in os.listdir(sys.argv[1]):
                         ,nBoundaryCancelEvent,nBoundaryConditionalEvent ,nBoundaryEscalationEvent
                         ,nBoundaryErrorEvent,nBoundarySignalEvent,nBoundaryCompensateEvent
                         ,nBoundaryTimerEventNonInt,nBoundaryEscalationEventNonInt,nBoundaryConditionalEventNonInt
-                        ,nBoundaryMessageEventNonInt,nGroup,nMessageFlow,nSequenceFlow,nPool])
+                        ,nBoundaryMessageEventNonInt,nMessageFlow,nSequenceFlow,nPool])
         print("Metrics of "+fileName+" file with: "+bpmnModeler+" Modeler are succesfully extracted ")
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
     #df.to_csv('BPMN-metrics-output.csv', header=1, index=False, mode = 'a')
