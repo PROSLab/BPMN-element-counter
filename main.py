@@ -197,12 +197,13 @@ for files in os.listdir(sys.argv[1]):
         nStartErrorEventDefinition=  doc.xpath('count(//bpmn:startEvent//bpmn:errorEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nStartNoneEvent=nTotalStartEvent-nStartSignalEventDefinition-nStartConditionalEventDefinition-nStartTimerEventDefinition-nStartMessageEventDefinition-nStartCompensateEventDefinition-nStartCancelEventDefinition-nStartEscalationEventDefinition-nStartErrorEventDefinition
+        nStartNoneEvent=nTotalStartEvent-nStartSignalEventDefinition-nStartConditionalEventDefinition-nStartTimerEventDefinition-nStartMessageEventDefinition-nStartCompensateEventDefinition-nStartCancelEventDefinition-nStartEscalationEventDefinition-nStartErrorEventDefinition-nStartMultipleParallelEventDefinition-nStartMultipleEventDefinition
         #######################################################
         # Event - End
         nTotalEndEvent=  doc.xpath('count(//bpmn:endEvent )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
+        nMultipleEndEvent=  "TODO"
         nEndTerminateEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:terminateEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -253,6 +254,7 @@ for files in os.listdir(sys.argv[1]):
         nIntermediateThrowMessageEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:messageEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
+        nIntermediateThrowMultipleEventDefinition=  "TODO"
         nIntermediateThrowEscalationEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:escalationEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -326,7 +328,7 @@ for files in os.listdir(sys.argv[1]):
                         ,nCollaboration,nLaneSet,nLane,nDataObject,nDataObjectReference,nDataStore
                         ,nDataStoreReference,nDataInput,nDataOutput
                         ,nExclusiveGateway,nParallelGateway,nInclusiveGateway,nEventBasedGateway,nCondition
-                        ,nIntermediateThrowEvent,nStartMultipleParallelEventDefinition,nStartMultipleEventDefinition,nStartNoneEvent,nStartSignalEventDefinition,nStartConditionalEventDefinition,nTotalStartEvent,
+                        ,nIntermediateThrowEvent,nStartMultipleParallelEventDefinition,nStartMultipleEventDefinition,nStartNoneEvent,nStartSignalEventDefinition,nStartConditionalEventDefinition,nTotalStartEvent
                         ,nStartTimerEventDefinition,nStartMessageEventDefinition,nStartCompensateEventDefinition,nStartCancelEventDefinition
                         ,nStartEscalationEventDefinition,nStartErrorEventDefinition,nEndEventNone,nTotalEndEvent,nEndTerminateEventDefinition,nEndEscalationEventDefinition
                         ,nEndMessageEventDefinition,nEndErrorEventDefinition,nEndCompensateEventDefinition
