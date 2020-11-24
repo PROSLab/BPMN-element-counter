@@ -28,7 +28,7 @@ Output:
 
 with open(sys.argv[2],'w',newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nCondition","nIntermediateThrowEvent","nStartEvent","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEvent","nEndEventNone","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryConditionalEventNonInt","nBoundaryMessageEventNonInt","ngroup","nMessageFlow","nSequenceFlow","nPool"])
+    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nCondition","nIntermediateThrowEvent","nStartMultipleParallelEventDefinition","nStartMultipleEventDefinition","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEventNone","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMultipleEventDefinition","nIntermediateCatchMultipleParallelEventDefinition","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryConditionalEventNonInt","nBoundaryMessageEventNonInt","ngroup","nMessageFlow","nSequenceFlow","nPool"])
 
    
 for files in os.listdir(sys.argv[1]):
@@ -164,9 +164,12 @@ for files in os.listdir(sys.argv[1]):
         nIntermediateThrowEvent=  doc.xpath('count(//bpmn:intermediateThrowEvent )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nStartEvent=  doc.xpath('count(//bpmn:startEvent )', namespaces={
+        nStartMultipleParallelEventDefinition=  doc.xpath('count(//bpmn:startEvent[@isInterrupting="true" and @parallelMultiple="true"])', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
+        }) 
+        nStartMultipleEventDefinition=  (doc.xpath('count(//bpmn:startEvent[@isInterrupting="true"])', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nStartMultipleParallelEventDefinition)
         nStartSignalEventDefinition=  doc.xpath('count(//bpmn:startEvent//bpmn:signalEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -182,21 +185,18 @@ for files in os.listdir(sys.argv[1]):
         nStartCompensateEventDefinition=  doc.xpath('count(//bpmn:startEvent//bpmn:compensateEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nStartCancelEventDefinition=  doc.xpath('count(//bpmn:startEvent//bpmn:cancelEventDefinition )', namespaces={
+        nStartCancelEventDefinition=  (doc.xpath('count(//bpmn:startEvent//bpmn:cancelEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
+        }) - nStartMultipleParallelEventDefinition - nStartMultipleEventDefinition)
         nStartEscalationEventDefinition=  doc.xpath('count(//bpmn:startEvent//bpmn:escalationEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         nStartErrorEventDefinition=  doc.xpath('count(//bpmn:startEvent//bpmn:errorEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nStartNoneEvent=nStartEvent-nStartSignalEventDefinition-nStartConditionalEventDefinition-nStartTimerEventDefinition-nStartMessageEventDefinition-nStartCompensateEventDefinition-nStartCancelEventDefinition-nStartEscalationEventDefinition-nStartErrorEventDefinition
+        nStartNoneEvent=nStartSignalEventDefinition-nStartConditionalEventDefinition-nStartTimerEventDefinition-nStartMessageEventDefinition-nStartCompensateEventDefinition-nStartCancelEventDefinition-nStartEscalationEventDefinition-nStartErrorEventDefinition
         #######################################################
         # Event - End
-        nEndEvent=  doc.xpath('count(//bpmn:endEvent )', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
         nEndTerminateEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:terminateEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -215,12 +215,18 @@ for files in os.listdir(sys.argv[1]):
         nEndCancelEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:cancelEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nEndEventNone=nEndEvent-nEndTerminateEventDefinition-nEndEscalationEventDefinition-nEndMessageEventDefinition-nEndErrorEventDefinition-nEndCompensateEventDefinition-nEndCancelEventDefinition
+        nEndEventNone=nEndTerminateEventDefinition-nEndEscalationEventDefinition-nEndMessageEventDefinition-nEndErrorEventDefinition-nEndCompensateEventDefinition-nEndCancelEventDefinition
         #######################################################
-        # Event - Intermediate Catch
-        nIntermediateCatchEvent=  doc.xpath('count(//bpmn:intermediateCatchEvent )', namespaces={
+        # Event - Intermediate Catch       
+        nIntermediateCatchMultipleEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent[@parallelMultiple="false"])', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
+        nIntermediateCatchMultipleParallelEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent[@parallelMultiple="true"])', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nIntermediateCatchEvent=  (doc.xpath('count(//bpmn:intermediateCatchEvent )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nIntermediateCatchMultipleEventDefinition - nIntermediateCatchMultipleParallelEventDefinition)
         nIntermediateCatchMessageEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent//bpmn:messageEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -251,6 +257,9 @@ for files in os.listdir(sys.argv[1]):
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         nIntermediateThrowCompensateEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:compensateEventDefinition )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nIntermediateThrowMultipleParallelEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:cancelEventDefinition/bpmn:terminateEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         #######################################################
@@ -311,11 +320,11 @@ for files in os.listdir(sys.argv[1]):
                         ,nCollaboration,nLaneSet,nLane,nDataObject,nDataObjectReference,nDataStore
                         ,nDataStoreReference,nDataInput,nDataOutput
                         ,nExclusiveGateway,nParallelGateway,nInclusiveGateway,nEventBasedGateway,nCondition
-                        ,nIntermediateThrowEvent,nStartEvent,nStartNoneEvent,nStartSignalEventDefinition,nStartConditionalEventDefinition
+                        ,nIntermediateThrowEvent,nStartMultipleParallelEventDefinition,nStartMultipleEventDefinition,nStartNoneEvent,nStartSignalEventDefinition,nStartConditionalEventDefinition
                         ,nStartTimerEventDefinition,nStartMessageEventDefinition,nStartCompensateEventDefinition,nStartCancelEventDefinition
-                        ,nStartEscalationEventDefinition,nStartErrorEventDefinition,nEndEvent,nEndEventNone,nEndTerminateEventDefinition,nEndEscalationEventDefinition
+                        ,nStartEscalationEventDefinition,nStartErrorEventDefinition,nEndEventNone,nEndTerminateEventDefinition,nEndEscalationEventDefinition
                         ,nEndMessageEventDefinition,nEndErrorEventDefinition,nEndCompensateEventDefinition
-                        ,nEndCancelEventDefinition,nIntermediateCatchEvent,nIntermediateCatchMessageEventDefinition
+                        ,nEndCancelEventDefinition,nIntermediateCatchEvent,nIntermediateCatchMultipleEventDefinition,nIntermediateCatchMultipleParallelEventDefinition,nIntermediateCatchMessageEventDefinition
                         ,nIntermediateCatchTimerEventDefinition,nIntermediateCatchConditionalEventDefinition,nIntermediateCatchLinkEventDefinition
                         ,nIntermediateSignalMessageEventDefinition,nIntermediateThrowMessageEventDefinition
                         ,nIntermediateThrowEscalationEventDefinition,nIntermediateThrowLinkEventDefinition

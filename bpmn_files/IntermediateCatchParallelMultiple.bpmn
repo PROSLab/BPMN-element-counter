@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="14.9.0" expressionLanguage="http://www.w3.org/TR/XPath" id="sid-e3fd823b-858e-4773-a110-07cf1bb5de76" targetNamespace="http://www.signavio.com" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="sid-598731fd-1f33-4466-931d-5bbb71b33521" isClosed="false" isExecutable="false" processType="None">
+      <extensionElements>
+         <signavio:signavioDiagramMetaData metaKey="businessunit" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="iso9000ff" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="processowner" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="processgoal" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="soxrelevant" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="revisionid" metaValue="b64083020f92441fb5dbf6942f2cc0ac"/>
+      </extensionElements>
+      <intermediateCatchEvent id="sid-FF406788-8DF6-4660-89F0-FE48043C218A" name="" parallelMultiple="true">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+            <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000"/>
+         </extensionElements>
+         <cancelEventDefinition id="sid-d592bee7-accb-46bb-9e43-e1d1ad2841f5"/>
+         <terminateEventDefinition id="sid-c62a0404-c961-4c5c-af1f-e67bfbeed32d"/>
+      </intermediateCatchEvent>
+   </process>
+   <bpmndi:BPMNDiagram id="sid-6fd6c01b-c4ac-43ed-9bb0-dd153d308b88">
+      <bpmndi:BPMNPlane bpmnElement="sid-598731fd-1f33-4466-931d-5bbb71b33521" id="sid-c812ccc8-5e59-4a2a-8778-c9c4ec7a6e58">
+         <bpmndi:BPMNShape bpmnElement="sid-0B07205E-1626-4727-8D45-C5376199F726" id="sid-0B07205E-1626-4727-8D45-C5376199F726_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="360.0" y="315.0"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="sid-FF406788-8DF6-4660-89F0-FE48043C218A" id="sid-FF406788-8DF6-4660-89F0-FE48043C218A_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="390.0" y="390.0"/>
+         </bpmndi:BPMNShape>
+      </bpmndi:BPMNPlane>
+   </bpmndi:BPMNDiagram>
+</definitions>

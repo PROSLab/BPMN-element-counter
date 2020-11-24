@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="14.9.0" expressionLanguage="http://www.w3.org/TR/XPath" id="sid-9404c6cb-50f8-4411-abf4-8431b6832734" targetNamespace="http://www.signavio.com" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+   <process id="sid-8ec36d5c-dc03-45c9-9ff3-f492313be364" isClosed="false" isExecutable="false" processType="None">
+      <extensionElements>
+         <signavio:signavioDiagramMetaData metaKey="businessunit" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="iso9000ff" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="processowner" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="processgoal" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="soxrelevant" metaValue=""/>
+         <signavio:signavioDiagramMetaData metaKey="revisionid" metaValue="88292aa9c5a94dc1beb62d068d0bf0e5"/>
+      </extensionElements>
+      <startEvent id="sid-E25D16FF-DE91-4998-8184-78B2D89F9F50" isInterrupting="true" name="" parallelMultiple="true">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+            <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000"/>
+            <signavio:signavioMetaData metaKey="preceedingprocesses" metaValue=""/>
+         </extensionElements>
+         <cancelEventDefinition id="sid-46b18d63-a2ad-4b88-b602-9e5019d53393"/>
+         <terminateEventDefinition id="sid-94dc3907-9d93-4a2b-b0ec-63a359d42f65"/>
+      </startEvent>
+	  <startEvent id="sid-7FF7C890-7E8F-4367-B23B-B77EB1F0A7DB" isInterrupting="true" name="">
+         <extensionElements>
+            <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
+            <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000"/>
+            <signavio:signavioMetaData metaKey="preceedingprocesses" metaValue=""/>
+         </extensionElements>
+         <cancelEventDefinition id="sid-d80bda63-e5bd-4df6-8699-207be3d225b9"/>
+         <terminateEventDefinition id="sid-9fc6db6f-1fed-40b8-aaec-88064c54d770"/>
+      </startEvent>
+   </process>
+   <bpmndi:BPMNDiagram id="sid-a176f3db-15c3-4eea-ba80-60dded06a7e7">
+      <bpmndi:BPMNPlane bpmnElement="sid-8ec36d5c-dc03-45c9-9ff3-f492313be364" id="sid-2f875f78-bdc1-4d6b-9fdd-be7ee4845f33">
+         <bpmndi:BPMNShape bpmnElement="sid-E25D16FF-DE91-4998-8184-78B2D89F9F50" id="sid-E25D16FF-DE91-4998-8184-78B2D89F9F50_gui">
+            <omgdc:Bounds height="30.0" width="30.0" x="420.0" y="300.0"/>
+         </bpmndi:BPMNShape>
+      </bpmndi:BPMNPlane>
+   </bpmndi:BPMNDiagram>
+</definitions>
