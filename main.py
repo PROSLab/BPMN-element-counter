@@ -26,7 +26,7 @@ Output:
 #Si lancia lo script con il comando $python3 main.py path/to/bpmn/models/folder Metriche.csv
 
 
-with open(sys.argv[2],'w',newline='') as file:
+with open(sys.argv[2],'w') as file:
     writer = csv.writer(file)
     writer.writerow(["BPMN_File_Name","BPMN_Modeler",
                     #Tasks
@@ -50,7 +50,7 @@ with open(sys.argv[2],'w',newline='') as file:
                     #Boundary events
                     "nTotalBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent",
                     #Boundary events non-interrupting
-                    "nBoundaryMessageEventNonInt","nBoundaryTimerEventNonInt","nBoundaryConditionalEventNonInt","nBoundarySignalEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryMultipleEventNonIntEventNonInt","nBoundaryParallelMultipleEventNonIntEventNonInt","nSequenceFlow","nMessageFlow","nPool"])
+                    "nBoundaryMessageEventNonInt","nBoundaryTimerEventNonInt","nBoundaryConditionalEventNonInt","nBoundarySignalEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryMultipleEventNonInt","nBoundaryParallelMultipleEventNonInt","nSequenceFlow","nMessageFlow","nPool"])
    
 for files in os.listdir(sys.argv[1]):
     namespace = "bpmn:";
@@ -302,15 +302,15 @@ for files in os.listdir(sys.argv[1]):
         nBoundarySignalEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:signalEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nBoundaryMultipleEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:cancelEventDefinition)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
         nBoundaryEscalationEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:escalationEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nBoundaryParallelMultipleEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false" and parallelMultiple="true"]//bpmn:terminateEventDefinition)', namespaces={
+        nBoundaryParallelMultipleEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@parallelMultiple="true"]//bpmn:terminateEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
+        nBoundaryMultipleEventNonInt=  (doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:cancelEventDefinition)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nBoundaryParallelMultipleEventNonInt)
         ######################################################
         nBoundaryMessageEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerMessageDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
