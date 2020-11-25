@@ -28,8 +28,15 @@ Output:
 
 with open(sys.argv[2],'w',newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nCondition","nTotalStartEvent","nIntermediateThrowEvent","nStartMultipleParallelEventDefinition","nStartMultipleEventDefinition","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEventNone","nTotalEndEvent","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMultipleEventDefinition","nIntermediateCatchMultipleParallelEventDefinition","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nTotalBoundaryEventDefinitionBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryMessageEventNonInt","nBoundaryTimerEventNonInt","nBoundaryConditionalEventNonInt","nBoundarySignalEventNonInt","nBoundaryMultipleEventNonIntEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryEscalationEventNonInt","ngroup","nMessageFlow","nSequenceFlow","nPool"])
-
+    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess",
+                    "nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput",
+                    "nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nCondition",
+                    "nTotalStartEvent","nIntermediateThrowEvent","nStartMultipleParallelEventDefinition","nStartMultipleEventDefinition","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition",
+                    "nEndEventNone","nTotalEndEvent","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition"
+                    ,"nIntermediateCatchEvent","nIntermediateCatchMultipleEventDefinition","nIntermediateCatchMultipleParallelEventDefinition","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition",
+                    "nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition",
+                    "nTotalBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent",
+                    "nBoundaryMessageEventNonInt","nBoundaryTimerEventNonInt","nBoundaryConditionalEventNonInt","nBoundarySignalEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryMultipleEventNonIntEventNonInt","nBoundaryEscalationEventNonInt","nMessageFlow","nSequenceFlow","nPool"])
    
 for files in os.listdir(sys.argv[1]):
     namespace = "bpmn:";
@@ -330,21 +337,27 @@ for files in os.listdir(sys.argv[1]):
                         ,nCollaboration,nLaneSet,nLane,nDataObject,nDataObjectReference,nDataStore
                         ,nDataStoreReference,nDataInput,nDataOutput
                         ,nExclusiveGateway,nParallelGateway,nInclusiveGateway,nEventBasedGateway,nCondition
-                        ,nIntermediateThrowEvent,nStartMultipleParallelEventDefinition,nStartMultipleEventDefinition,nStartNoneEvent,nStartSignalEventDefinition,nStartConditionalEventDefinition,nTotalStartEvent
-                        ,nStartTimerEventDefinition,nStartMessageEventDefinition,nStartCompensateEventDefinition
-                        ,nStartEscalationEventDefinition,nStartErrorEventDefinition,nEndEventNone,nTotalEndEvent,nEndTerminateEventDefinition,nEndEscalationEventDefinition
-                        ,nEndMessageEventDefinition,nEndErrorEventDefinition,nEndCompensateEventDefinition
-                        ,nEndCancelEventDefinition,nIntermediateCatchEvent,nIntermediateCatchMultipleEventDefinition,nIntermediateCatchMultipleParallelEventDefinition,nIntermediateCatchMessageEventDefinition
-                        ,nIntermediateCatchTimerEventDefinition,nIntermediateCatchConditionalEventDefinition,nIntermediateCatchLinkEventDefinition
-                        ,nIntermediateSignalMessageEventDefinition,nIntermediateThrowMessageEventDefinition
+                        #Start events
+                        ,nTotalStartEvent,nIntermediateThrowEvent,nStartMultipleParallelEventDefinition,nStartMultipleEventDefinition,nStartNoneEvent,nStartSignalEventDefinition,nStartConditionalEventDefinition
+                        ,nStartTimerEventDefinition,nStartMessageEventDefinition,nStartCompensateEventDefinition,nStartEscalationEventDefinition,nStartErrorEventDefinition
+                        #End events
+                        ,nEndEventNone,nTotalEndEvent,nEndTerminateEventDefinition,nEndEscalationEventDefinition,nEndMessageEventDefinition,nEndErrorEventDefinition,nEndCompensateEventDefinition,nEndCancelEventDefinition
+                        #Intermediate events
+                        ,nIntermediateCatchEvent,nIntermediateCatchMultipleEventDefinition,nIntermediateCatchMultipleParallelEventDefinition,nIntermediateCatchMessageEventDefinition,nIntermediateCatchTimerEventDefinition
+                        ,nIntermediateCatchConditionalEventDefinition,nIntermediateCatchLinkEventDefinition,nIntermediateSignalMessageEventDefinition
+                        #Intermediate Throw events
+                        ,nIntermediateThrowMessageEventDefinition
                         ,nIntermediateThrowEscalationEventDefinition,nIntermediateThrowLinkEventDefinition
-                        ,nIntermediateThrowSignalEventDefinition,nIntermediateThrowCompensateEventDefinition                       
+                        ,nIntermediateThrowSignalEventDefinition,nIntermediateThrowCompensateEventDefinition
+                        # Boundary events
                         ,nTotalBoundaryEventDefinition,nBoundaryMessageEvent,nBoundaryTimerEvent
                         ,nBoundaryCancelEvent,nBoundaryConditionalEvent ,nBoundaryEscalationEvent
-                        ,nBoundaryErrorEvent,nBoundarySignalEvent,nBoundaryCompensateEvent,nBoundaryMessageEventNonInt
-                        ,nBoundaryTimerEventNonInt,nBoundaryConditionalEventNonInt,nBoundarySignalEventNonInt,nBoundaryMultipleEventNonIntEventNonInt
-                        ,nBoundaryEscalationEventNonInt,nBoundaryEscalationEventNonInt
-                        ,nMessageFlow,nSequenceFlow,nPool])
+                        ,nBoundaryErrorEvent,nBoundarySignalEvent,nBoundaryCompensateEvent
+                        # Boundary events NON-int
+                        ,nBoundaryMessageEventNonInt
+                        ,nBoundaryTimerEventNonInt,nBoundaryConditionalEventNonInt,nBoundarySignalEventNonInt,nBoundaryEscalationEventNonInt,nBoundaryMultipleEventNonInt,nBoundaryParallelMultipleEventNonInt
+                        ,nSequenceFlow,nMessageFlow,nPool])
+                        
         print("Metrics of "+fileName+" file with: "+bpmnModeler+" Modeler are succesfully extracted ")
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
     #df.to_csv('BPMN-metrics-output.csv', header=1, index=False, mode = 'a')
