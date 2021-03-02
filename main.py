@@ -30,7 +30,7 @@ numberOfInvalid = 0;
 
 with open(sys.argv[2],'w') as file:
     writer = csv.writer(file)
-    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nCondition","nIntermediateThrowEvent","nStartMultipleParallelEventDefinition","nStartMultipleEventDefinition","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEventNone","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMultipleEventDefinition","nIntermediateCatchMultipleParallelEventDefinition","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryConditionalEventNonInt","nBoundaryMessageEventNonInt","ngroup","nMessageFlow","nSequenceFlow","nPool","nVerticalLane","nVerticalPool","nChoreographyParticipant","nChoreographySubprocess"])
+    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nCondition","nIntermediateThrowEvent","nStartMultipleParallelEventDefinition","nStartMultipleEventDefinition","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEventNone","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMultipleEventDefinition","nIntermediateCatchMultipleParallelEventDefinition","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryConditionalEventNonInt","nBoundaryMessageEventNonInt","ngroup","nMessageFlow","nSequenceFlow","nPool","nVerticalLane","nVerticalPool","nChoreographyTask","nChoreographyParticipant","nChoreographySubprocess","nITSystem"])
 
    
 for files in os.listdir(sys.argv[1]):
@@ -325,12 +325,22 @@ for files in os.listdir(sys.argv[1]):
         
         #######################################################
         # Choreography
-        nChoreographyParticipant= doc.xpath('count(//bpmn:choreography )', namespaces={
+        nChoreographyParticipant= doc.xpath('count(//bpmn:choreography//bpmn:participant )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nChoreographyTask= doc.xpath('count(//bpmn:choreography)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         nChoreographySubprocess= doc.xpath('count(//bpmn:subChoreography)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
+        
+        #######################################################
+        # ITSystem
+        nITSystem= doc.xpath('count(//bpmn:textAnnotation//bpmn:extensionElements)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        
         
         #######################################################
         # Statistical paramethers
@@ -357,7 +367,8 @@ for files in os.listdir(sys.argv[1]):
                         ,nBoundaryCancelEvent,nBoundaryConditionalEvent ,nBoundaryEscalationEvent
                         ,nBoundaryErrorEvent,nBoundarySignalEvent,nBoundaryCompensateEvent
                         ,nBoundaryTimerEventNonInt,nBoundaryEscalationEventNonInt,nBoundaryConditionalEventNonInt
-                        ,nBoundaryMessageEventNonInt,nGroup,nMessageFlow,nSequenceFlow,nPool,nVerticalLane,nVerticalPool,nChoreographyParticipant,nChoreographySubprocess])
+                        ,nBoundaryMessageEventNonInt,nGroup,nMessageFlow,nSequenceFlow,nPool,nVerticalLane,nVerticalPool,
+                        nChoreographyTask,nChoreographyParticipant,nChoreographySubprocess,nITSystem])
         #print("Metrics of "+fileName+" file with: "+bpmnModeler+" Modeler are succesfully extracted ")
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
     #df.to_csv('BPMN-metrics-output.csv', header=1, index=False, mode = 'a')
