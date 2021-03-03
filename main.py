@@ -27,6 +27,7 @@ Output:
 
 # Setting the file name
 numberOfInvalid = 0;
+nEndMultipleEventDefinition = 0.0;
 
 with open(sys.argv[2],'w') as file:
     writer = csv.writer(file)
@@ -229,30 +230,35 @@ for files in os.listdir(sys.argv[1]):
         nEndEventNone = doc.xpath('count(//bpmn:endEvent)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nEndTerminateEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:terminateEventDefinition )', namespaces={
+        
+        x= doc.xpath('count(//bpmn:endEvent/* )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
+        
+        if(x==4):
+            nEndMultipleEventDefinition += 1.0;
+        
         nEndEscalationEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:escalationEventDefinition )', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nEndMessageEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:messageEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         nEndErrorEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:errorEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nEndCompensateEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:compensateEventDefinition )', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nEndCancelEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:cancelEventDefinition )', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
         nEndSignalEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:signalEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nEndMultipleEventDefinition= 0; #doc.xpath('count(//bpmn:endEvent//bpmn:cancelEventDefinition/bpmn:terminateEventDefinition )', namespaces={
-        #'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        #})
+        nEndCompensateEventDefinition=  doc.xpath('count(//bpmn:endEvent//bpmn:compensateEventDefinition )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nEndCancelEventDefinition=  (doc.xpath('count(//bpmn:endEvent//bpmn:cancelEventDefinition )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nEndMultipleEventDefinition) 
+        nEndMessageEventDefinition=  (doc.xpath('count(//bpmn:endEvent//bpmn:messageEventDefinition )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nEndMultipleEventDefinition) 
+        nEndTerminateEventDefinition=  (doc.xpath('count(//bpmn:endEvent//bpmn:terminateEventDefinition )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nEndMultipleEventDefinition) 
         nEndEventNone=nEndEventNone-nEndTerminateEventDefinition-nEndEscalationEventDefinition-nEndMessageEventDefinition-nEndErrorEventDefinition-nEndCompensateEventDefinition-nEndCancelEventDefinition-nEndSignalEventDefinition-nEndMultipleEventDefinition
         #######################################################
         # Event - Intermediate Catch       
