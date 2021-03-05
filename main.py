@@ -332,11 +332,11 @@ for files in os.listdir(sys.argv[1]):
             all_events_except_extensionElements = list(filter(lambda e : e.tag != f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}extensionElements", end_event.getchildren()))
     
             #Check if every endEvent tag have child xEndEventDefinition
-            if len(all_events_except_extensionElements) == 0:
+            if len(all_events_except_extensionElements) == 1:
                 nEndEventNone += 1
 
             #Check if every endEvent tag have child xEndEventDefinition
-            elif len(all_events_except_extensionElements) > 1:
+            elif len(all_events_except_extensionElements) > 2:
                 nEndMultipleEventDefinition += 1
                 continue;
                 
