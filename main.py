@@ -473,7 +473,7 @@ for files in os.listdir(sys.argv[1]):
         })
         #######################################################
         # Association
-        nCompensateAssociation= doc.xpath('count(//bpmn:association)', namespaces={
+        nCompensateAssociation= doc.xpath('count(//bpmn:endEvent//bpmn:compensateEventDefinition[@waitForCompletion="true"] )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         nUnidirectionalAssociation= doc.xpath('count(//bpmn:association[@associationDirection="One"])', namespaces={
