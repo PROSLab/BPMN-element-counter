@@ -31,7 +31,7 @@ nEndMultipleEventDefinition = 0.0;
 
 with open(sys.argv[2],'w') as file:
     writer = csv.writer(file)
-    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nSendTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nCollaboration","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nComplexGateway","nCondition","nIntermediateThrowEvent","nStartMultipleParallelEventDefinition","nStartMultipleEventDefinition","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEventNone","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nEndSignalEventDefinition","nEndMultipleEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMultipleEventDefinition","nIntermediateCatchMultipleParallelEventDefinition","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nBoundaryEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryConditionalEventNonInt","nBoundaryMessageEventNonInt","ngroup","nMessageFlow","nSequenceFlow","nDefaultFlow","nPool","nVerticalLane","nVerticalPool","nChoreographyTask","nChoreographyParticipant","nChoreographySubprocess","nITSystem","nCompensateAssociation","nUnidirectionalAssociation","nUndirectedAssociation","nBidirectionalAssociation","nTextAnnotation"])
+    writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nTaskMultipleIstance","nTaskLoopActivity","nSendTask","nReceiveTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nGroup","nLaneSet","nLane","nDataObject","nDataObjectReference","nDataStore","nDataStoreReference","nDataInput","nDataOutput","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nComplexGateway","nCondition","nStartMultipleParallelEventDefinition","nStartMultipleEventDefinition","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEventNone","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nEndSignalEventDefinition","nEndMultipleEventDefinition","nIntermediateCatchEvent","nIntermediateCatchMultipleEventDefinition","nIntermediateCatchMultipleParallelEventDefinition","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryConditionalEventNonInt","nBoundaryMessageEventNonInt","ngroup","nMessageFlow","nSequenceFlow","nDefaultFlow","nConditionalFlow","nPool","nChoreographyTask","nChoreographyParticipant","nChoreographySubprocess","nITSystem","nAssociation","nTextAnnotation","TotalElements"])
    
 for files in os.listdir(sys.argv[1]):
     namespace = "bpmn:";
@@ -39,6 +39,9 @@ for files in os.listdir(sys.argv[1]):
     fileName=0;
     bpmnModeler=0;
     nTask=0;
+    nTaskMultipleIstance=0;
+    nTaskLoopActivity=0;
+    nReceiveTask=0;
     nSendTask=0;
     nUserTask=0;
     nManualTask=0;
@@ -50,7 +53,6 @@ for files in os.listdir(sys.argv[1]):
     nTransaction=0;
     nAdHocSubProcess=0;
     nGroup=0;
-    nCollaboration=0;
     nLaneSet=0;
     nLane=0;
     nDataObject=0;
@@ -65,7 +67,6 @@ for files in os.listdir(sys.argv[1]):
     nEventBasedGateway=0;
     nComplexGateway=0;
     nCondition=0;
-    nIntermediateThrowEvent=0;
     nStartMultipleParallelEventDefinition=0.0;
     nStartMultipleEventDefinition=0.0;
     nStartNoneEvent=0.0;
@@ -86,7 +87,6 @@ for files in os.listdir(sys.argv[1]):
     nEndCancelEventDefinition=  0.0; 
     nEndMessageEventDefinition=  0.0;
     nEndTerminateEventDefinition=  0.0;
-    nIntermediateCatchEvent=0;
     nIntermediateCatchMultipleEventDefinition=0;
     nIntermediateCatchMultipleParallelEventDefinition=0;
     nIntermediateCatchMessageEventDefinition=0;
@@ -99,7 +99,6 @@ for files in os.listdir(sys.argv[1]):
     nIntermediateThrowLinkEventDefinition=0;
     nIntermediateThrowSignalEventDefinition=0;
     nIntermediateThrowCompensateEventDefinition=0;
-    nBoundaryEventDefinition=0;
     nBoundaryMessageEvent=0;
     nBoundaryTimerEvent=0;
     nBoundaryCancelEvent=0;
@@ -116,6 +115,7 @@ for files in os.listdir(sys.argv[1]):
     nMessageFlow=0;
     nSequenceFlow=0;
     nDefaultFlow=0;
+    nConditionalFlow=0;
     nPool=0;
     nVerticalLane=0;
     nVerticalPool=0;
@@ -123,11 +123,14 @@ for files in os.listdir(sys.argv[1]):
     nChoreographyParticipant=0;
     nChoreographySubprocess=0;
     nITSystem=0;
+    nAssociation=0;
     nCompensateAssociation=0;
     nUnidirectionalAssociation=0;
     nUndirectedAssociation=0;
     nBidirectionalAssociation=0;
     nTextAnnotation=0;
+    TotalElements=0;
+    
     
     #print("Model Name "+files);
     if(".bpmn" in files):
@@ -158,7 +161,14 @@ for files in os.listdir(sys.argv[1]):
         # Calcolo metriche dei file
         #######################################################
         # Task
-        nTask=  doc.xpath('count(//bpmn:task )', namespaces={
+        nTask=  (doc.xpath('count(//bpmn:task )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nTaskMultipleIstance - nTaskLoopActivity)
+        # Consider isSequential="true" for the type of multiple istance
+        nTaskMultipleIstance=  doc.xpath('count(//bpmn:task//bpmn:multiInstanceLoopCharacteristics )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        nTaskLoopActivity=  doc.xpath('count(//bpmn:task//bpmn:standardLoopCharacteristics )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         nSendTask=  doc.xpath('count(//bpmn:sendTask )', namespaces={
@@ -198,18 +208,22 @@ for files in os.listdir(sys.argv[1]):
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         #######################################################
-        # Sequence Flow
-        nSequenceFlow=  doc.xpath('count(//bpmn:sequenceFlow )', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        # Message Flow
-        nMessageFlow=  doc.xpath('count(//bpmn:messageFlow )', namespaces={
+        # Message Flow   
+        nMessageFlow= doc.xpath('count(//bpmn:messageFlow)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         # Default Flow
         nDefaultFlow= doc.xpath('count(//bpmn:exclusiveGateway[@default])', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
+        # Conditional Flow
+        nConditionalFlow= doc.xpath('count(//bpmn:sequenceFlow//bpmn:conditionExpression)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        # Sequence Flow
+        nSequenceFlow=  (doc.xpath('count(//bpmn:sequenceFlow)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }) - nDefaultFlow - nConditionalFlow)
         #######################################################
         # Group
         nGroup=  doc.xpath('count(//bpmn:group )', namespaces={
@@ -217,10 +231,7 @@ for files in os.listdir(sys.argv[1]):
         })
         #######################################################
         # Pool/Participant
-        nCollaboration=  doc.xpath('count(//bpmn:collaboration )', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
-        nPool= doc.xpath('count(//bpmn:participant)', namespaces={
+        nPool= doc.xpath('count(//bpmn:collaboration//bpmn:participant)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         nLaneSet=  doc.xpath('count(//bpmn:laneSet )', namespaces={
@@ -229,6 +240,7 @@ for files in os.listdir(sys.argv[1]):
         nLane=  doc.xpath('count(//bpmn:lane )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
+        
         nVerticalPool= doc.xpath('count(//bpmn:collaboration[@isHorizontal="false"])', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -315,9 +327,6 @@ for files in os.listdir(sys.argv[1]):
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}errorEventDefinition":
                     nStartErrorEventDefinition += 1
                     
-        nIntermediateThrowEvent=  doc.xpath('count(//bpmn:intermediateThrowEvent )', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
         nStartMultipleParallelEventDefinition=  doc.xpath('count(//bpmn:startEvent[@isInterrupting="true" and @parallelMultiple="true"])', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         }) 
@@ -365,9 +374,6 @@ for files in os.listdir(sys.argv[1]):
         nIntermediateCatchMultipleParallelEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent[@parallelMultiple="true"])', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nIntermediateCatchEvent=  (doc.xpath('count(//bpmn:intermediateCatchEvent )', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        }) - nIntermediateCatchMultipleEventDefinition - nIntermediateCatchMultipleParallelEventDefinition)
         nIntermediateCatchMessageEventDefinition=  doc.xpath('count(//bpmn:intermediateCatchEvent//bpmn:messageEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -385,6 +391,10 @@ for files in os.listdir(sys.argv[1]):
         })
         #######################################################
         # Event - Intermediate Throw
+        # Da sottrarre 
+        nIntermediateThrowEvent=  (doc.xpath('count(//bpmn:intermediateThrowEvent )', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        }))
         nIntermediateThrowMessageEventDefinition=  doc.xpath('count(//bpmn:intermediateThrowEvent//bpmn:messageEventDefinition )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -417,11 +427,12 @@ for files in os.listdir(sys.argv[1]):
         nBoundarySignalEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:signalEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
-        nBoundaryMessageEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:timerMessageDefinition)', namespaces={
+        nBoundaryMessageEventNonInt=  doc.xpath('count(//bpmn:boundaryEvent[@cancelActivity="false"]//bpmn:messageEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         ######################################################
-        nBoundaryMessageEvent=  (doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerMessageDefinition)', namespaces={
+        # Boundary Interrupting
+        nBoundaryMessageEvent=  (doc.xpath('count(//bpmn:boundaryEvent//bpmn:messageEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         }) - nBoundaryMessageEventNonInt)
         nBoundaryTimerEvent=  (doc.xpath('count(//bpmn:boundaryEvent//bpmn:timerEventDefinition)', namespaces={
@@ -436,9 +447,6 @@ for files in os.listdir(sys.argv[1]):
         nBoundarySignalEvent= (doc.xpath('count(//bpmn:boundaryEvent//bpmn:signalEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         }) - nBoundarySignalEventNonInt)
-        nBoundaryEventDefinition=  doc.xpath('count(//bpmn:boundaryEvent)', namespaces={
-        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-        })
         nBoundaryCancelEvent=  doc.xpath('count(//bpmn:boundaryEvent//bpmn:cancelEventDefinition)', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -472,7 +480,11 @@ for files in os.listdir(sys.argv[1]):
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
         #######################################################
-        # Association
+        # Association     
+        nAssociation= doc.xpath('count(//bpmn:association)', namespaces={
+        'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+        })
+        
         nCompensateAssociation= doc.xpath('count(//bpmn:endEvent//bpmn:compensateEventDefinition[@waitForCompletion="true"] )', namespaces={
         'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
         })
@@ -488,17 +500,17 @@ for files in os.listdir(sys.argv[1]):
         
         #######################################################
         # Statistical paramethers
-        
+        TotalElements= nTask+nSendTask+nReceiveTask+nUserTask+nManualTask+nBusinessRuleTask+nServiceTask+nScriptTask+nCallActivity+nSubProcess+nTransaction+nAdHocSubProcess+nGroup+nLaneSet+nLane+nDataObject+nDataObjectReference+nDataStore+nDataStoreReference+nDataInput+nDataOutput+nExclusiveGateway+nParallelGateway+nInclusiveGateway+nEventBasedGateway+nComplexGateway+nCondition+nStartMultipleParallelEventDefinition+nStartMultipleEventDefinition+nStartNoneEvent+nStartSignalEventDefinition+nStartConditionalEventDefinition+nStartTimerEventDefinition+nStartMessageEventDefinition+nStartCompensateEventDefinition+nStartCancelEventDefinition+nStartEscalationEventDefinition+nStartErrorEventDefinition+nEndEventNone+nEndTerminateEventDefinition+nEndEscalationEventDefinition+nEndMessageEventDefinition+nEndErrorEventDefinition+nEndCompensateEventDefinition+nEndCancelEventDefinition+nEndSignalEventDefinition+nEndMultipleEventDefinition+nIntermediateCatchEvent+nIntermediateCatchMultipleEventDefinition+nIntermediateCatchMultipleParallelEventDefinition+nIntermediateCatchMessageEventDefinition+nIntermediateCatchTimerEventDefinition+nIntermediateCatchConditionalEventDefinition+nIntermediateCatchLinkEventDefinition+nIntermediateSignalMessageEventDefinition+nIntermediateThrowMessageEventDefinition+nIntermediateThrowEscalationEventDefinition+nIntermediateThrowLinkEventDefinition+nIntermediateThrowSignalEventDefinition+nIntermediateThrowCompensateEventDefinition+nBoundaryMessageEvent+nBoundaryTimerEvent+nBoundaryCancelEvent+nBoundaryConditionalEvent+nBoundaryEscalationEvent+nBoundaryErrorEvent+nBoundarySignalEvent+nBoundaryCompensateEvent+nBoundaryTimerEventNonInt+nBoundaryEscalationEventNonInt+nBoundaryConditionalEventNonInt+nBoundaryMessageEventNonInt+nGroup+nMessageFlow+nSequenceFlow+nDefaultFlow+nConditionalFlow+nPool+nChoreographyTask+nChoreographyParticipant+nChoreographySubprocess+nITSystem+nAssociation+nTextAnnotation+nTaskMultipleIstance+nTaskLoopActivity;                              
         # Ora che ho creato il file, leggo il contenuto del file xml
         # dataframe da inserire nella riga del file excel
         with open(sys.argv[2],'a', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow([fileName,bpmnModeler,nTask,nSendTask,nUserTask,nManualTask,nBusinessRuleTask,nServiceTask,nScriptTask,nCallActivity
+            writer.writerow([fileName,bpmnModeler,nTask,nTaskMultipleIstance,nTaskLoopActivity,nSendTask,nReceiveTask,nUserTask,nManualTask,nBusinessRuleTask,nServiceTask,nScriptTask,nCallActivity
                         ,nSubProcess,nTransaction,nAdHocSubProcess,nGroup
-                        ,nCollaboration,nLaneSet,nLane,nDataObject,nDataObjectReference,nDataStore
+                        ,nLaneSet,nLane,nDataObject,nDataObjectReference,nDataStore
                         ,nDataStoreReference,nDataInput,nDataOutput
                         ,nExclusiveGateway,nParallelGateway,nInclusiveGateway,nEventBasedGateway,nComplexGateway,nCondition
-                        ,nIntermediateThrowEvent,nStartMultipleParallelEventDefinition,nStartMultipleEventDefinition,nStartNoneEvent,nStartSignalEventDefinition,nStartConditionalEventDefinition
+                        ,nStartMultipleParallelEventDefinition,nStartMultipleEventDefinition,nStartNoneEvent,nStartSignalEventDefinition,nStartConditionalEventDefinition
                         ,nStartTimerEventDefinition,nStartMessageEventDefinition,nStartCompensateEventDefinition,nStartCancelEventDefinition
                         ,nStartEscalationEventDefinition,nStartErrorEventDefinition,nEndEventNone,nEndTerminateEventDefinition,nEndEscalationEventDefinition
                         ,nEndMessageEventDefinition,nEndErrorEventDefinition,nEndCompensateEventDefinition
@@ -507,13 +519,12 @@ for files in os.listdir(sys.argv[1]):
                         ,nIntermediateSignalMessageEventDefinition,nIntermediateThrowMessageEventDefinition
                         ,nIntermediateThrowEscalationEventDefinition,nIntermediateThrowLinkEventDefinition
                         ,nIntermediateThrowSignalEventDefinition,nIntermediateThrowCompensateEventDefinition                       
-                        ,nBoundaryEventDefinition,nBoundaryMessageEvent,nBoundaryTimerEvent
+                        ,nBoundaryMessageEvent,nBoundaryTimerEvent
                         ,nBoundaryCancelEvent,nBoundaryConditionalEvent ,nBoundaryEscalationEvent
                         ,nBoundaryErrorEvent,nBoundarySignalEvent,nBoundaryCompensateEvent
                         ,nBoundaryTimerEventNonInt,nBoundaryEscalationEventNonInt,nBoundaryConditionalEventNonInt
-                        ,nBoundaryMessageEventNonInt,nGroup,nMessageFlow,nSequenceFlow,nDefaultFlow,nPool,nVerticalLane,nVerticalPool,
-                        nChoreographyTask,nChoreographyParticipant,nChoreographySubprocess,nITSystem,nCompensateAssociation,
-                        nUnidirectionalAssociation,nUndirectedAssociation,nBidirectionalAssociation,nTextAnnotation])
+                        ,nBoundaryMessageEventNonInt,nGroup,nMessageFlow,nSequenceFlow,nDefaultFlow,nConditionalFlow,nPool,
+                        nChoreographyTask,nChoreographyParticipant,nChoreographySubprocess,nITSystem,nAssociation,nTextAnnotation,TotalElements])
         #print("Metrics of "+fileName+" file with: "+bpmnModeler+" Modeler are succesfully extracted ")
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
     #df.to_csv('BPMN-metrics-output.csv', header=1, index=False, mode = 'a')
