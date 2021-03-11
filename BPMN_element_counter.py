@@ -14,137 +14,139 @@ import csv
 import sys
 """
 Input:
-    - Lista di file BPMN all'interno della cartella bpmn_files
-    - File csv nominato "BPMN-metrics-output"
+- Lista di file BPMN all'interno della cartella bpmn_files
+- File csv nominato "BPMN-metrics-output"
 
 Output:
-    - file xsl con i valori delle metriche dei file bpmn esamianti
+- file xsl con i valori delle metriche dei file bpmn esamianti
 """
 #Il primo argomento che passiamo è il percorso alla cartella contenente i modelli
 #Il secondo argomento è il nome del file csv da creare che verrà creato nella stessa cartella dove risiede lo script
-# a quel argomento si accede con sys.argv[1];
+# a quel argomento si accede con sys.argv[1]
 #Si lancia lo script con il comando $python3 main.py path/to/bpmn/models/folder Metriche.csv
 
 with open(sys.argv[2],'w') as file:
     writer = csv.writer(file)
     writer.writerow(["BPMN_File_Name","BPMN_Modeler","nTask","nTaskMultipleIstance","nTaskLoopActivity","nSendTask","nReceiveTask","nUserTask","nManualTask","nBusinessRuleTask","nServiceTask","nScriptTask","nCallActivity","nSubProcess","nTransaction","nAdHocSubProcess","nLane","nDataObject","nDataStore","nExclusiveGateway","nParallelGateway","nInclusiveGateway","nEventBasedGateway","nComplexGateway","nCondition","nStartMultipleParallelEventDefinition","nStartMultipleEventDefinition","nStartNoneEvent","nStartSignalEventDefinition","nStartConditionalEventDefinition","nStartTimerEventDefinition","nStartMessageEventDefinition","nStartCompensateEventDefinition","nStartCancelEventDefinition","nStartEscalationEventDefinition","nStartErrorEventDefinition","nEndEventNone","nEndTerminateEventDefinition","nEndEscalationEventDefinition","nEndMessageEventDefinition","nEndErrorEventDefinition","nEndCompensateEventDefinition","nEndCancelEventDefinition","nEndSignalEventDefinition","nEndMultipleEventDefinition","nIntermediateCatchMultipleEventDefinition","nIntermediateCatchMultipleParallelEventDefinition","nIntermediateCatchMessageEventDefinition","nIntermediateCatchTimerEventDefinition","nIntermediateCatchConditionalEventDefinition","nIntermediateCatchLinkEventDefinition","nIntermediateSignalMessageEventDefinition","nIntermediateThrowEvent","nIntermediateThrowMessageEventDefinition","nIntermediateThrowEscalationEventDefinition","nIntermediateThrowLinkEventDefinition","nIntermediateThrowSignalEventDefinition","nIntermediateThrowCompensateEventDefinition","nIntermediateThrowMultipleParallelEventDefinition","nBoundaryMessageEvent","nBoundaryTimerEvent","nBoundaryCancelEvent","nBoundaryConditionalEvent","nBoundaryEscalationEvent","nBoundaryErrorEvent","nBoundarySignalEvent","nBoundaryCompensateEvent","nBoundaryTimerEventNonInt","nBoundaryEscalationEventNonInt","nBoundaryConditionalEventNonInt","nBoundaryMessageEventNonInt","nGroup","nMessageFlow","nSequenceFlow","nDefaultFlow","nConditionalFlow","nPool","nChoreographyTask","nChoreographyParticipant","nChoreographySubprocess","nAssociation","nTextAnnotation","nMessage","nConversation","nSubConversation","nCallConversation","nConversationLink","TotalRePrository","TotalElements"])
-   
+
+numberOfInvalid=0
+
 for files in os.listdir(sys.argv[1]):
-    namespace = "bpmn:";
     
-    fileName=0;
-    bpmnModeler=0;
-    nTask=0;
-    nTaskMultipleIstance=0;
-    nTaskLoopActivity=0;
-    nReceiveTask=0;
-    nSendTask=0;
-    nUserTask=0;
-    nManualTask=0;
-    nBusinessRuleTask=0;
-    nServiceTask=0;
-    nScriptTask=0;
-    nCallActivity=0;
-    nSubProcess=0;
-    nTransaction=0;
-    nAdHocSubProcess=0;
-    nGroup=0;
-    nLane=0;
-    nDataObject=0;
-    nDataObjectReference=0;
-    nDataStore=0;
-    nDataStoreReference=0;
-    nDataInput=0;
-    nDataOutput=0;
-    nExclusiveGateway=0;
-    nParallelGateway=0;
-    nInclusiveGateway=0;
-    nEventBasedGateway=0;
-    nComplexGateway=0;
-    nCondition=0;
-    nStartMultipleParallelEventDefinition=0.0;
-    nStartMultipleEventDefinition=0.0;
-    nStartNoneEvent=0.0;
-    nStartSignalEventDefinition=0.0;
-    nStartConditionalEventDefinition=0.0;
-    nStartTimerEventDefinition=0.0;
-    nStartMessageEventDefinition=0.0;
-    nStartCompensateEventDefinition=0.0;
-    nStartCancelEventDefinition=0.0;
-    nStartEscalationEventDefinition=0.0;
-    nStartErrorEventDefinition=0.0;
-    nEndEventNone = 0.0;
-    nEndMultipleEventDefinition = 0.0; 
-    nEndEscalationEventDefinition= 0.0;
-    nEndErrorEventDefinition=  0.0;
-    nEndSignalEventDefinition=  0.0;
-    nEndCompensateEventDefinition=  0.0;
-    nEndCancelEventDefinition=  0.0; 
-    nEndMessageEventDefinition=  0.0;
-    nEndTerminateEventDefinition=  0.0;
-    nIntermediateCatchMultipleEventDefinition=0;
-    nIntermediateCatchMultipleParallelEventDefinition=0;
-    nIntermediateCatchMessageEventDefinition=0;
-    nIntermediateCatchTimerEventDefinition=0;
-    nIntermediateCatchConditionalEventDefinition=0;
-    nIntermediateCatchLinkEventDefinition=0;
-    nIntermediateSignalMessageEventDefinition=0;
-    nIntermediateThrowEvent=0;
-    nIntermediateThrowMessageEventDefinition=0;
-    nIntermediateThrowEscalationEventDefinition=0;
-    nIntermediateThrowLinkEventDefinition=0;
-    nIntermediateThrowSignalEventDefinition=0;
-    nIntermediateThrowCompensateEventDefinition=0;
-    nIntermediateThrowMultipleParallelEventDefinition=0;
-    nBoundaryMessageEvent=0;
-    nBoundaryTimerEvent=0;
-    nBoundaryCancelEvent=0;
-    nBoundaryConditionalEvent =0;
-    nBoundaryEscalationEvent=0;
-    nBoundaryErrorEvent=0;
-    nBoundarySignalEvent=0;
-    nBoundaryCompensateEvent=0;
-    nBoundaryTimerEventNonInt=0;
-    nBoundaryEscalationEventNonInt=0;
-    nBoundaryConditionalEventNonInt=0;
-    nBoundaryMessageEventNonInt=0;
-    nGroup=0;
-    nMessageFlow=0;
-    nSequenceFlow=0;
-    nDefaultFlow=0;
-    nConditionalFlow=0;
-    nPool=0;
-    nVerticalLane=0;
-    nVerticalPool=0;
-    nChoreographyTask=0;
-    nChoreographyParticipant=0;
-    nChoreographySubprocess=0;
-    nConversation=0;
-    nSubConversation=0;
-    nCallConversation=0;
-    nConversationLink=0;
-    nITSystem=0;
-    nAssociation=0;
-    nCompensateAssociation=0;
-    nUnidirectionalAssociation=0;
-    nUndirectedAssociation=0;
-    nBidirectionalAssociation=0;
-    nTextAnnotation=0;
-    ndataOutputAssociation=0;
-    ndataInputAssociation=0;
-    TotalElements=0;
-    
-    
-    #print("Model Name "+files);
-    if(".bpmn" in files):
+    namespace = "bpmn:"
+
+    fileName=0
+    bpmnModeler=0
+    nTask=0
+    nTaskMultipleIstance=0
+    nTaskLoopActivity=0
+    nReceiveTask=0
+    nSendTask=0
+    nUserTask=0
+    nManualTask=0
+    nBusinessRuleTask=0
+    nServiceTask=0
+    nScriptTask=0
+    nCallActivity=0
+    nSubProcess=0
+    nTransaction=0
+    nAdHocSubProcess=0
+    nGroup=0
+    nLane=0
+    nDataObject=0
+    nDataObjectReference=0
+    nDataStore=0
+    nDataStoreReference=0
+    nDataInput=0
+    nDataOutput=0
+    nExclusiveGateway=0
+    nParallelGateway=0
+    nInclusiveGateway=0
+    nEventBasedGateway=0
+    nComplexGateway=0
+    nCondition=0
+    nStartMultipleParallelEventDefinition=0.0
+    nStartMultipleEventDefinition=0.0
+    nStartNoneEvent=0.0
+    nStartSignalEventDefinition=0.0
+    nStartConditionalEventDefinition=0.0
+    nStartTimerEventDefinition=0.0
+    nStartMessageEventDefinition=0.0
+    nStartCompensateEventDefinition=0.0
+    nStartCancelEventDefinition=0.0
+    nStartEscalationEventDefinition=0.0
+    nStartErrorEventDefinition=0.0
+    nEndEventNone = 0.0
+    nEndMultipleEventDefinition = 0.0 
+    nEndEscalationEventDefinition= 0.0
+    nEndErrorEventDefinition=  0.0
+    nEndSignalEventDefinition=  0.0
+    nEndCompensateEventDefinition=  0.0
+    nEndCancelEventDefinition=  0.0 
+    nEndMessageEventDefinition=  0.0
+    nEndTerminateEventDefinition=  0.0
+    nIntermediateCatchMultipleEventDefinition=0
+    nIntermediateCatchMultipleParallelEventDefinition=0
+    nIntermediateCatchMessageEventDefinition=0
+    nIntermediateCatchTimerEventDefinition=0
+    nIntermediateCatchConditionalEventDefinition=0
+    nIntermediateCatchLinkEventDefinition=0
+    nIntermediateSignalMessageEventDefinition=0
+    nIntermediateThrowEvent=0
+    nIntermediateThrowMessageEventDefinition=0
+    nIntermediateThrowEscalationEventDefinition=0
+    nIntermediateThrowLinkEventDefinition=0
+    nIntermediateThrowSignalEventDefinition=0
+    nIntermediateThrowCompensateEventDefinition=0
+    nIntermediateThrowMultipleParallelEventDefinition=0
+    nBoundaryMessageEvent=0
+    nBoundaryTimerEvent=0
+    nBoundaryCancelEvent=0
+    nBoundaryConditionalEvent =0
+    nBoundaryEscalationEvent=0
+    nBoundaryErrorEvent=0
+    nBoundarySignalEvent=0
+    nBoundaryCompensateEvent=0
+    nBoundaryTimerEventNonInt=0
+    nBoundaryEscalationEventNonInt=0
+    nBoundaryConditionalEventNonInt=0
+    nBoundaryMessageEventNonInt=0
+    nGroup=0
+    nMessageFlow=0
+    nSequenceFlow=0
+    nDefaultFlow=0
+    nConditionalFlow=0
+    nPool=0
+    nVerticalLane=0
+    nVerticalPool=0
+    nChoreographyTask=0
+    nChoreographyParticipant=0
+    nChoreographySubprocess=0
+    nConversation=0
+    nSubConversation=0
+    nCallConversation=0
+    nConversationLink=0
+    nITSystem=0
+    nAssociation=0
+    nCompensateAssociation=0
+    nUnidirectionalAssociation=0
+    nUndirectedAssociation=0
+    nBidirectionalAssociation=0
+    nTextAnnotation=0
+    ndataOutputAssociation=0
+    ndataInputAssociation=0
+    TotalElements=0
+
+
+    #print("Model Name "+files)
+    if("bpmn" in files):
         
         try:
-            doc = lxml.etree.parse(sys.argv[1]+'/'+files);
+            doc = lxml.etree.parse(sys.argv[1]+'/'+files)
             str = open(sys.argv[1]+'/'+files,'r', encoding="utf8").read()
         except:
-            ++numberOfInvalid
+            numberOfInvalid=numberOfInvalid+1
             print(files)
-            print(numberOfInvalid)
             continue
             
         
@@ -299,7 +301,7 @@ for files in os.listdir(sys.argv[1]):
         for start_event in all_start_event:
             #Delete all extensionElements tags
             all_startEvents_except_extensionElements = list(start_event.getchildren())
-            defCounter = 0.0;
+            defCounter = 0.0
             #all_startEvents_except_extensionElements = list(filter(lambda e : e.tag != f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}extensionElements", start_event.getchildren()))
             #all_startEvents_except_extensionElements = list(filter(lambda e : e.tag != f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}outgoing", start_event.getchildren()))
             #all_startEvents_except_extensionElements = list(filter(lambda e : e.tag != f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}incoming", start_event.getchildren()))
@@ -312,41 +314,41 @@ for files in os.listdir(sys.argv[1]):
             #Check if every endEvent tag have child xEndEventDefinition
             #elif len(all_startEvents_except_extensionElements) > 2:
             #    nStartMultipleEventDefinition += 1
-            #    continue;
+            #    continue
             
             
             #Per ogni evento contenuto nell'array (che può contenere 1 o più elementi) 
             for event_definition in all_startEvents_except_extensionElements:
                 if event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}signalEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nStartSignalEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}conditionalEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nStartConditionalEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}timerEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nStartTimerEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}messageEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nStartMessageEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}compensateEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nStartCompensateEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}cancelEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nStartCancelEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}escalationEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nStartEscalationEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}errorEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nStartErrorEventDefinition += 1
                     
             if(defCounter>1):    
-                nStartMultipleParallelEventDefinition += 1;
+                nStartMultipleParallelEventDefinition += 1
                 
             if(defCounter==0):
-                nStartNoneEvent +=1; 
+                nStartNoneEvent +=1 
                 
 
         #######################################################
@@ -368,38 +370,38 @@ for files in os.listdir(sys.argv[1]):
             #Check if every endEvent tag have child xEndEventDefinition
             #elif len(all_events_except_extensionElements) > 2:
             #   nEndMultipleEventDefinition += 1
-            #    continue;
-            defCounter = 0.0;
+            #    continue
+            defCounter = 0.0
             
             #Per ogni evento contenuto nell'array (che può contenere 1 o più elementi) 
             for event_definition in all_events_except_extensionElements:
                 if event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}terminateEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nEndTerminateEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}escalationEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nEndEscalationEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}errorEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nEndErrorEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}signalEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nEndSignalEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}compensateEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nEndCompensateEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}cancelEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nEndCancelEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}messageEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nEndMessageEventDefinition += 1
                     
             if(defCounter>1):    
-                nEndMultipleEventDefinition += 1;
+                nEndMultipleEventDefinition += 1
                 
             if(defCounter==0):
-                nEndEventNone +=1;
+                nEndEventNone +=1
             
         #######################################################
         # Event - Intermediate Catch  
@@ -438,7 +440,7 @@ for files in os.listdir(sys.argv[1]):
             #all_intermediatethrowevents_except_extensionElements = list(filter(lambda e : e.tag != f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}extensionElements", intermediatethrow_event.getchildren()))
             #all_intermediatethrowevents_except_extensionElements = list(filter(lambda e : e.tag != f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}incoming", intermediatethrow_event.getchildren()))
             #all_intermediatethrowevents_except_extensionElements = list(filter(lambda e : e.tag != f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}outgoing", intermediatethrow_event.getchildren()))
-    
+
             #Check if every endEvent tag have child xEndEventDefinition
             #if len(all_intermediatethrowevents_except_extensionElements) == 1:
             #    nIntermediateThrowEvent += 1
@@ -446,32 +448,32 @@ for files in os.listdir(sys.argv[1]):
             #Check if every endEvent tag have child xEndEventDefinition
             #elif len(all_intermediatethrowevents_except_extensionElements) > 2:
             #    nIntermediateThrowMultipleParallelEventDefinition += 1
-            #   continue;
-            defCounter = 0.0;
+            #   continue
+            defCounter = 0.0
             
             #Per ogni evento contenuto nell'array (che può contenere 1 o più elementi) 
             for event_definition in all_intermediatethrowevents_except_extensionElements:
                 if event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}linkEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nIntermediateThrowLinkEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}escalationEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nIntermediateThrowEscalationEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}signalEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nIntermediateThrowSignalEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}compensateEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nIntermediateThrowCompensateEventDefinition += 1
                 elif event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}messageEventDefinition":
-                    defCounter += 1;
+                    defCounter += 1
                     nIntermediateThrowMessageEventDefinition += 1
                     
             if(defCounter>1):    
-                nIntermediateThrowMultipleParallelEventDefinition += 1;
+                nIntermediateThrowMultipleParallelEventDefinition += 1
                 
             if(defCounter==0):
-                nIntermediateThrowEvent +=1;
+                nIntermediateThrowEvent +=1
                 
         #######################################################
         # Event - Boundary Non-Interrupting 
@@ -587,9 +589,9 @@ for files in os.listdir(sys.argv[1]):
         #######################################################
         # Statistical paramethers  
         
-        TotalElements=nTask+nTaskMultipleIstance+nTaskLoopActivity+nSendTask+nReceiveTask+nUserTask+nManualTask+nBusinessRuleTask+nServiceTask+nScriptTask+nCallActivity+nSubProcess+nTransaction+nAdHocSubProcess+nLane+nDataObject+nDataStore+nExclusiveGateway+nParallelGateway+nInclusiveGateway+nEventBasedGateway+nComplexGateway+nCondition+nStartMultipleParallelEventDefinition+nStartMultipleEventDefinition+nStartNoneEvent+nStartSignalEventDefinition+nStartConditionalEventDefinition+nStartTimerEventDefinition+nStartMessageEventDefinition+nStartCompensateEventDefinition+nStartCancelEventDefinition+nStartEscalationEventDefinition+nStartErrorEventDefinition+nEndEventNone+nEndTerminateEventDefinition+nEndEscalationEventDefinition+nEndMessageEventDefinition+nEndErrorEventDefinition+nEndCompensateEventDefinition+nEndCancelEventDefinition+nEndSignalEventDefinition+nEndMultipleEventDefinition+nIntermediateCatchMultipleEventDefinition+nIntermediateCatchMultipleParallelEventDefinition+nIntermediateCatchMessageEventDefinition+nIntermediateCatchTimerEventDefinition+nIntermediateCatchConditionalEventDefinition+nIntermediateCatchLinkEventDefinition+nIntermediateSignalMessageEventDefinition+nIntermediateThrowEvent+nIntermediateThrowMessageEventDefinition+nIntermediateThrowEscalationEventDefinition+nIntermediateThrowLinkEventDefinition+nIntermediateThrowSignalEventDefinition+nIntermediateThrowCompensateEventDefinition+nIntermediateThrowMultipleParallelEventDefinition                       +nBoundaryMessageEvent+nBoundaryTimerEvent+nBoundaryCancelEvent+nBoundaryConditionalEvent +nBoundaryEscalationEvent+nBoundaryErrorEvent+nBoundarySignalEvent+nBoundaryCompensateEvent+nBoundaryTimerEventNonInt+nBoundaryEscalationEventNonInt+nBoundaryConditionalEventNonInt+nBoundaryMessageEventNonInt+nGroup+nMessageFlow+nSequenceFlow+nDefaultFlow+nConditionalFlow+nPool+nChoreographyTask+nChoreographyParticipant+nChoreographySubprocess+nAssociation+nTextAnnotation+nMessage+nConversation+nSubConversation+nCallConversation+nConversationLink;
+        TotalElements=nTask+nTaskMultipleIstance+nTaskLoopActivity+nSendTask+nReceiveTask+nUserTask+nManualTask+nBusinessRuleTask+nServiceTask+nScriptTask+nCallActivity+nSubProcess+nTransaction+nAdHocSubProcess+nLane+nDataObject+nDataStore+nExclusiveGateway+nParallelGateway+nInclusiveGateway+nEventBasedGateway+nComplexGateway+nCondition+nStartMultipleParallelEventDefinition+nStartMultipleEventDefinition+nStartNoneEvent+nStartSignalEventDefinition+nStartConditionalEventDefinition+nStartTimerEventDefinition+nStartMessageEventDefinition+nStartCompensateEventDefinition+nStartCancelEventDefinition+nStartEscalationEventDefinition+nStartErrorEventDefinition+nEndEventNone+nEndTerminateEventDefinition+nEndEscalationEventDefinition+nEndMessageEventDefinition+nEndErrorEventDefinition+nEndCompensateEventDefinition+nEndCancelEventDefinition+nEndSignalEventDefinition+nEndMultipleEventDefinition+nIntermediateCatchMultipleEventDefinition+nIntermediateCatchMultipleParallelEventDefinition+nIntermediateCatchMessageEventDefinition+nIntermediateCatchTimerEventDefinition+nIntermediateCatchConditionalEventDefinition+nIntermediateCatchLinkEventDefinition+nIntermediateSignalMessageEventDefinition+nIntermediateThrowEvent+nIntermediateThrowMessageEventDefinition+nIntermediateThrowEscalationEventDefinition+nIntermediateThrowLinkEventDefinition+nIntermediateThrowSignalEventDefinition+nIntermediateThrowCompensateEventDefinition+nIntermediateThrowMultipleParallelEventDefinition                       +nBoundaryMessageEvent+nBoundaryTimerEvent+nBoundaryCancelEvent+nBoundaryConditionalEvent +nBoundaryEscalationEvent+nBoundaryErrorEvent+nBoundarySignalEvent+nBoundaryCompensateEvent+nBoundaryTimerEventNonInt+nBoundaryEscalationEventNonInt+nBoundaryConditionalEventNonInt+nBoundaryMessageEventNonInt+nGroup+nMessageFlow+nSequenceFlow+nDefaultFlow+nConditionalFlow+nPool+nChoreographyTask+nChoreographyParticipant+nChoreographySubprocess+nAssociation+nTextAnnotation+nMessage+nConversation+nSubConversation+nCallConversation+nConversationLink
         
-        TotalRePrository= ndataInputAssociation + ndataOutputAssociation+ (TotalElements - (nPool+nLane+nMessageFlow+nTextAnnotation+nAssociation));
+        TotalRePrository= ndataInputAssociation + ndataOutputAssociation+ (TotalElements - (nPool+nLane+nMessageFlow+nTextAnnotation+nAssociation))
         # Ora che ho creato il file, leggo il contenuto del file xml
         # dataframe da inserire nella riga del file excel
         with open(sys.argv[2],'a', newline='') as file:
