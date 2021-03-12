@@ -223,7 +223,7 @@ for files in os.listdir(sys.argv[1]):
                 #print("id "+sub.get("id")+" bpmnElement "+expSub.get("bpmnElement")+"\n")
                 if(sub.get("id")==expSub.get("bpmnElement")):
                     if(expSub.get("isExpanded")=="true"):
-                        print("Expanded Sub")
+                        #print("Expanded Sub")
                         nExpandedSubProcess+=1
 
         #print(fileName)
