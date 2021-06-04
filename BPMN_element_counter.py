@@ -1,29 +1,14 @@
-# Installazione python:
-# Mi funziona con Python 3.8.6
+# It works with Python 3.8.6
 
-# Installazione dipendenze: 
-# pip3 install pandas  
-# pip3 install xlrd
-# pip install xlsxwriter
-
-# Per le operazioni dell'OS
 import os
 import lxml.etree
 import glob
 import csv
 import sys
-"""
-Input:
-- Lista di file BPMN all'interno della cartella bpmn_files
-- File csv nominato "BPMN-metrics-output"
 
-Output:
-- file xsl con i valori delle metriche dei file bpmn esamianti
-"""
-#Il primo argomento che passiamo è il percorso alla cartella contenente i modelli
-#Il secondo argomento è il nome del file csv da creare che verrà creato nella stessa cartella dove risiede lo script
-# a quel argomento si accede con sys.argv[1]
-#Si lancia lo script con il comando $python3 main.py path/to/bpmn/models/folder Metriche.csv
+# Run with $python3 main.py path/to/bpmn/models/folder Output.csv
+# First argument is the path to models folder
+# Second argument is the output csv file name tha will be created in the script folder
 
 with open(sys.argv[2],'w') as file:
     writer = csv.writer(file)
@@ -348,7 +333,7 @@ for files in os.listdir(sys.argv[1]):
             #    continue
             
             
-            #Per ogni evento contenuto nell'array (che può contenere 1 o più elementi) 
+            #For each event in the array (that can present 1 or + elements) 
             for event_definition in all_startEvents_except_extensionElements:
                 if event_definition.tag == f"{{{'http://www.omg.org/spec/BPMN/20100524/MODEL'}}}signalEventDefinition":
                     defCounter += 1
@@ -660,15 +645,13 @@ for files in os.listdir(sys.argv[1]):
         })
         
         #######################################################
-        # Statistical paramethers  
+        # # Write Output
         
         #TotalElements=nTask+nTaskMultipleIstance+nTaskLoopActivity+nSendTask+nReceiveTask+nUserTask+nManualTask+nBusinessRuleTask+nServiceTask+nScriptTask+nCallActivity+nSubProcess+nTransaction+nAdHocSubProcess+nLane+nDataObject+nDataStore+nExclusiveGateway+nParallelGateway+nInclusiveGateway+nEventBasedGateway+nComplexGateway+nCondition+nStartMultipleParallelEventDefinition+nStartMultipleEventDefinition+nStartNoneEvent+nStartSignalEventDefinition+nStartConditionalEventDefinition+nStartTimerEventDefinition+nStartMessageEventDefinition+nStartCompensateEventDefinition+nStartCancelEventDefinition+nStartEscalationEventDefinition+nStartErrorEventDefinition+nEndEventNone+nEndTerminateEventDefinition+nEndEscalationEventDefinition+nEndMessageEventDefinition+nEndErrorEventDefinition+nEndCompensateEventDefinition+nEndCancelEventDefinition+nEndSignalEventDefinition+nEndMultipleEventDefinition+nIntermediateCatchMultipleEventDefinition+nIntermediateCatchMultipleParallelEventDefinition+nIntermediateCatchMessageEventDefinition+nIntermediateCatchTimerEventDefinition+nIntermediateCatchConditionalEventDefinition+nIntermediateCatchLinkEventDefinition+nIntermediateCatchSignalEventDefinition+nIntermediateThrowNoneEvent+nIntermediateThrowMessageEventDefinition+nIntermediateThrowEscalationEventDefinition+nIntermediateThrowLinkEventDefinition+nIntermediateThrowSignalEventDefinition+nIntermediateThrowCompensateEventDefinition+nIntermediateThrowMultipleEventDefinition                       +nBoundaryMessageEvent+nBoundaryTimerEvent+nBoundaryCancelEvent+nBoundaryConditionalEvent +nBoundaryEscalationEvent+nBoundaryErrorEvent+nBoundarySignalEvent+nBoundaryCompensateEvent+nBoundaryTimerEventNonInt+nBoundaryEscalationEventNonInt+nBoundaryConditionalEventNonInt+nBoundaryMessageEventNonInt+nGroup+nMessageFlow+nSequenceFlow+nDefaultFlow+nConditionalFlow+nPool+nChoreographyTask+nChoreographyParticipant+nChoreographySubprocess+nAssociation+nTextAnnotation+nMessage+nConversation+nSubConversation+nCallConversation+nConversationLink
         TotalElements=nTask+nTaskMultipleIstance+nTaskLoopActivity+nSendTask+nReceiveTask+nUserTask+nManualTask+nBusinessRuleTask+nServiceTask+nScriptTask+nCollapsedSubProcess+nExpandedSubProcess+nAdHocSubProcess+nTransaction+nCallActivity+nExclusiveGateway+nParallelGateway+nInclusiveGateway+nEventBasedGateway+nComplexGateway+nStartNoneEvent+nStartMultipleParallelEventDefinition+nStartMultipleEventDefinition+nStartSignalEventDefinition+nStartConditionalEventDefinition+nStartTimerEventDefinition+nStartMessageEventDefinition+nStartCompensateEventDefinition+nStartCancelEventDefinition+nStartEscalationEventDefinition+nStartErrorEventDefinition+nIntermediateCatchMultipleEventDefinition+nIntermediateCatchMultipleParallelEventDefinition+nIntermediateCatchMessageEventDefinition+nIntermediateCatchTimerEventDefinition+nIntermediateCatchConditionalEventDefinition+nIntermediateCatchLinkEventDefinition+nIntermediateCatchSignalEventDefinition+nIntermediateThrowNoneEvent+nIntermediateThrowMessageEventDefinition+nIntermediateThrowEscalationEventDefinition+nIntermediateThrowLinkEventDefinition+nIntermediateThrowSignalEventDefinition+nIntermediateThrowCompensateEventDefinition+nIntermediateThrowMultipleEventDefinition+nBoundaryMessageEvent+nBoundaryTimerEvent+nBoundaryCancelEvent+nBoundaryConditionalEvent+nBoundaryEscalationEvent+nBoundaryErrorEvent+nBoundarySignalEvent+nBoundaryCompensateEvent+nBoundaryTimerEventNonInt+nBoundaryEscalationEventNonInt+nBoundaryConditionalEventNonInt+nBoundaryMessageEventNonInt+nEndEventNone+nEndTerminateEventDefinition+nEndEscalationEventDefinition+nEndMessageEventDefinition+nEndErrorEventDefinition+nEndCompensateEventDefinition+nEndCancelEventDefinition+nEndSignalEventDefinition+nEndMultipleEventDefinition+nSequenceFlow+nDefaultFlow+nConditionalFlow+nMessageFlow+nAssociation+nPool+nLane+nDataObject+nDataStore+nGroup+nTextAnnotation+nMessage+nChoreographyTask+nChoreographyParticipant+nChoreographySubprocess+nConversation+nSubConversation+nCallConversation+nConversationLink+TotalElements
 
-
         TotalRePrository= ndataInputAssociation + ndataOutputAssociation+ (TotalElements - (nPool+nLane+nMessageFlow+nTextAnnotation+nAssociation))
-        # Ora che ho creato il file, leggo il contenuto del file xml
-        # dataframe da inserire nella riga del file excel
+        
         with open(sys.argv[2],'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([fileName,bpmnModeler,nTask,nTaskMultipleIstance,nTaskLoopActivity,nSendTask,nReceiveTask,nUserTask,nManualTask,nBusinessRuleTask,nServiceTask,nScriptTask,nCollapsedSubProcess,nExpandedSubProcess,nAdHocSubProcess,nTransaction,nCallActivity,nExclusiveGateway,nParallelGateway,nInclusiveGateway,nEventBasedGateway,nComplexGateway,nStartNoneEvent,nStartMultipleParallelEventDefinition,nStartMultipleEventDefinition,nStartSignalEventDefinition,nStartConditionalEventDefinition,nStartTimerEventDefinition,nStartMessageEventDefinition,nStartCompensateEventDefinition,nStartCancelEventDefinition,nStartEscalationEventDefinition,nStartErrorEventDefinition,nIntermediateCatchMultipleEventDefinition,nIntermediateCatchMultipleParallelEventDefinition,nIntermediateCatchMessageEventDefinition,nIntermediateCatchTimerEventDefinition,nIntermediateCatchConditionalEventDefinition,nIntermediateCatchLinkEventDefinition,nIntermediateCatchSignalEventDefinition,nIntermediateThrowNoneEvent,nIntermediateThrowMessageEventDefinition,nIntermediateThrowEscalationEventDefinition,nIntermediateThrowLinkEventDefinition,nIntermediateThrowSignalEventDefinition,nIntermediateThrowCompensateEventDefinition,nIntermediateThrowMultipleEventDefinition,nBoundaryMessageEvent,nBoundaryTimerEvent,nBoundaryCancelEvent,nBoundaryConditionalEvent,nBoundaryEscalationEvent,nBoundaryErrorEvent,nBoundarySignalEvent,nBoundaryCompensateEvent,nBoundaryTimerEventNonInt,nBoundaryEscalationEventNonInt,nBoundaryConditionalEventNonInt,nBoundaryMessageEventNonInt,nEndEventNone,nEndTerminateEventDefinition,nEndEscalationEventDefinition,nEndMessageEventDefinition,nEndErrorEventDefinition,nEndCompensateEventDefinition,nEndCancelEventDefinition,nEndSignalEventDefinition,nEndMultipleEventDefinition,nSequenceFlow,nDefaultFlow,nConditionalFlow,nMessageFlow,nAssociation,nPool,nLane,nDataObject,nDataStore,nGroup,nTextAnnotation,nMessage,nChoreographyTask,nChoreographyParticipant,nChoreographySubprocess,nConversation,nSubConversation,nCallConversation,nConversationLink,TotalElements])
@@ -691,7 +674,7 @@ for files in os.listdir(sys.argv[1]):
             #             ,nBoundaryTimerEventNonInt,nBoundaryEscalationEventNonInt,nBoundaryConditionalEventNonInt
             #             ,nBoundaryMessageEventNonInt,nGroup,nMessageFlow,nSequenceFlow,nDefaultFlow,nConditionalFlow,nPool,
             #             nChoreographyTask,nChoreographyParticipant,nChoreographySubprocess,nAssociation,nTextAnnotation,nMessage,nConversation,nSubConversation,nCallConversation,nConversationLink,TotalRePrository,TotalElements])
-        #print("Metrics of "+fileName+" file with: "+bpmnModeler+" Modeler are succesfully extracted ")
+        #print("Elements of "+fileName+" file with: "+bpmnModeler+" are succesfully counted ")
     # Convert the dataframe to an XlsxWriter Excel object e quindi aggiungo la riga nel file excel
     #df.to_csv('BPMN-metrics-output.csv', header=1, index=False, mode = 'a')
 
