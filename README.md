@@ -1,5 +1,5 @@
 # BPMN-Element-Counter
-A Python script to count BPMN elements used in a .bpmn file
+A Python script to count BPMN elements from a .bpmn file
 
 # Installazione dipendenze:
 - pip3 install pandas
