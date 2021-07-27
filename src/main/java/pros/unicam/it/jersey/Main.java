@@ -24,12 +24,12 @@ public class Main
     {
         //Want to read all book names from XML
         ArrayList<String> bookNames = new ArrayList<String>();
-         
+        System.out.println("prova");
         //Parse XML file
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true); 
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(new FileInputStream(new File("model.bpmn")));
+        Document doc = builder.parse(new FileInputStream(new File("C:\\Users\\User\\Desktop\\BPMN-element-counter\\model.bpmn")));
          
         //Get XPath expression
         XPathFactory xpathfactory = XPathFactory.newInstance();
