@@ -25,6 +25,7 @@ public class XPathParserDemo {
     	String namespace = "bpmn:";
     	String fileName;
         String bpmnModeler;
+        
         int nTask=0;
         int nTaskMultipleIstance=0;
         int nTaskLoopActivity=0;
@@ -35,6 +36,7 @@ public class XPathParserDemo {
         int nBusinessRuleTask=0;
         int nServiceTask=0;
         int nScriptTask=0;
+        
         int nCallActivity=0;
         int nSubProcess=0;
         int nTransaction=0;
@@ -156,7 +158,21 @@ public class XPathParserDemo {
             }
         });
         
-        
+        // Check the modeler type
+        if(doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("bpmn.io")) {
+        	bpmnModeler = "bpmn-js";
+
+            System.out.println(bpmnModeler);
+        }
+        else if (doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("signavio")) {
+        	bpmnModeler = "Signavio";
+        }
+        else if (doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("camunda")) {
+        	bpmnModeler = "Camunda";
+        }
+        else {
+        	bpmnModeler = "Undefined";
+        }
         // XPath Query for showing all Intermediate Catch Events
 
         try {
