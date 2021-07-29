@@ -25,6 +25,8 @@ public class XPathParserDemo {
     	String namespace = "bpmn:";
     	String fileName;
         String bpmnModeler;
+        //Process Subprocess or Collaboration
+        String modelType;
         
         int nTask=0;
         int nTaskMultipleIstance=0;
@@ -128,7 +130,7 @@ public class XPathParserDemo {
         
         
     	//Read files
-    	File xmlFile = new File("C:/Users/User/Desktop/BPMN-element-counter/model.bpmn");
+    	File xmlFile = new File("C:/Users/User/Desktop/BPMN-element-counter/testmodels/Collaboration.bpmn");
     	String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);
         System.out.println(xml);
         
@@ -161,8 +163,6 @@ public class XPathParserDemo {
         // Check the modeler type
         if(doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("bpmn.io")) {
         	bpmnModeler = "bpmn-js";
-
-            System.out.println(bpmnModeler);
         }
         else if (doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("signavio")) {
         	bpmnModeler = "Signavio";
@@ -173,45 +173,91 @@ public class XPathParserDemo {
         else {
         	bpmnModeler = "Undefined";
         }
+        
+        System.out.println(bpmnModeler);
+        
+        
+        // Check if the model is a Collaboration, a Process or contain a Subprocess
+        
+        // Check if is a collaboration
+        XPathExpression exprModelTypeCol = xpath.compile("//bpmn:definitions");
+        Object resultModelType = exprModelTypeCol.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesModelType = (NodeList) resultModelType;
+        
+        for(int i=0; i<nodesModelType.getLength(); i++) {
+        	
+        	NodeList nodeModelType = nodesModelType.item(i).getChildNodes();
+        	for(int j=0; j<nodeModelType.getLength(); j++) {	
+           	 
+        	
+		        if(nodesModelType.item(i).getChildNodes().toString() == "bpmn:collaboration") {
+		        	modelType = "Collaboration";
+		        	System.out.println(modelType);
+		        }
+	        
+	        	modelType = "Process";
+	        	System.out.println(modelType);
+        	}
+        }	
+        
+        // Check if contain a subProcess and the number of subprocess
+        XPathExpression exprModelTypeSub = xpath.compile("//bpmn:process");
+        Object resultModelTypeSub = exprModelTypeSub.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesModelTypeSub = (NodeList) resultModelTypeSub;      
+        for(int i=0; i<nodesModelTypeSub.getLength(); i++) {
+        	
+    	NodeList nodeModelType = nodesModelTypeSub.item(i).getChildNodes();
+    	int NumberOfsubProcess = 0;
+        	
+        	 for(int j=0; j<nodeModelType.getLength(); j++) {	
+        	 
+        		 
+		        	if(nodeModelType.item(j).getNodeName().toString() == "bpmn:subProcess") {      		
+		        		NumberOfsubProcess++;
+		            	System.out.println("There are: "+NumberOfsubProcess+" subProcess/es in the model");
+		            }
+        	 }
+		        
+        }    
         // XPath Query for showing all Intermediate Catch Events
 
-        try {
-            XPathExpression expr = xpath.compile("//bpmn:intermediateCatchEvent");
-            Object result = expr.evaluate(doc, XPathConstants.NODESET);
-            NodeList nodes = (NodeList) result;
-            doc.getDocumentElement().normalize();            
-            //Intermediate Catch Event 
-            NodeList listOfIntermediateCatchEvents = doc.getElementsByTagName("bpmn:intermediateCatchEvent");
-            int totalIntermediateCatchEvents = listOfIntermediateCatchEvents.getLength();
-            System.out.println("Total number of Intermediate Catch Events: " + totalIntermediateCatchEvents);
-            
-            
-            for(int i=0; i<listOfIntermediateCatchEvents.getLength() ; i++) {
-            	
-            	Node intermediateCatchEvent = listOfIntermediateCatchEvents.item(i);   
-            	
-            	if(intermediateCatchEvent.hasChildNodes()) {
-            		
-            		NodeList intermediateCatchEventChldNodes = intermediateCatchEvent.getChildNodes();
-            		
-            		System.out.println(intermediateCatchEventChldNodes.getLength());
-            		
-                    for(int j=0;j<intermediateCatchEventChldNodes.getLength(); j++) {
-
-                    	if(intermediateCatchEventChldNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-                    	System.out.println(" "+intermediateCatchEventChldNodes.item(j).getNodeName());
-                    	}
-                    }
-            		
-            	}
-            	
-            	
-            }
-            
-            
-        } catch (Exception E) {
-            System.out.println(E);
-        }
+//        try {
+//            XPathExpression expr = xpath.compile("//bpmn:intermediateCatchEvent");
+//            Object result = expr.evaluate(doc, XPathConstants.NODESET);
+//            NodeList nodes = (NodeList) result;
+//            doc.getDocumentElement().normalize();            
+//            //Intermediate Catch Event 
+//            NodeList listOfIntermediateCatchEvents = doc.getElementsByTagName("bpmn:intermediateCatchEvent");
+//            int totalIntermediateCatchEvents = listOfIntermediateCatchEvents.getLength();
+//            System.out.println("Total number of Intermediate Catch Events: " + totalIntermediateCatchEvents);
+//            
+//            
+//            for(int i=0; i<listOfIntermediateCatchEvents.getLength() ; i++) {
+//            	
+//            	Node intermediateCatchEvent = listOfIntermediateCatchEvents.item(i);   
+//            	
+//            	if(intermediateCatchEvent.hasChildNodes()) {
+//            		
+//            		NodeList intermediateCatchEventChldNodes = intermediateCatchEvent.getChildNodes();
+//            		
+//            		//System.out.println(intermediateCatchEventChldNodes.getLength());
+//            		
+//                    for(int j=0;j<intermediateCatchEventChldNodes.getLength(); j++) {
+//
+//                    	if(intermediateCatchEventChldNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+//                    	//System.out.println(" "+intermediateCatchEventChldNodes.item(j).getNodeName());
+//                    	}
+//                    }
+//            		
+//            	}
+//            	
+//            	
+//            }
+//            
+//            
+//        } catch (Exception E) {
+//            System.out.println(E);
+//        }
 
     }
 }

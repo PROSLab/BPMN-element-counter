@@ -24,7 +24,7 @@ public class Main
     {
         //Want to read all book names from XML
         ArrayList<String> bookNames = new ArrayList<String>();
-        System.out.println("prova");
+
         //Parse XML file
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true); 
