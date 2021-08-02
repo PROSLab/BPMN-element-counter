@@ -12,7 +12,7 @@
     <bpmn:endEvent id="Event_0lyo0kv">
       <bpmn:incoming>Flow_1buzcsq</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sendTask id="Activity_1bn7lr6">
+    <bpmn:sendTask id="Activity_1bn7lr6" name="test">
       <bpmn:incoming>Flow_0vmq7dz</bpmn:incoming>
       <bpmn:outgoing>Flow_1buzcsq</bpmn:outgoing>
     </bpmn:sendTask>
@@ -24,7 +24,7 @@
       <bpmn:outgoing>Flow_1wjyx6r</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0zxlwai" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:task id="Activity_02v1y41">
+    <bpmn:task id="Activity_02v1y41" name="Hello">
       <bpmn:incoming>Flow_1wjyx6r</bpmn:incoming>
       <bpmn:outgoing>Flow_0tbfsxd</bpmn:outgoing>
     </bpmn:task>
@@ -39,13 +39,13 @@
       <bpmndi:BPMNShape id="Participant_1xfm18c_di" bpmnElement="Participant_1xfm18c" isHorizontal="true">
         <dc:Bounds x="130" y="80" width="600" height="310" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_0vmq7dz_di" bpmnElement="Flow_0vmq7dz">
-        <di:waypoint x="228" y="180" />
-        <di:waypoint x="280" y="180" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1buzcsq_di" bpmnElement="Flow_1buzcsq">
         <di:waypoint x="380" y="180" />
         <di:waypoint x="432" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vmq7dz_di" bpmnElement="Flow_0vmq7dz">
+        <di:waypoint x="228" y="180" />
+        <di:waypoint x="280" y="180" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_06a907z">
         <dc:Bounds x="192" y="162" width="36" height="36" />
@@ -59,13 +59,13 @@
       <bpmndi:BPMNShape id="Participant_1ahdmkj_di" bpmnElement="Participant_1ahdmkj" isHorizontal="true">
         <dc:Bounds x="130" y="410" width="600" height="250" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1wjyx6r_di" bpmnElement="Flow_1wjyx6r">
-        <di:waypoint x="348" y="530" />
-        <di:waypoint x="400" y="530" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0tbfsxd_di" bpmnElement="Flow_0tbfsxd">
         <di:waypoint x="500" y="530" />
         <di:waypoint x="552" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wjyx6r_di" bpmnElement="Flow_1wjyx6r">
+        <di:waypoint x="348" y="530" />
+        <di:waypoint x="400" y="530" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_01ply6m_di" bpmnElement="Event_0eg9m7i">
         <dc:Bounds x="312" y="512" width="36" height="36" />

@@ -6,7 +6,9 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.*;
@@ -16,6 +18,10 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.intellij.lang.annotations.Language;
+import org.languagetool.JLanguageTool;
+import org.languagetool.language.BritishEnglish;
+import org.languagetool.rules.RuleMatch;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -132,6 +138,8 @@ public class XPathParserDemo {
         int ndataOutputAssociation=0;
         int ndataInputAssociation=0;
         int TotalElements=0;
+        boolean isEnglish=false;
+        
         
         //Creation of the xls empty file
         Workbook wb = new HSSFWorkbook();    
@@ -239,7 +247,8 @@ public class XPathParserDemo {
         rowhead.createCell(98).setCellValue("ndataOutputAssociation");
         rowhead.createCell(99).setCellValue("ndataInputAssociation");
         rowhead.createCell(100).setCellValue("TotalElements");
- 
+        rowhead.createCell(100).setCellValue("isEnglish");
+        
         // File's cycle of the testmodels folder
         File folder = new File("testmodels");
         File[] listOfFiles = folder.listFiles();
@@ -278,6 +287,34 @@ public class XPathParserDemo {
             }
         });
         
+        // Check the model language
+        XPathFactory xPathfactory = XPathFactory.newInstance();
+        XPath xpathLang = xPathfactory.newXPath();
+        XPathExpression expr = xpathLang.compile("//@name");
+        Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesModelWords = (NodeList) resultModelWords;
+        ArrayList<String> modelWords = new ArrayList<String>();       
+        
+	        for(int a=0; a<nodesModelWords.getLength(); a++) {
+	        	
+	        	modelWords.add(nodesModelWords.item(a).getTextContent());
+	        	JLanguageTool langTool = new JLanguageTool(new BritishEnglish());
+	            List<RuleMatch> matches = langTool.check(modelWords.get(a));
+	            isEnglish=true;
+	            //If there is a word not in english, check this word and suggest correction
+	            for (RuleMatch match : matches) {
+
+		              System.out.println("Potential error in model "+fileName+" at characters " +
+		                  match.getFromPos() + "-" + match.getToPos() + ": " +
+		                  match.getMessage());
+		              System.out.println("Suggested correction(s): " +
+		                  match.getSuggestedReplacements());
+		              isEnglish=false;
+		              break;		              
+	            }	            
+	        }
+	        
+	        
         // Check the modeler type
         if(doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("bpmn.io")) {
         	bpmnModeler = "bpmn-js";
@@ -483,7 +520,8 @@ public class XPathParserDemo {
             row.createCell(98).setCellValue(ndataOutputAssociation);
             row.createCell(99).setCellValue(ndataInputAssociation);
             row.createCell(100).setCellValue(TotalElements);
- 
+            row.createCell(100).setCellValue(isEnglish);
+            
       		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xls");
        		wb.write(fileOut);  
        		//closing the Stream  
