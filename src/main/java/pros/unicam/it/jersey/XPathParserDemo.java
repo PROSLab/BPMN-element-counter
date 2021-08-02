@@ -1,6 +1,8 @@
 package pros.unicam.it.jersey;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,6 +12,10 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.*;
 import javax.xml.xpath.*;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -26,7 +32,7 @@ public class XPathParserDemo {
     	String fileName;
         String bpmnModeler;
         //Process Subprocess or Collaboration
-        String modelType;
+        String modelType = null;
         
         int nTask=0;
         int nTaskMultipleIstance=0;
@@ -37,8 +43,7 @@ public class XPathParserDemo {
         int nManualTask=0;
         int nBusinessRuleTask=0;
         int nServiceTask=0;
-        int nScriptTask=0;
-        
+        int nScriptTask=0;        
         int nCallActivity=0;
         int nSubProcess=0;
         int nTransaction=0;
@@ -128,12 +133,125 @@ public class XPathParserDemo {
         int ndataInputAssociation=0;
         int TotalElements=0;
         
+        //Creation of the xls empty file
+        Workbook wb = new HSSFWorkbook();    
+        HSSFSheet sheet = (HSSFSheet) wb.createSheet("BPMN_Stats"); 
+        HSSFRow rowhead = sheet.createRow((short)0);         
+	    //creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
+        rowhead.createCell(0).setCellValue("File Name");  
+        rowhead.createCell(1).setCellValue("BPMN Modeler");  
+        rowhead.createCell(2).setCellValue("Model Type");  
+        rowhead.createCell(3).setCellValue("nTask");
+        rowhead.createCell(4).setCellValue("nTaskMultipleIstance");
+        rowhead.createCell(5).setCellValue("nTaskLoopActivity");
+        rowhead.createCell(6).setCellValue("nReceiveTask");
+        rowhead.createCell(7).setCellValue("nSendTask");
+        rowhead.createCell(8).setCellValue("nUserTask");
+        rowhead.createCell(9).setCellValue("nManualTask");
+        rowhead.createCell(10).setCellValue("nBusinessRuleTask");
+        rowhead.createCell(11).setCellValue("nServiceTask");
+        rowhead.createCell(12).setCellValue("nScriptTask");       
+        rowhead.createCell(13).setCellValue("nCallActivity");
+        rowhead.createCell(14).setCellValue("nSubProcess");
+        rowhead.createCell(15).setCellValue("nTransaction");
+        rowhead.createCell(16).setCellValue("nAdHocSubProcess");
+        rowhead.createCell(17).setCellValue("nGroup");
+        rowhead.createCell(18).setCellValue("nLane");
+        rowhead.createCell(19).setCellValue("nDataObject");
+        rowhead.createCell(20).setCellValue("nDataObjectReference");
+        rowhead.createCell(21).setCellValue("nDataStore");
+        rowhead.createCell(22).setCellValue("nDataStoreReference");
+        rowhead.createCell(23).setCellValue("nDataInput");
+        rowhead.createCell(24).setCellValue("nDataOutput");
+        rowhead.createCell(25).setCellValue("nExclusiveGateway");
+        rowhead.createCell(26).setCellValue("nParallelGateway");
+        rowhead.createCell(27).setCellValue("nInclusiveGateway");
+        rowhead.createCell(28).setCellValue("nEventBasedGateway");
+        rowhead.createCell(29).setCellValue("nComplexGateway");
+        rowhead.createCell(30).setCellValue("nCondition");
+        rowhead.createCell(31).setCellValue("nStartMultipleParallelEventDefinition");
+        rowhead.createCell(32).setCellValue("nStartMultipleEventDefinition");
+        rowhead.createCell(33).setCellValue("nStartNoneEvent");
+        rowhead.createCell(34).setCellValue("nStartSignalEventDefinition");
+        rowhead.createCell(35).setCellValue("nStartConditionalEventDefinition");
+        rowhead.createCell(36).setCellValue("nStartTimerEventDefinition");
+        rowhead.createCell(37).setCellValue("nStartMessageEventDefinition");
+        rowhead.createCell(38).setCellValue("nStartCompensateEventDefinition");
+        rowhead.createCell(39).setCellValue("nStartCancelEventDefinition");
+        rowhead.createCell(40).setCellValue("nStartEscalationEventDefinition");
+        rowhead.createCell(41).setCellValue("nStartErrorEventDefinition");
+        rowhead.createCell(42).setCellValue("nEndEventNone");
+        rowhead.createCell(43).setCellValue("nEndMultipleEventDefinition"); 
+        rowhead.createCell(44).setCellValue("nEndEscalationEventDefinition");
+        rowhead.createCell(45).setCellValue("nEndErrorEventDefinition");
+        rowhead.createCell(46).setCellValue("nEndSignalEventDefinition");
+        rowhead.createCell(47).setCellValue("nEndCompensateEventDefinition");
+        rowhead.createCell(48).setCellValue("nEndCancelEventDefinition"); 
+        rowhead.createCell(49).setCellValue("nEndMessageEventDefinition");
+        rowhead.createCell(50).setCellValue("nEndTerminateEventDefinition");
+        rowhead.createCell(51).setCellValue("nIntermediateCatchMultipleEventDefinition");
+        rowhead.createCell(52).setCellValue("nIntermediateCatchMultipleParallelEventDefinition");
+        rowhead.createCell(53).setCellValue("nIntermediateCatchMessageEventDefinition");
+        rowhead.createCell(54).setCellValue("nIntermediateCatchTimerEventDefinition");
+        rowhead.createCell(55).setCellValue("nIntermediateCatchConditionalEventDefinition");
+        rowhead.createCell(56).setCellValue("nIntermediateCatchLinkEventDefinition");
+        rowhead.createCell(57).setCellValue("nIntermediateSignalMessageEventDefinition");
+        rowhead.createCell(58).setCellValue("nIntermediateThrowEvent");
+        rowhead.createCell(59).setCellValue("nIntermediateThrowMessageEventDefinition");
+        rowhead.createCell(60).setCellValue("nIntermediateThrowEscalationEventDefinition");
+        rowhead.createCell(61).setCellValue("nIntermediateThrowLinkEventDefinition");
+        rowhead.createCell(62).setCellValue("nIntermediateThrowSignalEventDefinition");
+        rowhead.createCell(63).setCellValue("nIntermediateThrowCompensateEventDefinition");
+        rowhead.createCell(64).setCellValue("nIntermediateThrowMultipleParallelEventDefinition");
+        rowhead.createCell(65).setCellValue("nBoundaryMessageEvent");
+        rowhead.createCell(66).setCellValue("nBoundaryTimerEvent");
+        rowhead.createCell(67).setCellValue("nBoundaryCancelEvent");
+        rowhead.createCell(68).setCellValue("nBoundaryConditionalEvent");
+        rowhead.createCell(69).setCellValue("nBoundaryEscalationEvent");
+        rowhead.createCell(70).setCellValue("nBoundaryErrorEvent");
+        rowhead.createCell(71).setCellValue("nBoundarySignalEvent");
+        rowhead.createCell(72).setCellValue("nBoundaryCompensateEvent");
+        rowhead.createCell(73).setCellValue("nBoundaryTimerEventNonInt");
+        rowhead.createCell(74).setCellValue("nBoundaryEscalationEventNonInt");
+        rowhead.createCell(75).setCellValue("nBoundaryConditionalEventNonInt");
+        rowhead.createCell(76).setCellValue("nBoundaryMessageEventNonInt");
+        rowhead.createCell(77).setCellValue("nMessageFlow");
+        rowhead.createCell(78).setCellValue("nSequenceFlow");
+        rowhead.createCell(79).setCellValue("nDefaultFlow");
+        rowhead.createCell(80).setCellValue("nConditionalFlow");
+        rowhead.createCell(81).setCellValue("nPool");
+        rowhead.createCell(82).setCellValue("nVerticalLane");
+        rowhead.createCell(83).setCellValue("nVerticalPool");
+        rowhead.createCell(84).setCellValue("nChoreographyTask");
+        rowhead.createCell(85).setCellValue("nChoreographyParticipant");
+        rowhead.createCell(86).setCellValue("nChoreographySubprocess");
+        rowhead.createCell(87).setCellValue("nConversation");
+        rowhead.createCell(88).setCellValue("nSubConversation");
+        rowhead.createCell(89).setCellValue("nCallConversation");
+        rowhead.createCell(90).setCellValue("nConversationLink");
+        rowhead.createCell(91).setCellValue("nITSystem");
+        rowhead.createCell(92).setCellValue("nAssociation");
+        rowhead.createCell(93).setCellValue("nCompensateAssociation");
+        rowhead.createCell(94).setCellValue("nUnidirectionalAssociation");
+        rowhead.createCell(95).setCellValue("nUndirectedAssociation");
+        rowhead.createCell(96).setCellValue("nBidirectionalAssociation");
+        rowhead.createCell(97).setCellValue("nTextAnnotation");
+        rowhead.createCell(98).setCellValue("ndataOutputAssociation");
+        rowhead.createCell(99).setCellValue("ndataInputAssociation");
+        rowhead.createCell(100).setCellValue("TotalElements");
+ 
+        // File's cycle of the testmodels folder
+        File folder = new File("testmodels");
+        File[] listOfFiles = folder.listFiles();
         
-    	//Read files
-    	File xmlFile = new File("C:/Users/User/Desktop/BPMN-element-counter/testmodels/Collaboration.bpmn");
-    	String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);
-        System.out.println(xml);
+        for (int x = 0; x < listOfFiles.length; x++) {
         
+        //Set BPMN models name
+        fileName= listOfFiles[x].getName();
+          
+    	//Read bpmn models
+    	File xmlFile = new File("C:/Users/User/Desktop/BPMN-element-counter/testmodels/"+fileName);
+    	String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);       
         DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
         domFactory.setNamespaceAware(true);
         DocumentBuilder builder = domFactory.newDocumentBuilder();
@@ -173,10 +291,7 @@ public class XPathParserDemo {
         else {
         	bpmnModeler = "Undefined";
         }
-        
-        System.out.println(bpmnModeler);
-        
-        
+ 
         // Check if the model is a Collaboration, a Process or contain a Subprocess
         
         // Check if is a collaboration
@@ -187,16 +302,20 @@ public class XPathParserDemo {
         for(int i=0; i<nodesModelType.getLength(); i++) {
         	
         	NodeList nodeModelType = nodesModelType.item(i).getChildNodes();
-        	for(int j=0; j<nodeModelType.getLength(); j++) {	
-           	 
         	
-		        if(nodesModelType.item(i).getChildNodes().toString() == "bpmn:collaboration") {
+        	for(int j=0; j<nodeModelType.getLength(); j++) {	          	 
+        	
+		        if(nodeModelType.item(j).getNodeName().toString() == "bpmn:collaboration") {
+		        	
 		        	modelType = "Collaboration";
-		        	System.out.println(modelType);
+		        	//If i find the collaboration xml tag, i cant skip the for
+		        	break;
+		        	//System.out.println(modelType);
 		        }
-	        
+		        else {
 	        	modelType = "Process";
-	        	System.out.println(modelType);
+		        }
+	        	//System.out.println(modelType);
         	}
         }	
         
@@ -207,19 +326,17 @@ public class XPathParserDemo {
         for(int i=0; i<nodesModelTypeSub.getLength(); i++) {
         	
     	NodeList nodeModelType = nodesModelTypeSub.item(i).getChildNodes();
-    	int NumberOfsubProcess = 0;
-        	
+    
         	 for(int j=0; j<nodeModelType.getLength(); j++) {	
-        	 
-        		 
+
 		        	if(nodeModelType.item(j).getNodeName().toString() == "bpmn:subProcess") {      		
-		        		NumberOfsubProcess++;
-		            	System.out.println("There are: "+NumberOfsubProcess+" subProcess/es in the model");
+		        		nSubProcess++;
+		            	//System.out.println("In the model: "+fileName+" there are: "+nSubProcess+" subProcess/es in the model");
 		            }
         	 }
 		        
         }    
-        // XPath Query for showing all Intermediate Catch Events
+//         XPath Query for showing all Intermediate Catch Events
 
 //        try {
 //            XPathExpression expr = xpath.compile("//bpmn:intermediateCatchEvent");
@@ -259,5 +376,120 @@ public class XPathParserDemo {
 //            System.out.println(E);
 //        }
 
-    }
+        
+        
+        
+        	//creating the rows 
+            HSSFRow row = sheet.createRow((short)x+1);  
+            //inserting data   
+      		row.createCell(0).setCellValue(fileName);  
+      		row.createCell(1).setCellValue(bpmnModeler);  
+      		row.createCell(2).setCellValue(modelType);
+      		row.createCell(3).setCellValue(nTask);
+            row.createCell(4).setCellValue(nTaskMultipleIstance);
+            row.createCell(5).setCellValue(nTaskLoopActivity);
+            row.createCell(6).setCellValue(nReceiveTask);
+            row.createCell(7).setCellValue(nSendTask);
+            row.createCell(8).setCellValue(nUserTask);
+            row.createCell(9).setCellValue(nManualTask);
+            row.createCell(10).setCellValue(nBusinessRuleTask);
+            row.createCell(11).setCellValue(nServiceTask);
+            row.createCell(12).setCellValue(nScriptTask);       
+            row.createCell(13).setCellValue(nCallActivity);
+            row.createCell(14).setCellValue(nSubProcess);
+            row.createCell(15).setCellValue(nTransaction);
+            row.createCell(16).setCellValue(nAdHocSubProcess);
+            row.createCell(17).setCellValue(nGroup);
+            row.createCell(18).setCellValue(nLane);
+            row.createCell(19).setCellValue(nDataObject);
+            row.createCell(20).setCellValue(nDataObjectReference);
+            row.createCell(21).setCellValue(nDataStore);
+            row.createCell(22).setCellValue(nDataStoreReference);
+            row.createCell(23).setCellValue(nDataInput);
+            row.createCell(24).setCellValue(nDataOutput);
+            row.createCell(25).setCellValue(nExclusiveGateway);
+            row.createCell(26).setCellValue(nParallelGateway);
+            row.createCell(27).setCellValue(nInclusiveGateway);
+            row.createCell(28).setCellValue(nEventBasedGateway);
+            row.createCell(29).setCellValue(nComplexGateway);
+            row.createCell(30).setCellValue(nCondition);
+            row.createCell(31).setCellValue(nStartMultipleParallelEventDefinition);
+            row.createCell(32).setCellValue(nStartMultipleEventDefinition);
+            row.createCell(33).setCellValue(nStartNoneEvent);
+            row.createCell(34).setCellValue(nStartSignalEventDefinition);
+            row.createCell(35).setCellValue(nStartConditionalEventDefinition);
+            row.createCell(36).setCellValue(nStartTimerEventDefinition);
+            row.createCell(37).setCellValue(nStartMessageEventDefinition);
+            row.createCell(38).setCellValue(nStartCompensateEventDefinition);
+            row.createCell(39).setCellValue(nStartCancelEventDefinition);
+            row.createCell(40).setCellValue(nStartEscalationEventDefinition);
+            row.createCell(41).setCellValue(nStartErrorEventDefinition);
+            row.createCell(42).setCellValue(nEndEventNone);
+            row.createCell(43).setCellValue(nEndMultipleEventDefinition); 
+            row.createCell(44).setCellValue(nEndEscalationEventDefinition);
+            row.createCell(45).setCellValue(nEndErrorEventDefinition);
+            row.createCell(46).setCellValue(nEndSignalEventDefinition);
+            row.createCell(47).setCellValue(nEndCompensateEventDefinition);
+            row.createCell(48).setCellValue(nEndCancelEventDefinition); 
+            row.createCell(49).setCellValue(nEndMessageEventDefinition);
+            row.createCell(50).setCellValue(nEndTerminateEventDefinition);
+            row.createCell(51).setCellValue(nIntermediateCatchMultipleEventDefinition);
+            row.createCell(52).setCellValue(nIntermediateCatchMultipleParallelEventDefinition);
+            row.createCell(53).setCellValue(nIntermediateCatchMessageEventDefinition);
+            row.createCell(54).setCellValue(nIntermediateCatchTimerEventDefinition);
+            row.createCell(55).setCellValue(nIntermediateCatchConditionalEventDefinition);
+            row.createCell(56).setCellValue(nIntermediateCatchLinkEventDefinition);
+            row.createCell(57).setCellValue(nIntermediateSignalMessageEventDefinition);
+            row.createCell(58).setCellValue(nIntermediateThrowEvent);
+            row.createCell(59).setCellValue(nIntermediateThrowMessageEventDefinition);
+            row.createCell(60).setCellValue(nIntermediateThrowEscalationEventDefinition);
+            row.createCell(61).setCellValue(nIntermediateThrowLinkEventDefinition);
+            row.createCell(62).setCellValue(nIntermediateThrowSignalEventDefinition);
+            row.createCell(63).setCellValue(nIntermediateThrowCompensateEventDefinition);
+            row.createCell(64).setCellValue(nIntermediateThrowMultipleParallelEventDefinition);
+            row.createCell(65).setCellValue(nBoundaryMessageEvent);
+            row.createCell(66).setCellValue(nBoundaryTimerEvent);
+            row.createCell(67).setCellValue(nBoundaryCancelEvent);
+            row.createCell(68).setCellValue(nBoundaryConditionalEvent);
+            row.createCell(69).setCellValue(nBoundaryEscalationEvent);
+            row.createCell(70).setCellValue(nBoundaryErrorEvent);
+            row.createCell(71).setCellValue(nBoundarySignalEvent);
+            row.createCell(72).setCellValue(nBoundaryCompensateEvent);
+            row.createCell(73).setCellValue(nBoundaryTimerEventNonInt);
+            row.createCell(74).setCellValue(nBoundaryEscalationEventNonInt);
+            row.createCell(75).setCellValue(nBoundaryConditionalEventNonInt);
+            row.createCell(76).setCellValue(nBoundaryMessageEventNonInt);
+            row.createCell(77).setCellValue(nMessageFlow);
+            row.createCell(78).setCellValue(nSequenceFlow);
+            row.createCell(79).setCellValue(nDefaultFlow);
+            row.createCell(80).setCellValue(nConditionalFlow);
+            row.createCell(81).setCellValue(nPool);
+            row.createCell(82).setCellValue(nVerticalLane);
+            row.createCell(83).setCellValue(nVerticalPool);
+            row.createCell(84).setCellValue(nChoreographyTask);
+            row.createCell(85).setCellValue(nChoreographyParticipant);
+            row.createCell(86).setCellValue(nChoreographySubprocess);
+            row.createCell(87).setCellValue(nConversation);
+            row.createCell(88).setCellValue(nSubConversation);
+            row.createCell(89).setCellValue(nCallConversation);
+            row.createCell(90).setCellValue(nConversationLink);
+            row.createCell(91).setCellValue(nITSystem);
+            row.createCell(92).setCellValue(nAssociation);
+            row.createCell(93).setCellValue(nCompensateAssociation);
+            row.createCell(94).setCellValue(nUnidirectionalAssociation);
+            row.createCell(95).setCellValue(nUndirectedAssociation);
+            row.createCell(96).setCellValue(nBidirectionalAssociation);
+            row.createCell(97).setCellValue(nTextAnnotation);
+            row.createCell(98).setCellValue(ndataOutputAssociation);
+            row.createCell(99).setCellValue(ndataInputAssociation);
+            row.createCell(100).setCellValue(TotalElements);
+ 
+      		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xls");
+       		wb.write(fileOut);  
+       		//closing the Stream  
+       		fileOut.close();  
+            //closing the workbook  
+       		wb.close(); 
+        	}
+        }
 }
