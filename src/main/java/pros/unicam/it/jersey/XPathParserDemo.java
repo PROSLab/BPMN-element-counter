@@ -24,6 +24,7 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.rules.RuleMatch;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -164,9 +165,8 @@ public class XPathParserDemo {
         rowhead.createCell(14).setCellValue("nScriptTask");       
         rowhead.createCell(15).setCellValue("nCallActivity");
         rowhead.createCell(16).setCellValue("nSubProcess");
-        
-//        rowhead.createCell(15).setCellValue("nTransaction");
-//        rowhead.createCell(16).setCellValue("nAdHocSubProcess");
+        rowhead.createCell(17).setCellValue("nTransaction");
+        rowhead.createCell(18).setCellValue("nAdHocSubProcess");
 //        rowhead.createCell(17).setCellValue("nGroup");
 //        rowhead.createCell(18).setCellValue("nLane");
 //        rowhead.createCell(19).setCellValue("nDataObject");
@@ -398,19 +398,22 @@ public class XPathParserDemo {
           	Node TaskNode = nodesTask.item(i);   
           	
           	 
-          	if(TaskNode.hasChildNodes()) {
+          	if(TaskNode.hasChildNodes()) {                
           		
           		NodeList taskChildNodes = TaskNode.getChildNodes();
           		         		
                   for(int j=0;j<taskChildNodes.getLength(); j++) {
-                	               	  
+                	 
+                	     
 	                  	if(taskChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 	
-	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:standardLoopCharacteristics")
+	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:standardLoopCharacteristics") {
 	                  			nTaskLoopActivity++;
-	                  		
-	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:multiInstanceLoopCharacteristics//[@isSequential=\"true\"] ") {
+	                  		}
+	                  		//isSequential= true TODO
+	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:multiInstanceLoopCharacteristics") {
 	                  			nTaskMultipleInstanceSequential++;
+	                  			
 	                  		}	
 	                  		else if(taskChildNodes.item(j).getNodeName() == "bpmn:multiInstanceLoopCharacteristics")
 	                  			nTaskMultipleInstance++;	                  	
@@ -477,12 +480,33 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nScriptTask = nodesScriptTask.getLength();
         
-      //N° of call activity
+        //N° of call activity
         XPathExpression exprcallActivity = xpath.compile("//bpmn:callActivity");
         Object resultCA = exprcallActivity.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesCallActivity = (NodeList) resultCA;
         doc.getDocumentElement().normalize();  
         nCallActivity = nodesCallActivity.getLength();
+        
+        //N° of eventsubprocess  
+        //        nEventSubProcess=  doc.xpath('count(//bpmn:subProcess[@triggeredByEvent="true"] )', namespaces={
+//                'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
+//                })
+        
+        //N° of transaction
+        XPathExpression exprTrans = xpath.compile("//bpmn:transaction");
+        Object resultTrans = exprTrans.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTrans = (NodeList) resultTrans;
+        doc.getDocumentElement().normalize();  
+        nTransaction = nodesTrans.getLength();
+        
+        //N° of adHoc SubProcess 
+        XPathExpression expradHoc = xpath.compile("//bpmn:adHocSubProcess");
+        Object resultadHoc = expradHoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesadHoc = (NodeList) resultadHoc;
+        doc.getDocumentElement().normalize();  
+        nAdHocSubProcess = nodesadHoc.getLength();
+        
+        
         
         //Example of nested search
 //        try {
@@ -562,8 +586,8 @@ public class XPathParserDemo {
             row.createCell(14).setCellValue(nScriptTask);       
             row.createCell(15).setCellValue(nCallActivity);
             row.createCell(16).setCellValue(nSubProcess);
-//            row.createCell(15).setCellValue(nTransaction);
-//            row.createCell(16).setCellValue(nAdHocSubProcess);
+            row.createCell(17).setCellValue(nTransaction);
+            row.createCell(18).setCellValue(nAdHocSubProcess);
 //            row.createCell(17).setCellValue(nGroup);
 //            row.createCell(18).setCellValue(nLane);
 //            row.createCell(19).setCellValue(nDataObject);
