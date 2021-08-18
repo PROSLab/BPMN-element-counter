@@ -56,6 +56,7 @@ public class XPathParserDemo {
         int nSubProcess=0;
         int nTransaction=0;
         int nAdHocSubProcess=0;
+        int nEventSubProcess=0;
         int nGroup=0;
         int nLane=0;
         int nDataObject=0;
@@ -167,14 +168,15 @@ public class XPathParserDemo {
         rowhead.createCell(16).setCellValue("nSubProcess");
         rowhead.createCell(17).setCellValue("nTransaction");
         rowhead.createCell(18).setCellValue("nAdHocSubProcess");
-//        rowhead.createCell(17).setCellValue("nGroup");
-//        rowhead.createCell(18).setCellValue("nLane");
-//        rowhead.createCell(19).setCellValue("nDataObject");
-//        rowhead.createCell(20).setCellValue("nDataObjectReference");
-//        rowhead.createCell(21).setCellValue("nDataStore");
-//        rowhead.createCell(22).setCellValue("nDataStoreReference");
-//        rowhead.createCell(23).setCellValue("nDataInput");
-//        rowhead.createCell(24).setCellValue("nDataOutput");
+        rowhead.createCell(19).setCellValue("nEventSubProcess");
+        rowhead.createCell(20).setCellValue("nGroup");
+        rowhead.createCell(21).setCellValue("nLane");
+        rowhead.createCell(22).setCellValue("nDataObject");
+        rowhead.createCell(23).setCellValue("nDataObjectReference");
+        rowhead.createCell(24).setCellValue("nDataStore");
+        rowhead.createCell(25).setCellValue("nDataStoreReference");
+        rowhead.createCell(26).setCellValue("nDataInput");
+        rowhead.createCell(27).setCellValue("nDataOutput");
 //        rowhead.createCell(25).setCellValue("nExclusiveGateway");
 //        rowhead.createCell(26).setCellValue("nParallelGateway");
 //        rowhead.createCell(27).setCellValue("nInclusiveGateway");
@@ -506,7 +508,69 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nAdHocSubProcess = nodesadHoc.getLength();
         
+        //N° of group
+        XPathExpression exprGroup = xpath.compile("//bpmn:group");
+        Object resultGroup = exprGroup.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesGroup = (NodeList) resultGroup;
+        doc.getDocumentElement().normalize();  
+        nGroup = nodesGroup.getLength();
         
+        //N° of Lane 
+        XPathExpression exprLane = xpath.compile("//bpmn:lane");
+        Object resultLane = exprLane.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesLane = (NodeList) resultLane;
+        doc.getDocumentElement().normalize();  
+        nLane = nodesLane.getLength();
+         
+//	  DATA OBJECTS
+//      nDataObject
+//      nDataStore
+//      nDataObjectReference
+//      nDataStoreReference
+//		nDataInput
+//		nDataOutput
+        
+        // N° of Data Object
+        XPathExpression exprDO = xpath.compile("//bpmn:dataObject");
+        Object resultDO = exprDO.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesDO = (NodeList) resultDO;
+        doc.getDocumentElement().normalize();  
+        nDataObject = nodesDO.getLength();
+        
+        // N° of Data Store
+        XPathExpression exprDS = xpath.compile("//bpmn:dataStore");
+        Object resultDS = exprDS.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesDS = (NodeList) resultDS;
+        doc.getDocumentElement().normalize();  
+        nDataStore = nodesDS.getLength();
+        
+        // N° of Data Object Reference
+        XPathExpression exprDOR = xpath.compile("//bpmn:dataObjectReference");
+        Object resultDOR = exprDOR.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesDOR = (NodeList) resultDOR;
+        doc.getDocumentElement().normalize();  
+        nDataObjectReference = nodesDOR.getLength();
+        
+        // N° of Data Store Reference
+        XPathExpression exprDSR = xpath.compile("//bpmn:dataStoreReference");
+        Object resultDSR = exprDSR.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesDSR = (NodeList) resultDSR;
+        doc.getDocumentElement().normalize();  
+        nDataStoreReference = nodesDSR.getLength();
+        
+        // N° of Data Input
+        XPathExpression exprDI = xpath.compile("//bpmn:dataInput");
+        Object resultDI = exprDI.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesDI = (NodeList) resultDI;
+        doc.getDocumentElement().normalize();  
+        nDataInput = nodesDI.getLength();
+        
+        // N° of Data Output
+        XPathExpression exprDOut = xpath.compile("//bpmn:dataOutput");
+        Object resultDOut = exprDOut.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesDOut = (NodeList) resultDOut;
+        doc.getDocumentElement().normalize();  
+        nDataOutput = nodesDOut.getLength();
         
         //Example of nested search
 //        try {
@@ -588,14 +652,15 @@ public class XPathParserDemo {
             row.createCell(16).setCellValue(nSubProcess);
             row.createCell(17).setCellValue(nTransaction);
             row.createCell(18).setCellValue(nAdHocSubProcess);
-//            row.createCell(17).setCellValue(nGroup);
-//            row.createCell(18).setCellValue(nLane);
-//            row.createCell(19).setCellValue(nDataObject);
-//            row.createCell(20).setCellValue(nDataObjectReference);
-//            row.createCell(21).setCellValue(nDataStore);
-//            row.createCell(22).setCellValue(nDataStoreReference);
-//            row.createCell(23).setCellValue(nDataInput);
-//            row.createCell(24).setCellValue(nDataOutput);
+            row.createCell(18).setCellValue(nEventSubProcess);
+            row.createCell(17).setCellValue(nGroup);
+            row.createCell(18).setCellValue(nLane);
+            row.createCell(19).setCellValue(nDataObject);
+            row.createCell(20).setCellValue(nDataObjectReference);
+            row.createCell(21).setCellValue(nDataStore);
+            row.createCell(22).setCellValue(nDataStoreReference);
+            row.createCell(23).setCellValue(nDataInput);
+            row.createCell(24).setCellValue(nDataOutput);
 //            row.createCell(25).setCellValue(nExclusiveGateway);
 //            row.createCell(26).setCellValue(nParallelGateway);
 //            row.createCell(27).setCellValue(nInclusiveGateway);
