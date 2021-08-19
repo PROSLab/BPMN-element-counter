@@ -69,6 +69,7 @@ public class XPathParserDemo {
         int nParallelGateway=0;
         int nInclusiveGateway=0;
         int nEventBasedGateway=0;
+        int nParallelEventBasedGateway=0;
         int nComplexGateway=0;
         int nCondition=0;
         int nStartMultipleParallelEventDefinition=0;
@@ -181,7 +182,8 @@ public class XPathParserDemo {
         rowhead.createCell(29).setCellValue("nParallelGateway");
         rowhead.createCell(30).setCellValue("nInclusiveGateway");
         rowhead.createCell(31).setCellValue("nEventBasedGateway");
-        rowhead.createCell(32).setCellValue("nComplexGateway");
+        rowhead.createCell(32).setCellValue("nParallelEventBasedGateway");
+        rowhead.createCell(33).setCellValue("nComplexGateway");
 //        rowhead.createCell(30).setCellValue("nCondition");
 //        rowhead.createCell(31).setCellValue("nStartMultipleParallelEventDefinition");
 //        rowhead.createCell(32).setCellValue("nStartMultipleEventDefinition");
@@ -574,12 +576,19 @@ public class XPathParserDemo {
  
         
         // Gateway
-        
+        // Empty or Not is the same
         XPathExpression exprExG = xpath.compile("//bpmn:exclusiveGateway");
         Object resultExG = exprExG.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesExG = (NodeList) resultExG;
         doc.getDocumentElement().normalize();  
         nExclusiveGateway = nodesExG.getLength();
+        
+//       TODO Parallel Event Based eventGatewayType="Parallel"
+//        XPathExpression exprExG = xpath.compile("//bpmn:eventBasedGateway[eventGatewayType=\"Parallel\"]");
+//        Object resultExG = exprExG.evaluate(doc, XPathConstants.NODESET);
+//        NodeList nodesExG = (NodeList) resultExG;
+//        doc.getDocumentElement().normalize();  
+//        nParallelEventBasedGateway = nodesExG.getLength();
         
         XPathExpression exprPaG = xpath.compile("//bpmn:parallelGateway");
         Object resultPaG = exprPaG.evaluate(doc, XPathConstants.NODESET);
@@ -685,20 +694,21 @@ public class XPathParserDemo {
             row.createCell(16).setCellValue(nSubProcess);
             row.createCell(17).setCellValue(nTransaction);
             row.createCell(18).setCellValue(nAdHocSubProcess);
-            row.createCell(18).setCellValue(nEventSubProcess);
-            row.createCell(17).setCellValue(nGroup);
-            row.createCell(18).setCellValue(nLane);
-            row.createCell(19).setCellValue(nDataObject);
-            row.createCell(20).setCellValue(nDataObjectReference);
-            row.createCell(21).setCellValue(nDataStore);
-            row.createCell(22).setCellValue(nDataStoreReference);
-            row.createCell(23).setCellValue(nDataInput);
-            row.createCell(24).setCellValue(nDataOutput);
-            row.createCell(25).setCellValue(nExclusiveGateway);
-            row.createCell(26).setCellValue(nParallelGateway);
-            row.createCell(27).setCellValue(nInclusiveGateway);
-            row.createCell(28).setCellValue(nEventBasedGateway);
-            row.createCell(29).setCellValue(nComplexGateway);
+            row.createCell(19).setCellValue(nEventSubProcess);
+            row.createCell(20).setCellValue(nGroup);
+            row.createCell(21).setCellValue(nLane);
+            row.createCell(22).setCellValue(nDataObject);
+            row.createCell(23).setCellValue(nDataObjectReference);
+            row.createCell(24).setCellValue(nDataStore);
+            row.createCell(25).setCellValue(nDataStoreReference);
+            row.createCell(26).setCellValue(nDataInput);
+            row.createCell(27).setCellValue(nDataOutput);
+            row.createCell(28).setCellValue(nExclusiveGateway);
+            row.createCell(29).setCellValue(nParallelGateway);
+            row.createCell(30).setCellValue(nInclusiveGateway);
+            row.createCell(31).setCellValue(nEventBasedGateway);
+            row.createCell(32).setCellValue(nParallelEventBasedGateway);
+            row.createCell(33).setCellValue(nComplexGateway);
 //            row.createCell(30).setCellValue(nCondition);
 //            row.createCell(31).setCellValue(nStartMultipleParallelEventDefinition);
 //            row.createCell(32).setCellValue(nStartMultipleEventDefinition);
