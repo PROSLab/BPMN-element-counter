@@ -177,11 +177,11 @@ public class XPathParserDemo {
         rowhead.createCell(25).setCellValue("nDataStoreReference");
         rowhead.createCell(26).setCellValue("nDataInput");
         rowhead.createCell(27).setCellValue("nDataOutput");
-//        rowhead.createCell(25).setCellValue("nExclusiveGateway");
-//        rowhead.createCell(26).setCellValue("nParallelGateway");
-//        rowhead.createCell(27).setCellValue("nInclusiveGateway");
-//        rowhead.createCell(28).setCellValue("nEventBasedGateway");
-//        rowhead.createCell(29).setCellValue("nComplexGateway");
+        rowhead.createCell(28).setCellValue("nExclusiveGateway");
+        rowhead.createCell(29).setCellValue("nParallelGateway");
+        rowhead.createCell(30).setCellValue("nInclusiveGateway");
+        rowhead.createCell(31).setCellValue("nEventBasedGateway");
+        rowhead.createCell(32).setCellValue("nComplexGateway");
 //        rowhead.createCell(30).setCellValue("nCondition");
 //        rowhead.createCell(31).setCellValue("nStartMultipleParallelEventDefinition");
 //        rowhead.createCell(32).setCellValue("nStartMultipleEventDefinition");
@@ -508,7 +508,7 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nAdHocSubProcess = nodesadHoc.getLength();
         
-        //N° of group
+        //N° of Group
         XPathExpression exprGroup = xpath.compile("//bpmn:group");
         Object resultGroup = exprGroup.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesGroup = (NodeList) resultGroup;
@@ -571,6 +571,39 @@ public class XPathParserDemo {
         NodeList nodesDOut = (NodeList) resultDOut;
         doc.getDocumentElement().normalize();  
         nDataOutput = nodesDOut.getLength();
+ 
+        
+        // Gateway
+        
+        XPathExpression exprExG = xpath.compile("//bpmn:exclusiveGateway");
+        Object resultExG = exprExG.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesExG = (NodeList) resultExG;
+        doc.getDocumentElement().normalize();  
+        nExclusiveGateway = nodesExG.getLength();
+        
+        XPathExpression exprPaG = xpath.compile("//bpmn:parallelGateway");
+        Object resultPaG = exprPaG.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesPaG = (NodeList) resultPaG;
+        doc.getDocumentElement().normalize();  
+        nParallelGateway = nodesPaG.getLength();
+        
+        XPathExpression exprInG = xpath.compile("//bpmn:inclusiveGateway");
+        Object resultInG = exprInG.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesInG = (NodeList) resultInG;
+        doc.getDocumentElement().normalize();  
+        nInclusiveGateway = nodesInG.getLength();
+        
+        XPathExpression exprEBG = xpath.compile("//bpmn:eventBasedGateway");
+        Object resultEBG = exprEBG.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesEBG = (NodeList) resultEBG;
+        doc.getDocumentElement().normalize();  
+        nEventBasedGateway = nodesEBG.getLength();
+        
+        XPathExpression exprCoG = xpath.compile("//bpmn:complexGateway");
+        Object resultCoG = exprCoG.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesCoG = (NodeList) resultCoG;
+        doc.getDocumentElement().normalize();  
+        nComplexGateway = nodesCoG.getLength();       
         
         //Example of nested search
 //        try {
@@ -661,11 +694,11 @@ public class XPathParserDemo {
             row.createCell(22).setCellValue(nDataStoreReference);
             row.createCell(23).setCellValue(nDataInput);
             row.createCell(24).setCellValue(nDataOutput);
-//            row.createCell(25).setCellValue(nExclusiveGateway);
-//            row.createCell(26).setCellValue(nParallelGateway);
-//            row.createCell(27).setCellValue(nInclusiveGateway);
-//            row.createCell(28).setCellValue(nEventBasedGateway);
-//            row.createCell(29).setCellValue(nComplexGateway);
+            row.createCell(25).setCellValue(nExclusiveGateway);
+            row.createCell(26).setCellValue(nParallelGateway);
+            row.createCell(27).setCellValue(nInclusiveGateway);
+            row.createCell(28).setCellValue(nEventBasedGateway);
+            row.createCell(29).setCellValue(nComplexGateway);
 //            row.createCell(30).setCellValue(nCondition);
 //            row.createCell(31).setCellValue(nStartMultipleParallelEventDefinition);
 //            row.createCell(32).setCellValue(nStartMultipleEventDefinition);
