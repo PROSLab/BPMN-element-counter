@@ -490,11 +490,13 @@ public class XPathParserDemo {
         NodeList nodesCallActivity = (NodeList) resultCA;
         doc.getDocumentElement().normalize();  
         nCallActivity = nodesCallActivity.getLength();
-        
+                
         //N° of eventsubprocess  
-        //        nEventSubProcess=  doc.xpath('count(//bpmn:subProcess[@triggeredByEvent="true"] )', namespaces={
-//                'bpmn': 'http://www.omg.org/spec/BPMN/20100524/MODEL',
-//                })
+        XPathExpression exprESubP = xpath.compile("//bpmn:subProcess[@triggeredByEvent='true']");
+        Object resultESubP = exprESubP.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesESubP = (NodeList) resultESubP;
+        doc.getDocumentElement().normalize();  
+        nEventSubProcess = nodesESubP.getLength();
         
         //N° of transaction
         XPathExpression exprTrans = xpath.compile("//bpmn:transaction");
@@ -583,12 +585,12 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nExclusiveGateway = nodesExG.getLength();
         
-//       TODO Parallel Event Based eventGatewayType="Parallel"
-//        XPathExpression exprExG = xpath.compile("//bpmn:eventBasedGateway[eventGatewayType=\"Parallel\"]");
-//        Object resultExG = exprExG.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesExG = (NodeList) resultExG;
-//        doc.getDocumentElement().normalize();  
-//        nParallelEventBasedGateway = nodesExG.getLength();
+        // Parallel Event Based 
+        XPathExpression exprEBGP = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Parallel']");
+        Object resultEBGP = exprEBGP.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesEBGP = (NodeList) resultEBGP;
+        doc.getDocumentElement().normalize();  
+        nParallelEventBasedGateway = nodesEBGP.getLength();
         
         XPathExpression exprPaG = xpath.compile("//bpmn:parallelGateway");
         Object resultPaG = exprPaG.evaluate(doc, XPathConstants.NODESET);
@@ -602,7 +604,7 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nInclusiveGateway = nodesInG.getLength();
         
-        XPathExpression exprEBG = xpath.compile("//bpmn:eventBasedGateway");
+        XPathExpression exprEBG = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Exclusive']");
         Object resultEBG = exprEBG.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesEBG = (NodeList) resultEBG;
         doc.getDocumentElement().normalize();  
