@@ -184,7 +184,7 @@ public class XPathParserDemo {
         rowhead.createCell(31).setCellValue("nEventBasedGateway");
         rowhead.createCell(32).setCellValue("nParallelEventBasedGateway");
         rowhead.createCell(33).setCellValue("nComplexGateway");
-//        rowhead.createCell(30).setCellValue("nCondition");
+        rowhead.createCell(34).setCellValue("nCondition");
 //        rowhead.createCell(31).setCellValue("nStartMultipleParallelEventDefinition");
 //        rowhead.createCell(32).setCellValue("nStartMultipleEventDefinition");
 //        rowhead.createCell(33).setCellValue("nStartNoneEvent");
@@ -389,7 +389,6 @@ public class XPathParserDemo {
 //        nTaskMultipleIstanceSequential
 //        nTaskLoopActivity
         
-        try {
           XPathExpression exprTask = xpath.compile("//bpmn:task");
           Object result = exprTask.evaluate(doc, XPathConstants.NODESET);
           NodeList nodesTask = (NodeList) result;
@@ -410,14 +409,16 @@ public class XPathParserDemo {
                 	 
                 	     
 	                  	if(taskChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-	
+	                  		
+	                  
+	                  		// TODO BUG
 	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:standardLoopCharacteristics") {
 	                  			nTaskLoopActivity++;
 	                  		}
 	                  		//isSequential= true TODO
-	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:multiInstanceLoopCharacteristics") {
+	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:multiInstanceLoopCharacteristics" && ((Element) taskChildNodes.item(j)).getAttribute("isSequential").contains("true")) {
 	                  			nTaskMultipleInstanceSequential++;
-	                  			
+
 	                  		}	
 	                  		else if(taskChildNodes.item(j).getNodeName() == "bpmn:multiInstanceLoopCharacteristics")
 	                  			nTaskMultipleInstance++;	                  	
@@ -428,11 +429,7 @@ public class XPathParserDemo {
           	
           	
           }
-          
-          
-      } catch (Exception E) {
-          System.out.println(E);
-      }
+
   
         
         //N° of receive tasks
@@ -525,8 +522,15 @@ public class XPathParserDemo {
         NodeList nodesLane = (NodeList) resultLane;
         doc.getDocumentElement().normalize();  
         nLane = nodesLane.getLength();
+        
+        //N° of Condition
+        XPathExpression exprCond = xpath.compile("//bpmn:condition");
+        Object resultCond = exprCond.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesCond = (NodeList) resultCond;
+        doc.getDocumentElement().normalize();  
+        nCondition = nodesCond.getLength();   
          
-//	  DATA OBJECTS
+//	    DATA OBJECTS------------------------------------------------------------------------------------
 //      nDataObject
 //      nDataStore
 //      nDataObjectReference
@@ -575,9 +579,9 @@ public class XPathParserDemo {
         NodeList nodesDOut = (NodeList) resultDOut;
         doc.getDocumentElement().normalize();  
         nDataOutput = nodesDOut.getLength();
- 
         
-        // Gateway
+        // GATEWAYS-------------------------------------------------------------------------------------
+        
         // Empty or Not is the same
         XPathExpression exprExG = xpath.compile("//bpmn:exclusiveGateway");
         Object resultExG = exprExG.evaluate(doc, XPathConstants.NODESET);
@@ -615,6 +619,8 @@ public class XPathParserDemo {
         NodeList nodesCoG = (NodeList) resultCoG;
         doc.getDocumentElement().normalize();  
         nComplexGateway = nodesCoG.getLength();       
+        
+        
         
         //Example of nested search
 //        try {
@@ -711,7 +717,7 @@ public class XPathParserDemo {
             row.createCell(31).setCellValue(nEventBasedGateway);
             row.createCell(32).setCellValue(nParallelEventBasedGateway);
             row.createCell(33).setCellValue(nComplexGateway);
-//            row.createCell(30).setCellValue(nCondition);
+            row.createCell(34).setCellValue(nCondition);
 //            row.createCell(31).setCellValue(nStartMultipleParallelEventDefinition);
 //            row.createCell(32).setCellValue(nStartMultipleEventDefinition);
 //            row.createCell(33).setCellValue(nStartNoneEvent);
