@@ -85,9 +85,8 @@ public class XPathParserDemo {
         rowhead.createCell(40).setCellValue("nStartTimerEventDefinition");
         rowhead.createCell(41).setCellValue("nStartMessageEventDefinition");
         rowhead.createCell(42).setCellValue("nStartCompensateEventDefinition");
-        rowhead.createCell(43).setCellValue("nStartCancelEventDefinition");
-        rowhead.createCell(44).setCellValue("nStartEscalationEventDefinition");
-        rowhead.createCell(45).setCellValue("nStartErrorEventDefinition");
+        rowhead.createCell(43).setCellValue("nStartEscalationEventDefinition");
+        rowhead.createCell(44).setCellValue("nStartErrorEventDefinition");
 //        rowhead.createCell(42).setCellValue("nEndEventNone");
 //        rowhead.createCell(43).setCellValue("nEndMultipleEventDefinition"); 
 //        rowhead.createCell(44).setCellValue("nEndEscalationEventDefinition");
@@ -201,7 +200,6 @@ public class XPathParserDemo {
         int nStartTimerEventDefinition=0;
         int nStartMessageEventDefinition=0;
         int nStartCompensateEventDefinition=0;
-        int nStartCancelEventDefinition=0;
         int nStartEscalationEventDefinition=0;
         int nStartErrorEventDefinition=0;
         int nEndEventNone = 0;
@@ -414,15 +412,15 @@ public class XPathParserDemo {
 	                  		
 	                  
 	                  		// TODO BUG
-	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:standardLoopCharacteristics") {
+	                  		if(taskChildNodes.item(j).getNodeName().contains("standardLoopCharacteristics")) {
 	                  			nTaskLoopActivity++;
 	                  		}
 	                  		//isSequential= true TODO
-	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:multiInstanceLoopCharacteristics" && ((Element) taskChildNodes.item(j)).getAttribute("isSequential").contains("true")) {
+	                  		if(taskChildNodes.item(j).getNodeName().contains("multiInstanceLoopCharacteristics")  && ((Element) taskChildNodes.item(j)).getAttribute("isSequential").contains("true")) {
 	                  			nTaskMultipleInstanceSequential++;
 
 	                  		}	
-	                  		else if(taskChildNodes.item(j).getNodeName() == "bpmn:multiInstanceLoopCharacteristics")
+	                  		else if(taskChildNodes.item(j).getNodeName().contains("multiInstanceLoopCharacteristics"))
 	                  			nTaskMultipleInstance++;	                  	
 	                  	}
                   }
@@ -647,35 +645,31 @@ public class XPathParserDemo {
 	                  		
 	                  		
 
-	                  		if(StartEventChildNodes.item(j).getNodeName() == "bpmn:signalEventDefinition") {
+	                  		if(StartEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
 	                  			nStartSignalEventDefinition++;
 	                  		}
 	                  		
-	                  		if(StartEventChildNodes.item(j).getNodeName() == "bpmn:conditionalEventDefinition") {
+	                  		if(StartEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition")) {
 	                  			nStartConditionalEventDefinition++;
 	                  			}	
 	                  		
-	                  		if(StartEventChildNodes.item(j).getNodeName() == "bpmn:timerEventDefinition") {
+	                  		if(StartEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")) {
 	                  			nStartTimerEventDefinition++;
 	                  		}
 	                  		
-	                  		if(StartEventChildNodes.item(j).getNodeName() == "bpmn:messageEventDefinition") {
+	                  		if(StartEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
 	                  			nStartMessageEventDefinition++;
 	                  			}
 	                  		
-	                  		if(StartEventChildNodes.item(j).getNodeName() == "bpmn:compensateEventDefinition") {
+	                  		if(StartEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition")) {
 	                  			nStartCompensateEventDefinition++;
-	                  		}
+	                  		}	                  		
 	                  		
-	                  		if(StartEventChildNodes.item(j).getNodeName() == "bpmn:cancelEventDefinition") {
-	                  			nStartCancelEventDefinition++;
-	                  			}	
-	                  		
-	                  		if(StartEventChildNodes.item(j).getNodeName() == "bpmn:escalationEventDefinition") {
+	                  		if(StartEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
 	                  			nStartEscalationEventDefinition++;
 	                  		}
 	                  		
-	                  		if(StartEventChildNodes.item(j).getNodeName() == "bpmn:errorEventDefinition") {
+	                  		if(StartEventChildNodes.item(j).getNodeName().contains("errorEventDefinition")) {
 	                  			nStartErrorEventDefinition++;
 	                  			}	
 	                  		
@@ -802,9 +796,8 @@ public class XPathParserDemo {
             row.createCell(40).setCellValue(nStartTimerEventDefinition);
             row.createCell(41).setCellValue(nStartMessageEventDefinition);
             row.createCell(42).setCellValue(nStartCompensateEventDefinition);
-            row.createCell(43).setCellValue(nStartCancelEventDefinition);
-            row.createCell(44).setCellValue(nStartEscalationEventDefinition);
-            row.createCell(45).setCellValue(nStartErrorEventDefinition);
+            row.createCell(43).setCellValue(nStartEscalationEventDefinition);
+            row.createCell(44).setCellValue(nStartErrorEventDefinition);
 //            row.createCell(42).setCellValue(nEndEventNone);
 //            row.createCell(43).setCellValue(nEndMultipleEventDefinition); 
 //            row.createCell(44).setCellValue(nEndEscalationEventDefinition);
