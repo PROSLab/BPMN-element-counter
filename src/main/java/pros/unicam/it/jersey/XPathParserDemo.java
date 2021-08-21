@@ -87,15 +87,15 @@ public class XPathParserDemo {
         rowhead.createCell(42).setCellValue("nStartCompensateEventDefinition");
         rowhead.createCell(43).setCellValue("nStartEscalationEventDefinition");
         rowhead.createCell(44).setCellValue("nStartErrorEventDefinition");
-//        rowhead.createCell(42).setCellValue("nEndEventNone");
-//        rowhead.createCell(43).setCellValue("nEndMultipleEventDefinition"); 
-//        rowhead.createCell(44).setCellValue("nEndEscalationEventDefinition");
-//        rowhead.createCell(45).setCellValue("nEndErrorEventDefinition");
-//        rowhead.createCell(46).setCellValue("nEndSignalEventDefinition");
-//        rowhead.createCell(47).setCellValue("nEndCompensateEventDefinition");
-//        rowhead.createCell(48).setCellValue("nEndCancelEventDefinition"); 
-//        rowhead.createCell(49).setCellValue("nEndMessageEventDefinition");
-//        rowhead.createCell(50).setCellValue("nEndTerminateEventDefinition");
+        rowhead.createCell(45).setCellValue("nEndNoneEvent");
+        rowhead.createCell(46).setCellValue("nEndMultipleEventDefinition"); 
+        rowhead.createCell(47).setCellValue("nEndEscalationEventDefinition");
+        rowhead.createCell(48).setCellValue("nEndErrorEventDefinition");
+        rowhead.createCell(49).setCellValue("nEndSignalEventDefinition");
+        rowhead.createCell(50).setCellValue("nEndCompensateEventDefinition");
+        rowhead.createCell(51).setCellValue("nEndCancelEventDefinition"); 
+        rowhead.createCell(52).setCellValue("nEndMessageEventDefinition");
+        rowhead.createCell(53).setCellValue("nEndTerminateEventDefinition");
 //        rowhead.createCell(51).setCellValue("nIntermediateCatchMultipleEventDefinition");
 //        rowhead.createCell(52).setCellValue("nIntermediateCatchMultipleParallelEventDefinition");
 //        rowhead.createCell(53).setCellValue("nIntermediateCatchMessageEventDefinition");
@@ -202,7 +202,7 @@ public class XPathParserDemo {
         int nStartCompensateEventDefinition=0;
         int nStartEscalationEventDefinition=0;
         int nStartErrorEventDefinition=0;
-        int nEndEventNone = 0;
+        int nEndNoneEvent = 0;
         int nEndMultipleEventDefinition = 0; 
         int nEndEscalationEventDefinition= 0;
         int	nEndErrorEventDefinition=  0;
@@ -688,10 +688,71 @@ public class XPathParserDemo {
         	} 
         	else
         		nStartNoneEvent++;
-        	
-        	
         }
         
+        // End Events
+        
+        XPathExpression exprEndEvent = xpath.compile("//bpmn:endEvent");
+        Object resultEndEvent = exprEndEvent.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesEndEvent = (NodeList) resultEndEvent;
+        doc.getDocumentElement().normalize();         
+        
+        for(int i=0; i<nodesEndEvent.getLength(); i++) {
+        	
+        	Node EndEventNode = nodesEndEvent.item(i);   
+        	
+        	 
+        	if(EndEventNode.hasChildNodes()) {                
+        		
+        		NodeList EndEventChildNodes = EndEventNode.getChildNodes();
+        		         		
+                for(int j=0;j<EndEventChildNodes.getLength(); j++) {
+                
+
+	                  	if(EndEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+	                  		
+	                  		
+
+	                  		if(EndEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+	                  			nEndSignalEventDefinition++;
+	                  		}
+	                  		
+	                  		if(EndEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+	                  			nEndMessageEventDefinition++;
+	                  			}
+	                  		
+	                  		if(EndEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition")) {
+	                  			nEndCompensateEventDefinition++;
+	                  		}	                  		
+	                  		
+	                  		if(EndEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
+	                  			nEndEscalationEventDefinition++;
+	                  		}
+	                  		
+	                  		if(EndEventChildNodes.item(j).getNodeName().contains("errorEventDefinition")) {
+	                  			nEndErrorEventDefinition++;
+	                  			}	
+	                  		
+	                  		if(EndEventChildNodes.item(j).getNodeName().contains("terminateEventDefinition")) {
+	                  			nEndTerminateEventDefinition++;
+	                  			}
+	                  		
+	                  		if(EndEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
+	                  			nEndCancelEventDefinition++;
+	                  			}
+	                  		
+//	                  		//TODO
+//	                  		if(false) {
+//	                  			nEndMultipleEventDefinition++;
+//	                  			}	
+	                  			                  	
+	                  	}
+                }
+        		
+        	} 
+        	else
+        		nEndNoneEvent++;
+        }
         //Example of nested search
 //        try {
 //            XPathExpression exprTask = xpath.compile("//bpmn:task");
@@ -798,15 +859,15 @@ public class XPathParserDemo {
             row.createCell(42).setCellValue(nStartCompensateEventDefinition);
             row.createCell(43).setCellValue(nStartEscalationEventDefinition);
             row.createCell(44).setCellValue(nStartErrorEventDefinition);
-//            row.createCell(42).setCellValue(nEndEventNone);
-//            row.createCell(43).setCellValue(nEndMultipleEventDefinition); 
-//            row.createCell(44).setCellValue(nEndEscalationEventDefinition);
-//            row.createCell(45).setCellValue(nEndErrorEventDefinition);
-//            row.createCell(46).setCellValue(nEndSignalEventDefinition);
-//            row.createCell(47).setCellValue(nEndCompensateEventDefinition);
-//            row.createCell(48).setCellValue(nEndCancelEventDefinition); 
-//            row.createCell(49).setCellValue(nEndMessageEventDefinition);
-//            row.createCell(50).setCellValue(nEndTerminateEventDefinition);
+            row.createCell(45).setCellValue(nEndNoneEvent);
+            row.createCell(46).setCellValue(nEndMultipleEventDefinition); 
+            row.createCell(47).setCellValue(nEndEscalationEventDefinition);
+            row.createCell(48).setCellValue(nEndErrorEventDefinition);
+            row.createCell(49).setCellValue(nEndSignalEventDefinition);
+            row.createCell(50).setCellValue(nEndCompensateEventDefinition);
+            row.createCell(51).setCellValue(nEndCancelEventDefinition); 
+            row.createCell(52).setCellValue(nEndMessageEventDefinition);
+            row.createCell(53).setCellValue(nEndTerminateEventDefinition);
 //            row.createCell(51).setCellValue(nIntermediateCatchMultipleEventDefinition);
 //            row.createCell(52).setCellValue(nIntermediateCatchMultipleParallelEventDefinition);
 //            row.createCell(53).setCellValue(nIntermediateCatchMessageEventDefinition);
