@@ -138,15 +138,15 @@ public class XPathParserDemo {
         rowhead.createCell(93).setCellValue("nCallConversation");
         rowhead.createCell(94).setCellValue("nConversationLink");
         rowhead.createCell(95).setCellValue("nITSystem");
-//        rowhead.createCell(92).setCellValue("nAssociation");
-//        rowhead.createCell(93).setCellValue("nCompensateAssociation");
-//        rowhead.createCell(94).setCellValue("nUnidirectionalAssociation");
-//        rowhead.createCell(95).setCellValue("nUndirectedAssociation");
-//        rowhead.createCell(96).setCellValue("nBidirectionalAssociation");
-//        rowhead.createCell(97).setCellValue("nTextAnnotation");
-//        rowhead.createCell(98).setCellValue("ndataOutputAssociation");
-//        rowhead.createCell(99).setCellValue("ndataInputAssociation");
-//        rowhead.createCell(100).setCellValue("TotalElements");
+        rowhead.createCell(96).setCellValue("nAssociation");
+        rowhead.createCell(97).setCellValue("nCompensateAssociation");
+        rowhead.createCell(98).setCellValue("nUnidirectionalAssociation");
+        rowhead.createCell(99).setCellValue("nUndirectedAssociation");
+        rowhead.createCell(100).setCellValue("nBidirectionalAssociation");
+        rowhead.createCell(101).setCellValue("nTextAnnotation");
+        rowhead.createCell(102).setCellValue("ndataOutputAssociation");
+        rowhead.createCell(103).setCellValue("ndataInputAssociation");
+        rowhead.createCell(104).setCellValue("TotalElements");
         
         
         // File's cycle of the testmodels folder
@@ -1092,12 +1092,78 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nConversationLink = nodesConvLink.getLength();
         
-        //IT SYSTEM
+        // IT SYSTEM
         XPathExpression exprITS = xpath.compile("//bpmn:textAnnotation//bpmn:extensionElements[@dataObjectType='IT-systems']");
         Object resultITS = exprITS.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesITS = (NodeList) resultITS;
         doc.getDocumentElement().normalize();  
         nITSystem = nodesITS.getLength();
+        
+        // ASSOCIATIONS
+        //dataInputAssociation
+        XPathExpression exprIAssoc = xpath.compile("//bpmn:dataInputAssociation");
+        Object resultIAssoc = exprIAssoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesIAssoc = (NodeList) resultIAssoc;
+        doc.getDocumentElement().normalize();  
+        ndataInputAssociation = nodesIAssoc.getLength();
+        
+        //dataOutputAssociation
+        XPathExpression exprOAssoc = xpath.compile("//bpmn:dataOutputAssociation");
+        Object resultOAssoc = exprOAssoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesOAssoc = (NodeList) resultOAssoc;
+        doc.getDocumentElement().normalize();  
+        ndataOutputAssociation = nodesOAssoc.getLength();
+        
+        XPathExpression exprAssoc = xpath.compile("//bpmn:association");
+        Object resultAssoc = exprAssoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesAssoc = (NodeList) resultAssoc;
+        doc.getDocumentElement().normalize();  
+        nAssociation = nodesAssoc.getLength() + ndataInputAssociation + ndataOutputAssociation;
+        
+        //COMPENSATE ASSOCIATION
+        XPathExpression exprCAssoc = xpath.compile("//bpmn:endEvent//bpmn:compensateEventDefinition[@waitForCompletion='true']");
+        Object resultCAssoc = exprCAssoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesCAssoc = (NodeList) resultCAssoc;
+        doc.getDocumentElement().normalize();  
+        nCompensateAssociation = nodesCAssoc.getLength();
+        
+        //Unidirectional Association
+        XPathExpression exprUnidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='One']");
+        Object resultUnidirectionalAssoc = exprUnidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesUnidirectionalAssoc = (NodeList) resultUnidirectionalAssoc;
+        doc.getDocumentElement().normalize();  
+        nUnidirectionalAssociation = nodesUnidirectionalAssoc.getLength();
+        
+        //Unidirected Association
+        XPathExpression exprUndirectedAssoc = xpath.compile("//bpmn:association[@associationDirection='None']");
+        Object resultUndirectedAssoc = exprUndirectedAssoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesUndirectedAssoc = (NodeList) resultUndirectedAssoc;
+        doc.getDocumentElement().normalize();  
+        nUndirectedAssociation = nodesUndirectedAssoc.getLength();
+        
+        //Bidirectional Association
+        XPathExpression exprBidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='Both']");
+        Object resultBidirectionalAssoc = exprBidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesBidirectionalAssoc = (NodeList) resultBidirectionalAssoc;
+        doc.getDocumentElement().normalize();  
+        nBidirectionalAssociation = nodesBidirectionalAssoc.getLength();
+        
+        //Text Annotation
+        XPathExpression exprTextAnn = xpath.compile("//bpmn:textAnnotation");
+        Object resultTextAnn = exprTextAnn.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTextAnn = (NodeList) resultTextAnn;
+        doc.getDocumentElement().normalize();  
+        nTextAnnotation = nodesTextAnn.getLength();
+        
+        TotalElements = nAssociation;
+        
+//        row.createCell(97).setCellValue(nCompensateAssociation);
+//        row.createCell(98).setCellValue(nUnidirectionalAssociation);
+//        row.createCell(99).setCellValue(nUndirectedAssociation);
+//        row.createCell(100).setCellValue(nBidirectionalAssociation);
+//        row.createCell(101).setCellValue(nTextAnnotation);
+//        row.createCell(104).setCellValue(TotalElements);
+        
         
         	//creating the rows 
             HSSFRow row = sheet.createRow((short)x+1);  
@@ -1198,15 +1264,15 @@ public class XPathParserDemo {
             row.createCell(93).setCellValue(nCallConversation);
             row.createCell(94).setCellValue(nConversationLink);
             row.createCell(95).setCellValue(nITSystem);
-//            row.createCell(92).setCellValue(nAssociation);
-//            row.createCell(93).setCellValue(nCompensateAssociation);
-//            row.createCell(94).setCellValue(nUnidirectionalAssociation);
-//            row.createCell(95).setCellValue(nUndirectedAssociation);
-//            row.createCell(96).setCellValue(nBidirectionalAssociation);
-//            row.createCell(97).setCellValue(nTextAnnotation);
-//            row.createCell(98).setCellValue(ndataOutputAssociation);
-//            row.createCell(99).setCellValue(ndataInputAssociation);
-//            row.createCell(100).setCellValue(TotalElements);
+            row.createCell(96).setCellValue(nAssociation);
+            row.createCell(97).setCellValue(nCompensateAssociation);
+            row.createCell(98).setCellValue(nUnidirectionalAssociation);
+            row.createCell(99).setCellValue(nUndirectedAssociation);
+            row.createCell(100).setCellValue(nBidirectionalAssociation);
+            row.createCell(101).setCellValue(nTextAnnotation);
+            row.createCell(102).setCellValue(ndataOutputAssociation);
+            row.createCell(103).setCellValue(ndataInputAssociation);
+            row.createCell(104).setCellValue(TotalElements);
             
             
       		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xls");
