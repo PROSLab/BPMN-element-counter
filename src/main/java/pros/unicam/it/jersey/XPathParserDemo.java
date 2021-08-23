@@ -1039,33 +1039,35 @@ public class XPathParserDemo {
         
         
         //FLOW
-        //N° of Choreography partecipant
-        XPathExpression exprChoPart = xpath.compile("//bpmn:choreography//bpmn:participant");
-        Object resultChoPart = exprChoPart.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesChoPart = (NodeList) resultChoPart;
+        //N° of Message Flow
+        XPathExpression exprMSGFlow = xpath.compile("//bpmn:messageFlow");
+        Object resultMSGFlow  = exprMSGFlow .evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesMSGFlow  = (NodeList) resultMSGFlow;
         doc.getDocumentElement().normalize();  
-        nChoreographyParticipant = nodesChoPart.getLength(); 
+        nMessageFlow = nodesMSGFlow.getLength(); 
         
-        //N° of Choreography task
-        XPathExpression exprChoTask = xpath.compile("//bpmn:choreographyTask");
-        Object resultChoTask = exprChoPart.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesChoTask = (NodeList) resultChoTask;
+        //N° of Default Flow
+        XPathExpression exprDFlow = xpath.compile("//bpmn:exclusiveGateway[@default]");
+        Object resultDFlow = exprDFlow.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesDFlow = (NodeList) resultDFlow;
         doc.getDocumentElement().normalize();  
-        nChoreographyTask = nodesChoTask.getLength();
+        nDefaultFlow = nodesDFlow.getLength();
         
-        //N° of Choreography SubProcess
-        XPathExpression exprChoSub = xpath.compile("//bpmn:subChoreography");
-        Object resultChoSub = exprChoSub.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesChoSub = (NodeList) resultChoSub;
+        //N° of Conditional Flow
+        XPathExpression exprCFlow = xpath.compile("//bpmn:sequenceFlow//bpmn:conditionExpression");
+        Object resultCFlow = exprCFlow.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesCFlow = (NodeList) resultCFlow;
         doc.getDocumentElement().normalize();  
-        nChoreographySubprocess = nodesChoSub.getLength();
+        nConditionalFlow = nodesCFlow.getLength();
         
-        //N° of Choreography SubProcess
-        XPathExpression exprChoSub = xpath.compile("//bpmn:subChoreography");
-        Object resultChoSub = exprChoSub.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesChoSub = (NodeList) resultChoSub;
+        //N° of Sequence Flow
+        XPathExpression exprSFlow = xpath.compile("//bpmn:sequenceFlow");
+        Object resultSFlow = exprSFlow.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesSFlow = (NodeList) resultSFlow;
         doc.getDocumentElement().normalize();  
-        nChoreographySubprocess = nodesChoSub.getLength();
+        nSequenceFlow = nodesSFlow.getLength();
+        
+        
         	//creating the rows 
             HSSFRow row = sheet.createRow((short)x+1);  
             //inserting data   
