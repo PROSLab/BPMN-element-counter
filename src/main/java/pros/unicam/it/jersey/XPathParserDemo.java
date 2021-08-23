@@ -993,64 +993,29 @@ public class XPathParserDemo {
         	} 
         }
         
-        //Example of nested search
-//        try {
-//            XPathExpression exprTask = xpath.compile("//bpmn:task");
-//            Object result = exprTask.evaluate(doc, XPathConstants.NODESET);
-//            NodeList nodesTask = (NodeList) result;
-//            doc.getDocumentElement().normalize();  
-//            //N° of normal tasks
-//            nTask = nodesTask.getLength();
-//            
-//            NodeList listOfTaskNodes = doc.getElementsByTagName("bpmn:multiInstanceLoopCharacteristics");
-//            
-//            for(int i=0; i<listOfTaskNodes.getLength() ; i++) {
-//            	
-//            	Node TaskNode = listOfTaskNodes.item(i);   
-//            	 System.out.println(listOfTaskNodes.item(i).getNodeName());
-//            	 
-//            	if(TaskNode.hasChildNodes()) {
-//            		
-//            		NodeList taskChildNodes = TaskNode.getChildNodes();
-//            		
-//            		
-//                    for(int j=0;j<taskChildNodes.getLength(); j++) {
-//                  	  
-//                  	 
-//                  	  
-//  	                  	if(taskChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-//  	
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:standardLoopCharacteristics")
-//  	                  			nTaskLoopActivity++;
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:sendTask")
-//  	                  			nSendTask++;
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:receiveTask")
-//  	                  			nReceiveTask++;
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:userTask")
-//  	                  			nUserTask++;
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:manualTask")
-//  	                  			nManualTask++;
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:businessRuleTask")
-//  	                  			nBusinessRuleTask++;
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:serviceTask")
-//  	                  			nServiceTask++;
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:scriptTask")
-//  	                  			nScriptTask++;
-//  	                  		if(taskChildNodes.item(j).getNodeName() == "bpmn:callActivity")
-//  	                  			nCallActivity++;
-//  	                  	
-//  	                  	}
-//                    }
-//            		
-//            	}
-//            	
-//            	
-//            }
-//            
-//            
-//        } catch (Exception E) {
-//            System.out.println(E);
-//        }
+        // CHOREOGRAPHY
+        //N° of Choreography partecipant
+        XPathExpression exprChoPart = xpath.compile("//bpmn:choreography//bpmn:participant");
+        Object resultChoPart = exprChoPart.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesChoPart = (NodeList) resultChoPart;
+        doc.getDocumentElement().normalize();  
+        nChoreographyParticipant = nodesChoPart.getLength(); 
+        
+        //N° of Choreography task
+        XPathExpression exprChoTask = xpath.compile("//bpmn:choreographyTask");
+        Object resultChoTask = exprChoPart.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesChoTask = (NodeList) resultChoTask;
+        doc.getDocumentElement().normalize();  
+        nChoreographyTask = nodesChoTask.getLength();
+        
+        //N° of Choreography SubProcess
+        XPathExpression exprChoSub = xpath.compile("//bpmn:subChoreography");
+        Object resultChoSub = exprChoSub.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesChoSub = (NodeList) resultChoSub;
+        doc.getDocumentElement().normalize();  
+        nChoreographySubprocess = nodesChoSub.getLength();
+        
+        
         	//creating the rows 
             HSSFRow row = sheet.createRow((short)x+1);  
             //inserting data   
