@@ -1155,15 +1155,101 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nTextAnnotation = nodesTextAnn.getLength();
         
-        TotalElements = nAssociation;
-        
-//        row.createCell(97).setCellValue(nCompensateAssociation);
-//        row.createCell(98).setCellValue(nUnidirectionalAssociation);
-//        row.createCell(99).setCellValue(nUndirectedAssociation);
-//        row.createCell(100).setCellValue(nBidirectionalAssociation);
-//        row.createCell(101).setCellValue(nTextAnnotation);
-//        row.createCell(104).setCellValue(TotalElements);
-        
+        TotalElements = nTask + nTaskMultipleInstanceSequential + nTaskMultipleInstance + nTaskLoopActivity
+                + nReceiveTask+ nSendTask+ nUserTask+ nManualTask
+                + nBusinessRuleTask
+                + nServiceTask
+                + nScriptTask        
+                + nCallActivity
+                + nSubProcess
+                + nTransaction
+                + nAdHocSubProcess
+                + nEventSubProcess
+                + nGroup
+                + nLane
+                + nDataObject
+                + nDataObjectReference
+                + nDataStore
+                + nDataStoreReference
+                + nDataInput
+                + nDataOutput
+                + nExclusiveGateway
+                + nParallelGateway
+                + nInclusiveGateway
+                + nEventBasedGateway
+                + nParallelEventBasedGateway
+                + nComplexGateway
+                + nCondition
+                + nStartMultipleParallelEventDefinition
+                + nStartMultipleEventDefinition
+                + nStartNoneEvent
+                + nStartSignalEventDefinition
+                + nStartConditionalEventDefinition
+                + nStartTimerEventDefinition
+                + nStartMessageEventDefinition
+                + nStartCompensateEventDefinition
+                + nStartEscalationEventDefinition
+                + nStartErrorEventDefinition
+                + nEndNoneEvent
+                + nEndMultipleEventDefinition
+                + nEndEscalationEventDefinition
+                + nEndErrorEventDefinition
+                + nEndSignalEventDefinition
+                + nEndCompensateEventDefinition
+                + nEndCancelEventDefinition 
+                + nEndMessageEventDefinition
+                + nEndTerminateEventDefinition
+                + nIntermediateCatchMultipleEventDefinition
+                + nIntermediateCatchMultipleParallelEventDefinition
+                + nIntermediateCatchMessageEventDefinition
+                + nIntermediateCatchTimerEventDefinition
+                + nIntermediateCatchConditionalEventDefinition
+                + nIntermediateCatchLinkEventDefinition
+                + nIntermediateCatchSignalEventDefinition
+                + nIntermediateThrowNoneEventDefinition
+                + nIntermediateThrowMessageEventDefinition
+                + nIntermediateThrowEscalationEventDefinition
+                + nIntermediateThrowLinkEventDefinition
+                + nIntermediateThrowSignalEventDefinition
+                + nIntermediateThrowCompensateEventDefinition
+                + nIntermediateThrowMultipleParallelEventDefinition
+                + nBoundaryMessageEvent
+                + nBoundaryTimerEvent
+                + nBoundaryCancelEvent
+                + nBoundaryConditionalEvent 
+                + nBoundaryEscalationEvent
+                + nBoundaryErrorEvent
+                + nBoundarySignalEvent
+                + nBoundaryCompensateEvent
+                + nBoundaryTimerEventNonInt
+                + nBoundaryEscalationEventNonInt
+                + nBoundaryConditionalEventNonInt
+                + nBoundaryMessageEventNonInt
+                + nBoundarySignalEventNonInt
+                + nMessageFlow
+                + nSequenceFlow
+                + nDefaultFlow
+                + nConditionalFlow
+                + nPool
+                + nVerticalLane
+                + nVerticalPool
+                + nChoreographyTask
+                + nChoreographyParticipant
+                + nChoreographySubprocess
+                + nConversation
+                + nSubConversation
+                + nCallConversation
+                + nConversationLink
+                + nITSystem
+                + nAssociation
+                + nCompensateAssociation
+                + nUnidirectionalAssociation
+                + nUndirectedAssociation
+                + nBidirectionalAssociation
+                + nTextAnnotation
+                + ndataOutputAssociation
+                + ndataInputAssociation;
+
         
         	//creating the rows 
             HSSFRow row = sheet.createRow((short)x+1);  
