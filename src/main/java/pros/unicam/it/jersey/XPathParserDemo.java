@@ -123,21 +123,21 @@ public class XPathParserDemo {
         rowhead.createCell(78).setCellValue("nBoundaryConditionalEventNonInt");
         rowhead.createCell(79).setCellValue("nBoundaryMessageEventNonInt");
         rowhead.createCell(80).setCellValue("nBoundarySignalEventNonInt");
-//        rowhead.createCell(77).setCellValue("nMessageFlow");
-//        rowhead.createCell(78).setCellValue("nSequenceFlow");
-//        rowhead.createCell(79).setCellValue("nDefaultFlow");
-//        rowhead.createCell(80).setCellValue("nConditionalFlow");
-//        rowhead.createCell(81).setCellValue("nPool");
-//        rowhead.createCell(82).setCellValue("nVerticalLane");
-//        rowhead.createCell(83).setCellValue("nVerticalPool");
-//        rowhead.createCell(84).setCellValue("nChoreographyTask");
-//        rowhead.createCell(85).setCellValue("nChoreographyParticipant");
-//        rowhead.createCell(86).setCellValue("nChoreographySubprocess");
-//        rowhead.createCell(87).setCellValue("nConversation");
-//        rowhead.createCell(88).setCellValue("nSubConversation");
-//        rowhead.createCell(89).setCellValue("nCallConversation");
-//        rowhead.createCell(90).setCellValue("nConversationLink");
-//        rowhead.createCell(91).setCellValue("nITSystem");
+        rowhead.createCell(81).setCellValue("nMessageFlow");
+        rowhead.createCell(82).setCellValue("nSequenceFlow");
+        rowhead.createCell(83).setCellValue("nDefaultFlow");
+        rowhead.createCell(84).setCellValue("nConditionalFlow");
+        rowhead.createCell(85).setCellValue("nPool");
+        rowhead.createCell(86).setCellValue("nVerticalLane");
+        rowhead.createCell(87).setCellValue("nVerticalPool");
+        rowhead.createCell(88).setCellValue("nChoreographyTask");
+        rowhead.createCell(89).setCellValue("nChoreographyParticipant");
+        rowhead.createCell(90).setCellValue("nChoreographySubprocess");
+        rowhead.createCell(91).setCellValue("nConversation");
+        rowhead.createCell(92).setCellValue("nSubConversation");
+        rowhead.createCell(93).setCellValue("nCallConversation");
+        rowhead.createCell(94).setCellValue("nConversationLink");
+        rowhead.createCell(95).setCellValue("nITSystem");
 //        rowhead.createCell(92).setCellValue("nAssociation");
 //        rowhead.createCell(93).setCellValue("nCompensateAssociation");
 //        rowhead.createCell(94).setCellValue("nUnidirectionalAssociation");
@@ -1067,6 +1067,37 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nSequenceFlow = nodesSFlow.getLength();
         
+        //CONVERSATION
+        XPathExpression exprConv = xpath.compile("//bpmn:conversation");
+        Object resultConv = exprConv.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesConv = (NodeList) resultConv;
+        doc.getDocumentElement().normalize();  
+        nConversation = nodesConv.getLength();
+        
+        XPathExpression exprSConv = xpath.compile("//bpmn:subConversation");
+        Object resultSConv = exprSConv.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesSConv = (NodeList) resultSConv;
+        doc.getDocumentElement().normalize();  
+        nSubConversation = nodesSConv.getLength();
+        
+        XPathExpression exprCConv = xpath.compile("//bpmn:callConversation");
+        Object resultCConv = exprCConv.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesCConv = (NodeList) resultCConv;
+        doc.getDocumentElement().normalize();  
+        nCallConversation = nodesCConv.getLength();
+        
+        XPathExpression exprConvLink = xpath.compile("//bpmn:conversationLink");
+        Object resultConvLink = exprConvLink.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesConvLink = (NodeList) resultConvLink;
+        doc.getDocumentElement().normalize();  
+        nConversationLink = nodesConvLink.getLength();
+        
+        //IT SYSTEM
+        XPathExpression exprITS = xpath.compile("//bpmn:textAnnotation//bpmn:extensionElements[@dataObjectType='IT-systems']");
+        Object resultITS = exprITS.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesITS = (NodeList) resultITS;
+        doc.getDocumentElement().normalize();  
+        nITSystem = nodesITS.getLength();
         
         	//creating the rows 
             HSSFRow row = sheet.createRow((short)x+1);  
@@ -1152,21 +1183,21 @@ public class XPathParserDemo {
             row.createCell(78).setCellValue(nBoundaryConditionalEventNonInt);
             row.createCell(79).setCellValue(nBoundaryMessageEventNonInt);
             row.createCell(80).setCellValue(nBoundarySignalEventNonInt);
-//            row.createCell(77).setCellValue(nMessageFlow);
-//            row.createCell(78).setCellValue(nSequenceFlow);
-//            row.createCell(79).setCellValue(nDefaultFlow);
-//            row.createCell(80).setCellValue(nConditionalFlow);
-//            row.createCell(81).setCellValue(nPool);
-//            row.createCell(82).setCellValue(nVerticalLane);
-//            row.createCell(83).setCellValue(nVerticalPool);
-//            row.createCell(84).setCellValue(nChoreographyTask);
-//            row.createCell(85).setCellValue(nChoreographyParticipant);
-//            row.createCell(86).setCellValue(nChoreographySubprocess);
-//            row.createCell(87).setCellValue(nConversation);
-//            row.createCell(88).setCellValue(nSubConversation);
-//            row.createCell(89).setCellValue(nCallConversation);
-//            row.createCell(90).setCellValue(nConversationLink);
-//            row.createCell(91).setCellValue(nITSystem);
+            row.createCell(81).setCellValue(nMessageFlow);
+            row.createCell(82).setCellValue(nSequenceFlow);
+            row.createCell(83).setCellValue(nDefaultFlow);
+            row.createCell(84).setCellValue(nConditionalFlow);
+            row.createCell(85).setCellValue(nPool);
+            row.createCell(86).setCellValue(nVerticalLane);
+            row.createCell(87).setCellValue(nVerticalPool);
+            row.createCell(88).setCellValue(nChoreographyTask);
+            row.createCell(89).setCellValue(nChoreographyParticipant);
+            row.createCell(90).setCellValue(nChoreographySubprocess);
+            row.createCell(91).setCellValue(nConversation);
+            row.createCell(92).setCellValue(nSubConversation);
+            row.createCell(93).setCellValue(nCallConversation);
+            row.createCell(94).setCellValue(nConversationLink);
+            row.createCell(95).setCellValue(nITSystem);
 //            row.createCell(92).setCellValue(nAssociation);
 //            row.createCell(93).setCellValue(nCompensateAssociation);
 //            row.createCell(94).setCellValue(nUnidirectionalAssociation);
