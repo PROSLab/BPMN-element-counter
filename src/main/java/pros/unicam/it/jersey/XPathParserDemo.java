@@ -96,32 +96,33 @@ public class XPathParserDemo {
         rowhead.createCell(51).setCellValue("nEndCancelEventDefinition"); 
         rowhead.createCell(52).setCellValue("nEndMessageEventDefinition");
         rowhead.createCell(53).setCellValue("nEndTerminateEventDefinition");
-//        rowhead.createCell(51).setCellValue("nIntermediateCatchMultipleEventDefinition");
-//        rowhead.createCell(52).setCellValue("nIntermediateCatchMultipleParallelEventDefinition");
-//        rowhead.createCell(53).setCellValue("nIntermediateCatchMessageEventDefinition");
-//        rowhead.createCell(54).setCellValue("nIntermediateCatchTimerEventDefinition");
-//        rowhead.createCell(55).setCellValue("nIntermediateCatchConditionalEventDefinition");
-//        rowhead.createCell(56).setCellValue("nIntermediateCatchLinkEventDefinition");
-//        rowhead.createCell(57).setCellValue("nIntermediateSignalMessageEventDefinition");
-//        rowhead.createCell(58).setCellValue("nIntermediateThrowEvent");
-//        rowhead.createCell(59).setCellValue("nIntermediateThrowMessageEventDefinition");
-//        rowhead.createCell(60).setCellValue("nIntermediateThrowEscalationEventDefinition");
-//        rowhead.createCell(61).setCellValue("nIntermediateThrowLinkEventDefinition");
-//        rowhead.createCell(62).setCellValue("nIntermediateThrowSignalEventDefinition");
-//        rowhead.createCell(63).setCellValue("nIntermediateThrowCompensateEventDefinition");
-//        rowhead.createCell(64).setCellValue("nIntermediateThrowMultipleParallelEventDefinition");
-//        rowhead.createCell(65).setCellValue("nBoundaryMessageEvent");
-//        rowhead.createCell(66).setCellValue("nBoundaryTimerEvent");
-//        rowhead.createCell(67).setCellValue("nBoundaryCancelEvent");
-//        rowhead.createCell(68).setCellValue("nBoundaryConditionalEvent");
-//        rowhead.createCell(69).setCellValue("nBoundaryEscalationEvent");
-//        rowhead.createCell(70).setCellValue("nBoundaryErrorEvent");
-//        rowhead.createCell(71).setCellValue("nBoundarySignalEvent");
-//        rowhead.createCell(72).setCellValue("nBoundaryCompensateEvent");
-//        rowhead.createCell(73).setCellValue("nBoundaryTimerEventNonInt");
-//        rowhead.createCell(74).setCellValue("nBoundaryEscalationEventNonInt");
-//        rowhead.createCell(75).setCellValue("nBoundaryConditionalEventNonInt");
-//        rowhead.createCell(76).setCellValue("nBoundaryMessageEventNonInt");
+        rowhead.createCell(54).setCellValue("nIntermediateCatchMultipleEventDefinition");
+        rowhead.createCell(55).setCellValue("nIntermediateCatchMultipleParallelEventDefinition");
+        rowhead.createCell(56).setCellValue("nIntermediateCatchMessageEventDefinition");
+        rowhead.createCell(57).setCellValue("nIntermediateCatchTimerEventDefinition");
+        rowhead.createCell(58).setCellValue("nIntermediateCatchConditionalEventDefinition");
+        rowhead.createCell(59).setCellValue("nIntermediateCatchLinkEventDefinition");
+        rowhead.createCell(60).setCellValue("nIntermediateCatchSignalEventDefinition");
+        rowhead.createCell(61).setCellValue("nIntermediateThrowNoneEventDefinition");
+        rowhead.createCell(62).setCellValue("nIntermediateThrowMessageEventDefinition");
+        rowhead.createCell(63).setCellValue("nIntermediateThrowEscalationEventDefinition");
+        rowhead.createCell(64).setCellValue("nIntermediateThrowLinkEventDefinition");
+        rowhead.createCell(65).setCellValue("nIntermediateThrowSignalEventDefinition");
+        rowhead.createCell(66).setCellValue("nIntermediateThrowCompensateEventDefinition");
+        rowhead.createCell(67).setCellValue("nIntermediateThrowMultipleParallelEventDefinition");
+        rowhead.createCell(68).setCellValue("nBoundaryMessageEvent");
+        rowhead.createCell(69).setCellValue("nBoundaryTimerEvent");
+        rowhead.createCell(70).setCellValue("nBoundaryCancelEvent");
+        rowhead.createCell(71).setCellValue("nBoundaryConditionalEvent");
+        rowhead.createCell(72).setCellValue("nBoundaryEscalationEvent");
+        rowhead.createCell(73).setCellValue("nBoundaryErrorEvent");
+        rowhead.createCell(74).setCellValue("nBoundarySignalEvent");
+        rowhead.createCell(75).setCellValue("nBoundaryCompensateEvent");
+        rowhead.createCell(76).setCellValue("nBoundaryTimerEventNonInt");
+        rowhead.createCell(77).setCellValue("nBoundaryEscalationEventNonInt");
+        rowhead.createCell(78).setCellValue("nBoundaryConditionalEventNonInt");
+        rowhead.createCell(79).setCellValue("nBoundaryMessageEventNonInt");
+        rowhead.createCell(80).setCellValue("nBoundarySignalEventNonInt");
 //        rowhead.createCell(77).setCellValue("nMessageFlow");
 //        rowhead.createCell(78).setCellValue("nSequenceFlow");
 //        rowhead.createCell(79).setCellValue("nDefaultFlow");
@@ -217,8 +218,8 @@ public class XPathParserDemo {
         int nIntermediateCatchTimerEventDefinition=0;
         int nIntermediateCatchConditionalEventDefinition=0;
         int nIntermediateCatchLinkEventDefinition=0;
-        int nIntermediateSignalMessageEventDefinition=0;
-        int nIntermediateThrowEvent=0;
+        int nIntermediateCatchSignalEventDefinition=0;
+        int nIntermediateThrowNoneEventDefinition=0;
         int nIntermediateThrowMessageEventDefinition=0;
         int nIntermediateThrowEscalationEventDefinition=0;
         int nIntermediateThrowLinkEventDefinition=0;
@@ -237,6 +238,7 @@ public class XPathParserDemo {
         int nBoundaryEscalationEventNonInt=0;
         int nBoundaryConditionalEventNonInt=0;
         int nBoundaryMessageEventNonInt=0;
+        int nBoundarySignalEventNonInt=0;
         int nMessageFlow=0;
         int nSequenceFlow=0;
         int nDefaultFlow=0;
@@ -753,6 +755,244 @@ public class XPathParserDemo {
         	else
         		nEndNoneEvent++;
         }
+        
+        // Intermediate Catch Events
+        
+        XPathExpression exprIntEvent = xpath.compile("//bpmn:intermediateCatchEvent");
+        Object resultIntEvent = exprIntEvent.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesIntEvent = (NodeList) resultIntEvent;
+        doc.getDocumentElement().normalize();         
+        
+        for(int i=0; i<nodesIntEvent.getLength(); i++) {
+        	
+        	Node IntEventNode = nodesIntEvent.item(i);   
+        	
+        	 
+        	if(IntEventNode.hasChildNodes()) {                
+        		
+        		NodeList IntEventChildNodes = IntEventNode.getChildNodes();
+        		         		
+                for(int j=0;j<IntEventChildNodes.getLength(); j++) {
+                
+
+	                  	if(IntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+	                  		
+	                  		if(IntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+	                  			nIntermediateCatchMessageEventDefinition++;
+	                  		}
+	                  		
+	                  		if(IntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")) {
+	                  			nIntermediateCatchTimerEventDefinition++;
+	                  		}
+	                  		
+	                  		if(IntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition")) {
+	                  			nIntermediateCatchConditionalEventDefinition++;
+	                  			}	
+	                  		
+	                  		if(IntEventChildNodes.item(j).getNodeName().contains("linkEventDefinition")) {
+	                  			nIntermediateCatchLinkEventDefinition++;
+	                  		}
+	                  		
+	                  		if(IntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+	                  			nIntermediateCatchSignalEventDefinition++;
+	                  		}
+	                  		
+
+//	                  		//TODO
+//	                  		if(false) {
+//	                  			nIntermediateCatchMultipleEventDefinition++;
+//	                  			}
+	                  		
+	                  	//TODO
+//	                  		if(false) {
+//	                  			nIntermediateCatchMultipleParallelEventDefinition++;
+//	                  			}
+	                  			                  	
+	                  	}
+                }
+        		
+        	} 
+
+        }
+        
+        // Intermediate Throw Events
+        
+        XPathExpression exprThrEvent = xpath.compile("//bpmn:intermediateThrowEvent");
+        Object resultThrEvent = exprThrEvent.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesThrEvent = (NodeList) resultThrEvent;
+        doc.getDocumentElement().normalize();         
+        
+        for(int i=0; i<nodesThrEvent.getLength(); i++) {
+        	
+        	Node ThrEventNode = nodesThrEvent.item(i);   
+        	
+        	 
+        	if(ThrEventNode.hasChildNodes()) {                
+        		
+        		NodeList ThrEventChildNodes = ThrEventNode.getChildNodes();
+        		         		
+                for(int j=0;j<ThrEventChildNodes.getLength(); j++) {
+                
+
+	                  	if(ThrEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+	                  		
+	                  		if(ThrEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+	                  		nIntermediateThrowMessageEventDefinition++;
+	                  		}
+	                  		
+	                  		if(ThrEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
+	                  			nIntermediateThrowEscalationEventDefinition++;
+	                  		}
+	                  		
+	                  		if(ThrEventChildNodes.item(j).getNodeName().contains("linkEventDefinition")) {
+	                  			nIntermediateThrowLinkEventDefinition++;
+	                  		}
+	                  		
+	                  		if(ThrEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+	                  			nIntermediateThrowSignalEventDefinition++;
+	                  		}
+ 		
+	                  		if(ThrEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition")) {
+	                  			nIntermediateThrowCompensateEventDefinition++;
+	                  		}	                  		
+	                  		
+//	                  		//TODO
+//	                  		if(false) {
+//	                  			nIntermediateThrowMultipleEventDefinition++;
+//	                  			}	
+	                  			                  	
+	                  	}
+                }
+        		
+        	} 
+        	else
+        		nIntermediateThrowNoneEventDefinition++;
+        }
+        
+        // Intermediate Catch Events - Boundary Interrupting
+        
+        XPathExpression exprCatchIntEvent = xpath.compile("//bpmn:boundaryEvent");
+        Object resultCatchIntEvent = exprCatchIntEvent.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesCatchIntEvent = (NodeList) resultCatchIntEvent;
+        doc.getDocumentElement().normalize();         
+        
+        for(int i=0; i<nodesCatchIntEvent.getLength(); i++) {
+        	
+        	Node CatchIntEventNode = nodesCatchIntEvent.item(i);   
+        	
+        	 
+        	if(CatchIntEventNode.hasChildNodes()) {                
+        		
+        		NodeList CatchIntEventChildNodes = CatchIntEventNode.getChildNodes();
+        		         		
+                for(int j=0;j<CatchIntEventChildNodes.getLength(); j++) {
+                
+
+	                  	if(CatchIntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+	                  			nBoundaryMessageEvent++;
+	                  		}
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")) {
+	                  			nBoundaryTimerEvent++;
+	                  		}
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
+	                  			nBoundaryEscalationEvent++;
+	                  		}
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition")) {
+	                  			nBoundaryConditionalEvent++;
+	                  		}
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("errorEventDefinition")) {
+	                  			nBoundaryErrorEvent++;
+	                  		}
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
+	                  			nBoundaryCancelEvent++;
+	                  		}	 
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition")) {
+	                  			nBoundaryCompensateEvent++;
+	                  		}	                  		
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+	                  			nBoundarySignalEvent++;
+	                  		}	   
+	                  		
+//	                  		//TODO
+//	                  		if(false) {
+//	                  			nBoundaryMultipleEvent++;
+//	                  			}	
+	                  	//TODO
+//	                  		if(false) {
+//	                  			nBoundaryMultipleParallelEvent++;
+//	                  			}	
+	                  			                  	
+	                  	}
+                }
+        		
+        	} 
+        }
+        
+        // Intermediate Catch Events - Boundary NON Interrupting
+        
+        XPathExpression exprCatchNonIntEvent = xpath.compile("//bpmn:boundaryEvent[@cancelActivity='false']");
+        Object resultCatchNonIntEvent = exprCatchNonIntEvent.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesCatchNonIntEvent = (NodeList) resultCatchNonIntEvent;
+        doc.getDocumentElement().normalize();         
+        
+        for(int i=0; i<nodesCatchNonIntEvent.getLength(); i++) {
+        	
+        	Node CatchNonIntEventNode = nodesCatchNonIntEvent.item(i);   
+        	
+        	 
+        	if(CatchNonIntEventNode.hasChildNodes()) {                
+        		
+        		NodeList CatchNonIntEventChildNodes = CatchNonIntEventNode.getChildNodes();
+        		         		
+                for(int j=0;j<CatchNonIntEventChildNodes.getLength(); j++) {
+                
+
+	                  	if(CatchNonIntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+	                  		
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+	                  			nBoundaryMessageEventNonInt++;
+	                  		}
+	                  		
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")) {
+	                  			nBoundaryTimerEventNonInt++;
+	                  		}
+	                  		
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
+	                  			nBoundaryEscalationEventNonInt++;
+	                  		}
+	                  		
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition")) {
+	                  			nBoundaryConditionalEventNonInt++;
+	                  		}	                  		                  		
+	                  		
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+	                  			nBoundarySignalEventNonInt++;
+	                  		}	   
+	                  		
+//	                  		//TODO
+//	                  		if(false) {
+//	                  			nBoundaryMultipleEvent++;
+//	                  			}	
+	                  	//TODO
+//	                  		if(false) {
+//	                  			nBoundaryMultipleParallelEvent++;
+//	                  			}	
+	                  			                  	
+	                  	}
+                }
+        		
+        	} 
+        }
+        
         //Example of nested search
 //        try {
 //            XPathExpression exprTask = xpath.compile("//bpmn:task");
@@ -868,32 +1108,33 @@ public class XPathParserDemo {
             row.createCell(51).setCellValue(nEndCancelEventDefinition); 
             row.createCell(52).setCellValue(nEndMessageEventDefinition);
             row.createCell(53).setCellValue(nEndTerminateEventDefinition);
-//            row.createCell(51).setCellValue(nIntermediateCatchMultipleEventDefinition);
-//            row.createCell(52).setCellValue(nIntermediateCatchMultipleParallelEventDefinition);
-//            row.createCell(53).setCellValue(nIntermediateCatchMessageEventDefinition);
-//            row.createCell(54).setCellValue(nIntermediateCatchTimerEventDefinition);
-//            row.createCell(55).setCellValue(nIntermediateCatchConditionalEventDefinition);
-//            row.createCell(56).setCellValue(nIntermediateCatchLinkEventDefinition);
-//            row.createCell(57).setCellValue(nIntermediateSignalMessageEventDefinition);
-//            row.createCell(58).setCellValue(nIntermediateThrowEvent);
-//            row.createCell(59).setCellValue(nIntermediateThrowMessageEventDefinition);
-//            row.createCell(60).setCellValue(nIntermediateThrowEscalationEventDefinition);
-//            row.createCell(61).setCellValue(nIntermediateThrowLinkEventDefinition);
-//            row.createCell(62).setCellValue(nIntermediateThrowSignalEventDefinition);
-//            row.createCell(63).setCellValue(nIntermediateThrowCompensateEventDefinition);
-//            row.createCell(64).setCellValue(nIntermediateThrowMultipleParallelEventDefinition);
-//            row.createCell(65).setCellValue(nBoundaryMessageEvent);
-//            row.createCell(66).setCellValue(nBoundaryTimerEvent);
-//            row.createCell(67).setCellValue(nBoundaryCancelEvent);
-//            row.createCell(68).setCellValue(nBoundaryConditionalEvent);
-//            row.createCell(69).setCellValue(nBoundaryEscalationEvent);
-//            row.createCell(70).setCellValue(nBoundaryErrorEvent);
-//            row.createCell(71).setCellValue(nBoundarySignalEvent);
-//            row.createCell(72).setCellValue(nBoundaryCompensateEvent);
-//            row.createCell(73).setCellValue(nBoundaryTimerEventNonInt);
-//            row.createCell(74).setCellValue(nBoundaryEscalationEventNonInt);
-//            row.createCell(75).setCellValue(nBoundaryConditionalEventNonInt);
-//            row.createCell(76).setCellValue(nBoundaryMessageEventNonInt);
+            row.createCell(54).setCellValue(nIntermediateCatchMultipleEventDefinition);
+            row.createCell(55).setCellValue(nIntermediateCatchMultipleParallelEventDefinition);
+            row.createCell(56).setCellValue(nIntermediateCatchMessageEventDefinition);
+            row.createCell(57).setCellValue(nIntermediateCatchTimerEventDefinition);
+            row.createCell(58).setCellValue(nIntermediateCatchConditionalEventDefinition);
+            row.createCell(59).setCellValue(nIntermediateCatchLinkEventDefinition);
+            row.createCell(60).setCellValue(nIntermediateCatchSignalEventDefinition);
+            row.createCell(61).setCellValue(nIntermediateThrowNoneEventDefinition);
+            row.createCell(62).setCellValue(nIntermediateThrowMessageEventDefinition);
+            row.createCell(63).setCellValue(nIntermediateThrowEscalationEventDefinition);
+            row.createCell(64).setCellValue(nIntermediateThrowLinkEventDefinition);
+            row.createCell(65).setCellValue(nIntermediateThrowSignalEventDefinition);
+            row.createCell(66).setCellValue(nIntermediateThrowCompensateEventDefinition);
+            row.createCell(67).setCellValue(nIntermediateThrowMultipleParallelEventDefinition);
+            row.createCell(68).setCellValue(nBoundaryMessageEvent);
+            row.createCell(69).setCellValue(nBoundaryTimerEvent);
+            row.createCell(70).setCellValue(nBoundaryCancelEvent);
+            row.createCell(71).setCellValue(nBoundaryConditionalEvent);
+            row.createCell(72).setCellValue(nBoundaryEscalationEvent);
+            row.createCell(73).setCellValue(nBoundaryErrorEvent);
+            row.createCell(74).setCellValue(nBoundarySignalEvent);
+            row.createCell(75).setCellValue(nBoundaryCompensateEvent);
+            row.createCell(76).setCellValue(nBoundaryTimerEventNonInt);
+            row.createCell(77).setCellValue(nBoundaryEscalationEventNonInt);
+            row.createCell(78).setCellValue(nBoundaryConditionalEventNonInt);
+            row.createCell(79).setCellValue(nBoundaryMessageEventNonInt);
+            row.createCell(80).setCellValue(nBoundarySignalEventNonInt);
 //            row.createCell(77).setCellValue(nMessageFlow);
 //            row.createCell(78).setCellValue(nSequenceFlow);
 //            row.createCell(79).setCellValue(nDefaultFlow);
