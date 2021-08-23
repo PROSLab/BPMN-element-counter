@@ -1031,7 +1031,7 @@ public class XPathParserDemo {
         nLane = nodesLane.getLength();
         
         //N° of Vertical Lane
-        XPathExpression exprVLane = xpath.compile("//bpmn:lane[@isHorizontal='false'");
+        XPathExpression exprVLane = xpath.compile("//bpmn:lane[@isHorizontal='false']");
         Object resultVLane  = exprVLane.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesVLane  = (NodeList) resultVLane;
         doc.getDocumentElement().normalize();  
