@@ -518,13 +518,6 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nGroup = nodesGroup.getLength();
         
-        //N° of Lane 
-        XPathExpression exprLane = xpath.compile("//bpmn:lane");
-        Object resultLane = exprLane.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesLane = (NodeList) resultLane;
-        doc.getDocumentElement().normalize();  
-        nLane = nodesLane.getLength();
-        
         //N° of Condition
         XPathExpression exprCond = xpath.compile("//bpmn:condition");
         Object resultCond = exprCond.evaluate(doc, XPathConstants.NODESET);
@@ -1015,7 +1008,64 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nChoreographySubprocess = nodesChoSub.getLength();
         
+        //POOL
+        //N° of Pool
+        XPathExpression exprPool = xpath.compile("//bpmn:collaboration//bpmn:participant");
+        Object resultPool= exprPool.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesPool = (NodeList) resultPool;
+        doc.getDocumentElement().normalize();  
+        nPool = nodesPool.getLength(); 
         
+        //N° of Vertical Pool
+        XPathExpression exprVPool = xpath.compile("//bpmn:collaboration[@isHorizontal='false']");
+        Object resultVPool = exprVPool.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesVPool = (NodeList) resultVPool;
+        doc.getDocumentElement().normalize();  
+        nVerticalPool = nodesVPool.getLength();
+        
+        //N° of Lane 
+        XPathExpression exprLane = xpath.compile("//bpmn:lane");
+        Object resultLane = exprLane.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesLane = (NodeList) resultLane;
+        doc.getDocumentElement().normalize();  
+        nLane = nodesLane.getLength();
+        
+        //N° of Vertical Lane
+        XPathExpression exprVLane = xpath.compile("//bpmn:lane[@isHorizontal='false'");
+        Object resultVLane  = exprVLane.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesVLane  = (NodeList) resultVLane;
+        doc.getDocumentElement().normalize();  
+        nVerticalLane = nodesVLane.getLength();
+        
+        
+        //FLOW
+        //N° of Choreography partecipant
+        XPathExpression exprChoPart = xpath.compile("//bpmn:choreography//bpmn:participant");
+        Object resultChoPart = exprChoPart.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesChoPart = (NodeList) resultChoPart;
+        doc.getDocumentElement().normalize();  
+        nChoreographyParticipant = nodesChoPart.getLength(); 
+        
+        //N° of Choreography task
+        XPathExpression exprChoTask = xpath.compile("//bpmn:choreographyTask");
+        Object resultChoTask = exprChoPart.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesChoTask = (NodeList) resultChoTask;
+        doc.getDocumentElement().normalize();  
+        nChoreographyTask = nodesChoTask.getLength();
+        
+        //N° of Choreography SubProcess
+        XPathExpression exprChoSub = xpath.compile("//bpmn:subChoreography");
+        Object resultChoSub = exprChoSub.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesChoSub = (NodeList) resultChoSub;
+        doc.getDocumentElement().normalize();  
+        nChoreographySubprocess = nodesChoSub.getLength();
+        
+        //N° of Choreography SubProcess
+        XPathExpression exprChoSub = xpath.compile("//bpmn:subChoreography");
+        Object resultChoSub = exprChoSub.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesChoSub = (NodeList) resultChoSub;
+        doc.getDocumentElement().normalize();  
+        nChoreographySubprocess = nodesChoSub.getLength();
         	//creating the rows 
             HSSFRow row = sheet.createRow((short)x+1);  
             //inserting data   
