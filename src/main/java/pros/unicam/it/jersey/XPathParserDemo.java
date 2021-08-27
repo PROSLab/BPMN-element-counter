@@ -128,26 +128,27 @@ public class XPathParserDemo {
         rowhead.createCell(83).setCellValue("nDefaultFlow");
         rowhead.createCell(84).setCellValue("nConditionalFlow");
         rowhead.createCell(85).setCellValue("nPool");
-        rowhead.createCell(86).setCellValue("nVerticalLane");
-        rowhead.createCell(87).setCellValue("nVerticalPool");
-        rowhead.createCell(88).setCellValue("nChoreographyTask");
-        rowhead.createCell(89).setCellValue("nChoreographyParticipant");
-        rowhead.createCell(90).setCellValue("nChoreographySubprocess");
-        rowhead.createCell(91).setCellValue("nConversation");
-        rowhead.createCell(92).setCellValue("nSubConversation");
-        rowhead.createCell(93).setCellValue("nCallConversation");
-        rowhead.createCell(94).setCellValue("nConversationLink");
-        rowhead.createCell(95).setCellValue("nITSystem");
-        rowhead.createCell(96).setCellValue("nAssociation");
-        rowhead.createCell(97).setCellValue("nCompensateAssociation");
-        rowhead.createCell(98).setCellValue("nUnidirectionalAssociation");
-        rowhead.createCell(99).setCellValue("nUndirectedAssociation");
-        rowhead.createCell(100).setCellValue("nBidirectionalAssociation");
-        rowhead.createCell(101).setCellValue("nTextAnnotation");
-        rowhead.createCell(102).setCellValue("ndataOutputAssociation");
-        rowhead.createCell(103).setCellValue("ndataInputAssociation");
-        rowhead.createCell(104).setCellValue("nOfExtensionElements");
-        rowhead.createCell(105).setCellValue("TotalElements");
+        rowhead.createCell(86).setCellValue("nCollapsedPool");       
+        rowhead.createCell(87).setCellValue("nVerticalLane");
+        rowhead.createCell(88).setCellValue("nVerticalPool");
+        rowhead.createCell(89).setCellValue("nChoreographyTask");
+        rowhead.createCell(90).setCellValue("nChoreographyParticipant");
+        rowhead.createCell(91).setCellValue("nChoreographySubprocess");
+        rowhead.createCell(92).setCellValue("nConversation");
+        rowhead.createCell(93).setCellValue("nSubConversation");
+        rowhead.createCell(94).setCellValue("nCallConversation");
+        rowhead.createCell(95).setCellValue("nConversationLink");
+        rowhead.createCell(96).setCellValue("nITSystem");
+        rowhead.createCell(97).setCellValue("nAssociation");
+        rowhead.createCell(98).setCellValue("nCompensateAssociation");
+        rowhead.createCell(99).setCellValue("nUnidirectionalAssociation");
+        rowhead.createCell(100).setCellValue("nUndirectedAssociation");
+        rowhead.createCell(101).setCellValue("nBidirectionalAssociation");
+        rowhead.createCell(102).setCellValue("nTextAnnotation");
+        rowhead.createCell(103).setCellValue("ndataOutputAssociation");
+        rowhead.createCell(104).setCellValue("ndataInputAssociation");
+        rowhead.createCell(105).setCellValue("nOfExtensionElements");
+        rowhead.createCell(106).setCellValue("TotalElements");
         
         // File's cycle of the testmodels folder
         File folder = new File("testmodels");
@@ -244,6 +245,7 @@ public class XPathParserDemo {
         int nDefaultFlow=0;
         int nConditionalFlow=0;
         int nPool=0;
+        int nCollapsedPool=0;
         int nVerticalLane=0;
         int nVerticalPool=0;
         int nChoreographyTask=0;
@@ -1011,11 +1013,18 @@ public class XPathParserDemo {
         
         //POOL
         //N° of Pool
-        XPathExpression exprPool = xpath.compile("//bpmn:collaboration//bpmn:participant");
+        XPathExpression exprPool = xpath.compile("//bpmn:collaboration//bpmn:participant[@processRef]");
         Object resultPool= exprPool.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesPool = (NodeList) resultPool;
         doc.getDocumentElement().normalize();  
         nPool = nodesPool.getLength(); 
+        
+        //N° of CollapsedPool
+        XPathExpression exprCPool = xpath.compile("//bpmn:collaboration//bpmn:participant");
+        Object resultCPool= exprCPool.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesCPool = (NodeList) resultCPool;
+        doc.getDocumentElement().normalize();  
+        nCollapsedPool = nodesCPool.getLength() - nodesPool.getLength(); 
         
         //N° of Vertical Pool
         XPathExpression exprVPool = xpath.compile("//bpmn:collaboration[@isHorizontal='false']");
@@ -1157,7 +1166,7 @@ public class XPathParserDemo {
         nTextAnnotation = nodesTextAnn.getLength();
         
         //Extension Elements 
-        XPathExpression exprExtension = xpath.compile("//bpmn:textAnnotation");
+        XPathExpression exprExtension = xpath.compile("//bpmn:extensionElements");
         Object resultExtension = exprExtension.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesExtension = (NodeList) resultExtension;
         doc.getDocumentElement().normalize();  
@@ -1348,26 +1357,27 @@ public class XPathParserDemo {
             row.createCell(83).setCellValue(nDefaultFlow);
             row.createCell(84).setCellValue(nConditionalFlow);
             row.createCell(85).setCellValue(nPool);
-            row.createCell(86).setCellValue(nVerticalLane);
-            row.createCell(87).setCellValue(nVerticalPool);
-            row.createCell(88).setCellValue(nChoreographyTask);
-            row.createCell(89).setCellValue(nChoreographyParticipant);
-            row.createCell(90).setCellValue(nChoreographySubprocess);
-            row.createCell(91).setCellValue(nConversation);
-            row.createCell(92).setCellValue(nSubConversation);
-            row.createCell(93).setCellValue(nCallConversation);
-            row.createCell(94).setCellValue(nConversationLink);
-            row.createCell(95).setCellValue(nITSystem);
-            row.createCell(96).setCellValue(nAssociation);
-            row.createCell(97).setCellValue(nCompensateAssociation);
-            row.createCell(98).setCellValue(nUnidirectionalAssociation);
-            row.createCell(99).setCellValue(nUndirectedAssociation);
-            row.createCell(100).setCellValue(nBidirectionalAssociation);
-            row.createCell(101).setCellValue(nTextAnnotation);
-            row.createCell(102).setCellValue(ndataOutputAssociation);
-            row.createCell(103).setCellValue(ndataInputAssociation);
-            row.createCell(104).setCellValue(nOfExtensionElements);
-            row.createCell(105).setCellValue(TotalElements);
+            row.createCell(86).setCellValue(nCollapsedPool);            
+            row.createCell(87).setCellValue(nVerticalLane);
+            row.createCell(88).setCellValue(nVerticalPool);
+            row.createCell(89).setCellValue(nChoreographyTask);
+            row.createCell(90).setCellValue(nChoreographyParticipant);
+            row.createCell(91).setCellValue(nChoreographySubprocess);
+            row.createCell(92).setCellValue(nConversation);
+            row.createCell(93).setCellValue(nSubConversation);
+            row.createCell(94).setCellValue(nCallConversation);
+            row.createCell(95).setCellValue(nConversationLink);
+            row.createCell(96).setCellValue(nITSystem);
+            row.createCell(97).setCellValue(nAssociation);
+            row.createCell(98).setCellValue(nCompensateAssociation);
+            row.createCell(99).setCellValue(nUnidirectionalAssociation);
+            row.createCell(100).setCellValue(nUndirectedAssociation);
+            row.createCell(101).setCellValue(nBidirectionalAssociation);
+            row.createCell(102).setCellValue(nTextAnnotation);
+            row.createCell(103).setCellValue(ndataOutputAssociation);
+            row.createCell(104).setCellValue(ndataInputAssociation);
+            row.createCell(105).setCellValue(nOfExtensionElements);
+            row.createCell(106).setCellValue(TotalElements);
             
             
       		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xls");
