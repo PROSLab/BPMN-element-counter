@@ -146,8 +146,8 @@ public class XPathParserDemo {
         rowhead.createCell(101).setCellValue("nTextAnnotation");
         rowhead.createCell(102).setCellValue("ndataOutputAssociation");
         rowhead.createCell(103).setCellValue("ndataInputAssociation");
-        rowhead.createCell(104).setCellValue("TotalElements");
-        
+        rowhead.createCell(104).setCellValue("nOfExtensionElements");
+        rowhead.createCell(105).setCellValue("TotalElements");
         
         // File's cycle of the testmodels folder
         File folder = new File("testmodels");
@@ -262,6 +262,7 @@ public class XPathParserDemo {
         int nTextAnnotation=0;
         int ndataOutputAssociation=0;
         int ndataInputAssociation=0;
+        int nOfExtensionElements=0;
         int TotalElements=0;
         boolean isEnglish=false;
             
@@ -1155,6 +1156,13 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nTextAnnotation = nodesTextAnn.getLength();
         
+        //Extension Elements 
+        XPathExpression exprExtension = xpath.compile("//bpmn:textAnnotation");
+        Object resultExtension = exprExtension.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesExtension = (NodeList) resultExtension;
+        doc.getDocumentElement().normalize();  
+        nOfExtensionElements = nodesExtension.getLength();
+        
         TotalElements = nTask + nTaskMultipleInstanceSequential + nTaskMultipleInstance + nTaskLoopActivity
                 + nReceiveTask+ nSendTask+ nUserTask+ nManualTask
                 + nBusinessRuleTask
@@ -1358,7 +1366,8 @@ public class XPathParserDemo {
             row.createCell(101).setCellValue(nTextAnnotation);
             row.createCell(102).setCellValue(ndataOutputAssociation);
             row.createCell(103).setCellValue(ndataInputAssociation);
-            row.createCell(104).setCellValue(TotalElements);
+            row.createCell(104).setCellValue(nOfExtensionElements);
+            row.createCell(105).setCellValue(TotalElements);
             
             
       		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xls");
