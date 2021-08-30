@@ -703,24 +703,30 @@ public class XPathParserDemo {
         	
         	Node EndEventNode = nodesEndEvent.item(i);   
         	
-        	 
+        	
+        	
         	if(EndEventNode.hasChildNodes()) {                
         		
         		NodeList EndEventChildNodes = EndEventNode.getChildNodes();
-        		         		
+        		   
+        		boolean msg = false;
+                boolean term = false;
+                boolean canc = false;
+        		
                 for(int j=0;j<EndEventChildNodes.getLength(); j++) {
                 
-
+                
+                	
 	                  	if(EndEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 	                  		
-	                  		
-
+	                
 	                  		if(EndEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
 	                  			nEndSignalEventDefinition++;
 	                  		}
 	                  		
 	                  		if(EndEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
 	                  			nEndMessageEventDefinition++;
+	                  			msg = true;
 	                  			}
 	                  		
 	                  		if(EndEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition")) {
@@ -737,20 +743,22 @@ public class XPathParserDemo {
 	                  		
 	                  		if(EndEventChildNodes.item(j).getNodeName().contains("terminateEventDefinition")) {
 	                  			nEndTerminateEventDefinition++;
+	                  			 term = true;
 	                  			}
 	                  		
 	                  		if(EndEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
-	                  			nEndCancelEventDefinition++;
+	                  			nEndCancelEventDefinition++;	                  			
+	                  			canc = true;
 	                  			}
-	                  		
-//	                  		//TODO
-//	                  		if(false) {
-//	                  			nEndMultipleEventDefinition++;
-//	                  			}	
-	                  			                  	
-	                  	}
-                }
-        		
+	                  		       
+	                  		if(msg && term && canc) {
+	                  			nEndMultipleEventDefinition++;
+	                  			nEndCancelEventDefinition = nEndCancelEventDefinition - nEndMultipleEventDefinition;
+	                  			nEndTerminateEventDefinition = nEndTerminateEventDefinition - nEndMultipleEventDefinition;
+	                  			nEndMessageEventDefinition = nEndMessageEventDefinition - nEndMultipleEventDefinition;
+	                 }
+	               }
+                }      		
         	} 
         	else
         		nEndNoneEvent++;
