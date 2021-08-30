@@ -414,9 +414,7 @@ public class XPathParserDemo {
                   for(int j=0;j<taskChildNodes.getLength(); j++) {
                 	 
                 	     
-	                  	if(taskChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-	                  		
-	                  
+	                  	if(taskChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {            
 	                  		
 	                  		if(taskChildNodes.item(j).getNodeName().contains("standardLoopCharacteristics")) {
 	                  			nTaskLoopActivity++;
@@ -630,11 +628,18 @@ public class XPathParserDemo {
         NodeList nodesStartEvent = (NodeList) resultStartEvent;
         doc.getDocumentElement().normalize();         
         
+//        
+//		++;
+        
         for(int i=0; i<nodesStartEvent.getLength(); i++) {
         	
         	Node StartEventNode = nodesStartEvent.item(i);   
         	
-        	 
+        	if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true")) {
+        		nStartMultipleParallelEventDefinition++;
+        	}
+        	else 
+        	
         	if(StartEventNode.hasChildNodes()) {                
         		
         		NodeList StartEventChildNodes = StartEventNode.getChildNodes();
@@ -644,8 +649,11 @@ public class XPathParserDemo {
 
 	                  	if(StartEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 	                  		
-	                  		
-
+	                  		if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false && StartEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
+	                  			
+	                  			nStartMultipleEventDefinition++;
+	                  	   }
+	                  				                  			
 	                  		if(StartEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
 	                  			nStartSignalEventDefinition++;
 	                  		}
@@ -674,14 +682,7 @@ public class XPathParserDemo {
 	                  			nStartErrorEventDefinition++;
 	                  			}	
 	                  		
-	                  		//TODO
-//	                  		if(false) {
-//	                  			nStartMultipleParallelEventDefinition++;
-//	                  			}	
-//	                  		//TODO
-//	                  		if(false) {
-//	                  			nStartMultipleEventDefinition++;
-//	                  			}	
+
 	                  			                  	
 	                  	}
                 }
