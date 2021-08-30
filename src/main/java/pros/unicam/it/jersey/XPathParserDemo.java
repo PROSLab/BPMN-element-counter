@@ -628,17 +628,13 @@ public class XPathParserDemo {
         NodeList nodesStartEvent = (NodeList) resultStartEvent;
         doc.getDocumentElement().normalize();         
         
-//        
-//		++;
-        
         for(int i=0; i<nodesStartEvent.getLength(); i++) {
         	
         	Node StartEventNode = nodesStartEvent.item(i);   
         	
         	if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true")) {
         		nStartMultipleParallelEventDefinition++;
-        	}
-        	else 
+        	}      	
         	
         	if(StartEventNode.hasChildNodes()) {                
         		
@@ -763,7 +759,7 @@ public class XPathParserDemo {
         	else
         		nEndNoneEvent++;
         }
-        
+
         // Intermediate Catch Events
         
         XPathExpression exprIntEvent = xpath.compile("//bpmn:intermediateCatchEvent");
@@ -775,15 +771,22 @@ public class XPathParserDemo {
         	
         	Node IntEventNode = nodesIntEvent.item(i);   
         	
+        	if(((Element) nodesIntEvent.item(i)).getAttribute("parallelMultiple").contains("true")) {
+        		nIntermediateCatchMultipleParallelEventDefinition++;
+        	}           	
         	 
         	if(IntEventNode.hasChildNodes()) {                
         		
         		NodeList IntEventChildNodes = IntEventNode.getChildNodes();
         		         		
                 for(int j=0;j<IntEventChildNodes.getLength(); j++) {
-                
+                		
 
 	                  	if(IntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+	                  		
+	                  		if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false && IntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
+	                  			nIntermediateCatchMultipleEventDefinition++;
+	                  	   }
 	                  		
 	                  		if(IntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
 	                  			nIntermediateCatchMessageEventDefinition++;
@@ -803,18 +806,7 @@ public class XPathParserDemo {
 	                  		
 	                  		if(IntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
 	                  			nIntermediateCatchSignalEventDefinition++;
-	                  		}
-	                  		
-
-//	                  		//TODO
-//	                  		if(false) {
-//	                  			nIntermediateCatchMultipleEventDefinition++;
-//	                  			}
-	                  		
-	                  	//TODO
-//	                  		if(false) {
-//	                  			nIntermediateCatchMultipleParallelEventDefinition++;
-//	                  			}
+	                  		}	                  			                  		
 	                  			                  	
 	                  	}
                 }
