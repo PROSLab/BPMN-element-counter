@@ -396,12 +396,11 @@ public class XPathParserDemo {
 //        nTaskMultipleIstanceSequential
 //        nTaskLoopActivity
         
-          XPathExpression exprTask = xpath.compile("//bpmn:task");
-          Object result = exprTask.evaluate(doc, XPathConstants.NODESET);
-          NodeList nodesTask = (NodeList) result;
-          doc.getDocumentElement().normalize();  
-          //N° of normal tasks
-          nTask = nodesTask.getLength();
+        //N° of normal tasks
+        XPathExpression exprTask = xpath.compile("//bpmn:task");
+        Object result = exprTask.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask = (NodeList) result;
+        doc.getDocumentElement().normalize(); 
           
           for(int i=0; i<nodesTask.getLength() ; i++) {
           	
@@ -418,11 +417,11 @@ public class XPathParserDemo {
 	                  	if(taskChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 	                  		
 	                  
-	                  		// TODO BUG
+	                  		
 	                  		if(taskChildNodes.item(j).getNodeName().contains("standardLoopCharacteristics")) {
 	                  			nTaskLoopActivity++;
 	                  		}
-	                  		//isSequential= true TODO
+	                  		
 	                  		if(taskChildNodes.item(j).getNodeName().contains("multiInstanceLoopCharacteristics")  && ((Element) taskChildNodes.item(j)).getAttribute("isSequential").contains("true")) {
 	                  			nTaskMultipleInstanceSequential++;
 
@@ -436,8 +435,10 @@ public class XPathParserDemo {
           	
           	
           }
+          
+                
+        nTask = nodesTask.getLength() - nTaskLoopActivity - nTaskMultipleInstanceSequential - nTaskMultipleInstance;
 
-  
         
         //N° of receive tasks
         XPathExpression exprreceiveTask = xpath.compile("//bpmn:receiveTask");
@@ -1175,11 +1176,11 @@ public class XPathParserDemo {
         nTextAnnotation = nodesTextAnn.getLength();
         
         //Extension Elements 
-        XPathExpression exprExtension = xpath.compile("//bpmn:extensionElements");
-        Object resultExtension = exprExtension.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesExtension = (NodeList) resultExtension;
-        doc.getDocumentElement().normalize();  
-        nOfExtensionElements = nodesExtension.getLength();
+//        XPathExpression exprExtension = xpath.compile("//bpmn:extensionElements");
+//        Object resultExtension = exprExtension.evaluate(doc, XPathConstants.NODESET);
+//        NodeList nodesExtension = (NodeList) resultExtension;
+//        doc.getDocumentElement().normalize();  
+//        nOfExtensionElements = nodesExtension.getLength();
         
         TotalElements = nTask + nTaskMultipleInstanceSequential + nTaskMultipleInstance + nTaskLoopActivity
                 + nReceiveTask+ nSendTask+ nUserTask+ nManualTask
