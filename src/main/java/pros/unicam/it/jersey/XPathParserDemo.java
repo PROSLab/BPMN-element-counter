@@ -781,7 +781,6 @@ public class XPathParserDemo {
         		         		
                 for(int j=0;j<IntEventChildNodes.getLength(); j++) {
                 		
-
 	                  	if(IntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 	                  		
 	                  		if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false && IntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
@@ -825,7 +824,6 @@ public class XPathParserDemo {
         for(int i=0; i<nodesThrEvent.getLength(); i++) {
         	
         	Node ThrEventNode = nodesThrEvent.item(i);   
-        	
         	 
         	if(ThrEventNode.hasChildNodes()) {                
         		
@@ -856,10 +854,9 @@ public class XPathParserDemo {
 	                  			nIntermediateThrowCompensateEventDefinition++;
 	                  		}	                  		
 	                  		
-//	                  		//TODO
-//	                  		if(false) {
-//	                  			nIntermediateThrowMultipleEventDefinition++;
-//	                  			}	
+	                  		if(ThrEventChildNodes.item(j).getNodeName().contains("terminateEventDefinition")) {
+	                  		   nIntermediateThrowMultipleParallelEventDefinition++;
+	                  		}
 	                  			                  	
 	                  	}
                 }
