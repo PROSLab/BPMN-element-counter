@@ -27,6 +27,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 
 public class XPathParserDemo {
@@ -876,70 +877,76 @@ public class XPathParserDemo {
         
         // Intermediate Catch Events - Boundary Interrupting
         
-        XPathExpression exprBoundaryCatchIntEvent = xpath.compile("//bpmn:boundaryEvent[@cancelActivity='true']");
+        XPathExpression exprBoundaryCatchIntEvent = xpath.compile("//bpmn:boundaryEvent");
         Object resultBoundaryCatchIntEvent = exprBoundaryCatchIntEvent.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesBoundaryCatchIntEvent = (NodeList) resultBoundaryCatchIntEvent;
-        doc.getDocumentElement().normalize();         
+        doc.getDocumentElement().normalize();  
         
         for(int i=0; i<nodesBoundaryCatchIntEvent.getLength(); i++) {
         	
         	Node BoundaryCatchIntEventNode = nodesBoundaryCatchIntEvent.item(i);   
         	
-        	if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true")) {
-        		nBoundaryMultipleParallelEvent++;
-        	}           	
-        	
         	if(BoundaryCatchIntEventNode.hasChildNodes()) {                
         		
         		NodeList CatchIntEventChildNodes = BoundaryCatchIntEventNode.getChildNodes();
-        		         		
+
                 for(int j=0;j<CatchIntEventChildNodes.getLength(); j++) {
-                
-                		boolean canc = false;
-                		
+                		                                	
 	                  	if(CatchIntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-	                  			                  			     
 	                  		
-	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+	                  		if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
+	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	                    		nBoundaryMultipleParallelEvent++;
+	                    		break;
+	                    	}           
+	                  		
+	                  		if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false &&
+	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	                    		nBoundaryMultipleEvent++;
+	                    		break;
+	                    	}      
+	                  		
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition") &&
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
 	                  			nBoundaryMessageEvent++;
 	                  		}
 	                  		
-	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")) {
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition") &&
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
 	                  			nBoundaryTimerEvent++;
 	                  		}
 	                  		
-	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition") &&
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
 	                  			nBoundaryEscalationEvent++;
 	                  		}
 	                  		
-	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition")) {
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition") &&
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
 	                  			nBoundaryConditionalEvent++;
 	                  		}
 	                  		
-	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("errorEventDefinition")) {
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("errorEventDefinition") &&
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
 	                  			nBoundaryErrorEvent++;
 	                  		}
+
 	                  		
-	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition") &&
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
 	                  			nBoundaryCancelEvent++;
-	                  			canc = true;
 	                  		}	 
 	                  		
-	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition")) {
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition") &&
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
 	                  			nBoundaryCompensateEvent++;
 	                  		}	                  		
 	                  		
-	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition") &&
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
 	                  			nBoundarySignalEvent++;
 	                  		}	   
-	                  		
-	                  		//TODO BUG
-	                  		if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false && 
-		                  			 CatchIntEventChildNodes.item(j).getNodeName().contains("terminateEventDefinition") && canc == true) {
-		                  			nBoundaryMultipleEvent++;
-		                  			nBoundaryCancelEvent--;
-		                  	   }
-	                  		             	
+                  		             	
 	                  	}
                 }
         		
@@ -948,7 +955,7 @@ public class XPathParserDemo {
         
         // Intermediate Catch Events - Boundary NON Interrupting
         
-        XPathExpression exprCatchNonIntEvent = xpath.compile("//bpmn:boundaryEvent[@cancelActivity='false']");
+        XPathExpression exprCatchNonIntEvent = xpath.compile("//bpmn:boundaryEvent");
         Object resultCatchNonIntEvent = exprCatchNonIntEvent.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesCatchNonIntEvent = (NodeList) resultCatchNonIntEvent;
         doc.getDocumentElement().normalize();         
@@ -957,9 +964,7 @@ public class XPathParserDemo {
         	
         	Node CatchNonIntEventNode = nodesCatchNonIntEvent.item(i);   
         	
-        	if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true")) {
-        		nBoundaryMultipleParallelEventNonInt++;
-        	}           	       	
+            	       	
         	 
         	if(CatchNonIntEventNode.hasChildNodes()) {                
         		
@@ -970,38 +975,47 @@ public class XPathParserDemo {
 
 	                  	if(CatchNonIntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 	                  		
-	                  		if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false && CatchNonIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
+	                  		if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false &&
+	                  		   ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false") &&
+	                  			CatchNonIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
 	                  			nBoundaryMultipleEventNonInt++;
-	                  	    }	                  		
+	                  			break;
+	                  	    }	     
 	                  		
-	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+	                  		if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
+	 	                  	   ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false") &&
+	 	                  	   CatchNonIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
+	                  		   nBoundaryMultipleParallelEventNonInt++;
+	 	                  			break;
+	 	                  	    }	                  		
+	 	                  		
+	                  		
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition") &&
+	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
 	                  			nBoundaryMessageEventNonInt++;
+	                  			break;
 	                  		}
 	                  		
-	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")) {
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")&&
+	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
 	                  			nBoundaryTimerEventNonInt++;
 	                  		}
 	                  		
-	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")&&
+	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
 	                  			nBoundaryEscalationEventNonInt++;
 	                  		}
 	                  		
-	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition")) {
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition") &&
+	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")){
 	                  			nBoundaryConditionalEventNonInt++;
 	                  		}	                  		                  		
 	                  		
-	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")&&
+	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
 	                  			nBoundarySignalEventNonInt++;
 	                  		}	   
 	                  		
-//	                  		//TODO
-//	                  		if(false) {
-//	                  			nBoundaryMultipleEventNonInt++;
-//	                  			}	
-	                  	//TODO
-//	                  		if(false) {
-//	                  			nBoundaryMultipleParallelEventNonInt++;
-//	                  			}	
 	                  			                  	
 	                  	}
                 }
