@@ -528,7 +528,7 @@ public class XPathParserDemo {
         Object resultSubPPMI = exprSubPPMI.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesSubPPMI = (NodeList) resultSubPPMI;
         doc.getDocumentElement().normalize();  
-        nSubProcessParallelMultipleInstance = nodesSubPPMI.getLength();
+        nSubProcessParallelMultipleInstance = nodesSubPPMI.getLength() - nodesSubPSMI.getLength();
         
         //N° of eventsubprocess  
         XPathExpression exprESubP = xpath.compile("//bpmn:subProcess[@triggeredByEvent='true']");
