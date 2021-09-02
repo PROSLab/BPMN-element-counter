@@ -31,12 +31,17 @@ import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 
 public class XPathParserDemo {
+	
+	private boolean ConsiderExtendedSubProcess= true;
 
     public static void main(String[] args) throws Exception {
     	
     	
+    	//TO ADD RESPET TO PYTHON SCRIPT
     	
         
+        
+
         
         //Creation of the xls empty file
         Workbook wb = new HSSFWorkbook();    
@@ -47,6 +52,132 @@ public class XPathParserDemo {
         rowhead.createCell(1).setCellValue("BPMN Modeler"); 
         rowhead.createCell(2).setCellValue("isEnglish");
         rowhead.createCell(3).setCellValue("Model Type");  
+        rowhead.createCell(4).setCellValue("nTask");
+        rowhead.createCell(5).setCellValue("nTaskMultipleInstance");
+        rowhead.createCell(6).setCellValue("nTaskMultipleInstanceSequential");
+        rowhead.createCell(6).setCellValue("nTaskMultipleInstanceParallel");
+        rowhead.createCell(7).setCellValue("nTaskLoopActivity");
+        rowhead.createCell(8).setCellValue("nReceiveTask");
+        rowhead.createCell(9).setCellValue("nSendTask");
+        rowhead.createCell(10).setCellValue("nUserTask");
+        rowhead.createCell(11).setCellValue("nManualTask");
+        rowhead.createCell(12).setCellValue("nBusinessRuleTask");
+        rowhead.createCell(13).setCellValue("nServiceTask");
+        rowhead.createCell(14).setCellValue("nScriptTask");       
+        rowhead.createCell(15).setCellValue("nCallActivity");
+        rowhead.createCell(16).setCellValue("nSubProcessExpanded"); //nSubProcessExpanded
+        rowhead.createCell(16).setCellValue("nSubProcessCollapsed");
+        rowhead.createCell(17).setCellValue("nSubProcessLoop");
+        rowhead.createCell(18).setCellValue("nSubProcessSequentialMultipleInstance");
+        rowhead.createCell(19).setCellValue("nSubProcessParallelMultipleInstance");
+        rowhead.createCell(20).setCellValue("nTransaction");
+        rowhead.createCell(21).setCellValue("nSubProcessAdHoc"); //nSubProcessAdHoc
+        rowhead.createCell(22).setCellValue("nSubProcessEvent");
+        rowhead.createCell(23).setCellValue("nGroup");
+        rowhead.createCell(24).setCellValue("nLane");
+        rowhead.createCell(25).setCellValue("nDataObject");
+        rowhead.createCell(26).setCellValue("nDataObjectReference");
+        rowhead.createCell(27).setCellValue("nDataStore");
+        rowhead.createCell(28).setCellValue("nDataStoreReference");
+        rowhead.createCell(29).setCellValue("nDataInput");
+        rowhead.createCell(30).setCellValue("nDataOutput");
+        rowhead.createCell(31).setCellValue("nExclusiveGatewayEmpty");
+        rowhead.createCell(31).setCellValue("nExclusiveGateway");
+        rowhead.createCell(32).setCellValue("nParallelGateway");
+        rowhead.createCell(33).setCellValue("nInclusiveGateway");
+        rowhead.createCell(34).setCellValue("nEventBasedGateway");
+        rowhead.createCell(35).setCellValue("nParallelEventBasedGateway");
+        rowhead.createCell(36).setCellValue("nComplexGateway");
+        rowhead.createCell(37).setCellValue("nCondition");
+        rowhead.createCell(38).setCellValue("nStartNoneEvent");
+        rowhead.createCell(39).setCellValue("nStartMultipleParallelEventDefinition");
+        rowhead.createCell(40).setCellValue("nStartMultipleEventDefinition");
+        rowhead.createCell(41).setCellValue("nStartSignalEventDefinition");
+        rowhead.createCell(42).setCellValue("nStartConditionalEventDefinition");
+        rowhead.createCell(43).setCellValue("nStartTimerEventDefinition");
+        rowhead.createCell(44).setCellValue("nStartMessageEventDefinition");
+        rowhead.createCell(45).setCellValue("nStartCompensateEventDefinition");
+        rowhead.createCell(46).setCellValue("nStartEscalationEventDefinition");
+        rowhead.createCell(47).setCellValue("nStartErrorEventDefinition");
+        rowhead.createCell(48).setCellValue("nEndNoneEvent");
+        rowhead.createCell(49).setCellValue("nEndMultipleEventDefinition"); 
+        rowhead.createCell(50).setCellValue("nEndEscalationEventDefinition");
+        rowhead.createCell(51).setCellValue("nEndErrorEventDefinition");
+        rowhead.createCell(52).setCellValue("nEndSignalEventDefinition");
+        rowhead.createCell(53).setCellValue("nEndCompensateEventDefinition");
+        rowhead.createCell(54).setCellValue("nEndCancelEventDefinition"); 
+        rowhead.createCell(55).setCellValue("nEndMessageEventDefinition");
+        rowhead.createCell(56).setCellValue("nEndTerminateEventDefinition");
+        rowhead.createCell(57).setCellValue("nIntermediateCatchMultipleEventDefinition");
+        rowhead.createCell(58).setCellValue("nIntermediateCatchMultipleParallelEventDefinition");
+        rowhead.createCell(59).setCellValue("nIntermediateCatchMessageEventDefinition");
+        rowhead.createCell(60).setCellValue("nIntermediateCatchTimerEventDefinition");
+        rowhead.createCell(61).setCellValue("nIntermediateCatchConditionalEventDefinition");
+        rowhead.createCell(62).setCellValue("nIntermediateCatchLinkEventDefinition");
+        rowhead.createCell(63).setCellValue("nIntermediateCatchSignalEventDefinition");
+        rowhead.createCell(64).setCellValue("nIntermediateThrowNoneEventDefinition");
+        rowhead.createCell(65).setCellValue("nIntermediateThrowMessageEventDefinition");
+        rowhead.createCell(66).setCellValue("nIntermediateThrowEscalationEventDefinition");
+        rowhead.createCell(67).setCellValue("nIntermediateThrowLinkEventDefinition");
+        rowhead.createCell(68).setCellValue("nIntermediateThrowSignalEventDefinition");
+        rowhead.createCell(69).setCellValue("nIntermediateThrowCompensateEventDefinition");
+        rowhead.createCell(70).setCellValue("nIntermediateThrowMultipleParallelEventDefinition");
+        rowhead.createCell(71).setCellValue("nBoundaryMessageEvent");
+        rowhead.createCell(72).setCellValue("nBoundaryTimerEvent");
+        rowhead.createCell(73).setCellValue("nBoundaryCancelEvent");
+        rowhead.createCell(74).setCellValue("nBoundaryConditionalEvent");
+        rowhead.createCell(75).setCellValue("nBoundaryEscalationEvent");
+        rowhead.createCell(76).setCellValue("nBoundaryErrorEvent");
+        rowhead.createCell(77).setCellValue("nBoundarySignalEvent");
+        rowhead.createCell(78).setCellValue("nBoundaryCompensateEvent");
+        rowhead.createCell(79).setCellValue("nBoundaryMultipleEvent");
+        rowhead.createCell(80).setCellValue("nBoundaryMultipleParallelEvent");
+        rowhead.createCell(81).setCellValue("nBoundaryTimerEventNonInt");
+        rowhead.createCell(82).setCellValue("nBoundaryEscalationEventNonInt");
+        rowhead.createCell(83).setCellValue("nBoundaryConditionalEventNonInt");
+        rowhead.createCell(84).setCellValue("nBoundaryMessageEventNonInt");
+        rowhead.createCell(85).setCellValue("nBoundarySignalEventNonInt");
+        rowhead.createCell(86).setCellValue("nBoundaryMultipleEventNonInt");
+        rowhead.createCell(87).setCellValue("nBoundaryMultipleParallelEventNonInt");
+        rowhead.createCell(88).setCellValue("nMessageFlow");
+        rowhead.createCell(89).setCellValue("nSequenceFlow");
+        rowhead.createCell(90).setCellValue("nDefaultFlow");
+        rowhead.createCell(91).setCellValue("nConditionalFlow");
+        rowhead.createCell(92).setCellValue("nExtendedPool");
+        rowhead.createCell(93).setCellValue("nMultipleInstancePool");
+        rowhead.createCell(94).setCellValue("nCollapsedPool");       
+        rowhead.createCell(95).setCellValue("nVerticalLane");
+        rowhead.createCell(96).setCellValue("nVerticalPool");
+        rowhead.createCell(97).setCellValue("nChoreographyTask");
+        rowhead.createCell(98).setCellValue("nChoreographyParticipant");
+        rowhead.createCell(99).setCellValue("nChoreographySubprocess");
+        rowhead.createCell(100).setCellValue("nConversation");
+        rowhead.createCell(101).setCellValue("nSubConversation");
+        rowhead.createCell(102).setCellValue("nCallConversation");
+        rowhead.createCell(103).setCellValue("nConversationLink");
+        rowhead.createCell(104).setCellValue("nITSystem");
+        rowhead.createCell(105).setCellValue("nAssociation");
+        rowhead.createCell(106).setCellValue("nCompensateAssociation");
+        rowhead.createCell(107).setCellValue("nUnidirectionalAssociation");
+        rowhead.createCell(108).setCellValue("nUndirectedAssociation");
+        rowhead.createCell(109).setCellValue("nBidirectionalAssociation");
+        rowhead.createCell(110).setCellValue("nTextAnnotation");
+        rowhead.createCell(111).setCellValue("ndataOutputAssociation");
+        rowhead.createCell(112).setCellValue("ndataInputAssociation");
+        rowhead.createCell(113).setCellValue("nOfExtensionElements");
+        rowhead.createCell(114).setCellValue("TotalElements");
+        
+//      if(ConsiderExtendedSubProcess) {
+//    	creare tab per gestione elementi extended subprocess
+        /*
+         *    
+        HSSFSheet sheet2 = (HSSFSheet) wb.createSheet("BPMN_Stats_ExtendedSubProcess"); 
+        HSSFRow rowhead = sheet2.createRow((short)0); 
+        rowhead.createCell(0).setCellValue("File Name");  
+        rowhead.createCell(1).setCellValue("BPMN Modeler"); 
+        rowhead.createCell(2).setCellValue("isEnglish");
+        rowhead.createCell(3).setCellValue("Model Type");  
+        rowhead.createCell(3).setCellValue("Extended SubProcess id");   ID VERO DELL'XML
         rowhead.createCell(4).setCellValue("nTask");
         rowhead.createCell(5).setCellValue("nTaskMultipleInstance");
         rowhead.createCell(6).setCellValue("nTaskMultipleInstanceSequential");
@@ -158,6 +289,8 @@ public class XPathParserDemo {
         rowhead.createCell(112).setCellValue("ndataInputAssociation");
         rowhead.createCell(113).setCellValue("nOfExtensionElements");
         rowhead.createCell(114).setCellValue("TotalElements");
+        */
+//    }
         
         // File's cycle of the testmodels folder
         File folder = new File("testmodels");
@@ -174,7 +307,7 @@ public class XPathParserDemo {
         
         int nTask=0;
         int nTaskMultipleInstanceSequential=0; //to add
-        int nTaskMultipleInstance=0;
+        int nTaskMultipleInstanceParallel=0;
         int nTaskLoopActivity=0;
         int nReceiveTask=0;
         int nSendTask=0;
@@ -184,13 +317,14 @@ public class XPathParserDemo {
         int nServiceTask=0;
         int nScriptTask=0;        
         int nCallActivity=0;
-        int nSubProcess=0;
+        int nSubProcessExtended=0;
+        int	nSubProcessCollapsed=0;
         int nSubProcessLoop=0;
         int nSubProcessSequentialMultipleInstance=0;
         int nSubProcessParallelMultipleInstance=0;
         int nTransaction=0;
-        int nAdHocSubProcess=0;
-        int nEventSubProcess=0;
+        int nSubProcessAdHoc=0;
+        int nSubProcessEvent=0;
         int nGroup=0;
         int nLane=0;
         int nDataObject=0;
@@ -199,6 +333,7 @@ public class XPathParserDemo {
         int nDataStoreReference=0;
         int nDataInput=0;
         int nDataOutput=0;
+        int nExclusiveGatewayEmpty=0;
         int nExclusiveGateway=0;
         int nParallelGateway=0;
         int nInclusiveGateway=0;
@@ -260,7 +395,7 @@ public class XPathParserDemo {
         int nSequenceFlow=0;
         int nDefaultFlow=0;
         int nConditionalFlow=0;
-        int nPool=0;
+        int nExtendedPool=0;
         int nCollapsedPool=0;
         int nMultipleInstancePool=0;
         int nVerticalLane=0;
@@ -383,26 +518,12 @@ public class XPathParserDemo {
 	        	modelType = "Process";
 		        }
 	        	//System.out.println(modelType);
+		        
+		        //TODO Choreography e Conversation
         	}
         }	
         
-        // Check if contain a subProcess and the number of subprocess
-        XPathExpression exprModelTypeSub = xpath.compile("//bpmn:process");
-        Object resultModelTypeSub = exprModelTypeSub.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesModelTypeSub = (NodeList) resultModelTypeSub;      
-        for(int i=0; i<nodesModelTypeSub.getLength(); i++) {
-        	
-    	NodeList nodeModelType = nodesModelTypeSub.item(i).getChildNodes();
-    
-        	 for(int j=0; j<nodeModelType.getLength(); j++) {	
-
-		        	if(nodeModelType.item(j).getNodeName().toString() == "bpmn:subProcess") {      		
-		        		nSubProcess++;
-		            	//System.out.println("In the model: "+fileName+" there are: "+nSubProcess+" subProcess/es in the model");
-		            }
-        	 }
-		        
-        }    
+       
 
 //----------------------------------------------BPMN STATS-------------------------------------------------
 // XPath Query for showing all Tasks markers
@@ -440,7 +561,7 @@ public class XPathParserDemo {
 
 	                  		}	
 	                  		else if(taskChildNodes.item(j).getNodeName().contains("multiInstanceLoopCharacteristics"))
-	                  			nTaskMultipleInstance++;	                  	
+	                  			nTaskMultipleInstanceParallel++;	                  	
 	                  	}
                   }
           		
@@ -450,7 +571,7 @@ public class XPathParserDemo {
           }
           
                 
-        nTask = nodesTask.getLength() - nTaskLoopActivity - nTaskMultipleInstanceSequential - nTaskMultipleInstance;
+        nTask = nodesTask.getLength() - nTaskLoopActivity - nTaskMultipleInstanceSequential - nTaskMultipleInstanceParallel;
 
         
         //N° of receive tasks
@@ -508,7 +629,27 @@ public class XPathParserDemo {
         NodeList nodesCallActivity = (NodeList) resultCA;
         doc.getDocumentElement().normalize();  
         nCallActivity = nodesCallActivity.getLength();
-          
+        
+        //SUB PROCESS
+        
+        // Check if contain a subProcess and the number of subprocess
+        XPathExpression exprModelTypeSub = xpath.compile("//bpmn:subProcess");
+        Object resultModelTypeSub = exprModelTypeSub.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesModelTypeSub = (NodeList) resultModelTypeSub;      
+        for(int i=0; i<nodesModelTypeSub.getLength(); i++) {
+        	
+    	NodeList nodeModelType = nodesModelTypeSub.item(i).getChildNodes();
+    
+        	 for(int j=0; j<nodeModelType.getLength(); j++) {	
+
+		        	if(nodeModelType.item(j).getNodeName().toString() == "bpmn:subProcess") {      		
+		        		nSubProcessExtended++;
+		            	//System.out.println("In the model: "+fileName+" there are: "+nSubProcess+" subProcess/es in the model");
+		            }
+        	 }
+		        
+        }    
+        
         //N° of SubProcess Loop  
         XPathExpression exprSubPLoop = xpath.compile("//bpmn:subProcess//bpmn:standardLoopCharacteristics");
         Object resultSubPLoop = exprSubPLoop.evaluate(doc, XPathConstants.NODESET);
@@ -530,12 +671,12 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nSubProcessParallelMultipleInstance = nodesSubPPMI.getLength() - nodesSubPSMI.getLength();
         
-        //N° of eventsubprocess  
+        //N° of Event Sub Process
         XPathExpression exprESubP = xpath.compile("//bpmn:subProcess[@triggeredByEvent='true']");
         Object resultESubP = exprESubP.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesESubP = (NodeList) resultESubP;
         doc.getDocumentElement().normalize();  
-        nEventSubProcess = nodesESubP.getLength();
+        nSubProcessEvent = nodesESubP.getLength();
         
         //N° of transaction
         XPathExpression exprTrans = xpath.compile("//bpmn:transaction");
@@ -549,7 +690,7 @@ public class XPathParserDemo {
         Object resultadHoc = expradHoc.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesadHoc = (NodeList) resultadHoc;
         doc.getDocumentElement().normalize();  
-        nAdHocSubProcess = nodesadHoc.getLength();
+        nSubProcessAdHoc = nodesadHoc.getLength();
         
         //N° of Group
         XPathExpression exprGroup = xpath.compile("//bpmn:group");
@@ -616,6 +757,13 @@ public class XPathParserDemo {
         nDataOutput = nodesDOut.getLength();
         
         // GATEWAYS-------------------------------------------------------------------------------------
+        
+        // Empty or Not is the same
+        XPathExpression exprExGEmpty = xpath.compile("//bpmn:exclusiveGateway");
+        Object resultExGEmpty = exprExGEmpty.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesExGEmpty = (NodeList) resultExGEmpty;
+        doc.getDocumentElement().normalize();  
+        nExclusiveGatewayEmpty = nodesExGEmpty.getLength();
         
         // Empty or Not is the same
         XPathExpression exprExG = xpath.compile("//bpmn:exclusiveGateway");
@@ -1078,7 +1226,7 @@ public class XPathParserDemo {
         Object resultPool= exprPool.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesPool = (NodeList) resultPool;
         doc.getDocumentElement().normalize();  
-        nPool = nodesPool.getLength(); 
+        nExtendedPool = nodesPool.getLength(); 
         
         //N° of CollapsedPool
         XPathExpression exprCPool = xpath.compile("//bpmn:collaboration//bpmn:participant");
@@ -1241,7 +1389,7 @@ public class XPathParserDemo {
 //        nOfExtensionElements = nodesExtension.getLength();
         
         TotalElements =      nTask
-          		+            nTaskMultipleInstance
+          		+            nTaskMultipleInstanceParallel
           		+            nTaskMultipleInstanceSequential
           		+            nTaskLoopActivity
           		+            nReceiveTask
@@ -1252,13 +1400,14 @@ public class XPathParserDemo {
           		+            nServiceTask
           		+            nScriptTask       
           		+            nCallActivity
-          		+            nSubProcess
+          		+            nSubProcessExtended
+          		+			 nSubProcessCollapsed
           		+            nSubProcessLoop
           		+            nSubProcessSequentialMultipleInstance
           		+            nSubProcessParallelMultipleInstance
           		+            nTransaction
-          		+            nAdHocSubProcess
-          		+            nEventSubProcess
+          		+            nSubProcessAdHoc
+          		+            nSubProcessEvent
           		+            nGroup
           		+            nLane
           		+            nDataObject
@@ -1267,6 +1416,7 @@ public class XPathParserDemo {
           		+            nDataStoreReference
           		+            nDataInput
           		+            nDataOutput
+          		+			 nExclusiveGatewayEmpty
           		+            nExclusiveGateway
           		+            nParallelGateway
           		+            nInclusiveGateway
@@ -1328,7 +1478,7 @@ public class XPathParserDemo {
           		+            nSequenceFlow
           		+            nDefaultFlow
           		+            nConditionalFlow
-          		+            nPool
+          		+            nExtendedPool
           		+            nMultipleInstancePool           
           		+            nCollapsedPool            
           		+            nVerticalLane
@@ -1361,7 +1511,7 @@ public class XPathParserDemo {
       		row.createCell(2).setCellValue(isEnglish);
       		row.createCell(3).setCellValue(modelType);
       		row.createCell(4).setCellValue(nTask);
-            row.createCell(5).setCellValue(nTaskMultipleInstance);
+            row.createCell(5).setCellValue(nTaskMultipleInstanceParallel);
             row.createCell(6).setCellValue(nTaskMultipleInstanceSequential);
             row.createCell(7).setCellValue(nTaskLoopActivity);
             row.createCell(8).setCellValue(nReceiveTask);
@@ -1372,13 +1522,14 @@ public class XPathParserDemo {
             row.createCell(13).setCellValue(nServiceTask);
             row.createCell(14).setCellValue(nScriptTask);       
             row.createCell(15).setCellValue(nCallActivity);
-            row.createCell(16).setCellValue(nSubProcess);
+            row.createCell(16).setCellValue(nSubProcessExtended);
+            row.createCell(16).setCellValue(nSubProcessCollapsed);
             row.createCell(17).setCellValue(nSubProcessLoop);
             row.createCell(18).setCellValue(nSubProcessSequentialMultipleInstance);
             row.createCell(19).setCellValue(nSubProcessParallelMultipleInstance);
             row.createCell(20).setCellValue(nTransaction);
-            row.createCell(21).setCellValue(nAdHocSubProcess);
-            row.createCell(22).setCellValue(nEventSubProcess);
+            row.createCell(21).setCellValue(nSubProcessAdHoc);
+            row.createCell(22).setCellValue(nSubProcessEvent);
             row.createCell(23).setCellValue(nGroup);
             row.createCell(24).setCellValue(nLane);
             row.createCell(25).setCellValue(nDataObject);
@@ -1387,6 +1538,7 @@ public class XPathParserDemo {
             row.createCell(28).setCellValue(nDataStoreReference);
             row.createCell(29).setCellValue(nDataInput);
             row.createCell(30).setCellValue(nDataOutput);
+            row.createCell(31).setCellValue(nExclusiveGatewayEmpty);
             row.createCell(31).setCellValue(nExclusiveGateway);
             row.createCell(32).setCellValue(nParallelGateway);
             row.createCell(33).setCellValue(nInclusiveGateway);
@@ -1448,7 +1600,7 @@ public class XPathParserDemo {
             row.createCell(89).setCellValue(nSequenceFlow);
             row.createCell(90).setCellValue(nDefaultFlow);
             row.createCell(91).setCellValue(nConditionalFlow);
-            row.createCell(92).setCellValue(nPool);
+            row.createCell(92).setCellValue(nExtendedPool);
             row.createCell(93).setCellValue(nMultipleInstancePool);           
             row.createCell(94).setCellValue(nCollapsedPool);            
             row.createCell(95).setCellValue(nVerticalLane);
@@ -1472,12 +1624,18 @@ public class XPathParserDemo {
             row.createCell(113).setCellValue(nOfExtensionElements);
             row.createCell(114).setCellValue(TotalElements);
             
+//            if(ConsiderExtendedSubProcess && nSubProcessExtended >0) {
+//            	//Salvare tutti gli 
+//            }
+           
       		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xls");
        		wb.write(fileOut);  
        		//closing the Stream  
        		fileOut.close();  
-            //closing the workbook  
-       		wb.close(); 
+
         	}
+        
+      //closing the workbook  
+   		wb.close(); 
         }
 }

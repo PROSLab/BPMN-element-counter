@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0axn5rd" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="8.7.2">
+<bpmn:subProcess id="Activity_066m0ku" name="Expanded subprocess">
+      <bpmn:incoming>Flow_0txihhf</bpmn:incoming>
+      <bpmn:startEvent id="Event_1l5t62g" name="ss">
+        <bpmn:outgoing>Flow_0b7eoca</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:task id="Activity_0aq6wsg">
+        <bpmn:incoming>Flow_0b7eoca</bpmn:incoming>
+        <bpmn:outgoing>Flow_0f31vqo</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:sequenceFlow id="Flow_0b7eoca" sourceRef="Event_1l5t62g" targetRef="Activity_0aq6wsg" />
+      <bpmn:exclusiveGateway id="Gateway_1dzoruk">
+        <bpmn:incoming>Flow_0f31vqo</bpmn:incoming>
+        <bpmn:outgoing>Flow_1gzpw0v</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0f31vqo" sourceRef="Activity_0aq6wsg" targetRef="Gateway_1dzoruk" />
+      <bpmn:endEvent id="Event_0aoq58a">
+        <bpmn:incoming>Flow_1gzpw0v</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_1gzpw0v" sourceRef="Gateway_1dzoruk" targetRef="Event_0aoq58a" />
+    </bpmn:subProcess>
+</bpmn:definitions>
+  
