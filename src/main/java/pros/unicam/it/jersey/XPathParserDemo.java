@@ -81,10 +81,12 @@ public class XPathParserDemo {
         rowhead.createCell(25).setCellValue("nDataObject");
         //TODO DataObject COLLECTION
         rowhead.createCell(26).setCellValue("nDataObjectReference");
+        //Check 
         rowhead.createCell(27).setCellValue("nDataStore");
         rowhead.createCell(28).setCellValue("nDataStoreReference");
         rowhead.createCell(29).setCellValue("nDataInput");
         rowhead.createCell(30).setCellValue("nDataOutput");
+        // TODO rowhead.createCell(30).setCellValue("nDataNone"); data object none
         
         // Gateway
         rowhead.createCell(31).setCellValue("nExclusiveGatewayEmpty");
@@ -391,6 +393,8 @@ public class XPathParserDemo {
         int nParallelGateway=0;
         int nInclusiveGateway=0;
         int nEventBasedGateway=0;
+        int nEventBasedGatewayExclusiveInstantiation=0;
+        int nEventBasedGatewayParallelInstantiation=0;
         int nParallelEventBasedGateway=0;
         int nComplexGateway=0;
         int nCondition=0;
@@ -412,16 +416,14 @@ public class XPathParserDemo {
         int nStartCompensateEventSubProcessInterruptingDefinition=0;
         int nStartSignalEventSubProcessInterruptingDefinition=0;
         int nStartMultipleEventSubProcessInterruptingDefinition=0;
-        int nStartMultipleParallelEventSubProcessInterruptingDefinition=0;
-        
+        int nStartMultipleParallelEventSubProcessInterruptingDefinition=0;       
         int nStartMessageEventSubProcessNonInterruptingDefinition=0;
         int nStartTimerEventSubProcessNonInterruptingDefinition=0;
         int nStartEscalationEventSubProcessNonInterruptingDefinition=0;
         int nStartConditionalEventSubProcessNonInterruptingDefinition=0;
         int nStartSignalEventSubProcessNonInterruptingDefinition=0;
         int nStartMultipleParallelEventSubProcessNonInterruptingDefinition=0;
-        int nStartMultipleEventSubProcessNonInterruptingDefinition=0;
-        
+        int nStartMultipleEventSubProcessNonInterruptingDefinition=0;       
         int nEndNoneEvent = 0;
         int nEndMultipleEventDefinition = 0; 
         int nEndEscalationEventDefinition= 0;
@@ -799,13 +801,6 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nDataStore = nodesDS.getLength();
         
-        // N° of Data Object Reference
-        XPathExpression exprDOR = xpath.compile("//bpmn:dataObjectReference");
-        Object resultDOR = exprDOR.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesDOR = (NodeList) resultDOR;
-        doc.getDocumentElement().normalize();  
-        nDataObjectReference = nodesDOR.getLength();
-        
         // N° of Data Store Reference
         XPathExpression exprDSR = xpath.compile("//bpmn:dataStoreReference");
         Object resultDSR = exprDSR.evaluate(doc, XPathConstants.NODESET);
@@ -867,6 +862,20 @@ public class XPathParserDemo {
         NodeList nodesEBG = (NodeList) resultEBG;
         doc.getDocumentElement().normalize();  
         nEventBasedGateway = nodesEBG.getLength();
+
+        //TO TEST Event Based Gateway Exclusive Instantiation
+        XPathExpression exprEBGEI = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Exclusive' && @instantiate='true']");
+        Object resultEBGEI = exprEBGEI.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesEBGEI = (NodeList) resultEBGEI;
+        doc.getDocumentElement().normalize();  
+        nEventBasedGatewayExclusiveInstantiation = nodesEBGEI.getLength();
+        
+        //TO TEST Event Based Gateway Parallel Instantiation
+        XPathExpression exprEBGPI = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Parallel' && @instantiate='true']");
+        Object resultEBGPI = exprEBGPI.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesEBGPI = (NodeList) resultEBGPI;
+        doc.getDocumentElement().normalize();  
+        nEventBasedGatewayParallelInstantiation = nodesEBGPI.getLength();
         
         XPathExpression exprCoG = xpath.compile("//bpmn:complexGateway");
         Object resultCoG = exprCoG.evaluate(doc, XPathConstants.NODESET);
@@ -1634,8 +1643,12 @@ public class XPathParserDemo {
             row.createCell(32).setCellValue(nParallelGateway);
             row.createCell(33).setCellValue(nInclusiveGateway);
             row.createCell(34).setCellValue(nEventBasedGateway);
+            row.createCell(34).setCellValue(nEventBasedGatewayExclusiveInstantiation);
+            row.createCell(34).setCellValue(nEventBasedGatewayParallelInstantiation);
+            //????
             row.createCell(35).setCellValue(nParallelEventBasedGateway);
             row.createCell(36).setCellValue(nComplexGateway);
+            
             
             // Flow
             row.createCell(88).setCellValue(nMessageFlow);
