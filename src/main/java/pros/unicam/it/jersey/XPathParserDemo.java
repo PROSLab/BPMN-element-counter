@@ -62,7 +62,9 @@ public class XPathParserDemo {
         rowhead.createCell(11).setCellValue("nManualTask");
         rowhead.createCell(12).setCellValue("nBusinessRuleTask");
         rowhead.createCell(13).setCellValue("nServiceTask");
-        rowhead.createCell(14).setCellValue("nScriptTask");       
+        rowhead.createCell(14).setCellValue("nScriptTask");  
+        
+        // Call Activity Typed
         rowhead.createCell(15).setCellValue("nCallActivity");
         
         // SubProcess
@@ -77,6 +79,7 @@ public class XPathParserDemo {
         
         // Data Objects
         rowhead.createCell(25).setCellValue("nDataObject");
+        //TODO DataObject COLLECTION
         rowhead.createCell(26).setCellValue("nDataObjectReference");
         rowhead.createCell(27).setCellValue("nDataStore");
         rowhead.createCell(28).setCellValue("nDataStoreReference");
@@ -100,7 +103,7 @@ public class XPathParserDemo {
         
         // Pool & Lane
         rowhead.createCell(24).setCellValue("nLane");
-        rowhead.createCell(92).setCellValue("nErowhead.createCell(pandedPool");
+        rowhead.createCell(92).setCellValue("nExpandedPool");
         rowhead.createCell(94).setCellValue("nCollapsedPool");
         rowhead.createCell(93).setCellValue("nMultipleInstancePool");                                   
         rowhead.createCell(95).setCellValue("nVerticalLane");
@@ -790,7 +793,7 @@ public class XPathParserDemo {
         nDataObject = nodesDO.getLength();
         
         // N° of Data Store
-        XPathExpression exprDS = xpath.compile("//bpmn:dataStore");
+        XPathExpression exprDS = xpath.compile("//bpmn:dataStoreReference");
         Object resultDS = exprDS.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesDS = (NodeList) resultDS;
         doc.getDocumentElement().normalize();  
@@ -826,19 +829,19 @@ public class XPathParserDemo {
         
         // GATEWAYS-------------------------------------------------------------------------------------
         
-        // Empty or Not is the same
-        XPathExpression exprExGEmpty = xpath.compile("//bpmn:exclusiveGateway");
+        // Exclusive Gateway Empty 
+        XPathExpression exprExGEmpty = xpath.compile("//bpmn:exclusiveGateway//bpmn:BPMNShape[@isMarkerVisible='false']");
         Object resultExGEmpty = exprExGEmpty.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesExGEmpty = (NodeList) resultExGEmpty;
         doc.getDocumentElement().normalize();  
         nExclusiveGatewayEmpty = nodesExGEmpty.getLength();
         
-        // Empty or Not is the same
+        // Exclusive Gateway 
         XPathExpression exprExG = xpath.compile("//bpmn:exclusiveGateway");
         Object resultExG = exprExG.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesExG = (NodeList) resultExG;
         doc.getDocumentElement().normalize();  
-        nExclusiveGateway = nodesExG.getLength();
+        nExclusiveGateway = nodesExG.getLength() - nExclusiveGatewayEmpty;
         
         // Parallel Event Based 
         XPathExpression exprEBGP = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Parallel']");
@@ -1426,7 +1429,7 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nCollapsedPool = nodesCPool.getLength() - nodesPool.getLength(); 
         
-        //N° of Multiple Instance Pool
+        //N° of Multiple Instance Pool 
         XPathExpression exprMIPool = xpath.compile("//bpmn:participant//bpmn:participantMultiplicity");
         Object resultMIPool= exprMIPool.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesMIPool = (NodeList) resultMIPool;
