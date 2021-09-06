@@ -29,6 +29,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
+import org.apache.poi.ss.usermodel.Cell;  
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FillPatternType;  
+import org.apache.poi.ss.usermodel.IndexedColors;  
+import org.apache.poi.ss.usermodel.Row;  
+import org.apache.poi.ss.usermodel.Sheet;   
 
 public class XPathParserDemo {
 	
@@ -937,10 +944,7 @@ public class XPathParserDemo {
         		if(ChildModelType.item(j).getNodeType() == Node.ELEMENT_NODE) {            
              		
 	        		String nodeModelType2 =  ChildModelType.item(j).getNodeName();
-	            	System.out.println(nodeModelType2);
-        			
-	            	
-		
+
 				        if(nodeModelType2.contains("conversation") ||
 				        		nodeModelType2.contains("subConversation") ||
 				        		nodeModelType2.contains("callConversation")) {
@@ -2039,9 +2043,19 @@ public class XPathParserDemo {
 
         	//creating the rows 
             XSSFRow row = sheet.createRow((short)x+1);  
-            //inserting data   
+               
+            CellStyle styleLOW = wb.createCellStyle();  
+            CellStyle styleMEDIUM = wb.createCellStyle();  
+            CellStyle styleHIGH = wb.createCellStyle();  
+
+            styleLOW.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());  
+            styleLOW.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            styleMEDIUM.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());  
+            styleMEDIUM.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            styleHIGH.setFillForegroundColor(IndexedColors.GREEN.getIndex());  
+            styleHIGH.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             
-            // Model Info          
+            //inserting data        
             row.createCell(0).setCellValue(fileName);
             row.createCell(1).setCellValue(bpmnModeler);
             row.createCell(2).setCellValue(modelType);
@@ -2427,7 +2441,30 @@ public class XPathParserDemo {
             row.createCell(382).setCellValue(nTextAnnotation);
             row.createCell(383).setCellValue(nOfExtensionElements);
             row.createCell(384).setCellValue(TotalElements);              
+
             
+            for(Cell cell : row) {
+            	String data="";
+            	
+	            	if(cell.getCellType()==CellType.NUMERIC) {
+	            	    data = String.valueOf(cell.getNumericCellValue());
+	            	double str1 = Double.parseDouble(data);
+	            	
+	            	if(str1 >= 1 && str1 <= 5){
+	            		cell.setCellStyle(styleLOW);       
+	                }
+	            	
+	            	if(str1 > 5 && str1 <= 10){
+	            		cell.setCellStyle(styleMEDIUM);       
+	                }
+	            	
+	            	if(str1 > 10){
+	            		cell.setCellStyle(styleHIGH);       
+	                }
+            	}
+            	
+            }
+
             if(ConsiderExtendedSubProcess && nGeneralSubProcess>0) {
 
                 XSSFSheet sheet2 = (XSSFSheet) wb.createSheet("BPMN_Stats_ExtendedSubProcess"); 
@@ -3203,18 +3240,39 @@ public class XPathParserDemo {
                 row2.createCell(381).setCellValue(nGroup);
                 row2.createCell(382).setCellValue(nTextAnnotation);
                 row2.createCell(383).setCellValue(nOfExtensionElements);
-                row2.createCell(384).setCellValue(TotalElements);  
-
-             }
-           
+                row2.createCell(384).setCellValue(TotalElements); 
+                
+                for(Cell cell : row2) {
+                	String data="";
+                	
+    	            	if(cell.getCellType()==CellType.NUMERIC) {
+    	            	    data = String.valueOf(cell.getNumericCellValue());
+    	            	double str1 = Double.parseDouble(data);
+    	            	
+    	            	if(str1 >= 1 && str1 <= 5){
+    	            		cell.setCellStyle(styleLOW);       
+    	                }
+    	            	
+    	            	if(str1 > 5 && str1 <= 10){
+    	            		cell.setCellStyle(styleMEDIUM);       
+    	                }
+    	            	
+    	            	if(str1 > 10){
+    	            		cell.setCellStyle(styleHIGH);       
+    	                }
+                	}
+                	
+                }
+            }
+            
       		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xls");
        		wb.write(fileOut);  
        		//closing the Stream  
        		fileOut.close();  
-
+       		System.out.println(fileName+": Analysis DONE");
         	}
         
       //closing the workbook  
    		wb.close(); 
         }
-}
+    }
