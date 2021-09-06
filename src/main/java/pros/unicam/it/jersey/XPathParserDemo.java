@@ -67,16 +67,9 @@ public class XPathParserDemo {
         // Call Activity Typed
         rowhead.createCell(15).setCellValue("nCallActivity");
         
-        // SubProcess
+        // SubProcess TODO
         rowhead.createCell(16).setCellValue("nSubProcessExtended");
-        rowhead.createCell(16).setCellValue("nSubProcessCollapsed");
-        rowhead.createCell(17).setCellValue("nSubProcessLoop");
-        rowhead.createCell(18).setCellValue("nSubProcessSequentialMultipleInstance");
-        rowhead.createCell(19).setCellValue("nSubProcessParallelMultipleInstance");
-        rowhead.createCell(20).setCellValue("nTransaction");
-        rowhead.createCell(21).setCellValue("nSubProcessAdHoc");
-        rowhead.createCell(22).setCellValue("nSubProcessEvent");           
-        
+
         // Data Objects
         rowhead.createCell(25).setCellValue("nDataObject");
         //TODO DataObject COLLECTION
@@ -230,120 +223,7 @@ public class XPathParserDemo {
         HSSFRow rowhead = sheet2.createRow((short)0); 
         rowhead.createCell(0).setCellValue("File Name");  
         rowhead.createCell(1).setCellValue("BPMN Modeler"); 
-        rowhead.createCell(2).setCellValue("isEnglish");
-        rowhead.createCell(3).setCellValue("Model Type");  
-        rowhead.createCell(3).setCellValue("Extended SubProcess id");   ID VERO DELL'XML
-        rowhead.createCell(4).setCellValue("nTask");
-        rowhead.createCell(5).setCellValue("nTaskMultipleInstance");
-        rowhead.createCell(6).setCellValue("nTaskMultipleInstanceSequential");
-        rowhead.createCell(7).setCellValue("nTaskLoopActivity");
-        rowhead.createCell(8).setCellValue("nReceiveTask");
-        rowhead.createCell(9).setCellValue("nSendTask");
-        rowhead.createCell(10).setCellValue("nUserTask");
-        rowhead.createCell(11).setCellValue("nManualTask");
-        rowhead.createCell(12).setCellValue("nBusinessRuleTask");
-        rowhead.createCell(13).setCellValue("nServiceTask");
-        rowhead.createCell(14).setCellValue("nScriptTask");       
-        rowhead.createCell(15).setCellValue("nCallActivity");
-        rowhead.createCell(16).setCellValue("nSubProcess");
-        rowhead.createCell(17).setCellValue("nSubProcessLoop");
-        rowhead.createCell(18).setCellValue("nSubProcessSequentialMultipleInstance");
-        rowhead.createCell(19).setCellValue("nSubProcessParallelMultipleInstance");
-        rowhead.createCell(20).setCellValue("nTransaction");
-        rowhead.createCell(21).setCellValue("nAdHocSubProcess");
-        rowhead.createCell(22).setCellValue("nEventSubProcess");
-        rowhead.createCell(23).setCellValue("nGroup");
-        rowhead.createCell(24).setCellValue("nLane");
-        rowhead.createCell(25).setCellValue("nDataObject");
-        rowhead.createCell(26).setCellValue("nDataObjectReference");
-        rowhead.createCell(27).setCellValue("nDataStore");
-        rowhead.createCell(28).setCellValue("nDataStoreReference");
-        rowhead.createCell(29).setCellValue("nDataInput");
-        rowhead.createCell(30).setCellValue("nDataOutput");
-        rowhead.createCell(31).setCellValue("nExclusiveGateway");
-        rowhead.createCell(32).setCellValue("nParallelGateway");
-        rowhead.createCell(33).setCellValue("nInclusiveGateway");
-        rowhead.createCell(34).setCellValue("nEventBasedGateway");
-        rowhead.createCell(35).setCellValue("nParallelEventBasedGateway");
-        rowhead.createCell(36).setCellValue("nComplexGateway");
-        rowhead.createCell(37).setCellValue("nCondition");
-        rowhead.createCell(38).setCellValue("nStartNoneEvent");
-        rowhead.createCell(39).setCellValue("nStartMultipleParallelEventDefinition");
-        rowhead.createCell(40).setCellValue("nStartMultipleEventDefinition");
-        rowhead.createCell(41).setCellValue("nStartSignalEventDefinition");
-        rowhead.createCell(42).setCellValue("nStartConditionalEventDefinition");
-        rowhead.createCell(43).setCellValue("nStartTimerEventDefinition");
-        rowhead.createCell(44).setCellValue("nStartMessageEventDefinition");
-        rowhead.createCell(45).setCellValue("nStartCompensateEventDefinition");
-        rowhead.createCell(46).setCellValue("nStartEscalationEventDefinition");
-        rowhead.createCell(47).setCellValue("nStartErrorEventDefinition");
-        rowhead.createCell(48).setCellValue("nEndNoneEvent");
-        rowhead.createCell(49).setCellValue("nEndMultipleEventDefinition"); 
-        rowhead.createCell(50).setCellValue("nEndEscalationEventDefinition");
-        rowhead.createCell(51).setCellValue("nEndErrorEventDefinition");
-        rowhead.createCell(52).setCellValue("nEndSignalEventDefinition");
-        rowhead.createCell(53).setCellValue("nEndCompensateEventDefinition");
-        rowhead.createCell(54).setCellValue("nEndCancelEventDefinition"); 
-        rowhead.createCell(55).setCellValue("nEndMessageEventDefinition");
-        rowhead.createCell(56).setCellValue("nEndTerminateEventDefinition");
-        rowhead.createCell(57).setCellValue("nIntermediateCatchMultipleEventDefinition");
-        rowhead.createCell(58).setCellValue("nIntermediateCatchMultipleParallelEventDefinition");
-        rowhead.createCell(59).setCellValue("nIntermediateCatchMessageEventDefinition");
-        rowhead.createCell(60).setCellValue("nIntermediateCatchTimerEventDefinition");
-        rowhead.createCell(61).setCellValue("nIntermediateCatchConditionalEventDefinition");
-        rowhead.createCell(62).setCellValue("nIntermediateCatchLinkEventDefinition");
-        rowhead.createCell(63).setCellValue("nIntermediateCatchSignalEventDefinition");
-        rowhead.createCell(64).setCellValue("nIntermediateThrowNoneEventDefinition");
-        rowhead.createCell(65).setCellValue("nIntermediateThrowMessageEventDefinition");
-        rowhead.createCell(66).setCellValue("nIntermediateThrowEscalationEventDefinition");
-        rowhead.createCell(67).setCellValue("nIntermediateThrowLinkEventDefinition");
-        rowhead.createCell(68).setCellValue("nIntermediateThrowSignalEventDefinition");
-        rowhead.createCell(69).setCellValue("nIntermediateThrowCompensateEventDefinition");
-        rowhead.createCell(70).setCellValue("nIntermediateThrowMultipleParallelEventDefinition");
-        rowhead.createCell(71).setCellValue("nBoundaryMessageEvent");
-        rowhead.createCell(72).setCellValue("nBoundaryTimerEvent");
-        rowhead.createCell(73).setCellValue("nBoundaryCancelEvent");
-        rowhead.createCell(74).setCellValue("nBoundaryConditionalEvent");
-        rowhead.createCell(75).setCellValue("nBoundaryEscalationEvent");
-        rowhead.createCell(76).setCellValue("nBoundaryErrorEvent");
-        rowhead.createCell(77).setCellValue("nBoundarySignalEvent");
-        rowhead.createCell(78).setCellValue("nBoundaryCompensateEvent");
-        rowhead.createCell(79).setCellValue("nBoundaryMultipleEvent");
-        rowhead.createCell(80).setCellValue("nBoundaryMultipleParallelEvent");
-        rowhead.createCell(81).setCellValue("nBoundaryTimerEventNonInt");
-        rowhead.createCell(82).setCellValue("nBoundaryEscalationEventNonInt");
-        rowhead.createCell(83).setCellValue("nBoundaryConditionalEventNonInt");
-        rowhead.createCell(84).setCellValue("nBoundaryMessageEventNonInt");
-        rowhead.createCell(85).setCellValue("nBoundarySignalEventNonInt");
-        rowhead.createCell(86).setCellValue("nBoundaryMultipleEventNonInt");
-        rowhead.createCell(87).setCellValue("nBoundaryMultipleParallelEventNonInt");
-        rowhead.createCell(88).setCellValue("nMessageFlow");
-        rowhead.createCell(89).setCellValue("nSequenceFlow");
-        rowhead.createCell(90).setCellValue("nDefaultFlow");
-        rowhead.createCell(91).setCellValue("nConditionalFlow");
-        rowhead.createCell(92).setCellValue("nPool");
-        rowhead.createCell(93).setCellValue("nMultipleInstancePool");
-        rowhead.createCell(94).setCellValue("nCollapsedPool");       
-        rowhead.createCell(95).setCellValue("nVerticalLane");
-        rowhead.createCell(96).setCellValue("nVerticalPool");
-        rowhead.createCell(97).setCellValue("nChoreographyTask");
-        rowhead.createCell(98).setCellValue("nChoreographyParticipant");
-        rowhead.createCell(99).setCellValue("nChoreographySubprocess");
-        rowhead.createCell(100).setCellValue("nConversation");
-        rowhead.createCell(101).setCellValue("nSubConversation");
-        rowhead.createCell(102).setCellValue("nCallConversation");
-        rowhead.createCell(103).setCellValue("nConversationLink");
-        rowhead.createCell(104).setCellValue("nITSystem");
-        rowhead.createCell(105).setCellValue("nAssociation");
-        rowhead.createCell(106).setCellValue("nCompensateAssociation");
-        rowhead.createCell(107).setCellValue("nUnidirectionalAssociation");
-        rowhead.createCell(108).setCellValue("nUndirectedAssociation");
-        rowhead.createCell(109).setCellValue("nBidirectionalAssociation");
-        rowhead.createCell(110).setCellValue("nTextAnnotation");
-        rowhead.createCell(111).setCellValue("ndataOutputAssociation");
-        rowhead.createCell(112).setCellValue("ndataInputAssociation");
-        rowhead.createCell(113).setCellValue("nOfExtensionElements");
-        rowhead.createCell(114).setCellValue("TotalElements");
+        ...TODO
         */
 //    }
         
@@ -438,70 +318,70 @@ public class XPathParserDemo {
         int nSubProcessExtendedEventTransactionLoopMIParallelCompensate=0;
         int nSubProcessExtendedEventTransactionLoopMISequentialCompensateNone=0;
         int nSubProcessExtendedEventTransactionLoopMISequentialCompensate=0;
-        int nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensateNone=0;
-        int nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensate=0;
-        int nSubProcessExtendedEventNoneAdHocNoneLoopParallelCompensateNone=0;
-        int nSubProcessExtendedEventNoneAdHocNoneLoopParallelCompensate=0;
-        int nSubProcessExtendedEventNoneAdHocNoneLoopMIParallelCompensateNone=0;
-        int nSubProcessExtendedEventNoneAdHocNoneLoopMIParallelCompensate=0;
-        int nSubProcessExtendedEventNoneAdHocNoneLoopMISequentialCompensateNone=0;
-        int nSubProcessExtendedEventNoneAdHocNoneLoopMISequentialCompensate=0;
-        int nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone=0;
-        int nSubProcessExtendedEventNoneAdHocLoopNoneCompensate=0;
-        int nSubProcessExtendedEventNoneAdHocLoopParallelCompensateNone=0;
-        int nSubProcessExtendedEventNoneAdHocLoopParallelCompensate=0;
-        int nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensateNone=0;
-        int nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensate=0;
-        int nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensateNone=0;
-        int nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensate=0;
-        int nSubProcessExtendedEventNoneTransactionNoneLoopNoneCompensateNone=0;
-        int nSubProcessExtendedEventNoneTransactionNoneLoopNoneCompensate=0;
-        int nSubProcessExtendedEventNoneTransactionNoneLoopParallelCompensateNone=0;
-        int nSubProcessExtendedEventNoneTransactionNoneLoopParallelCompensate=0;
-        int nSubProcessExtendedEventNoneTransactionNoneLoopMIParallelCompensateNone=0;
-        int nSubProcessExtendedEventNoneTransactionNoneLoopMIParallelCompensate=0;
-        int nSubProcessExtendedEventNoneTransactionNoneLoopMISequentialCompensateNone=0;
-        int nSubProcessExtendedEventNoneTransactionNoneLoopMISequentialCompensate=0;
-        int nSubProcessExtendedEventNoneTransactionLoopNoneCompensateNone=0;
-        int nSubProcessExtendedEventNoneTransactionLoopNoneCompensate=0;
-        int nSubProcessExtendedEventNoneTransactionLoopParallelCompensateNone=0;
-        int nSubProcessExtendedEventNoneTransactionLoopParallelCompensate=0;
-        int nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensateNone=0;
-        int nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensate=0;
-        int nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensateNone=0;
-        int nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensate=0;
-        int nSubProcessExtendedEventAdHocNoneLoopNoneCompensateNone=0;
-        int nSubProcessExtendedEventAdHocNoneLoopNoneCompensate=0;
-        int nSubProcessExtendedEventAdHocNoneLoopParallelCompensateNone=0;
-        int nSubProcessExtendedEventAdHocNoneLoopParallelCompensate=0;
-        int nSubProcessExtendedEventAdHocNoneLoopMIParallelCompensateNone=0;
-        int nSubProcessExtendedEventAdHocNoneLoopMIParallelCompensate=0;
-        int nSubProcessExtendedEventAdHocNoneLoopMISequentialCompensateNone=0;
-        int nSubProcessExtendedEventAdHocNoneLoopMISequentialCompensate=0;
-        int nSubProcessExtendedEventAdHocLoopNoneCompensateNone=0;
-        int nSubProcessExtendedEventAdHocLoopNoneCompensate=0;
-        int nSubProcessExtendedEventAdHocLoopParallelCompensateNone=0;
-        int nSubProcessExtendedEventAdHocLoopParallelCompensate=0;
-        int nSubProcessExtendedEventAdHocLoopMIParallelCompensateNone=0;
-        int nSubProcessExtendedEventAdHocLoopMIParallelCompensate=0;
-        int nSubProcessExtendedEventAdHocLoopMISequentialCompensateNone=0;
-        int nSubProcessExtendedEventAdHocLoopMISequentialCompensate=0;
-        int nSubProcessExtendedEventTransactionNoneLoopNoneCompensateNone=0;
-        int nSubProcessExtendedEventTransactionNoneLoopNoneCompensate=0;
-        int nSubProcessExtendedEventTransactionNoneLoopParallelCompensateNone=0;
-        int nSubProcessExtendedEventTransactionNoneLoopParallelCompensate=0;
-        int nSubProcessExtendedEventTransactionNoneLoopMIParallelCompensateNone=0;
-        int nSubProcessExtendedEventTransactionNoneLoopMIParallelCompensate=0;
-        int nSubProcessExtendedEventTransactionNoneLoopMISequentialCompensateNone=0;
-        int nSubProcessExtendedEventTransactionNoneLoopMISequentialCompensate=0;
-        int nSubProcessExtendedEventTransactionLoopNoneCompensateNone=0;
-        int nSubProcessExtendedEventTransactionLoopNoneCompensate=0;
-        int nSubProcessExtendedEventTransactionLoopParallelCompensateNone=0;
-        int nSubProcessExtendedEventTransactionLoopParallelCompensate=0;
-        int nSubProcessExtendedEventTransactionLoopMIParallelCompensateNone=0;
-        int nSubProcessExtendedEventTransactionLoopMIParallelCompensate=0;
-        int nSubProcessExtendedEventTransactionLoopMISequentialCompensateNone=0;
-        int nSubProcessExtendedEventTransactionLoopMISequentialCompensate=0;
+        int nSubProcessCollapsedEventNoneAdHocNoneLoopNoneCompensateNone=0;
+        int nSubProcessCollapsedEventNoneAdHocNoneLoopNoneCompensate=0;
+        int nSubProcessCollapsedEventNoneAdHocNoneLoopParallelCompensateNone=0;
+        int nSubProcessCollapsedEventNoneAdHocNoneLoopParallelCompensate=0;
+        int nSubProcessCollapsedEventNoneAdHocNoneLoopMIParallelCompensateNone=0;
+        int nSubProcessCollapsedEventNoneAdHocNoneLoopMIParallelCompensate=0;
+        int nSubProcessCollapsedEventNoneAdHocNoneLoopMISequentialCompensateNone=0;
+        int nSubProcessCollapsedEventNoneAdHocNoneLoopMISequentialCompensate=0;
+        int nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone=0;
+        int nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate=0;
+        int nSubProcessCollapsedEventNoneAdHocLoopParallelCompensateNone=0;
+        int nSubProcessCollapsedEventNoneAdHocLoopParallelCompensate=0;
+        int nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensateNone=0;
+        int nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate=0;
+        int nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensateNone=0;
+        int nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate=0;
+        int nSubProcessCollapsedEventNoneTransactionNoneLoopNoneCompensateNone=0;
+        int nSubProcessCollapsedEventNoneTransactionNoneLoopNoneCompensate=0;
+        int nSubProcessCollapsedEventNoneTransactionNoneLoopParallelCompensateNone=0;
+        int nSubProcessCollapsedEventNoneTransactionNoneLoopParallelCompensate=0;
+        int nSubProcessCollapsedEventNoneTransactionNoneLoopMIParallelCompensateNone=0;
+        int nSubProcessCollapsedEventNoneTransactionNoneLoopMIParallelCompensate=0;
+        int nSubProcessCollapsedEventNoneTransactionNoneLoopMISequentialCompensateNone=0;
+        int nSubProcessCollapsedEventNoneTransactionNoneLoopMISequentialCompensate=0;
+        int nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone=0;
+        int nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate=0;
+        int nSubProcessCollapsedEventNoneTransactionLoopParallelCompensateNone=0;
+        int nSubProcessCollapsedEventNoneTransactionLoopParallelCompensate=0;
+        int nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensateNone=0;
+        int nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensate=0;
+        int nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensateNone=0;
+        int nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensate=0;
+        int nSubProcessCollapsedEventAdHocNoneLoopNoneCompensateNone=0;
+        int nSubProcessCollapsedEventAdHocNoneLoopNoneCompensate=0;
+        int nSubProcessCollapsedEventAdHocNoneLoopParallelCompensateNone=0;
+        int nSubProcessCollapsedEventAdHocNoneLoopParallelCompensate=0;
+        int nSubProcessCollapsedEventAdHocNoneLoopMIParallelCompensateNone=0;
+        int nSubProcessCollapsedEventAdHocNoneLoopMIParallelCompensate=0;
+        int nSubProcessCollapsedEventAdHocNoneLoopMISequentialCompensateNone=0;
+        int nSubProcessCollapsedEventAdHocNoneLoopMISequentialCompensate=0;
+        int nSubProcessCollapsedEventAdHocLoopNoneCompensateNone=0;
+        int nSubProcessCollapsedEventAdHocLoopNoneCompensate=0;
+        int nSubProcessCollapsedEventAdHocLoopParallelCompensateNone=0;
+        int nSubProcessCollapsedEventAdHocLoopParallelCompensate=0;
+        int nSubProcessCollapsedEventAdHocLoopMIParallelCompensateNone=0;
+        int nSubProcessCollapsedEventAdHocLoopMIParallelCompensate=0;
+        int nSubProcessCollapsedEventAdHocLoopMISequentialCompensateNone=0;
+        int nSubProcessCollapsedEventAdHocLoopMISequentialCompensate=0;
+        int nSubProcessCollapsedEventTransactionNoneLoopNoneCompensateNone=0;
+        int nSubProcessCollapsedEventTransactionNoneLoopNoneCompensate=0;
+        int nSubProcessCollapsedEventTransactionNoneLoopParallelCompensateNone=0;
+        int nSubProcessCollapsedEventTransactionNoneLoopParallelCompensate=0;
+        int nSubProcessCollapsedEventTransactionNoneLoopMIParallelCompensateNone=0;
+        int nSubProcessCollapsedEventTransactionNoneLoopMIParallelCompensate=0;
+        int nSubProcessCollapsedEventTransactionNoneLoopMISequentialCompensateNone=0;
+        int nSubProcessCollapsedEventTransactionNoneLoopMISequentialCompensate=0;
+        int nSubProcessCollapsedEventTransactionLoopNoneCompensateNone=0;
+        int nSubProcessCollapsedEventTransactionLoopNoneCompensate=0;
+        int nSubProcessCollapsedEventTransactionLoopParallelCompensateNone=0;
+        int nSubProcessCollapsedEventTransactionLoopParallelCompensate=0;
+        int nSubProcessCollapsedEventTransactionLoopMIParallelCompensateNone=0;
+        int nSubProcessCollapsedEventTransactionLoopMIParallelCompensate=0;
+        int nSubProcessCollapsedEventTransactionLoopMISequentialCompensateNone=0;
+        int nSubProcessCollapsedEventTransactionLoopMISequentialCompensate=0;
         
         int nGroup=0;
         int nLane=0;
@@ -511,14 +391,13 @@ public class XPathParserDemo {
         int nDataStoreReference=0;
         int nDataInput=0;
         int nDataOutput=0;
-        int nExclusiveGatewayEmpty=0;
-        int nExclusiveGateway=0;
+        int nExclusiveGatewayNoMarker=0;
+        int nExclusiveGatewayMarker=0;
         int nParallelGateway=0;
         int nInclusiveGateway=0;
         int nEventBasedGateway=0;
         int nEventBasedGatewayExclusiveInstantiation=0;
         int nEventBasedGatewayParallelInstantiation=0;
-        int nParallelEventBasedGateway=0;
         int nComplexGateway=0;
         int nCondition=0;
         int nStartMultipleParallelEventDefinition=0;
@@ -570,23 +449,23 @@ public class XPathParserDemo {
         int nIntermediateThrowSignalEventDefinition=0;
         int nIntermediateThrowCompensateEventDefinition=0;
         int nIntermediateThrowMultipleParallelEventDefinition=0;
-        int nBoundaryMessageEvent=0;
-        int nBoundaryTimerEvent=0;
-        int nBoundaryCancelEvent=0;
-        int nBoundaryConditionalEvent =0;
-        int nBoundaryEscalationEvent=0;
-        int nBoundaryErrorEvent=0;
-        int nBoundarySignalEvent=0;
-        int nBoundaryCompensateEvent=0;
-        int nBoundaryMultipleEvent=0;
-        int nBoundaryMultipleParallelEvent=0;
-        int nBoundaryTimerEventNonInt=0;
-        int nBoundaryEscalationEventNonInt=0;
-        int nBoundaryConditionalEventNonInt=0;
-        int nBoundaryMessageEventNonInt=0;
-        int nBoundarySignalEventNonInt=0;
-        int nBoundaryMultipleEventNonInt=0;
-        int nBoundaryMultipleParallelEventNonInt=0;
+        int nIntermediateBoundaryMessageEvent=0;
+        int nIntermediateBoundaryTimerEvent=0;
+        int nIntermediateBoundaryCancelEvent=0;
+        int nIntermediateBoundaryConditionalEvent =0;
+        int nIntermediateBoundaryEscalationEvent=0;
+        int nIntermediateBoundaryErrorEvent=0;
+        int nIntermediateBoundarySignalEvent=0;
+        int nIntermediateBoundaryCompensateEvent=0;
+        int nIntermediateBoundaryMultipleEvent=0;
+        int nIntermediateBoundaryMultipleParallelEvent=0;
+        int nIntermediateBoundaryTimerEventNonInterrupting=0;
+        int nIntermediateBoundaryEscalationEventNonInterrupting=0;
+        int nIntermediateBoundaryConditionalEventNonInterrupting=0;
+        int nIntermediateBoundaryMessageEventNonInterrupting=0;
+        int nIntermediateBoundarySignalEventNonInterrupting=0;
+        int nIntermediateBoundaryMultipleEventNonInterrupting=0;
+        int nIntermediateBoundaryMultipleParallelEventNonInterrupting=0;
         int nMessageFlow=0;
         int nSequenceFlow=0;
         int nDefaultFlow=0;
@@ -952,21 +831,14 @@ public class XPathParserDemo {
         Object resultExGEmpty = exprExGEmpty.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesExGEmpty = (NodeList) resultExGEmpty;
         doc.getDocumentElement().normalize();  
-        nExclusiveGatewayEmpty = nodesExGEmpty.getLength();
+        nExclusiveGatewayNoMarker = nodesExGEmpty.getLength();
         
         // Exclusive Gateway 
         XPathExpression exprExG = xpath.compile("//bpmn:exclusiveGateway");
         Object resultExG = exprExG.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesExG = (NodeList) resultExG;
         doc.getDocumentElement().normalize();  
-        nExclusiveGateway = nodesExG.getLength() - nExclusiveGatewayEmpty;
-        
-        // Parallel Event Based 
-        XPathExpression exprEBGP = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Parallel']");
-        Object resultEBGP = exprEBGP.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesEBGP = (NodeList) resultEBGP;
-        doc.getDocumentElement().normalize();  
-        nParallelEventBasedGateway = nodesEBGP.getLength();
+        nExclusiveGatewayMarker = nodesExG.getLength() - nExclusiveGatewayNoMarker;
         
         XPathExpression exprPaG = xpath.compile("//bpmn:parallelGateway");
         Object resultPaG = exprPaG.evaluate(doc, XPathConstants.NODESET);
@@ -1397,55 +1269,55 @@ public class XPathParserDemo {
 	                  		
 	                  		if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                    		nBoundaryMultipleParallelEvent++;
+	                    		nIntermediateBoundaryMultipleParallelEvent++;
 	                    		break;
 	                    	}           
 	                  		
 	                  		if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false &&
 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                    		nBoundaryMultipleEvent++;
+	                    		nIntermediateBoundaryMultipleEvent++;
 	                    		break;
 	                    	}      
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition") &&
 	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                  			nBoundaryMessageEvent++;
+	                  			nIntermediateBoundaryMessageEvent++;
 	                  		}
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition") &&
 	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                  			nBoundaryTimerEvent++;
+	                  			nIntermediateBoundaryTimerEvent++;
 	                  		}
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition") &&
 	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                  			nBoundaryEscalationEvent++;
+	                  			nIntermediateBoundaryEscalationEvent++;
 	                  		}
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition") &&
 	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                  			nBoundaryConditionalEvent++;
+	                  			nIntermediateBoundaryConditionalEvent++;
 	                  		}
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("errorEventDefinition") &&
 	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                  			nBoundaryErrorEvent++;
+	                  			nIntermediateBoundaryErrorEvent++;
 	                  		}
 
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition") &&
 	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                  			nBoundaryCancelEvent++;
+	                  			nIntermediateBoundaryCancelEvent++;
 	                  		}	 
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition") &&
 	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                  			nBoundaryCompensateEvent++;
+	                  			nIntermediateBoundaryCompensateEvent++;
 	                  		}	                  		
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition") &&
 	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
-	                  			nBoundarySignalEvent++;
+	                  			nIntermediateBoundarySignalEvent++;
 	                  		}	   
                   		             	
 	                  	}
@@ -1479,42 +1351,42 @@ public class XPathParserDemo {
 	                  		if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false &&
 	                  		   ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false") &&
 	                  			CatchNonIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
-	                  			nBoundaryMultipleEventNonInt++;
+	                  			nIntermediateBoundaryMultipleEventNonInterrupting++;
 	                  			break;
 	                  	    }	     
 	                  		
 	                  		if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
 	 	                  	   ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false") &&
 	 	                  	   CatchNonIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
-	                  		   nBoundaryMultipleParallelEventNonInt++;
+	                  		   nIntermediateBoundaryMultipleParallelEventNonInterrupting++;
 	 	                  			break;
 	 	                  	    }	                  		
 	 	                  		
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition") &&
 	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
-	                  			nBoundaryMessageEventNonInt++;
+	                  			nIntermediateBoundaryMessageEventNonInterrupting++;
 	                  			break;
 	                  		}
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")&&
 	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
-	                  			nBoundaryTimerEventNonInt++;
+	                  			nIntermediateBoundaryTimerEventNonInterrupting++;
 	                  		}
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")&&
 	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
-	                  			nBoundaryEscalationEventNonInt++;
+	                  			nIntermediateBoundaryEscalationEventNonInterrupting++;
 	                  		}
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition") &&
 	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")){
-	                  			nBoundaryConditionalEventNonInt++;
+	                  			nIntermediateBoundaryConditionalEventNonInterrupting++;
 	                  		}	                  		                  		
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")&&
 	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
-	                  			nBoundarySignalEventNonInt++;
+	                  			nIntermediateBoundarySignalEventNonInterrupting++;
 	                  		}	   
 	                  		
 	                  			                  	
@@ -1775,7 +1647,6 @@ public class XPathParserDemo {
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensate);
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensateNone);
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensate);
-
             row.createCell(16).setCellValue(nSubProcessExtendedEventAdHocNoneLoopNoneCompensateNone);
             row.createCell(16).setCellValue(nSubProcessExtendedEventAdHocNoneLoopNoneCompensate);
             row.createCell(16).setCellValue(nSubProcessExtendedEventAdHocNoneLoopParallelCompensateNone);
@@ -1808,7 +1679,6 @@ public class XPathParserDemo {
             row.createCell(16).setCellValue(nSubProcessExtendedEventTransactionLoopMIParallelCompensate);
             row.createCell(16).setCellValue(nSubProcessExtendedEventTransactionLoopMISequentialCompensateNone);
             row.createCell(16).setCellValue(nSubProcessExtendedEventTransactionLoopMISequentialCompensate);
-            
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensateNone);
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensate);
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneAdHocNoneLoopParallelCompensateNone);
@@ -1841,7 +1711,6 @@ public class XPathParserDemo {
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensate);
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensateNone);
             row.createCell(16).setCellValue(nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensate);
-
             row.createCell(16).setCellValue(nSubProcessExtendedEventAdHocNoneLoopNoneCompensateNone);
             row.createCell(16).setCellValue(nSubProcessExtendedEventAdHocNoneLoopNoneCompensate);
             row.createCell(16).setCellValue(nSubProcessExtendedEventAdHocNoneLoopParallelCompensateNone);
@@ -1874,7 +1743,70 @@ public class XPathParserDemo {
             row.createCell(16).setCellValue(nSubProcessExtendedEventTransactionLoopMIParallelCompensate);
             row.createCell(16).setCellValue(nSubProcessExtendedEventTransactionLoopMISequentialCompensateNone);
             row.createCell(16).setCellValue(nSubProcessExtendedEventTransactionLoopMISequentialCompensate);
-            
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocNoneLoopNoneCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocNoneLoopNoneCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocNoneLoopParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocNoneLoopParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocNoneLoopMIParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocNoneLoopMIParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocNoneLoopMISequentialCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocNoneLoopMISequentialCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocLoopParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocLoopParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionNoneLoopNoneCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionNoneLoopNoneCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionNoneLoopParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionNoneLoopParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionNoneLoopMIParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionNoneLoopMIParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionNoneLoopMISequentialCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionNoneLoopMISequentialCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionLoopParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionLoopParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocNoneLoopNoneCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocNoneLoopNoneCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocNoneLoopParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocNoneLoopParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocNoneLoopMIParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocNoneLoopMIParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocNoneLoopMISequentialCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocNoneLoopMISequentialCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocLoopNoneCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocLoopNoneCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocLoopParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocLoopParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocLoopMIParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocLoopMIParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocLoopMISequentialCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventAdHocLoopMISequentialCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionNoneLoopNoneCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionNoneLoopNoneCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionNoneLoopParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionNoneLoopParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionNoneLoopMIParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionNoneLoopMIParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionNoneLoopMISequentialCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionNoneLoopMISequentialCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionLoopNoneCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionLoopNoneCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionLoopParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionLoopParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionLoopMIParallelCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionLoopMIParallelCompensate);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionLoopMISequentialCompensateNone);
+            row.createCell(16).setCellValue(nSubProcessCollapsedEventTransactionLoopMISequentialCompensate);
            
             // Data Objects
             row.createCell(25).setCellValue(nDataObject);
@@ -1885,15 +1817,13 @@ public class XPathParserDemo {
             row.createCell(30).setCellValue(nDataOutput);
             
             // Gateway
-            row.createCell(31).setCellValue(nExclusiveGatewayEmpty);
-            row.createCell(31).setCellValue(nExclusiveGateway);
+            row.createCell(31).setCellValue(nExclusiveGatewayNoMarker);
+            row.createCell(31).setCellValue(nExclusiveGatewayMarker);
             row.createCell(32).setCellValue(nParallelGateway);
             row.createCell(33).setCellValue(nInclusiveGateway);
             row.createCell(34).setCellValue(nEventBasedGateway);
             row.createCell(34).setCellValue(nEventBasedGatewayExclusiveInstantiation);
             row.createCell(34).setCellValue(nEventBasedGatewayParallelInstantiation);
-            //????
-            row.createCell(35).setCellValue(nParallelEventBasedGateway);
             row.createCell(36).setCellValue(nComplexGateway);
                       
             // Flow
@@ -1983,25 +1913,25 @@ public class XPathParserDemo {
             row.createCell(63).setCellValue(nIntermediateCatchSignalEventDefinition);
             
             // Intermediate Boundary Interrupting
-            row.createCell(71).setCellValue(nBoundaryMessageEvent);
-            row.createCell(72).setCellValue(nBoundaryTimerEvent);
-            row.createCell(73).setCellValue(nBoundaryCancelEvent);
-            row.createCell(74).setCellValue(nBoundaryConditionalEvent);
-            row.createCell(75).setCellValue(nBoundaryEscalationEvent);
-            row.createCell(76).setCellValue(nBoundaryErrorEvent);
-            row.createCell(77).setCellValue(nBoundarySignalEvent);
-            row.createCell(78).setCellValue(nBoundaryCompensateEvent);
-            row.createCell(79).setCellValue(nBoundaryMultipleEvent);
-            row.createCell(80).setCellValue(nBoundaryMultipleParallelEvent);
+            row.createCell(71).setCellValue(nIntermediateBoundaryMessageEvent);
+            row.createCell(72).setCellValue(nIntermediateBoundaryTimerEvent);
+            row.createCell(73).setCellValue(nIntermediateBoundaryCancelEvent);
+            row.createCell(74).setCellValue(nIntermediateBoundaryConditionalEvent);
+            row.createCell(75).setCellValue(nIntermediateBoundaryEscalationEvent);
+            row.createCell(76).setCellValue(nIntermediateBoundaryErrorEvent);
+            row.createCell(77).setCellValue(nIntermediateBoundarySignalEvent);
+            row.createCell(78).setCellValue(nIntermediateBoundaryCompensateEvent);
+            row.createCell(79).setCellValue(nIntermediateBoundaryMultipleEvent);
+            row.createCell(80).setCellValue(nIntermediateBoundaryMultipleParallelEvent);
             
             //Intermediate Boundary NON Interrupting
-            row.createCell(81).setCellValue(nBoundaryTimerEventNonInt);
-            row.createCell(82).setCellValue(nBoundaryEscalationEventNonInt);
-            row.createCell(83).setCellValue(nBoundaryConditionalEventNonInt);
-            row.createCell(84).setCellValue(nBoundaryMessageEventNonInt);
-            row.createCell(85).setCellValue(nBoundarySignalEventNonInt);
-            row.createCell(86).setCellValue(nBoundaryMultipleEventNonInt);
-            row.createCell(87).setCellValue(nBoundaryMultipleParallelEventNonInt);
+            row.createCell(81).setCellValue(nIntermediateBoundaryTimerEventNonInterrupting);
+            row.createCell(82).setCellValue(nIntermediateBoundaryEscalationEventNonInterrupting);
+            row.createCell(83).setCellValue(nIntermediateBoundaryConditionalEventNonInterrupting);
+            row.createCell(84).setCellValue(nIntermediateBoundaryMessageEventNonInterrupting);
+            row.createCell(85).setCellValue(nIntermediateBoundarySignalEventNonInterrupting);
+            row.createCell(86).setCellValue(nIntermediateBoundaryMultipleEventNonInterrupting);
+            row.createCell(87).setCellValue(nIntermediateBoundaryMultipleParallelEventNonInterrupting);
             
             //Intermediate Throw Events  
             row.createCell(64).setCellValue(nIntermediateThrowNoneEventDefinition);
