@@ -68,15 +68,13 @@ public class XPathParserDemo {
         rowhead.createCell(15).setCellValue("nCallActivity");
         
         // SubProcess TODO
-        rowhead.createCell(16).setCellValue("nSubProcessExtended");
+
 
         // Data Objects
         rowhead.createCell(25).setCellValue("nDataObject");
-        //TODO DataObject COLLECTION
+        rowhead.createCell(25).setCellValue("nDataObjectCollection");
         rowhead.createCell(26).setCellValue("nDataObjectReference");
-        //Check 
         rowhead.createCell(27).setCellValue("nDataStore");
-        rowhead.createCell(28).setCellValue("nDataStoreReference");
         rowhead.createCell(29).setCellValue("nDataInput");
         rowhead.createCell(30).setCellValue("nDataOutput");
         // TODO rowhead.createCell(30).setCellValue("nDataNone"); data object none
@@ -383,14 +381,14 @@ public class XPathParserDemo {
         int nSubProcessCollapsedEventTransactionLoopMISequentialCompensateNone=0;
         int nSubProcessCollapsedEventTransactionLoopMISequentialCompensate=0;
         
-        int nGroup=0;
-        int nLane=0;
+        // Data Object
         int nDataObject=0;
+        int nDataObjectCollection=0;
         int nDataObjectReference=0;
         int nDataStore=0;
-        int nDataStoreReference=0;
         int nDataInput=0;
         int nDataOutput=0;
+        // Gateway
         int nExclusiveGatewayNoMarker=0;
         int nExclusiveGatewayMarker=0;
         int nParallelGateway=0;
@@ -399,10 +397,11 @@ public class XPathParserDemo {
         int nEventBasedGatewayExclusiveInstantiation=0;
         int nEventBasedGatewayParallelInstantiation=0;
         int nComplexGateway=0;
-        int nCondition=0;
+        
+        //Events
         int nStartMultipleParallelEventDefinition=0;
         int nStartMultipleEventDefinition=0;
-        int nStartNoneEvent=0;
+        int nStartNoneEventDefinition=0;
         int nStartSignalEventDefinition=0;
         int nStartConditionalEventDefinition=0;
         int nStartTimerEventDefinition=0;
@@ -426,7 +425,7 @@ public class XPathParserDemo {
         int nStartSignalEventSubProcessNonInterruptingDefinition=0;
         int nStartMultipleParallelEventSubProcessNonInterruptingDefinition=0;
         int nStartMultipleEventSubProcessNonInterruptingDefinition=0;       
-        int nEndNoneEvent = 0;
+        int nEndNoneEventDefinition = 0;
         int nEndMultipleEventDefinition = 0; 
         int nEndEscalationEventDefinition= 0;
         int	nEndErrorEventDefinition=  0;
@@ -466,31 +465,59 @@ public class XPathParserDemo {
         int nIntermediateBoundarySignalEventNonInterrupting=0;
         int nIntermediateBoundaryMultipleEventNonInterrupting=0;
         int nIntermediateBoundaryMultipleParallelEventNonInterrupting=0;
+        
+        //Flow
         int nMessageFlow=0;
         int nSequenceFlow=0;
         int nDefaultFlow=0;
         int nConditionalFlow=0;
-        int nExpandedPool=0;
-        int nCollapsedPool=0;
-        int nMultipleInstancePool=0;
+        
+        //Swimlanes
+        int nPoolExpanded=0;
+        int nPoolCollapsed=0;
+        int nPoolExpandedMultipleInstance=0;
+        int nPoolCollapsedMultipleInstance=0;
         int nVerticalLane=0;
         int nVerticalPool=0;
+        int nLane=0;
+                
+        //Choreography
         int nChoreographyTask=0;
+        int nChoreographyTaskMultipleInstance=0;
+        int nChoreographyTaskParallelInstance=0;
+        int nChoreographyTaskLoop=0;
+        int nChoreographySubprocessCollapsed=0;
+        int nChoreographySubprocessCollapsedMultipleInstance=0;
+        int nChoreographySubprocessCollapsedParallelInstance=0;
+        int nChoreographySubprocessCollapsedLoop=0;
+        int nChoreographySubprocessCollapsedCall=0;
+        int nChoreographySubprocessCollapsedCallMultipleInstance=0;
+        int nChoreographySubprocessCollapsedCallParallelInstance=0;
+        int nChoreographySubprocessCollapsedCallLoop=0;
+        int nChoreographySubprocessExpanded=0;
+        int nChoreographySubprocessExpandedMultipleInstance=0;
+        int nChoreographySubprocessExpandedParallelInstance=0;
+        int nChoreographySubprocessExpandedLoop=0;
         int nChoreographyParticipant=0;
-        int nChoreographySubprocess=0;
-        int nConversation=0;
-        int nSubConversation=0;
-        int nCallConversation=0;
+        int nChoreographyParticipantMultiple=0;       
+        
+        //Conversation
+        int nConversationNone=0;
+        int nConversationSubProcess=0;
+        int nConversationCall=0;
+        int nConversationSubProcessCall=0;
         int nConversationLink=0;
-        int nITSystem=0;
-        int nAssociation=0;
-        int nCompensateAssociation=0;
-        int nUnidirectionalAssociation=0;
-        int nUndirectedAssociation=0;
-        int nBidirectionalAssociation=0;
+        //Association
+        int nAssociationCompensate=0;
+        int nAssociationUndirected=0;
+        int nAssociationUnidirectional=0;        
+        int nAssociationBidirectional=0;
+        int nAssociationDataOutput=0;
+        int nAssociationDataInput=0;
+        //Others
+        int nCondition=0;
+        int nGroup=0;
         int nTextAnnotation=0;
-        int ndataOutputAssociation=0;
-        int ndataInputAssociation=0;
         int nOfExtensionElements=0;
         int TotalElements=0;
         boolean isEnglish=false;
@@ -783,6 +810,7 @@ public class XPathParserDemo {
          
 //	    DATA OBJECTS------------------------------------------------------------------------------------
 //      nDataObject
+//      nDataObjectCollection
 //      nDataStore
 //      nDataObjectReference
 //      nDataStoreReference
@@ -790,11 +818,18 @@ public class XPathParserDemo {
 //		nDataOutput
         
         // N° of Data Object
+        XPathExpression exprDOC = xpath.compile("//bpmn:dataObject[@isCollection='true']");
+        Object resultDOC = exprDOC.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesDOC = (NodeList) resultDOC;
+        doc.getDocumentElement().normalize();  
+        nDataObjectCollection = nodesDOC.getLength();
+        
+        // N° of Data Object
         XPathExpression exprDO = xpath.compile("//bpmn:dataObject");
         Object resultDO = exprDO.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesDO = (NodeList) resultDO;
         doc.getDocumentElement().normalize();  
-        nDataObject = nodesDO.getLength();
+        nDataObject = nodesDO.getLength() - nDataObjectCollection;
         
         // N° of Data Store
         XPathExpression exprDS = xpath.compile("//bpmn:dataStoreReference");
@@ -802,13 +837,6 @@ public class XPathParserDemo {
         NodeList nodesDS = (NodeList) resultDS;
         doc.getDocumentElement().normalize();  
         nDataStore = nodesDS.getLength();
-        
-        // N° of Data Store Reference
-        XPathExpression exprDSR = xpath.compile("//bpmn:dataStoreReference");
-        Object resultDSR = exprDSR.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesDSR = (NodeList) resultDSR;
-        doc.getDocumentElement().normalize();  
-        nDataStoreReference = nodesDSR.getLength();
         
         // N° of Data Input
         XPathExpression exprDI = xpath.compile("//bpmn:dataInput");
@@ -944,7 +972,7 @@ public class XPathParserDemo {
         		
         	} 
         	else
-        		nStartNoneEvent++;
+        		nStartNoneEventDefinition++;
         }
         
         // Start Events Sub Process Interrupting
@@ -1139,7 +1167,7 @@ public class XPathParserDemo {
                 }      		
         	} 
         	else
-        		nEndNoneEvent++;
+        		nEndNoneEventDefinition++;
         }
 
         // Intermediate Catch Events
@@ -1424,21 +1452,21 @@ public class XPathParserDemo {
         Object resultPool= exprPool.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesPool = (NodeList) resultPool;
         doc.getDocumentElement().normalize();  
-        nExpandedPool = nodesPool.getLength(); 
+        nPoolExpanded = nodesPool.getLength(); 
         
         //N° of CollapsedPool
         XPathExpression exprCPool = xpath.compile("//bpmn:collaboration//bpmn:participant");
         Object resultCPool= exprCPool.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesCPool = (NodeList) resultCPool;
         doc.getDocumentElement().normalize();  
-        nCollapsedPool = nodesCPool.getLength() - nodesPool.getLength(); 
+        nPoolCollapsed = nodesCPool.getLength() - nodesPool.getLength(); 
         
         //N° of Multiple Instance Pool 
         XPathExpression exprMIPool = xpath.compile("//bpmn:participant//bpmn:participantMultiplicity");
         Object resultMIPool= exprMIPool.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesMIPool = (NodeList) resultMIPool;
         doc.getDocumentElement().normalize();  
-        nMultipleInstancePool = nodesMIPool.getLength() - nodesPool.getLength();
+        nPoolExpandedMultipleInstance = nodesMIPool.getLength() - nodesPool.getLength();
         
         //N° of Vertical Pool
         XPathExpression exprVPool = xpath.compile("//bpmn:collaboration[@isHorizontal='false']");
@@ -1496,32 +1524,32 @@ public class XPathParserDemo {
         Object resultConv = exprConv.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesConv = (NodeList) resultConv;
         doc.getDocumentElement().normalize();  
-        nConversation = nodesConv.getLength();
+        nConversationNone = nodesConv.getLength();
         
         XPathExpression exprSConv = xpath.compile("//bpmn:subConversation");
         Object resultSConv = exprSConv.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesSConv = (NodeList) resultSConv;
         doc.getDocumentElement().normalize();  
-        nSubConversation = nodesSConv.getLength();
+        nConversationSubProcess = nodesSConv.getLength();
         
         XPathExpression exprCConv = xpath.compile("//bpmn:callConversation");
         Object resultCConv = exprCConv.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesCConv = (NodeList) resultCConv;
         doc.getDocumentElement().normalize();  
-        nCallConversation = nodesCConv.getLength();
+        nConversationCall = nodesCConv.getLength();
         
         XPathExpression exprConvLink = xpath.compile("//bpmn:conversationLink");
         Object resultConvLink = exprConvLink.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesConvLink = (NodeList) resultConvLink;
         doc.getDocumentElement().normalize();  
-        nConversationLink = nodesConvLink.getLength();
+        nConversationLink = nodesConvLink.getLength();        
         
-        // IT SYSTEM
-        XPathExpression exprITS = xpath.compile("//bpmn:textAnnotation//bpmn:extensionElements[@dataObjectType='IT-systems']");
-        Object resultITS = exprITS.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesITS = (NodeList) resultITS;
+        //TODO
+        XPathExpression exprConvSBC = xpath.compile("//bpmn:callConversation");
+        Object resultConvSBC = exprConvSBC.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesConvSBC = (NodeList) resultConvSBC;
         doc.getDocumentElement().normalize();  
-        nITSystem = nodesITS.getLength();
+        nConversationSubProcessCall = nodesConvSBC.getLength(); 
         
         // ASSOCIATIONS
         //dataInputAssociation
@@ -1529,48 +1557,42 @@ public class XPathParserDemo {
         Object resultIAssoc = exprIAssoc.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesIAssoc = (NodeList) resultIAssoc;
         doc.getDocumentElement().normalize();  
-        ndataInputAssociation = nodesIAssoc.getLength();
+        nAssociationDataInput = nodesIAssoc.getLength();
         
         //dataOutputAssociation
         XPathExpression exprOAssoc = xpath.compile("//bpmn:dataOutputAssociation");
         Object resultOAssoc = exprOAssoc.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesOAssoc = (NodeList) resultOAssoc;
         doc.getDocumentElement().normalize();  
-        ndataOutputAssociation = nodesOAssoc.getLength();
-        
-        XPathExpression exprAssoc = xpath.compile("//bpmn:association");
-        Object resultAssoc = exprAssoc.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesAssoc = (NodeList) resultAssoc;
-        doc.getDocumentElement().normalize();  
-        nAssociation = nodesAssoc.getLength() + ndataInputAssociation + ndataOutputAssociation;
+        nAssociationDataOutput = nodesOAssoc.getLength();
         
         //COMPENSATE ASSOCIATION
         XPathExpression exprCAssoc = xpath.compile("//bpmn:endEvent//bpmn:compensateEventDefinition[@waitForCompletion='true']");
         Object resultCAssoc = exprCAssoc.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesCAssoc = (NodeList) resultCAssoc;
         doc.getDocumentElement().normalize();  
-        nCompensateAssociation = nodesCAssoc.getLength();
+        nAssociationCompensate = nodesCAssoc.getLength();
         
         //Unidirectional Association
         XPathExpression exprUnidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='One']");
         Object resultUnidirectionalAssoc = exprUnidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesUnidirectionalAssoc = (NodeList) resultUnidirectionalAssoc;
         doc.getDocumentElement().normalize();  
-        nUnidirectionalAssociation = nodesUnidirectionalAssoc.getLength();
+        nAssociationUnidirectional = nodesUnidirectionalAssoc.getLength();
         
         //Unidirected Association
         XPathExpression exprUndirectedAssoc = xpath.compile("//bpmn:association[@associationDirection='None']");
         Object resultUndirectedAssoc = exprUndirectedAssoc.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesUndirectedAssoc = (NodeList) resultUndirectedAssoc;
         doc.getDocumentElement().normalize();  
-        nUndirectedAssociation = nodesUndirectedAssoc.getLength();
+        nAssociationUndirected = nodesUndirectedAssoc.getLength();
         
         //Bidirectional Association
         XPathExpression exprBidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='Both']");
         Object resultBidirectionalAssoc = exprBidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesBidirectionalAssoc = (NodeList) resultBidirectionalAssoc;
         doc.getDocumentElement().normalize();  
-        nBidirectionalAssociation = nodesBidirectionalAssoc.getLength();
+        nAssociationBidirectional = nodesBidirectionalAssoc.getLength();
         
         //Text Annotation
         XPathExpression exprTextAnn = xpath.compile("//bpmn:textAnnotation");
@@ -1811,8 +1833,7 @@ public class XPathParserDemo {
             // Data Objects
             row.createCell(25).setCellValue(nDataObject);
             row.createCell(26).setCellValue(nDataObjectReference);
-            row.createCell(27).setCellValue(nDataStore);
-            row.createCell(28).setCellValue(nDataStoreReference);
+            row.createCell(28).setCellValue(nDataStore);
             row.createCell(29).setCellValue(nDataInput);
             row.createCell(30).setCellValue(nDataOutput);
             
@@ -1834,9 +1855,9 @@ public class XPathParserDemo {
             
             // Pool & Lane
             row.createCell(24).setCellValue(nLane);
-            row.createCell(92).setCellValue(nExpandedPool);
-            row.createCell(94).setCellValue(nCollapsedPool);
-            row.createCell(93).setCellValue(nMultipleInstancePool);                                   
+            row.createCell(92).setCellValue(nPoolExpanded);
+            row.createCell(94).setCellValue(nPoolCollapsed);
+            row.createCell(93).setCellValue(nPoolExpandedMultipleInstance);                                   
             row.createCell(95).setCellValue(nVerticalLane);
             row.createCell(96).setCellValue(nVerticalPool);
             
@@ -1846,22 +1867,21 @@ public class XPathParserDemo {
             row.createCell(99).setCellValue(nChoreographySubprocess);
             
             // Conversation
-            row.createCell(100).setCellValue(nConversation);
-            row.createCell(101).setCellValue(nSubConversation);
-            row.createCell(102).setCellValue(nCallConversation);
+            row.createCell(100).setCellValue(nConversationNone);
+            row.createCell(101).setCellValue(nConversationSubProcess);
+            row.createCell(102).setCellValue(nConversationCall);
             row.createCell(103).setCellValue(nConversationLink);
             
             // Association
-            row.createCell(105).setCellValue(nAssociation);
-            row.createCell(106).setCellValue(nCompensateAssociation);
-            row.createCell(107).setCellValue(nUnidirectionalAssociation);
-            row.createCell(108).setCellValue(nUndirectedAssociation);
-            row.createCell(109).setCellValue(nBidirectionalAssociation);
-            row.createCell(111).setCellValue(ndataOutputAssociation);
-            row.createCell(112).setCellValue(ndataInputAssociation);
+            row.createCell(106).setCellValue(nAssociationCompensate);
+            row.createCell(107).setCellValue(nAssociationUnidirectional);
+            row.createCell(108).setCellValue(nAssociationUndirected);
+            row.createCell(109).setCellValue(nAssociationBidirectional);
+            row.createCell(111).setCellValue(nAssociationDataOutput);
+            row.createCell(112).setCellValue(nAssociationDataInput);
             
             // Start Events
-            row.createCell(38).setCellValue(nStartNoneEvent);
+            row.createCell(38).setCellValue(nStartNoneEventDefinition);
             row.createCell(39).setCellValue(nStartMultipleParallelEventDefinition);
             row.createCell(40).setCellValue(nStartMultipleEventDefinition);
             row.createCell(41).setCellValue(nStartSignalEventDefinition);
@@ -1893,7 +1913,7 @@ public class XPathParserDemo {
             row.createCell(40).setCellValue(nStartMultipleEventSubProcessNonInterruptingDefinition); 
  
             // End Events
-            row.createCell(48).setCellValue(nEndNoneEvent);
+            row.createCell(48).setCellValue(nEndNoneEventDefinition);
             row.createCell(49).setCellValue(nEndMultipleEventDefinition); 
             row.createCell(50).setCellValue(nEndEscalationEventDefinition);
             row.createCell(51).setCellValue(nEndErrorEventDefinition);
@@ -1943,7 +1963,6 @@ public class XPathParserDemo {
             row.createCell(70).setCellValue(nIntermediateThrowMultipleParallelEventDefinition);
   
             // OTHERS
-            row.createCell(104).setCellValue(nITSystem);
             row.createCell(110).setCellValue(nTextAnnotation);
             row.createCell(23).setCellValue(nGroup);
             row.createCell(37).setCellValue(nCondition);
