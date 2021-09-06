@@ -910,6 +910,9 @@ public class XPathParserDemo {
         else if (doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("camunda")) {
         	bpmnModeler = "Camunda";
         }
+        else if(doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("bpmn2")) {
+        	bpmnModeler = "BPMN2";
+        }
         else {
         	bpmnModeler = "Undefined";
         }
@@ -926,20 +929,36 @@ public class XPathParserDemo {
         	NodeList nodeModelType = nodesModelType.item(i).getChildNodes();
         	
         	for(int j=0; j<nodeModelType.getLength(); j++) {	          	 
-        	
+        		
+        		
+        		
+				if(nodeModelType.item(j).getNodeName().toString() == "bpmn:choreography") {
+				
+					modelType = "Choreography";
+					break;
+				}
+
+		        if(nodeModelType.item(j).getNodeName().toString() == "bpmn2:conversation" ||
+		           nodeModelType.item(j).getNodeName().toString() == "bpmn:subConversation" ||
+		           nodeModelType.item(j).getNodeName().toString() == "bpmn:callConversation") {
+		        	
+		        	modelType = "Conversation";
+		        	break;
+
+		        }
+		        
 		        if(nodeModelType.item(j).getNodeName().toString() == "bpmn:collaboration") {
 		        	
 		        	modelType = "Collaboration";
 		        	//If i find the collaboration xml tag, i cant skip the for
 		        	break;
-		        	//System.out.println(modelType);
-		        }
-		        else {
-	        	modelType = "Process";
-		        }
-	        	//System.out.println(modelType);
+		        } 
+        		if((nodeModelType.item(j).getNodeName().toString() == "bpmn:collaboration") == false &&
+        		   (nodeModelType.item(j).getNodeName().toString() == "bpmn:choreography") == false &&
+        			nodeModelType.item(j).getNodeName().toString() == "bpmn:participant" ){
+		        	modelType = "Process";
+			        }
 		        
-		        //TODO Choreography e Conversation
         	}
         }	
         
