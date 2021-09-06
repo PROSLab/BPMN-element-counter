@@ -922,47 +922,69 @@ public class XPathParserDemo {
         // Check if is a collaboration
         XPathExpression exprModelTypeCol = xpath.compile("//bpmn:definitions");
         Object resultModelType = exprModelTypeCol.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesModelType = (NodeList) resultModelType;
+        NodeList nodesModelType = (NodeList) resultModelType;       
         
         for(int i=0; i<nodesModelType.getLength(); i++) {
         	
-        	NodeList nodeModelType = nodesModelType.item(i).getChildNodes();
+        	Node ChildsModelType = nodesModelType.item(i);
         	
-        	for(int j=0; j<nodeModelType.getLength(); j++) {	          	 
+        	if(ChildsModelType.hasChildNodes()) {
         		
-        		
-        		
-				if(nodeModelType.item(j).getNodeName().toString() == "bpmn:choreography") {
-				
-					modelType = "Choreography";
-					break;
-				}
+        		NodeList ChildModelType = ChildsModelType.getChildNodes();
 
-		        if(nodeModelType.item(j).getNodeName().toString() == "bpmn2:conversation" ||
-		           nodeModelType.item(j).getNodeName().toString() == "bpmn:subConversation" ||
-		           nodeModelType.item(j).getNodeName().toString() == "bpmn:callConversation") {
-		        	
-		        	modelType = "Conversation";
-		        	break;
-
-		        }
-		        
-		        if(nodeModelType.item(j).getNodeName().toString() == "bpmn:collaboration") {
-		        	
-		        	modelType = "Collaboration";
-		        	//If i find the collaboration xml tag, i cant skip the for
-		        	break;
-		        } 
-        		if((nodeModelType.item(j).getNodeName().toString() == "bpmn:collaboration") == false &&
-        		   (nodeModelType.item(j).getNodeName().toString() == "bpmn:choreography") == false &&
-        			nodeModelType.item(j).getNodeName().toString() == "bpmn:participant" ){
-		        	modelType = "Process";
-			        }
-		        
+        	for(int j=0;j<ChildModelType.getLength(); j++) {
+        		
+        		if(ChildModelType.item(j).getNodeType() == Node.ELEMENT_NODE) {            
+             		
+	        		String nodeModelType2 =  ChildModelType.item(j).getNodeName();
+	            	System.out.println(nodeModelType2);
+        			
+	            	
+		
+				        if(nodeModelType2.contains("conversation") ||
+				        		nodeModelType2.contains("subConversation") ||
+				        		nodeModelType2.contains("callConversation")) {
+				        	
+				        	modelType = "Conversation";
+				        	break;
+		
+				        }
+				        
+				        if(nodeModelType2.contains("choreography") && 
+				        		(nodeModelType2.contains("conversation")) == false && 
+				        		(nodeModelType2.contains("subConversation")) == false && 
+				        		(nodeModelType2.contains("callConversation")) == false){
+							
+							modelType = "Choreography";
+							break;
+						}
+				        
+				        if(nodeModelType2.contains("collaboration")) {
+				        	
+				        	modelType = "Collaboration";
+				        	//If i find the collaboration xml tag, i cant skip the for
+				        	break;
+				        } 
+				        
+				        if(nodeModelType2.contains("subProcess")) {
+				        	
+				        	modelType = "SubProcess";
+				        	//If i find the collaboration xml tag, i cant skip the for
+				        	break;
+				        } 
+		        		if((nodeModelType2.contains("collaboration")) == false &&
+		        		   (nodeModelType2.contains("choreography")) == false &&
+        				   (nodeModelType2.contains("conversation")) == false && 
+        				   (nodeModelType2.contains("subConversation")) == false && 
+			        	   (nodeModelType2.contains("callConversation")) == false &&
+		        		    nodeModelType2.contains("process")){
+				        	modelType = "Process";
+					        }                 
+          	 
+        		}
         	}
-        }	
-        
-       
+        	}
+        }
 
 //----------------------------------------------BPMN STATS-------------------------------------------------
 // XPath Query for showing all Tasks markers
