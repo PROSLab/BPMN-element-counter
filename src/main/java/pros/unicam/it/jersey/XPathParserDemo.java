@@ -51,6 +51,7 @@ public class XPathParserDemo {
         //Creation of the xls empty file
         Workbook wb = new XSSFWorkbook();    
         XSSFSheet sheet = (XSSFSheet) wb.createSheet("BPMN_Stats"); 
+        XSSFSheet sheet2 = (XSSFSheet) wb.createSheet("BPMN_Stats_ExtendedSubProcess"); 
         XSSFRow rowhead = sheet.createRow((short)0);         
 	    //creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
 		rowhead.createCell(0).setCellValue("File Name");
@@ -1035,10 +1036,7 @@ public class XPathParserDemo {
 //          	
 //          }
 //          
-//                
-//        nTask = nodesTask.getLength() - nTaskLoopActivity - nTaskMultipleInstanceSequential - nTaskMultipleInstanceParallel;
-//
-//        
+
           // This is a counter to detect a general SubProcess extended 
         	nGeneralSubProcess = nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensateNone+
 				        nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensate+
@@ -2464,12 +2462,15 @@ public class XPathParserDemo {
             	}
             	
             }
-
+           
             if(ConsiderExtendedSubProcess && nGeneralSubProcess>0) {
-
-                XSSFSheet sheet2 = (XSSFSheet) wb.createSheet("BPMN_Stats_ExtendedSubProcess"); 
+            	
+            	String SubProcessModelID="";
+            	
+            	
+                
                 XSSFRow rowhead2 = sheet2.createRow((short)0); 
-                rowhead2.createCell(0).setCellValue("File Name");
+                rowhead2.createCell(0).setCellValue("Original Model Name");
                 rowhead2.createCell(1).setCellValue("bpmnModeler");
                 rowhead2.createCell(2).setCellValue("modelType");
         		rowhead2.createCell(3).setCellValue("isEnglish");
@@ -2853,9 +2854,9 @@ public class XPathParserDemo {
                 rowhead2.createCell(381).setCellValue("nGroup");
                 rowhead2.createCell(382).setCellValue("nTextAnnotation");
                 rowhead2.createCell(383).setCellValue("nOfExtensionElements");
-                rowhead2.createCell(384).setCellValue("TotalElements");
+                rowhead2.createCell(384).setCellValue("SubProcessModelID");         
                 
-                XSSFRow row2 = sheet.createRow((short)x+1);  
+                XSSFRow row2 = sheet2.createRow((short)x+1);  
                 row2.createCell(0).setCellValue(fileName);
                 row2.createCell(1).setCellValue(bpmnModeler);
                 row2.createCell(2).setCellValue(modelType);
@@ -3240,7 +3241,7 @@ public class XPathParserDemo {
                 row2.createCell(381).setCellValue(nGroup);
                 row2.createCell(382).setCellValue(nTextAnnotation);
                 row2.createCell(383).setCellValue(nOfExtensionElements);
-                row2.createCell(384).setCellValue(TotalElements); 
+                row2.createCell(384).setCellValue(SubProcessModelID);
                 
                 for(Cell cell : row2) {
                 	String data="";
