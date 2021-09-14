@@ -1855,12 +1855,6 @@ public class XPathParserDemo {
         	} 
         }
         
-        // CHOREOGRAPHY
-        /*
-            
-
-         */
-        
         //N° of Choreography participant multiple      
         XPathExpression exprChoPartM = xpath.compile("//bpmn:choreography//bpmn:participant//bpmn:participantMultiplicity");
         Object resultChoPartM = exprChoPartM.evaluate(doc, XPathConstants.NODESET);
@@ -1906,13 +1900,7 @@ public class XPathParserDemo {
         NodeList nodesChoMsg = (NodeList) resultChoMsg;
         doc.getDocumentElement().normalize();  
         nChoreographyMessage = nodesChoMsg.getLength();
-        
-        /*row.createCell(355).setCellValue(nChoreographySubprocessCollapsed);
-            row.createCell(356).setCellValue(nChoreographySubprocessCollapsedMultipleInstance);
-            row.createCell(357).setCellValue(nChoreographySubprocessCollapsedParallelInstance);
-            row.createCell(358).setCellValue(nChoreographySubprocessCollapsedLoop);
-         */
-        
+
         //N° of Choreography SubProcess Expanded        
         XPathExpression exprChoSubEXPI = xpath.compile("//bpmn:subChoreography[@loopType='MultiInstanceParallel']");
         Object resultChoSubEXPI  = exprChoSubEXPI .evaluate(doc, XPathConstants.NODESET);
@@ -1938,7 +1926,9 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nChoreographySubprocessExpanded = nodesChoSubEX.getLength() - nChoreographySubprocessExpandedSequentialMultipleInstance - nChoreographySubprocessExpandedLoop - nChoreographySubprocessExpandedParallelMultipleInstance;
         
-        //N° of Choreography SubProcess Collapsed       
+        //N° of Choreography SubProcess Collapsed  Example: <bpmndi:BPMNShape id="SubChoreography_0vzey3j_di" isExpanded='false'>    
+        
+        
         XPathExpression exprChoSubColPMI = xpath.compile("//bpmn:subChoreography[@loopType='MultiInstanceParallel']");
         Object resultChoSubColPMI  = exprChoSubColPMI.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesChoSubColPMI = (NodeList) resultChoSubColPMI;
@@ -1947,8 +1937,7 @@ public class XPathParserDemo {
         
         XPathExpression exprChoSubColLoop = xpath.compile("//bpmn:subChoreography[@loopType='Standard']");
         Object resultChoSubColLoop= exprChoSubColLoop.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesChoSubColLoop = (NodeList) resultChoSubColLoop;
-        doc.getDocumentElement().normalize();  
+        NodeList nodesChoSubColLoop = (NodeList) resultChoSubColLoop;        
         nChoreographySubprocessCollapsedLoop = nodesChoSubColLoop.getLength();
         
         XPathExpression exprChoSubColSMI  = xpath.compile("//bpmn:subChoreography[@loopType='MultiInstanceSequential']");
@@ -1960,7 +1949,22 @@ public class XPathParserDemo {
         XPathExpression exprChoSubCol = xpath.compile("//bpmn:subChoreography");
         Object resultChoSubCol  = exprChoSubCol .evaluate(doc, XPathConstants.NODESET);
         NodeList nodesChoSubCol  = (NodeList) resultChoSubCol ;
-        doc.getDocumentElement().normalize();  
+        doc.getDocumentElement().normalize();
+        
+        //Tentativo id
+//        Node BPMNShape = nodesChoSubCol.item(x);
+//        try {
+//        NamedNodeMap attributes = BPMNShape.getAttributes();
+//        Node attr = attributes.getNamedItem("id");
+//	        try {
+//	        System.out.println(attr.getTextContent());
+//	        }catch (Exception e){
+//	        	System.out.println("errore");
+//	        }
+//        }catch (Exception e){
+//        	System.out.println("errore");
+//        }
+       
         nChoreographySubprocessCollapsed = nodesChoSubCol.getLength() - nChoreographySubprocessCollapsedSequentialMultipleInstance - nChoreographySubprocessCollapsedLoop - nChoreographySubprocessCollapsedParallelMultipleInstance;        
         
         //N° of Call Choreography             
@@ -3385,7 +3389,7 @@ public class XPathParserDemo {
        		wb.write(fileOut);  
        		//closing the Stream  
        		fileOut.close();  
-       		System.out.println(fileName+": Analysis DONE");
+       		//System.out.println(fileName+": Analysis DONE");
         	}
         
       //closing the workbook  
