@@ -3266,7 +3266,7 @@ public class XPathParserDemo {
                 }
             }
             
-      		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xls");
+      		FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xlsx");
        		wb.write(fileOut);  
        		//closing the Stream  
        		fileOut.close();  
