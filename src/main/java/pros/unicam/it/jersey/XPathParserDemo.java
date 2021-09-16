@@ -42,11 +42,7 @@ public class XPathParserDemo {
 	private static boolean ConsiderExtendedSubProcess = true;
 
     public static void main(String[] args) throws Exception {
-    	
-    	//TODO METRICS
-    	/*
-    	 * 
-    	 */
+
     	
         //Creation of the xls empty file
         Workbook wb = new XSSFWorkbook();    
@@ -399,47 +395,45 @@ public class XPathParserDemo {
         rowhead.createCell(342).setCellValue("nDefaultFlow");
         rowhead.createCell(343).setCellValue("nConditionalFlow");
         rowhead.createCell(344).setCellValue("nLane");
-        rowhead.createCell(345).setCellValue("nPoolExpanded");
-        rowhead.createCell(346).setCellValue("nPoolCollapsed");
-        rowhead.createCell(347).setCellValue("nPoolExpandedMultipleInstance");
-        rowhead.createCell(348).setCellValue("nPoolCollapsedMultipleInstance");
-        rowhead.createCell(349).setCellValue("nVerticalLane");
-        rowhead.createCell(350).setCellValue("nVerticalPool");
-        rowhead.createCell(351).setCellValue("nChoreographyTask");
-        rowhead.createCell(352).setCellValue("nChoreographyMessage");
-        rowhead.createCell(353).setCellValue("nChoreographyTaskMultipleInstance");
-        rowhead.createCell(354).setCellValue("nChoreographyTaskParallelInstance");
-        rowhead.createCell(355).setCellValue("nChoreographyTaskLoop");
-        rowhead.createCell(356).setCellValue("nChoreographySubprocessCollapsed");
-        rowhead.createCell(357).setCellValue("nChoreographySubprocessCollapsedMultipleInstance");
-        rowhead.createCell(358).setCellValue("nChoreographySubprocessCollapsedParallelInstance");
-        rowhead.createCell(359).setCellValue("nChoreographySubprocessCollapsedLoop");
-        rowhead.createCell(360).setCellValue("nChoreographySubprocessCollapsedCall");
-        rowhead.createCell(361).setCellValue("nChoreographySubprocessCollapsedCallMultipleInstance");
-        rowhead.createCell(362).setCellValue("nChoreographySubprocessCollapsedCallParallelInstance");
-        rowhead.createCell(363).setCellValue("nChoreographySubprocessCollapsedCallLoop");
-        rowhead.createCell(364).setCellValue("nChoreographySubprocessExpanded");
-        rowhead.createCell(365).setCellValue("nChoreographySubprocessExpandedMultipleInstance");
-        rowhead.createCell(366).setCellValue("nChoreographySubprocessExpandedParallelInstance");
-        rowhead.createCell(367).setCellValue("nChoreographySubprocessExpandedLoop");
-        rowhead.createCell(368).setCellValue("nChoreographyParticipant");
-        rowhead.createCell(369).setCellValue("nChoreographyParticipantMultiple");       
-        rowhead.createCell(370).setCellValue("nConversationNone");
-        rowhead.createCell(371).setCellValue("nConversationSubProcess");
-        rowhead.createCell(372).setCellValue("nConversationCall");
-        rowhead.createCell(373).setCellValue("nConversationSubProcessCall");
-        rowhead.createCell(374).setCellValue("nConversationLink");
-        rowhead.createCell(375).setCellValue("nAssociationCompensate");
-        rowhead.createCell(376).setCellValue("nAssociationUndirected");
-        rowhead.createCell(377).setCellValue("nAssociationUnidirectional");        
-        rowhead.createCell(378).setCellValue("nAssociationBidirectional");
-        rowhead.createCell(379).setCellValue("nAssociationDataOutput");
-        rowhead.createCell(380).setCellValue("nAssociationDataInput");
-        rowhead.createCell(381).setCellValue("nCondition");
-        rowhead.createCell(382).setCellValue("nGroup");
-        rowhead.createCell(383).setCellValue("nTextAnnotation");
-        rowhead.createCell(384).setCellValue("nOfExtensionElements");
-        rowhead.createCell(385).setCellValue("TotalElements");        
+        rowhead.createCell(345).setCellValue("nPoolCollapsedMultiplicityNone");
+		rowhead.createCell(346).setCellValue("nPoolCollapsedMultiplicity");
+		rowhead.createCell(347).setCellValue("nPoolExpandedMultiplicityNone");
+		rowhead.createCell(348).setCellValue("nPoolExpandedMultiplicity"); 
+        rowhead.createCell(349).setCellValue("nChoreographyTask");
+        rowhead.createCell(350).setCellValue("nChoreographyMessage");
+        rowhead.createCell(351).setCellValue("nChoreographyTaskMultipleInstance");
+        rowhead.createCell(352).setCellValue("nChoreographyTaskParallelInstance");
+        rowhead.createCell(353).setCellValue("nChoreographyTaskLoop");
+        rowhead.createCell(354).setCellValue("nChoreographySubprocessCollapsed");
+        rowhead.createCell(355).setCellValue("nChoreographySubprocessCollapsedMultipleInstance");
+        rowhead.createCell(356).setCellValue("nChoreographySubprocessCollapsedParallelInstance");
+        rowhead.createCell(357).setCellValue("nChoreographySubprocessCollapsedLoop");
+        rowhead.createCell(358).setCellValue("nChoreographySubprocessCollapsedCall");
+        rowhead.createCell(359).setCellValue("nChoreographySubprocessCollapsedCallMultipleInstance");
+        rowhead.createCell(360).setCellValue("nChoreographySubprocessCollapsedCallParallelInstance");
+        rowhead.createCell(361).setCellValue("nChoreographySubprocessCollapsedCallLoop");
+        rowhead.createCell(362).setCellValue("nChoreographySubprocessExpanded");
+        rowhead.createCell(363).setCellValue("nChoreographySubprocessExpandedMultipleInstance");
+        rowhead.createCell(364).setCellValue("nChoreographySubprocessExpandedParallelInstance");
+        rowhead.createCell(365).setCellValue("nChoreographySubprocessExpandedLoop");
+        rowhead.createCell(366).setCellValue("nChoreographyParticipant");
+        rowhead.createCell(367).setCellValue("nChoreographyParticipantMultiple");       
+        rowhead.createCell(368).setCellValue("nConversationNone");
+        rowhead.createCell(369).setCellValue("nConversationSubProcess");
+        rowhead.createCell(370).setCellValue("nConversationCall");
+        rowhead.createCell(371).setCellValue("nConversationSubProcessCall");
+        rowhead.createCell(372).setCellValue("nConversationLink");
+        rowhead.createCell(373).setCellValue("nAssociationCompensate");
+        rowhead.createCell(374).setCellValue("nAssociationUndirected");
+        rowhead.createCell(375).setCellValue("nAssociationUnidirectional");        
+        rowhead.createCell(376).setCellValue("nAssociationBidirectional");
+        rowhead.createCell(377).setCellValue("nAssociationDataOutput");
+        rowhead.createCell(378).setCellValue("nAssociationDataInput");
+        rowhead.createCell(379).setCellValue("nCondition");
+        rowhead.createCell(380).setCellValue("nGroup");
+        rowhead.createCell(381).setCellValue("nTextAnnotation");
+        rowhead.createCell(382).setCellValue("nOfExtensionElements");
+        rowhead.createCell(383).setCellValue("TotalElements");        
 
         // File's cycle of the testmodels folder
         File folder = new File("testmodels");
@@ -451,8 +445,6 @@ public class XPathParserDemo {
     	String fileName;
         String bpmnModeler;
         boolean isEnglish=false;
-        int nGeneralSubChoProcesses =0;
-        int nSubChoProcessesShapes = 0;
 
         //Process Subprocess or Collaboration
         String modelType = null;
@@ -806,12 +798,10 @@ public class XPathParserDemo {
         int nConditionalFlow=0;
         //Swimlanes
         int nLane=0;
-        int nPoolExpanded=0;
-        int nPoolCollapsed=0;
-        int nPoolExpandedMultipleInstance=0;
-        int nPoolCollapsedMultipleInstance=0;
-        int nVerticalLane=0;
-        int nVerticalPool=0;
+        int nPoolCollapsedMultiplicityNone=0;
+		int	nPoolCollapsedMultiplicity=0;
+		int nPoolExpandedMultiplicityNone=0;
+		int	nPoolExpandedMultiplicity=0;       
         //Choreography
         int nChoreographyTask=0;
         int nChoreographyTaskSequentialMultipleInstance=0;
@@ -1909,7 +1899,7 @@ public class XPathParserDemo {
         Object resultChoSubprocesses  = exprChoSubprocesses .evaluate(doc, XPathConstants.NODESET);
         NodeList nodesChoSubprocesses = (NodeList) resultChoSubprocesses;
         doc.getDocumentElement().normalize();  
-        nGeneralSubChoProcesses = nodesChoSubprocesses.getLength();
+        
         
         xpath.setNamespaceContext(new NamespaceContext() {
 
@@ -1935,9 +1925,7 @@ public class XPathParserDemo {
         XPathExpression exprChoSubprocessesShapes = xpath.compile("//bpmn:BPMNShape");
         Object resultChoSubprocessesShapes  = exprChoSubprocessesShapes.evaluate(doc, XPathConstants.NODESET);       
         NodeList nodesChoSubprocessesShapes = (NodeList) resultChoSubprocessesShapes;
-        doc.getDocumentElement().normalize();  
-        nSubChoProcessesShapes = nodesChoSubprocessesShapes.getLength();        
-        
+        doc.getDocumentElement().normalize();               
         
         	for(int i=0;i<nodesChoSubprocesses.getLength();i++) {
         		String ChoSubprocessesID = (((Element) nodesChoSubprocesses.item(i)).getAttribute("id"));
@@ -1946,7 +1934,7 @@ public class XPathParserDemo {
         		String ChoSubprocessesShape = (((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("bpmnElement"));
         		
         			if(ChoSubprocessesID.equalsIgnoreCase(ChoSubprocessesShape)) {
-		        	System.out.println("id: "+ChoSubprocessesID+" bpmnElement: "+ChoSubprocessesShape+" SONO UGUALI");
+		        	//System.out.println("id: "+ChoSubprocessesID+" bpmnElement: "+ChoSubprocessesShape+" SONO UGUALI");
 		        		
 		        		// Choreography Expanded
 		        		if(((Element) nodesChoSubprocesses.item(i)).getAttribute("loopType").contains("Standard") &&
@@ -2043,35 +2031,6 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nChoreographySubprocessCollapsedCall = nodesChoSubCall.getLength() - nChoreographySubprocessCollapsedCallSequentialMultipleInstance - nChoreographySubprocessCollapsedCallParallelMultipleInstance - nChoreographySubprocessCollapsedCallLoop;
         
-        //POOL
-        //N° of Pool
-        XPathExpression exprPool = xpath.compile("//bpmn:collaboration//bpmn:participant[@processRef]");
-        Object resultPool= exprPool.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesPool = (NodeList) resultPool;
-        doc.getDocumentElement().normalize();  
-        nPoolExpanded = nodesPool.getLength(); 
-        
-        //N° of CollapsedPool
-        XPathExpression exprCPool = xpath.compile("//bpmn:collaboration//bpmn:participant");
-        Object resultCPool= exprCPool.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesCPool = (NodeList) resultCPool;
-        doc.getDocumentElement().normalize();  
-        nPoolCollapsed = nodesCPool.getLength() - nodesPool.getLength(); 
-        
-        //N° of Multiple Instance Pool 
-        XPathExpression exprMIPool = xpath.compile("bpmn:collaboration//bpmn:participant//bpmn:participantMultiplicity");
-        Object resultMIPool= exprMIPool.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesMIPool = (NodeList) resultMIPool;
-        doc.getDocumentElement().normalize();  
-        nPoolExpandedMultipleInstance = nodesMIPool.getLength() - nodesPool.getLength();
-        
-        //N° of Vertical Pool
-        XPathExpression exprVPool = xpath.compile("//bpmn:collaboration[@isHorizontal='false']");
-        Object resultVPool = exprVPool.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesVPool = (NodeList) resultVPool;
-        doc.getDocumentElement().normalize();  
-        nVerticalPool = nodesVPool.getLength();
-        
         //N° of Lane 
         XPathExpression exprLane = xpath.compile("//bpmn:lane");
         Object resultLane = exprLane.evaluate(doc, XPathConstants.NODESET);
@@ -2079,12 +2038,33 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nLane = nodesLane.getLength();
         
-        //N° of Vertical Lane
-        XPathExpression exprVLane = xpath.compile("//bpmn:lane[@isHorizontal='false']");
-        Object resultVLane  = exprVLane.evaluate(doc, XPathConstants.NODESET);
-        NodeList nodesVLane  = (NodeList) resultVLane;
+        // Pool Expanded Multiplicity
+        XPathExpression exprPoolExM = xpath.compile("//bpmn:participant[@processRef]//bpmn:participantMultiplicity");
+        Object resultPoolExM= exprPoolExM.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesPoolExM = (NodeList) resultPoolExM;
         doc.getDocumentElement().normalize();  
-        nVerticalLane = nodesVLane.getLength();
+        nPoolExpandedMultiplicity = nodesPoolExM.getLength();
+        
+        // Pool Expanded Multiplicity None
+        XPathExpression exprPoolEx = xpath.compile("//bpmn:collaboration//bpmn:participant[@processRef]");
+        Object resultPoolEx= exprPoolEx.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesPoolEx = (NodeList) resultPoolEx;
+        doc.getDocumentElement().normalize();  
+        nPoolExpandedMultiplicityNone = nodesPoolEx.getLength() - nPoolExpandedMultiplicity;
+        
+        // Pool Collapsed Multiplicity 
+        XPathExpression exprPoolColM = xpath.compile("//bpmn:participant[not(contains(@processRef,'sid'))]//bpmn:participantMultiplicity");
+        Object resultPoolColM = exprPoolColM.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesPoolColM = (NodeList) resultPoolColM;
+        doc.getDocumentElement().normalize();  
+        nPoolCollapsedMultiplicity = nodesPoolColM.getLength();
+        
+        // Pool Collapsed Multiplicity None
+        XPathExpression exprPoolCol = xpath.compile("//bpmn:collaboration//bpmn:participant[not(contains(@processRef,'sid'))]");
+        Object resultPoolCol= exprPoolCol.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesPoolCol = (NodeList) resultPoolCol;
+        doc.getDocumentElement().normalize();  
+        nPoolCollapsedMultiplicityNone = nodesPoolCol.getLength() - nPoolCollapsedMultiplicity;
         
         
         //FLOW
@@ -2141,7 +2121,7 @@ public class XPathParserDemo {
         doc.getDocumentElement().normalize();  
         nConversationLink = nodesConvLink.getLength();        
         
-        //TODO
+        //TODO nConversationSubProcessCall
         XPathExpression exprConvSBC = xpath.compile("//bpmn:callConversation");
         Object resultConvSBC = exprConvSBC.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesConvSBC = (NodeList) resultConvSBC;
@@ -2205,8 +2185,8 @@ public class XPathParserDemo {
 //        doc.getDocumentElement().normalize();  
 //        nOfExtensionElements = nodesExtension.getLength();
         
-        	TotalElements =nTaskNoneLoopNoneCompensateNoneCallNone+nTaskNoneLoopNoneCompensateNoneCall+nTaskNoneLoopNoneCompensateCallNone+nTaskNoneLoopNoneCompensateCall+nTaskNoneLoopStandardCompensateNoneCallNone+nTaskNoneLoopStandardCompensateNoneCall+nTaskNoneLoopStandardCompensateCallNone+nTaskNoneLoopStandardCompensateCall+nTaskNoneLoopMIParallelCompensateNoneCallNone+nTaskNoneLoopMIParallelCompensateNoneCall+nTaskNoneLoopMIParallelCompensateCallNone+nTaskNoneLoopMIParallelCompensateCall+nTaskNoneLoopMISequentialCompensateNoneCallNone+nTaskNoneLoopMISequentialCompensateNoneCall+nTaskNoneLoopMISequentialCompensateCallNone+nTaskNoneLoopMISequentialCompensateCall+nTaskSendLoopNoneCompensateNoneCallNone+nTaskSendLoopNoneCompensateNoneCall+nTaskSendLoopNoneCompensateCallNone+nTaskSendLoopNoneCompensateCall+nTaskSendLoopStandardCompensateNoneCallNone+nTaskSendLoopStandardCompensateNoneCall+nTaskSendLoopStandardCompensateCallNone+nTaskSendLoopStandardCompensateCall+nTaskSendLoopMIParallelCompensateNoneCallNone+nTaskSendLoopMIParallelCompensateNoneCall+nTaskSendLoopMIParallelCompensateCallNone+nTaskSendLoopMIParallelCompensateCall+nTaskSendLoopMISequentialCompensateNoneCallNone+nTaskSendLoopMISequentialCompensateNoneCall+nTaskSendLoopMISequentialCompensateCallNone+nTaskSendLoopMISequentialCompensateCall+nTaskReceiveLoopNoneCompensateNoneCallNone+nTaskReceiveLoopNoneCompensateNoneCall+nTaskReceiveLoopNoneCompensateCallNone+nTaskReceiveLoopNoneCompensateCall+nTaskReceiveLoopStandardCompensateNoneCallNone+nTaskReceiveLoopStandardCompensateNoneCall+nTaskReceiveLoopStandardCompensateCallNone+nTaskReceiveLoopStandardCompensateCall+nTaskReceiveLoopMIParallelCompensateNoneCallNone+nTaskReceiveLoopMIParallelCompensateNoneCall+nTaskReceiveLoopMIParallelCompensateCallNone+nTaskReceiveLoopMIParallelCompensateCall+nTaskReceiveLoopMISequentialCompensateNoneCallNone+nTaskReceiveLoopMISequentialCompensateNoneCall+nTaskReceiveLoopMISequentialCompensateCallNone+nTaskReceiveLoopMISequentialCompensateCall+nTaskUserLoopNoneCompensateNoneCallNone+nTaskUserLoopNoneCompensateNoneCall+nTaskUserLoopNoneCompensateCallNone+nTaskUserLoopNoneCompensateCall+nTaskUserLoopStandardCompensateNoneCallNone+nTaskUserLoopStandardCompensateNoneCall+nTaskUserLoopStandardCompensateCallNone+nTaskUserLoopStandardCompensateCall+nTaskUserLoopMIParallelCompensateNoneCallNone+nTaskUserLoopMIParallelCompensateNoneCall+nTaskUserLoopMIParallelCompensateCallNone+nTaskUserLoopMIParallelCompensateCall+nTaskUserLoopMISequentialCompensateNoneCallNone+nTaskUserLoopMISequentialCompensateNoneCall+nTaskUserLoopMISequentialCompensateCallNone+nTaskUserLoopMISequentialCompensateCall+nTaskManualLoopNoneCompensateNoneCallNone+nTaskManualLoopNoneCompensateNoneCall+nTaskManualLoopNoneCompensateCallNone+nTaskManualLoopNoneCompensateCall+nTaskManualLoopStandardCompensateNoneCallNone+nTaskManualLoopStandardCompensateNoneCall+nTaskManualLoopStandardCompensateCallNone+nTaskManualLoopStandardCompensateCall+nTaskManualLoopMIParallelCompensateNoneCallNone+nTaskManualLoopMIParallelCompensateNoneCall+nTaskManualLoopMIParallelCompensateCallNone+nTaskManualLoopMIParallelCompensateCall+nTaskManualLoopMISequentialCompensateNoneCallNone+nTaskManualLoopMISequentialCompensateNoneCall+nTaskManualLoopMISequentialCompensateCallNone+nTaskManualLoopMISequentialCompensateCall+nTaskBusinessRuleLoopNoneCompensateNoneCallNone+nTaskBusinessRuleLoopNoneCompensateNoneCall+nTaskBusinessRuleLoopNoneCompensateCallNone+nTaskBusinessRuleLoopNoneCompensateCall+nTaskBusinessRuleLoopStandardCompensateNoneCallNone+nTaskBusinessRuleLoopStandardCompensateNoneCall+nTaskBusinessRuleLoopStandardCompensateCallNone+nTaskBusinessRuleLoopStandardCompensateCall+nTaskBusinessRuleLoopMIParallelCompensateNoneCallNone+nTaskBusinessRuleLoopMIParallelCompensateNoneCall+nTaskBusinessRuleLoopMIParallelCompensateCallNone+nTaskBusinessRuleLoopMIParallelCompensateCall+nTaskBusinessRuleLoopMISequentialCompensateNoneCallNone+nTaskBusinessRuleLoopMISequentialCompensateNoneCall+nTaskBusinessRuleLoopMISequentialCompensateCallNone+nTaskBusinessRuleLoopMISequentialCompensateCall+nTaskServiceLoopNoneCompensateNoneCallNone+nTaskServiceLoopNoneCompensateNoneCall+nTaskServiceLoopNoneCompensateCallNone+nTaskServiceLoopNoneCompensateCall+nTaskServiceLoopStandardCompensateNoneCallNone+nTaskServiceLoopStandardCompensateNoneCall+nTaskServiceLoopStandardCompensateCallNone+nTaskServiceLoopStandardCompensateCall+nTaskServiceLoopMIParallelCompensateNoneCallNone+nTaskServiceLoopMIParallelCompensateNoneCall+nTaskServiceLoopMIParallelCompensateCallNone+nTaskServiceLoopMIParallelCompensateCall+nTaskServiceLoopMISequentialCompensateNoneCallNone+nTaskServiceLoopMISequentialCompensateNoneCall+nTaskServiceLoopMISequentialCompensateCallNone+nTaskServiceLoopMISequentialCompensateCall+nTaskScriptLoopNoneCompensateNoneCallNone+nTaskScriptLoopNoneCompensateNoneCall+nTaskScriptLoopNoneCompensateCallNone+nTaskScriptLoopNoneCompensateCall+nTaskScriptLoopStandardCompensateNoneCallNone+nTaskScriptLoopStandardCompensateNoneCall+nTaskScriptLoopStandardCompensateCallNone+nTaskScriptLoopStandardCompensateCall+nTaskScriptLoopMIParallelCompensateNoneCallNone+nTaskScriptLoopMIParallelCompensateNoneCall+nTaskScriptLoopMIParallelCompensateCallNone+nTaskScriptLoopMIParallelCompensateCall+nTaskScriptLoopMISequentialCompensateNoneCallNone+nTaskScriptLoopMISequentialCompensateNoneCall+nTaskScriptLoopMISequentialCompensateCallNone+nTaskScriptLoopMISequentialCompensateCall+nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensateNone+nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensate+nSubProcessExtendedEventNoneAdHocNoneLoopParallelCompensateNone+nSubProcessExtendedEventNoneAdHocNoneLoopParallelCompensate+nSubProcessExtendedEventNoneAdHocNoneLoopMIParallelCompensateNone+nSubProcessExtendedEventNoneAdHocNoneLoopMIParallelCompensate+nSubProcessExtendedEventNoneAdHocNoneLoopMISequentialCompensateNone+nSubProcessExtendedEventNoneAdHocNoneLoopMISequentialCompensate+nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone+nSubProcessExtendedEventNoneAdHocLoopNoneCompensate+nSubProcessExtendedEventNoneAdHocLoopParallelCompensateNone+nSubProcessExtendedEventNoneAdHocLoopParallelCompensate+nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensateNone+nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensate+nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensateNone+nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensate+nSubProcessExtendedEventNoneTransactionNoneLoopNoneCompensateNone+nSubProcessExtendedEventNoneTransactionNoneLoopNoneCompensate+nSubProcessExtendedEventNoneTransactionNoneLoopParallelCompensateNone+nSubProcessExtendedEventNoneTransactionNoneLoopParallelCompensate+nSubProcessExtendedEventNoneTransactionNoneLoopMIParallelCompensateNone+nSubProcessExtendedEventNoneTransactionNoneLoopMIParallelCompensate+nSubProcessExtendedEventNoneTransactionNoneLoopMISequentialCompensateNone+nSubProcessExtendedEventNoneTransactionNoneLoopMISequentialCompensate+nSubProcessExtendedEventNoneTransactionLoopNoneCompensateNone+nSubProcessExtendedEventNoneTransactionLoopNoneCompensate+nSubProcessExtendedEventNoneTransactionLoopParallelCompensateNone+nSubProcessExtendedEventNoneTransactionLoopParallelCompensate+nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensateNone+nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensate+nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensateNone+nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensate+nSubProcessExtendedEventAdHocNoneLoopNoneCompensateNone+nSubProcessExtendedEventAdHocNoneLoopNoneCompensate+nSubProcessExtendedEventAdHocNoneLoopParallelCompensateNone+nSubProcessExtendedEventAdHocNoneLoopParallelCompensate+nSubProcessExtendedEventAdHocNoneLoopMIParallelCompensateNone+nSubProcessExtendedEventAdHocNoneLoopMIParallelCompensate+nSubProcessExtendedEventAdHocNoneLoopMISequentialCompensateNone+nSubProcessExtendedEventAdHocNoneLoopMISequentialCompensate+nSubProcessExtendedEventAdHocLoopNoneCompensateNone+nSubProcessExtendedEventAdHocLoopNoneCompensate+nSubProcessExtendedEventAdHocLoopParallelCompensateNone+nSubProcessExtendedEventAdHocLoopParallelCompensate+nSubProcessExtendedEventAdHocLoopMIParallelCompensateNone+nSubProcessExtendedEventAdHocLoopMIParallelCompensate+nSubProcessExtendedEventAdHocLoopMISequentialCompensateNone+nSubProcessExtendedEventAdHocLoopMISequentialCompensate+nSubProcessExtendedEventTransactionNoneLoopNoneCompensateNone+nSubProcessExtendedEventTransactionNoneLoopNoneCompensate+nSubProcessExtendedEventTransactionNoneLoopParallelCompensateNone+nSubProcessExtendedEventTransactionNoneLoopParallelCompensate+nSubProcessExtendedEventTransactionNoneLoopMIParallelCompensateNone+nSubProcessExtendedEventTransactionNoneLoopMIParallelCompensate+nSubProcessExtendedEventTransactionNoneLoopMISequentialCompensateNone+nSubProcessExtendedEventTransactionNoneLoopMISequentialCompensate+nSubProcessExtendedEventTransactionLoopNoneCompensateNone+nSubProcessExtendedEventTransactionLoopNoneCompensate+nSubProcessExtendedEventTransactionLoopParallelCompensateNone+nSubProcessExtendedEventTransactionLoopParallelCompensate+nSubProcessExtendedEventTransactionLoopMIParallelCompensateNone+nSubProcessExtendedEventTransactionLoopMIParallelCompensate+nSubProcessExtendedEventTransactionLoopMISequentialCompensateNone+nSubProcessExtendedEventTransactionLoopMISequentialCompensate+nSubProcessCollapsedEventNoneAdHocNoneLoopNoneCompensateNone+nSubProcessCollapsedEventNoneAdHocNoneLoopNoneCompensate+nSubProcessCollapsedEventNoneAdHocNoneLoopParallelCompensateNone+nSubProcessCollapsedEventNoneAdHocNoneLoopParallelCompensate+nSubProcessCollapsedEventNoneAdHocNoneLoopMIParallelCompensateNone+nSubProcessCollapsedEventNoneAdHocNoneLoopMIParallelCompensate+nSubProcessCollapsedEventNoneAdHocNoneLoopMISequentialCompensateNone+nSubProcessCollapsedEventNoneAdHocNoneLoopMISequentialCompensate+nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone+nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate+nSubProcessCollapsedEventNoneAdHocLoopParallelCompensateNone+nSubProcessCollapsedEventNoneAdHocLoopParallelCompensate+nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensateNone+nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate+nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensateNone+nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate+nSubProcessCollapsedEventNoneTransactionNoneLoopNoneCompensateNone+nSubProcessCollapsedEventNoneTransactionNoneLoopNoneCompensate+nSubProcessCollapsedEventNoneTransactionNoneLoopParallelCompensateNone+nSubProcessCollapsedEventNoneTransactionNoneLoopParallelCompensate+nSubProcessCollapsedEventNoneTransactionNoneLoopMIParallelCompensateNone+nSubProcessCollapsedEventNoneTransactionNoneLoopMIParallelCompensate+nSubProcessCollapsedEventNoneTransactionNoneLoopMISequentialCompensateNone+nSubProcessCollapsedEventNoneTransactionNoneLoopMISequentialCompensate+nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone+nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate+nSubProcessCollapsedEventNoneTransactionLoopParallelCompensateNone+nSubProcessCollapsedEventNoneTransactionLoopParallelCompensate+nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensateNone+nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensate+nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensateNone+nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensate+nSubProcessCollapsedEventAdHocNoneLoopNoneCompensateNone+nSubProcessCollapsedEventAdHocNoneLoopNoneCompensate+nSubProcessCollapsedEventAdHocNoneLoopParallelCompensateNone+nSubProcessCollapsedEventAdHocNoneLoopParallelCompensate+nSubProcessCollapsedEventAdHocNoneLoopMIParallelCompensateNone+nSubProcessCollapsedEventAdHocNoneLoopMIParallelCompensate+nSubProcessCollapsedEventAdHocNoneLoopMISequentialCompensateNone+nSubProcessCollapsedEventAdHocNoneLoopMISequentialCompensate+nSubProcessCollapsedEventAdHocLoopNoneCompensateNone+nSubProcessCollapsedEventAdHocLoopNoneCompensate+nSubProcessCollapsedEventAdHocLoopParallelCompensateNone+nSubProcessCollapsedEventAdHocLoopParallelCompensate+nSubProcessCollapsedEventAdHocLoopMIParallelCompensateNone+nSubProcessCollapsedEventAdHocLoopMIParallelCompensate+nSubProcessCollapsedEventAdHocLoopMISequentialCompensateNone+nSubProcessCollapsedEventAdHocLoopMISequentialCompensate+nSubProcessCollapsedEventTransactionNoneLoopNoneCompensateNone+nSubProcessCollapsedEventTransactionNoneLoopNoneCompensate+nSubProcessCollapsedEventTransactionNoneLoopParallelCompensateNone+nSubProcessCollapsedEventTransactionNoneLoopParallelCompensate+nSubProcessCollapsedEventTransactionNoneLoopMIParallelCompensateNone+nSubProcessCollapsedEventTransactionNoneLoopMIParallelCompensate+nSubProcessCollapsedEventTransactionNoneLoopMISequentialCompensateNone+nSubProcessCollapsedEventTransactionNoneLoopMISequentialCompensate+nSubProcessCollapsedEventTransactionLoopNoneCompensateNone+nSubProcessCollapsedEventTransactionLoopNoneCompensate+nSubProcessCollapsedEventTransactionLoopParallelCompensateNone+nSubProcessCollapsedEventTransactionLoopParallelCompensate+nSubProcessCollapsedEventTransactionLoopMIParallelCompensateNone+nSubProcessCollapsedEventTransactionLoopMIParallelCompensate+nSubProcessCollapsedEventTransactionLoopMISequentialCompensateNone+nSubProcessCollapsedEventTransactionLoopMISequentialCompensate+nDataObject+nDataObjectCollection+nDataObjectReference+nDataStore+nDataInput+nDataOutput+nExclusiveGatewayNoMarker+nExclusiveGatewayMarker+nParallelGateway+nInclusiveGateway+nEventBasedGateway+nEventBasedGatewayExclusiveInstantiation+nEventBasedGatewayParallelInstantiation+nComplexGateway+nStartMultipleParallelEventDefinition+nStartMultipleEventDefinition+nStartNoneEventDefinition+nStartSignalEventDefinition+nStartConditionalEventDefinition+nStartTimerEventDefinition+nStartMessageEventDefinition+nStartCompensateEventDefinition+nStartEscalationEventDefinition+nStartErrorEventDefinition+nStartMessageEventSubProcessInterruptingDefinition+nStartTimerEventSubProcessInterruptingDefinition+nStartEscalationEventSubProcessInterruptingDefinition+nStartConditionalEventSubProcessInterruptingDefinition+nStartErrorEventSubProcessInterruptingDefinition+nStartCompensateEventSubProcessInterruptingDefinition+nStartSignalEventSubProcessInterruptingDefinition+nStartMultipleEventSubProcessInterruptingDefinition+nStartMultipleParallelEventSubProcessInterruptingDefinition+nStartMessageEventSubProcessNonInterruptingDefinition+nStartTimerEventSubProcessNonInterruptingDefinition+nStartEscalationEventSubProcessNonInterruptingDefinition+nStartConditionalEventSubProcessNonInterruptingDefinition+nStartSignalEventSubProcessNonInterruptingDefinition+nStartMultipleParallelEventSubProcessNonInterruptingDefinition+nStartMultipleEventSubProcessNonInterruptingDefinition+nEndNoneEventDefinition+nEndMultipleEventDefinition+nEndEscalationEventDefinition+nEndErrorEventDefinition+nEndSignalEventDefinition+nEndCompensateEventDefinition+nEndCancelEventDefinition+nEndMessageEventDefinition+nEndTerminateEventDefinition+nIntermediateCatchMultipleEventDefinition+nIntermediateCatchMultipleParallelEventDefinition+nIntermediateCatchMessageEventDefinition+nIntermediateCatchTimerEventDefinition+nIntermediateCatchConditionalEventDefinition+nIntermediateCatchLinkEventDefinition+nIntermediateCatchSignalEventDefinition+nIntermediateThrowNoneEventDefinition+nIntermediateThrowMessageEventDefinition+nIntermediateThrowEscalationEventDefinition+nIntermediateThrowLinkEventDefinition+nIntermediateThrowSignalEventDefinition+nIntermediateThrowCompensateEventDefinition+nIntermediateThrowMultipleParallelEventDefinition+nIntermediateBoundaryMessageEvent+nIntermediateBoundaryTimerEvent+nIntermediateBoundaryCancelEvent+nIntermediateBoundaryConditionalEvent+nIntermediateBoundaryEscalationEvent+nIntermediateBoundaryErrorEvent+nIntermediateBoundarySignalEvent+nIntermediateBoundaryCompensateEvent+nIntermediateBoundaryMultipleEvent+nIntermediateBoundaryMultipleParallelEvent+nIntermediateBoundaryTimerEventNonInterrupting+nIntermediateBoundaryEscalationEventNonInterrupting+nIntermediateBoundaryConditionalEventNonInterrupting+nIntermediateBoundaryMessageEventNonInterrupting+nIntermediateBoundarySignalEventNonInterrupting+nIntermediateBoundaryMultipleEventNonInterrupting+nIntermediateBoundaryMultipleParallelEventNonInterrupting+nMessageFlow+nSequenceFlow+nDefaultFlow+nConditionalFlow+nLane+nPoolExpanded+nPoolCollapsed+nPoolExpandedMultipleInstance+nPoolCollapsedMultipleInstance+nVerticalLane+nVerticalPool+nChoreographyTask+nChoreographyMessage+nChoreographyTaskSequentialMultipleInstance+nChoreographyTaskParallelMultipleInstance+nChoreographyTaskLoop+nChoreographySubprocessCollapsed+nChoreographySubprocessCollapsedParallelMultipleInstance+nChoreographySubprocessCollapsedSequentialMultipleInstance+nChoreographySubprocessCollapsedLoop+nChoreographySubprocessCollapsedCall+nChoreographySubprocessCollapsedCallSequentialMultipleInstance+nChoreographySubprocessCollapsedCallParallelMultipleInstance+nChoreographySubprocessCollapsedCallLoop+nChoreographySubprocessExpanded+nChoreographySubprocessExpandedSequentialMultipleInstance+nChoreographySubprocessExpandedParallelMultipleInstance+nChoreographySubprocessExpandedLoop+nChoreographyParticipantMultiple+nConversationNone+nConversationSubProcess+nConversationCall+nConversationSubProcessCall+nConversationLink+nAssociationCompensate+nAssociationUndirected+nAssociationUnidirectional+nAssociationBidirectional+nAssociationDataOutput+nAssociationDataInput+nCondition+nGroup+nTextAnnotation+nOfExtensionElements;
-
+        	TotalElements = 0; //TODO
+        	
         	//creating the rows 
             XSSFRow row = sheet.createRow((short)x+1);  
                
@@ -2566,49 +2546,46 @@ public class XPathParserDemo {
             row.createCell(341).setCellValue(nSequenceFlow);
             row.createCell(342).setCellValue(nDefaultFlow);
             row.createCell(343).setCellValue(nConditionalFlow);
-            row.createCell(344).setCellValue(nLane);
-            row.createCell(345).setCellValue(nPoolExpanded);
-            row.createCell(346).setCellValue(nPoolCollapsed);
-            row.createCell(347).setCellValue(nPoolExpandedMultipleInstance);
-            row.createCell(348).setCellValue(nPoolCollapsedMultipleInstance);
-            row.createCell(349).setCellValue(nVerticalLane);
-            row.createCell(350).setCellValue(nVerticalPool);
-            row.createCell(351).setCellValue(nChoreographyTask);
-            row.createCell(352).setCellValue(nChoreographyMessage);            
-            row.createCell(353).setCellValue(nChoreographyTaskSequentialMultipleInstance);
-            row.createCell(354).setCellValue(nChoreographyTaskParallelMultipleInstance);
-            row.createCell(355).setCellValue(nChoreographyTaskLoop);
-            row.createCell(356).setCellValue(nChoreographySubprocessCollapsed);
-            row.createCell(357).setCellValue(nChoreographySubprocessCollapsedParallelMultipleInstance);
-            row.createCell(358).setCellValue(nChoreographySubprocessCollapsedSequentialMultipleInstance);
-            row.createCell(359).setCellValue(nChoreographySubprocessCollapsedLoop);
-            row.createCell(360).setCellValue(nChoreographySubprocessCollapsedCall);
-            row.createCell(361).setCellValue(nChoreographySubprocessCollapsedCallSequentialMultipleInstance);
-            row.createCell(362).setCellValue(nChoreographySubprocessCollapsedCallParallelMultipleInstance);
-            row.createCell(363).setCellValue(nChoreographySubprocessCollapsedCallLoop);
-            row.createCell(364).setCellValue(nChoreographySubprocessExpanded);
-            row.createCell(365).setCellValue(nChoreographySubprocessExpandedSequentialMultipleInstance);
-            row.createCell(366).setCellValue(nChoreographySubprocessExpandedParallelMultipleInstance);
-            row.createCell(367).setCellValue(nChoreographySubprocessExpandedLoop);
-            row.createCell(368).setCellValue(nChoreographyParticipant);
-            row.createCell(369).setCellValue(nChoreographyParticipantMultiple);       
-            row.createCell(370).setCellValue(nConversationNone);
-            row.createCell(371).setCellValue(nConversationSubProcess);
-            row.createCell(372).setCellValue(nConversationCall);
-            row.createCell(373).setCellValue(nConversationSubProcessCall);
-            row.createCell(374).setCellValue(nConversationLink);
-            row.createCell(375).setCellValue(nAssociationCompensate);
-            row.createCell(376).setCellValue(nAssociationUndirected);
-            row.createCell(377).setCellValue(nAssociationUnidirectional);        
-            row.createCell(378).setCellValue(nAssociationBidirectional);
-            row.createCell(379).setCellValue(nAssociationDataOutput);
-            row.createCell(380).setCellValue(nAssociationDataInput);
-            row.createCell(381).setCellValue(nCondition);
-            row.createCell(382).setCellValue(nGroup);
-            row.createCell(383).setCellValue(nTextAnnotation);
-            row.createCell(384).setCellValue(nOfExtensionElements);
-            row.createCell(385).setCellValue(TotalElements);              
-
+            row.createCell(344).setCellValue(nLane); 
+            row.createCell(345).setCellValue(nPoolCollapsedMultiplicityNone);
+            row.createCell(346).setCellValue(nPoolCollapsedMultiplicity);
+            row.createCell(347).setCellValue(nPoolExpandedMultiplicityNone);
+            row.createCell(348).setCellValue(nPoolExpandedMultiplicity);
+            row.createCell(349).setCellValue(nChoreographyTask);
+            row.createCell(350).setCellValue(nChoreographyMessage);            
+            row.createCell(351).setCellValue(nChoreographyTaskSequentialMultipleInstance);
+            row.createCell(352).setCellValue(nChoreographyTaskParallelMultipleInstance);
+            row.createCell(353).setCellValue(nChoreographyTaskLoop);
+            row.createCell(354).setCellValue(nChoreographySubprocessCollapsed);
+            row.createCell(355).setCellValue(nChoreographySubprocessCollapsedParallelMultipleInstance);
+            row.createCell(356).setCellValue(nChoreographySubprocessCollapsedSequentialMultipleInstance);
+            row.createCell(357).setCellValue(nChoreographySubprocessCollapsedLoop);
+            row.createCell(358).setCellValue(nChoreographySubprocessCollapsedCall);
+            row.createCell(359).setCellValue(nChoreographySubprocessCollapsedCallSequentialMultipleInstance);
+            row.createCell(360).setCellValue(nChoreographySubprocessCollapsedCallParallelMultipleInstance);
+            row.createCell(361).setCellValue(nChoreographySubprocessCollapsedCallLoop);
+            row.createCell(362).setCellValue(nChoreographySubprocessExpanded);
+            row.createCell(363).setCellValue(nChoreographySubprocessExpandedSequentialMultipleInstance);
+            row.createCell(364).setCellValue(nChoreographySubprocessExpandedParallelMultipleInstance);
+            row.createCell(365).setCellValue(nChoreographySubprocessExpandedLoop);
+            row.createCell(366).setCellValue(nChoreographyParticipant);
+            row.createCell(367).setCellValue(nChoreographyParticipantMultiple);       
+            row.createCell(368).setCellValue(nConversationNone);
+            row.createCell(369).setCellValue(nConversationSubProcess);
+            row.createCell(370).setCellValue(nConversationCall);
+            row.createCell(371).setCellValue(nConversationSubProcessCall);
+            row.createCell(372).setCellValue(nConversationLink);
+            row.createCell(373).setCellValue(nAssociationCompensate);
+            row.createCell(374).setCellValue(nAssociationUndirected);
+            row.createCell(375).setCellValue(nAssociationUnidirectional);        
+            row.createCell(376).setCellValue(nAssociationBidirectional);
+            row.createCell(377).setCellValue(nAssociationDataOutput);
+            row.createCell(378).setCellValue(nAssociationDataInput);
+            row.createCell(379).setCellValue(nCondition);
+            row.createCell(380).setCellValue(nGroup);
+            row.createCell(381).setCellValue(nTextAnnotation);
+            row.createCell(382).setCellValue(nOfExtensionElements);
+            row.createCell(383).setCellValue(TotalElements);              
             
             for(Cell cell : row) {
             	String data="";
