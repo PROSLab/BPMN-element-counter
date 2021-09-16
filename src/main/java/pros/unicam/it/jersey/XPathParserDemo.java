@@ -1948,64 +1948,77 @@ public class XPathParserDemo {
         			if(ChoSubprocessesID.equalsIgnoreCase(ChoSubprocessesShape)) {
 		        	System.out.println("id: "+ChoSubprocessesID+" bpmnElement: "+ChoSubprocessesShape+" SONO UGUALI");
 		        		
-		        		//nChoreographySubprocessExpandedLoop
+		        		// Choreography Expanded
 		        		if(((Element) nodesChoSubprocesses.item(i)).getAttribute("loopType").contains("Standard") &&
 	                  		  ((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")) {
 		        			nChoreographySubprocessExpandedLoop++;
                 		}
-		        	}
+		        		
+		        		if(((Element) nodesChoSubprocesses.item(i)).getAttribute("loopType").contains("Parallel") &&
+		                  		  ((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")) {
+		        			nChoreographySubprocessExpandedParallelMultipleInstance++;
+	                	}
+		        		
+		        		if(((Element) nodesChoSubprocesses.item(i)).getAttribute("loopType").contains("Sequential") &&
+		                  		  ((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")) {
+		        			nChoreographySubprocessExpandedSequentialMultipleInstance++;
+	                	}
+		        		
+		        		if(((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")) {
+		        			nChoreographySubprocessExpanded++;
+		        			
+	                	}
+		        		
+		        		// Choreography Collapsed
+		        		
+		        		if(((Element) nodesChoSubprocesses.item(i)).getAttribute("loopType").contains("Standard") &&
+		                  		  ((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")==false) {
+		        			nChoreographySubprocessCollapsedLoop++;
+	                		}
+			        		
+			        		if(((Element) nodesChoSubprocesses.item(i)).getAttribute("loopType").contains("Parallel") &&
+			                  		  ((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")==false) {
+			        			nChoreographySubprocessCollapsedParallelMultipleInstance++;
+		                	}
+			        		
+			        		if(((Element) nodesChoSubprocesses.item(i)).getAttribute("loopType").contains("Sequential") &&
+			                  		  ((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")==false) {
+			        			nChoreographySubprocessCollapsedSequentialMultipleInstance++;
+		                	}
+			        		
+			        		if(((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")==false) {
+			        			nChoreographySubprocessCollapsed++;			        			
+		                	}
+			        					        				        			
+		        	}       			
         		}
         	}
-	
-//        XPathExpression exprChoSubEXPI = xpath.compile("//bpmn:subChoreography[@loopType='MultiInstanceParallel']");
-//        Object resultChoSubEXPI  = exprChoSubEXPI .evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesChoSubEXPI  = (NodeList) resultChoSubEXPI;
-//        doc.getDocumentElement().normalize();  
-//        nChoreographySubprocessExpandedParallelMultipleInstance = nodesChoSubEXPI.getLength();
-//        
-//        XPathExpression exprChoSubExpLoop = xpath.compile("//bpmn:subChoreography[@loopType='Standard']");
-//        Object resultChoSubExpLoop = exprChoSubExpLoop.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesChoSubExpLoop = (NodeList) resultChoSubExpLoop;
-//        doc.getDocumentElement().normalize();  
-//        nChoreographySubprocessExpandedLoop = nodesChoSubExpLoop.getLength();
-//        
-//        XPathExpression exprChoSubEXMI  = xpath.compile("//bpmn:subChoreography[@loopType='MultiInstanceSequential']");
-//        Object resultChoSubEXMI = exprChoSubEXMI.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesChoSubEXMI = (NodeList) resultChoSubEXMI;
-//        doc.getDocumentElement().normalize();  
-//        nChoreographySubprocessExpandedSequentialMultipleInstance = nodesChoSubEXMI.getLength();
-//        
-//        XPathExpression exprChoSubEX = xpath.compile("//bpmn:subChoreography");
-//        Object resultChoSubEX = exprChoSubEX.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesChoSubEX = (NodeList) resultChoSubEX;
-//        doc.getDocumentElement().normalize();  
-//        nChoreographySubprocessExpanded = nodesChoSubEX.getLength() - nChoreographySubprocessExpandedSequentialMultipleInstance - nChoreographySubprocessExpandedLoop - nChoreographySubprocessExpandedParallelMultipleInstance;
-//        
-//        XPathExpression exprChoSubColPMI = xpath.compile("//bpmn:subChoreography[@loopType='MultiInstanceParallel']");
-//        Object resultChoSubColPMI  = exprChoSubColPMI.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesChoSubColPMI = (NodeList) resultChoSubColPMI;
-//        doc.getDocumentElement().normalize();  
-//        nChoreographySubprocessCollapsedParallelMultipleInstance = nodesChoSubColPMI.getLength();
-//        
-//        XPathExpression exprChoSubColLoop = xpath.compile("//bpmn:subChoreography[@loopType='Standard']");
-//        Object resultChoSubColLoop= exprChoSubColLoop.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesChoSubColLoop = (NodeList) resultChoSubColLoop;        
-//        nChoreographySubprocessCollapsedLoop = nodesChoSubColLoop.getLength();
-//        
-//        XPathExpression exprChoSubColSMI  = xpath.compile("//bpmn:subChoreography[@loopType='MultiInstanceSequential']");
-//        Object resultChoSubColSMI = exprChoSubColSMI.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesChoSubColSMI = (NodeList) resultChoSubColSMI;
-//        doc.getDocumentElement().normalize();  
-//        nChoreographySubprocessCollapsedSequentialMultipleInstance = nodesChoSubColSMI.getLength();       
-//        
-//        XPathExpression exprChoSubCol = xpath.compile("//bpmn:subChoreography");
-//        Object resultChoSubCol  = exprChoSubCol .evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesChoSubCol  = (NodeList) resultChoSubCol ;
-//        doc.getDocumentElement().normalize();
-//        
-//        nChoreographySubprocessCollapsed = nodesChoSubCol.getLength() - nChoreographySubprocessCollapsedSequentialMultipleInstance - nChoreographySubprocessCollapsedLoop - nChoreographySubprocessCollapsedParallelMultipleInstance;        
-//        
-        //N° of Call Choreography             
+        	
+        	nChoreographySubprocessCollapsed =  nChoreographySubprocessCollapsed - (nChoreographySubprocessCollapsedLoop + nChoreographySubprocessCollapsedParallelMultipleInstance + nChoreographySubprocessCollapsedSequentialMultipleInstance);
+        	nChoreographySubprocessExpanded = nChoreographySubprocessExpanded - ( nChoreographySubprocessExpandedSequentialMultipleInstance + nChoreographySubprocessExpandedParallelMultipleInstance + nChoreographySubprocessExpandedLoop);
+        
+        	 xpath.setNamespaceContext(new NamespaceContext() {
+
+                 @Override
+                 public Iterator getPrefixes(String arg0) {
+                     return null;
+                 }
+
+                 @Override
+                 public String getPrefix(String arg0) {
+                     return null;
+                 }
+
+                 @Override
+                 public String getNamespaceURI(String arg0) {
+                     if("bpmn".equals(arg0)) {
+                         return "http://www.omg.org/spec/BPMN/20100524/MODEL";
+                     }
+                     return null;
+                 }
+             });
+        	 
+        	//N° of Call Choreography             
         XPathExpression exprChoSubCallLoop = xpath.compile("//bpmn:callChoreography[@loopType='Standard']");
         Object resultChoSubCallLoop = exprChoSubCallLoop.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesChoSubCallLoop = (NodeList) resultChoSubCallLoop;
