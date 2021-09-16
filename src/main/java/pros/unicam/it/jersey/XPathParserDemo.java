@@ -1030,6 +1030,234 @@ public class XPathParserDemo {
 //          	
 //          }
 //          
+        // SUBPROCESSES
+        //N° subProcess 
+        XPathExpression exprSubprocesses = xpath.compile("//bpmn:subProcess[not(contains(@triggeredByEvent,'true'))]");
+        Object resultSubprocesses  = exprSubprocesses.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesSubprocesses = (NodeList) resultSubprocesses;
+        doc.getDocumentElement().normalize();  
+        
+        //N° subProcess Event
+        XPathExpression exprSubprocessesEvent = xpath.compile("//bpmn:subProcess[@triggeredByEvent='true']");
+        Object resultSubprocessesEvent  = exprSubprocessesEvent.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesSubprocessesEvent = (NodeList) resultSubprocessesEvent;
+        doc.getDocumentElement().normalize(); 
+        
+        //N° subProcess AdHoc
+        XPathExpression exprSubprocessesAdHoc = xpath.compile("//bpmn:adHocSubProcess");
+        Object resultSubprocessesAdHoc  = exprSubprocessesAdHoc.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesSubprocessesAdHoc = (NodeList) resultSubprocessesAdHoc;
+        doc.getDocumentElement().normalize(); 
+        
+        //N° Transaction
+        XPathExpression exprTransaction = xpath.compile("//bpmn:transaction");
+        Object resultTransaction  = exprTransaction.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTransaction = (NodeList) resultTransaction;
+        doc.getDocumentElement().normalize(); 
+        
+        
+        xpath.setNamespaceContext(new NamespaceContext() {
+
+            @Override
+            public Iterator getPrefixes(String arg0) {
+                return null;
+            }
+
+            @Override
+            public String getPrefix(String arg0) {
+                return null;
+            }
+
+            @Override
+            public String getNamespaceURI(String arg0) {
+                if("bpmn".equals(arg0)) {
+                    return "http://www.omg.org/spec/BPMN/20100524/DI";
+                }
+                return null;
+            }
+        });
+        
+        XPathExpression exprSubprocessesShapes = xpath.compile("//bpmn:BPMNShape");
+        Object resultSubprocessesShapes  = exprSubprocessesShapes.evaluate(doc, XPathConstants.NODESET);       
+        NodeList nodesSubprocessesShapes = (NodeList) resultSubprocessesShapes;
+        doc.getDocumentElement().normalize();               
+        	
+        // SubProcess
+        	for(int i=0;i<nodesSubprocesses.getLength();i++) {
+        		String SubprocessesID = (((Element) nodesSubprocesses.item(i)).getAttribute("id"));
+        		
+        		for(int j=0;j<nodesSubprocessesShapes.getLength();j++) {
+        		String SubprocessesShape = (((Element) nodesSubprocessesShapes.item(j)).getAttribute("bpmnElement"));
+        		
+        			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape)) {
+        				/*
+        		        int nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensate=0;
+        		        int nSubProcessExtendedEventNoneAdHocNoneLoopParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneAdHocNoneLoopParallelCompensate=0;
+        		        int nSubProcessExtendedEventNoneAdHocNoneLoopMIParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneAdHocNoneLoopMIParallelCompensate=0;
+        		        int nSubProcessExtendedEventNoneAdHocNoneLoopMISequentialCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneAdHocNoneLoopMISequentialCompensate=0;
+						
+        		        int nSubProcessCollapsedEventNoneAdHocNoneLoopNoneCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneAdHocNoneLoopNoneCompensate=0;
+		                int nSubProcessCollapsedEventNoneAdHocNoneLoopParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneAdHocNoneLoopParallelCompensate=0;
+		                int nSubProcessCollapsedEventNoneAdHocNoneLoopMIParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneAdHocNoneLoopMIParallelCompensate=0;
+		                int nSubProcessCollapsedEventNoneAdHocNoneLoopMISequentialCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneAdHocNoneLoopMISequentialCompensate=0;
+        				int nSubProcessExtendedEventNoneTransactionNoneLoopNoneCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneTransactionNoneLoopNoneCompensate=0;
+        		        int nSubProcessExtendedEventNoneTransactionNoneLoopParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneTransactionNoneLoopParallelCompensate=0;
+        		        int nSubProcessExtendedEventNoneTransactionNoneLoopMIParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneTransactionNoneLoopMIParallelCompensate=0;
+        		        int nSubProcessExtendedEventNoneTransactionNoneLoopMISequentialCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneTransactionNoneLoopMISequentialCompensate=0; */
+        				
+		        		//SubProcess Event
+        				/*int nSubProcessExtendedEventAdHocNoneLoopNoneCompensateNone=0;
+        		        int nSubProcessExtendedEventAdHocNoneLoopNoneCompensate=0;
+        		        int nSubProcessExtendedEventAdHocNoneLoopParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventAdHocNoneLoopParallelCompensate=0;
+        		        int nSubProcessExtendedEventAdHocNoneLoopMIParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventAdHocNoneLoopMIParallelCompensate=0;
+        		        int nSubProcessExtendedEventAdHocNoneLoopMISequentialCompensateNone=0;
+        		        int nSubProcessExtendedEventAdHocNoneLoopMISequentialCompensate=0;
+        		        int nSubProcessExtendedEventAdHocLoopNoneCompensateNone=0;
+        		        int nSubProcessExtendedEventAdHocLoopNoneCompensate=0;
+        		        int nSubProcessExtendedEventAdHocLoopParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventAdHocLoopParallelCompensate=0;
+        		        int nSubProcessExtendedEventAdHocLoopMIParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventAdHocLoopMIParallelCompensate=0;
+        		        int nSubProcessExtendedEventAdHocLoopMISequentialCompensateNone=0;
+        		        int nSubProcessExtendedEventAdHocLoopMISequentialCompensate=0;
+        		        int nSubProcessExtendedEventTransactionNoneLoopNoneCompensateNone=0;
+        		        int nSubProcessExtendedEventTransactionNoneLoopNoneCompensate=0;
+        		        int nSubProcessExtendedEventTransactionNoneLoopParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventTransactionNoneLoopParallelCompensate=0;
+        		        int nSubProcessExtendedEventTransactionNoneLoopMIParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventTransactionNoneLoopMIParallelCompensate=0;
+        		        int nSubProcessExtendedEventTransactionNoneLoopMISequentialCompensateNone=0;
+        		        int nSubProcessExtendedEventTransactionNoneLoopMISequentialCompensate=0;*/
+		        		
+		        		//SubProcess AdHoc
+        				/* int nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneAdHocLoopNoneCompensate=0;
+        		        int nSubProcessExtendedEventNoneAdHocLoopParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneAdHocLoopParallelCompensate=0;
+        		        int nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensate=0;
+        		        int nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensate=0; */
+        				
+        				
+        				//Transaction
+        				
+        			  /*
+        		        int nSubProcessExtendedEventNoneTransactionLoopNoneCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneTransactionLoopNoneCompensate=0;
+        		        int nSubProcessExtendedEventNoneTransactionLoopParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneTransactionLoopParallelCompensate=0;
+        		        int nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensate=0;
+        		        int nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensateNone=0;
+        		        int nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensate=0; 
+        		        int nSubProcessExtendedEventTransactionLoopNoneCompensateNone=0;
+        		        int nSubProcessExtendedEventTransactionLoopNoneCompensate=0;
+        		        int nSubProcessExtendedEventTransactionLoopParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventTransactionLoopParallelCompensate=0;
+        		        int nSubProcessExtendedEventTransactionLoopMIParallelCompensateNone=0;
+        		        int nSubProcessExtendedEventTransactionLoopMIParallelCompensate=0;
+        		        int nSubProcessExtendedEventTransactionLoopMISequentialCompensateNone=0;
+        		        int nSubProcessExtendedEventTransactionLoopMISequentialCompensate=0; 
+        				int nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate=0;
+		                int nSubProcessCollapsedEventNoneTransactionLoopParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneTransactionLoopParallelCompensate=0;
+		                int nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensate=0;
+		                int nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensate=0;
+		                int nSubProcessCollapsedEventTransactionLoopNoneCompensateNone=0;
+		                int nSubProcessCollapsedEventTransactionLoopNoneCompensate=0;
+		                int nSubProcessCollapsedEventTransactionLoopParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventTransactionLoopParallelCompensate=0;
+		                int nSubProcessCollapsedEventTransactionLoopMIParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventTransactionLoopMIParallelCompensate=0;
+		                int nSubProcessCollapsedEventTransactionLoopMISequentialCompensateNone=0;
+		                int nSubProcessCollapsedEventTransactionLoopMISequentialCompensate=0; */
+		                
+		           /*   
+		                int nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate=0;
+		                int nSubProcessCollapsedEventNoneAdHocLoopParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneAdHocLoopParallelCompensate=0;
+		                int nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate=0;
+		                int nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate=0;
+		                int nSubProcessCollapsedEventNoneTransactionNoneLoopNoneCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneTransactionNoneLoopNoneCompensate=0;
+		                int nSubProcessCollapsedEventNoneTransactionNoneLoopParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneTransactionNoneLoopParallelCompensate=0;
+		                int nSubProcessCollapsedEventNoneTransactionNoneLoopMIParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneTransactionNoneLoopMIParallelCompensate=0;
+		                int nSubProcessCollapsedEventNoneTransactionNoneLoopMISequentialCompensateNone=0;
+		                int nSubProcessCollapsedEventNoneTransactionNoneLoopMISequentialCompensate=0;
+		                
+		                int nSubProcessCollapsedEventAdHocNoneLoopNoneCompensateNone=0;
+		                int nSubProcessCollapsedEventAdHocNoneLoopNoneCompensate=0;
+		                int nSubProcessCollapsedEventAdHocNoneLoopParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventAdHocNoneLoopParallelCompensate=0;
+		                int nSubProcessCollapsedEventAdHocNoneLoopMIParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventAdHocNoneLoopMIParallelCompensate=0;
+		                int nSubProcessCollapsedEventAdHocNoneLoopMISequentialCompensateNone=0;
+		                int nSubProcessCollapsedEventAdHocNoneLoopMISequentialCompensate=0;
+		                int nSubProcessCollapsedEventAdHocLoopNoneCompensateNone=0;
+		                int nSubProcessCollapsedEventAdHocLoopNoneCompensate=0;
+		                int nSubProcessCollapsedEventAdHocLoopParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventAdHocLoopParallelCompensate=0;
+		                int nSubProcessCollapsedEventAdHocLoopMIParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventAdHocLoopMIParallelCompensate=0;
+		                int nSubProcessCollapsedEventAdHocLoopMISequentialCompensateNone=0;
+		                int nSubProcessCollapsedEventAdHocLoopMISequentialCompensate=0;
+		                int nSubProcessCollapsedEventTransactionNoneLoopNoneCompensateNone=0;
+		                int nSubProcessCollapsedEventTransactionNoneLoopNoneCompensate=0;
+		                int nSubProcessCollapsedEventTransactionNoneLoopParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventTransactionNoneLoopParallelCompensate=0;
+		                int nSubProcessCollapsedEventTransactionNoneLoopMIParallelCompensateNone=0;
+		                int nSubProcessCollapsedEventTransactionNoneLoopMIParallelCompensate=0;
+		                int nSubProcessCollapsedEventTransactionNoneLoopMISequentialCompensateNone=0;
+		                int nSubProcessCollapsedEventTransactionNoneLoopMISequentialCompensate=0;
+*/
+		        		
+        			}
+        		}
+        	}
+        	
+        	 xpath.setNamespaceContext(new NamespaceContext() {
+
+                 @Override
+                 public Iterator getPrefixes(String arg0) {
+                     return null;
+                 }
+
+                 @Override
+                 public String getPrefix(String arg0) {
+                     return null;
+                 }
+
+                 @Override
+                 public String getNamespaceURI(String arg0) {
+                     if("bpmn".equals(arg0)) {
+                         return "http://www.omg.org/spec/BPMN/20100524/MODEL";
+                     }
+                     return null;
+                 }
+             });
 
           // This is a counter to detect a general SubProcess extended 
         	nGeneralSubProcess = nSubProcessExtendedEventNoneAdHocNoneLoopNoneCompensateNone+
@@ -2039,7 +2267,7 @@ public class XPathParserDemo {
         nLane = nodesLane.getLength();
         
         // Pool Expanded Multiplicity
-        XPathExpression exprPoolExM = xpath.compile("//bpmn:participant[@processRef]//bpmn:participantMultiplicity");
+        XPathExpression exprPoolExM = xpath.compile("//bpmn:collaboration//bpmn:participant[@processRef]//bpmn:participantMultiplicity");
         Object resultPoolExM= exprPoolExM.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesPoolExM = (NodeList) resultPoolExM;
         doc.getDocumentElement().normalize();  
@@ -2053,7 +2281,7 @@ public class XPathParserDemo {
         nPoolExpandedMultiplicityNone = nodesPoolEx.getLength() - nPoolExpandedMultiplicity;
         
         // Pool Collapsed Multiplicity 
-        XPathExpression exprPoolColM = xpath.compile("//bpmn:participant[not(contains(@processRef,'sid'))]//bpmn:participantMultiplicity");
+        XPathExpression exprPoolColM = xpath.compile("//bpmn:collaboration//bpmn:participant[not(contains(@processRef,'sid'))]//bpmn:participantMultiplicity");
         Object resultPoolColM = exprPoolColM.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesPoolColM = (NodeList) resultPoolColM;
         doc.getDocumentElement().normalize();  
@@ -2614,7 +2842,7 @@ public class XPathParserDemo {
             	String SubProcessModelID="";
             	
             	
-                
+                // TO READAPT
                 XSSFRow rowhead2 = sheet2.createRow((short)0); 
                 rowhead2.createCell(0).setCellValue("Original Model Name");
                 rowhead2.createCell(1).setCellValue("bpmnModeler");
@@ -3002,6 +3230,7 @@ public class XPathParserDemo {
                 rowhead2.createCell(383).setCellValue("nOfExtensionElements");
                 rowhead2.createCell(384).setCellValue("SubProcessModelID");         
                 
+                // TO READAPT
                 XSSFRow row2 = sheet2.createRow((short)x+1);  
                 row2.createCell(0).setCellValue("fileName");
                 row2.createCell(1).setCellValue("bpmnModeler");
