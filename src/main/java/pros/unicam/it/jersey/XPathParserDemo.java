@@ -466,7 +466,6 @@ public class XPathParserDemo {
         int nTaskNoneLoopMISequentialCompensateNoneCall=0;
         int nTaskNoneLoopMISequentialCompensateCallNone=0;
         int nTaskNoneLoopMISequentialCompensateCall=0;
-        
         int nTaskSendLoopNoneCompensateNoneCallNone=0;
         int nTaskSendLoopNoneCompensateNoneCall=0;
         int nTaskSendLoopNoneCompensateCallNone=0;
@@ -1325,8 +1324,235 @@ public class XPathParserDemo {
 				        nSubProcessExtendedEventTransactionLoopMISequentialCompensateNone+
 				        nSubProcessExtendedEventTransactionLoopMISequentialCompensate;
 				       
-		  
 
+        	
+//            int nTaskSendLoopNoneCompensateNoneCallNone=0;
+//            int nTaskSendLoopNoneCompensateNoneCall=0;
+//            int nTaskSendLoopNoneCompensateCallNone=0;
+//            int nTaskSendLoopNoneCompensateCall=0;
+//            int nTaskSendLoopStandardCompensateNoneCallNone=0;
+//            int nTaskSendLoopStandardCompensateNoneCall=0;
+//            int nTaskSendLoopStandardCompensateCallNone=0;
+//            int nTaskSendLoopStandardCompensateCall=0;
+//            int nTaskSendLoopMIParallelCompensateNoneCallNone=0;
+//            int nTaskSendLoopMIParallelCompensateNoneCall=0;
+//            int nTaskSendLoopMIParallelCompensateCallNone=0;
+//            int nTaskSendLoopMIParallelCompensateCall=0;
+//            int nTaskSendLoopMISequentialCompensateNoneCallNone=0;
+//            int nTaskSendLoopMISequentialCompensateNoneCall=0;
+//            int nTaskSendLoopMISequentialCompensateCallNone=0;
+//            int nTaskSendLoopMISequentialCompensateCall=0;
+//            int nTaskReceiveLoopNoneCompensateNoneCallNone=0;
+//            int nTaskReceiveLoopNoneCompensateNoneCall=0;
+//            int nTaskReceiveLoopNoneCompensateCallNone=0;
+//            int nTaskReceiveLoopNoneCompensateCall=0;
+//            int nTaskReceiveLoopStandardCompensateNoneCallNone=0;
+//            int nTaskReceiveLoopStandardCompensateNoneCall=0;
+//            int nTaskReceiveLoopStandardCompensateCallNone=0;
+//            int nTaskReceiveLoopStandardCompensateCall=0;
+//            int nTaskReceiveLoopMIParallelCompensateNoneCallNone=0;
+//            int nTaskReceiveLoopMIParallelCompensateNoneCall=0;
+//            int nTaskReceiveLoopMIParallelCompensateCallNone=0;
+//            int nTaskReceiveLoopMIParallelCompensateCall=0;
+//            int nTaskReceiveLoopMISequentialCompensateNoneCallNone=0;
+//            int nTaskReceiveLoopMISequentialCompensateNoneCall=0;
+//            int nTaskReceiveLoopMISequentialCompensateCallNone=0;
+//            int nTaskReceiveLoopMISequentialCompensateCall=0;
+//            int nTaskUserLoopNoneCompensateNoneCallNone=0;
+//            int nTaskUserLoopNoneCompensateNoneCall=0;
+//            int nTaskUserLoopNoneCompensateCallNone=0;
+//            int nTaskUserLoopNoneCompensateCall=0;
+//            int nTaskUserLoopStandardCompensateNoneCallNone=0;
+//            int nTaskUserLoopStandardCompensateNoneCall=0;
+//            int nTaskUserLoopStandardCompensateCallNone=0;
+//            int nTaskUserLoopStandardCompensateCall=0;
+//            int nTaskUserLoopMIParallelCompensateNoneCallNone=0;
+//            int nTaskUserLoopMIParallelCompensateNoneCall=0;
+//            int nTaskUserLoopMIParallelCompensateCallNone=0;
+//            int nTaskUserLoopMIParallelCompensateCall=0;
+//            int nTaskUserLoopMISequentialCompensateNoneCallNone=0;
+//            int nTaskUserLoopMISequentialCompensateNoneCall=0;
+//            int nTaskUserLoopMISequentialCompensateCallNone=0;
+//            int nTaskUserLoopMISequentialCompensateCall=0;
+//            int nTaskManualLoopNoneCompensateNoneCallNone=0;
+//            int nTaskManualLoopNoneCompensateNoneCall=0;
+//            int nTaskManualLoopNoneCompensateCallNone=0;
+//            int nTaskManualLoopNoneCompensateCall=0;
+//            int nTaskManualLoopStandardCompensateNoneCallNone=0;
+//            int nTaskManualLoopStandardCompensateNoneCall=0;
+//            int nTaskManualLoopStandardCompensateCallNone=0;
+//            int nTaskManualLoopStandardCompensateCall=0;
+//            int nTaskManualLoopMIParallelCompensateNoneCallNone=0;
+//            int nTaskManualLoopMIParallelCompensateNoneCall=0;
+//            int nTaskManualLoopMIParallelCompensateCallNone=0;
+//            int nTaskManualLoopMIParallelCompensateCall=0;
+//            int nTaskManualLoopMISequentialCompensateNoneCallNone=0;
+//            int nTaskManualLoopMISequentialCompensateNoneCall=0;
+//            int nTaskManualLoopMISequentialCompensateCallNone=0;
+//            int nTaskManualLoopMISequentialCompensateCall=0;
+//            int nTaskBusinessRuleLoopNoneCompensateNoneCallNone=0;
+//            int nTaskBusinessRuleLoopNoneCompensateNoneCall=0;
+//            int nTaskBusinessRuleLoopNoneCompensateCallNone=0;
+//            int nTaskBusinessRuleLoopNoneCompensateCall=0;
+//            int nTaskBusinessRuleLoopStandardCompensateNoneCallNone=0;
+//            int nTaskBusinessRuleLoopStandardCompensateNoneCall=0;
+//            int nTaskBusinessRuleLoopStandardCompensateCallNone=0;
+//            int nTaskBusinessRuleLoopStandardCompensateCall=0;
+//            int nTaskBusinessRuleLoopMIParallelCompensateNoneCallNone=0;
+//            int nTaskBusinessRuleLoopMIParallelCompensateNoneCall=0;
+//            int nTaskBusinessRuleLoopMIParallelCompensateCallNone=0;
+//            int nTaskBusinessRuleLoopMIParallelCompensateCall=0;
+//            int nTaskBusinessRuleLoopMISequentialCompensateNoneCallNone=0;
+//            int nTaskBusinessRuleLoopMISequentialCompensateNoneCall=0;
+//            int nTaskBusinessRuleLoopMISequentialCompensateCallNone=0;
+//            int nTaskBusinessRuleLoopMISequentialCompensateCall=0;
+//            int nTaskServiceLoopNoneCompensateNoneCallNone=0;
+//            int nTaskServiceLoopNoneCompensateNoneCall=0;
+//            int nTaskServiceLoopNoneCompensateCallNone=0;
+//            int nTaskServiceLoopNoneCompensateCall=0;
+//            int nTaskServiceLoopStandardCompensateNoneCallNone=0;
+//            int nTaskServiceLoopStandardCompensateNoneCall=0;
+//            int nTaskServiceLoopStandardCompensateCallNone=0;
+//            int nTaskServiceLoopStandardCompensateCall=0;
+//            int nTaskServiceLoopMIParallelCompensateNoneCallNone=0;
+//            int nTaskServiceLoopMIParallelCompensateNoneCall=0;
+//            int nTaskServiceLoopMIParallelCompensateCallNone=0;
+//            int nTaskServiceLoopMIParallelCompensateCall=0;
+//            int nTaskServiceLoopMISequentialCompensateNoneCallNone=0;
+//            int nTaskServiceLoopMISequentialCompensateNoneCall=0;
+//            int nTaskServiceLoopMISequentialCompensateCallNone=0;
+//            int nTaskServiceLoopMISequentialCompensateCall=0;
+//            int nTaskScriptLoopNoneCompensateNoneCallNone=0;
+//            int nTaskScriptLoopNoneCompensateNoneCall=0;
+//            int nTaskScriptLoopNoneCompensateCallNone=0;
+//            int nTaskScriptLoopNoneCompensateCall=0;
+//            int nTaskScriptLoopStandardCompensateNoneCallNone=0;
+//            int nTaskScriptLoopStandardCompensateNoneCall=0;
+//            int nTaskScriptLoopStandardCompensateCallNone=0;
+//            int nTaskScriptLoopStandardCompensateCall=0;
+//            int nTaskScriptLoopMIParallelCompensateNoneCallNone=0;
+//            int nTaskScriptLoopMIParallelCompensateNoneCall=0;
+//            int nTaskScriptLoopMIParallelCompensateCallNone=0;
+//            int nTaskScriptLoopMIParallelCompensateCall=0;
+//            int nTaskScriptLoopMISequentialCompensateNoneCallNone=0;
+//            int nTaskScriptLoopMISequentialCompensateNoneCall=0;
+//            int nTaskScriptLoopMISequentialCompensateCallNone=0;
+//            int nTaskScriptLoopMISequentialCompensateCall=0;
+        	
+        //All Task none        
+
+        XPathExpression exprTask11 = xpath.compile("//bpmn:task[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+        Object resultTask11 = exprTask11.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask11 = (NodeList) resultTask11;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopMIParallelCompensateCallNone = nodesTask11.getLength();
+        
+        XPathExpression exprTask9 = xpath.compile("//bpmn:task[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+        Object resultTask9 = exprTask9.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask9 = (NodeList) resultTask9;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopMIParallelCompensateNoneCallNone = nodesTask9.getLength();
+        
+        XPathExpression exprTask12= xpath.compile("//bpmn:callActivity[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+        Object resultTask12 = exprTask12.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask12 = (NodeList) resultTask12;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopMIParallelCompensateCall = nodesTask12.getLength();
+
+        XPathExpression exprTask15 = xpath.compile("//bpmn:task[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+        Object resultTask15= exprTask15.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask15 = (NodeList) resultTask15;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopMISequentialCompensateCallNone = nodesTask15.getLength();
+
+        XPathExpression exprTask16= xpath.compile("//bpmn:callActivity[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+        Object resultTask16 = exprTask16.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask16 = (NodeList) resultTask16;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopMISequentialCompensateCall = nodesTask16.getLength();
+
+        XPathExpression exprTask6 = xpath.compile("//bpmn:callActivity[@isForCompensation='true']//bpmn:standardLoopCharacteristics");
+        Object resultTask6 = exprTask6.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask6 = (NodeList) resultTask6;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopStandardCompensateNoneCall = nodesTask6.getLength();      
+        
+        XPathExpression exprTask7 = xpath.compile("//bpmn:task[@isForCompensation='true']//bpmn:standardLoopCharacteristics");
+        Object resultTask7 = exprTask7.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask7 = (NodeList) resultTask7;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopStandardCompensateCallNone = nodesTask7.getLength();
+        
+        XPathExpression exprTask10 = xpath.compile("//bpmn:callActivity[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+        Object resultTask10 = exprTask10.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask10 = (NodeList) resultTask10;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopMIParallelCompensateNoneCall = nodesTask10.getLength();
+        
+        XPathExpression exprTask13 = xpath.compile("//bpmn:task[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+        Object resultTask13 = exprTask13.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask13 = (NodeList) resultTask13;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopMISequentialCompensateNoneCallNone = nodesTask13.getLength();
+        
+        XPathExpression exprTask14 = xpath.compile("//bpmn:callActivity[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+        Object resultTask14 = exprTask14.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask14 = (NodeList) resultTask14;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopMISequentialCompensateNoneCall = nodesTask14.getLength();       
+        
+        XPathExpression exprTask8 = xpath.compile("//bpmn:callActivity[@isForCompensation='true']//bpmn:standardLoopCharacteristics");
+        Object resultTask8 = exprTask8.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask8 = (NodeList) resultTask8;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopStandardCompensateCall = nodesTask8.getLength();
+        
+        XPathExpression exprTask5 = xpath.compile("//bpmn:task[not(contains(@isForCompensation,'true'))]//bpmn:standardLoopCharacteristics");
+        Object resultTask5 = exprTask5.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask5 = (NodeList) resultTask5;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopStandardCompensateNoneCallNone = nodesTask5.getLength();
+        
+        XPathExpression exprTask3 = xpath.compile("//bpmn:task[@isForCompensation='true']");
+        Object resultTask3 = exprTask3.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask3 = (NodeList) resultTask3;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopNoneCompensateCallNone = nodesTask3.getLength() 
+        	 - nTaskNoneLoopStandardCompensateCallNone - nTaskNoneLoopMISequentialCompensateCallNone 
+        	 - nTaskNoneLoopMIParallelCompensateCallNone;
+        
+        XPathExpression exprTask4 = xpath.compile("//bpmn:callActivity[@isForCompensation='true']");
+        Object resultTask4 = exprTask4.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask4 = (NodeList) resultTask4;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopNoneCompensateCall = nodesTask4.getLength() 
+        		- nTaskNoneLoopStandardCompensateCall - nTaskNoneLoopMISequentialCompensateCall 
+           	    - nTaskNoneLoopMIParallelCompensateCall;           
+        
+        XPathExpression exprTask = xpath.compile("//bpmn:task");
+        Object resultTask = exprTask.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask = (NodeList) resultTask;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopNoneCompensateNoneCallNone = nodesTask.getLength() 
+        	- nTaskNoneLoopNoneCompensateCallNone - nTaskNoneLoopStandardCompensateNoneCallNone  
+            - nTaskNoneLoopMIParallelCompensateCallNone - nTaskNoneLoopMISequentialCompensateNoneCallNone
+        	- nTaskNoneLoopMISequentialCompensateCallNone - nTaskNoneLoopMIParallelCompensateNoneCallNone
+        	- nTaskNoneLoopStandardCompensateCallNone; 	
+        
+        XPathExpression exprTask2 = xpath.compile("//bpmn:callActivity");
+        Object resultTask2 = exprTask2.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTask2 = (NodeList) resultTask2;
+        doc.getDocumentElement().normalize();  
+        nTaskNoneLoopNoneCompensateNoneCall = nodesTask2.getLength() 
+        		- (nTaskNoneLoopNoneCompensateCall + nTaskNoneLoopMIParallelCompensateNoneCall 
+                		+ nTaskNoneLoopMIParallelCompensateCall + nTaskNoneLoopMISequentialCompensateNoneCall
+                		+ nTaskNoneLoopMISequentialCompensateCall + nTaskNoneLoopStandardCompensateNoneCall 
+                		+ nTaskNoneLoopStandardCompensateCall);
+        
+        System.out.println(nTaskNoneLoopNoneCompensateCall +" "+ nTaskNoneLoopMIParallelCompensateNoneCall 
+        		+" "+ nTaskNoneLoopMIParallelCompensateCall +" "+ nTaskNoneLoopMISequentialCompensateNoneCall
+        		+" "+ nTaskNoneLoopMISequentialCompensateCall +" "+ nTaskNoneLoopStandardCompensateNoneCall 
+        		+" "+ nTaskNoneLoopStandardCompensateCall);
 //        //N° of receive tasks
 //        XPathExpression exprreceiveTask = xpath.compile("//bpmn:receiveTask");
 //        Object resultRT = exprreceiveTask.evaluate(doc, XPathConstants.NODESET);
@@ -1375,76 +1601,7 @@ public class XPathParserDemo {
 //        NodeList nodesScriptTask = (NodeList) resultScT;
 //        doc.getDocumentElement().normalize();  
 //        nScriptTask = nodesScriptTask.getLength();
-//        
-//        //N° of call activity
-//        XPathExpression exprcallActivity = xpath.compile("//bpmn:callActivity");
-//        Object resultCA = exprcallActivity.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesCallActivity = (NodeList) resultCA;
-//        doc.getDocumentElement().normalize();  
-//        nCallActivity = nodesCallActivity.getLength();
-//        
-//        //SUB PROCESS
-//        
-//        // Check if contain a subProcess and the number of subprocess
-//        XPathExpression exprModelTypeSub = xpath.compile("//bpmn:subProcess");
-//        Object resultModelTypeSub = exprModelTypeSub.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesModelTypeSub = (NodeList) resultModelTypeSub;      
-//        for(int i=0; i<nodesModelTypeSub.getLength(); i++) {
-//        	
-//    	NodeList nodeModelType = nodesModelTypeSub.item(i).getChildNodes();
-//    
-//        	 for(int j=0; j<nodeModelType.getLength(); j++) {	
-//
-//		        	if(nodeModelType.item(j).getNodeName().toString() == "bpmn:subProcess") {      		
-//		        		nSubProcessExtended++;
-//		            	//System.out.println("In the model: "+fileName+" there are: "+nSubProcess+" subProcess/es in the model");
-//		            }
-//        	 }
-//		        
-//        }    
-//        
-        //N° of SubProcess Loop  
-//        XPathExpression exprSubPLoop = xpath.compile("//bpmn:subProcess//bpmn:standardLoopCharacteristics");
-//        Object resultSubPLoop = exprSubPLoop.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesSubPLoop = (NodeList) resultSubPLoop;
-//        doc.getDocumentElement().normalize();  
-//        nSubProcessLoop = nodesSubPLoop.getLength();
-//        
-//        //N° of SubProcess Sequential Multiple Instance
-//        XPathExpression exprSubPSMI = xpath.compile("//bpmn:subProcess//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
-//        Object resultSubPSMI = exprSubPSMI.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesSubPSMI = (NodeList) resultSubPSMI;
-//        doc.getDocumentElement().normalize();  
-//        nSubProcessSequentialMultipleInstance = nodesSubPSMI.getLength();
-//        
-//        //N° of SubProcess Parallel Multiple Instance 
-//        XPathExpression exprSubPPMI = xpath.compile("//bpmn:subProcess//bpmn:multiInstanceLoopCharacteristics");
-//        Object resultSubPPMI = exprSubPPMI.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesSubPPMI = (NodeList) resultSubPPMI;
-//        doc.getDocumentElement().normalize();  
-//        nSubProcessParallelMultipleInstance = nodesSubPPMI.getLength() - nodesSubPSMI.getLength();
-//        
-//        //N° of Event Sub Process
-//        XPathExpression exprESubP = xpath.compile("//bpmn:subProcess[@triggeredByEvent='true']");
-//        Object resultESubP = exprESubP.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesESubP = (NodeList) resultESubP;
-//        doc.getDocumentElement().normalize();  
-//        nSubProcessEvent = nodesESubP.getLength();
-//        
-//        //N° of transaction
-//        XPathExpression exprTrans = xpath.compile("//bpmn:transaction");
-//        Object resultTrans = exprTrans.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesTrans = (NodeList) resultTrans;
-//        doc.getDocumentElement().normalize();  
-//        nTransaction = nodesTrans.getLength();
-//        
-//        //N° of adHoc SubProcess 
-//        XPathExpression expradHoc = xpath.compile("//bpmn:adHocSubProcess");
-//        Object resultadHoc = expradHoc.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesadHoc = (NodeList) resultadHoc;
-//        doc.getDocumentElement().normalize();  
-//        nSubProcessAdHoc = nodesadHoc.getLength();
-//        
+        
         //N° of Group
         XPathExpression exprGroup = xpath.compile("//bpmn:group");
         Object resultGroup = exprGroup.evaluate(doc, XPathConstants.NODESET);
@@ -1460,13 +1617,6 @@ public class XPathParserDemo {
         nCondition = nodesCond.getLength();   
          
 //	    DATA OBJECTS------------------------------------------------------------------------------------
-//      nDataObject
-//      nDataObjectCollection
-//      nDataStore
-//      nDataObjectReference
-//      nDataStoreReference
-//		nDataInput
-//		nDataOutput
         
         // N° of Data Object
         XPathExpression exprDOC = xpath.compile("//bpmn:dataObject[@isCollection='true']");
