@@ -825,45 +825,40 @@ public class XPathParserDemo {
         		
         		if(ChildModelType.item(j).getNodeType() == Node.ELEMENT_NODE) {            
              		
-	        		String nodeModelType2 =  ChildModelType.item(j).getNodeName();
-
-				        if(nodeModelType2.contains("conversation") ||
-				        		nodeModelType2.contains("subConversation") ||
-				        		nodeModelType2.contains("callConversation")) {
+	        		String nodeModelType =  ChildModelType.item(j).getNodeName();
+	        		
+				        if(nodeModelType.contains("conversation")) {
 				        	
 				        	modelType = "Conversation";
 				        	break;
 		
 				        }
 				        
-				        if(nodeModelType2.contains("choreography") && 
-				        		(nodeModelType2.contains("conversation")) == false && 
-				        		(nodeModelType2.contains("subConversation")) == false && 
-				        		(nodeModelType2.contains("callConversation")) == false){
+				        if(nodeModelType.contains("choreography") && 
+				        		(nodeModelType.contains("conversation")) == false ){
 							
 							modelType = "Choreography";
 							break;
 						}
 				        
-				        if(nodeModelType2.contains("collaboration")) {
+				        if(nodeModelType.contains("collaboration")) {
 				        	
 				        	modelType = "Collaboration";
 				        	//If i find the collaboration xml tag, i cant skip the for
 				        	break;
 				        } 
 				        
-				        if(nodeModelType2.contains("subProcess")) {
+				        if(nodeModelType.contains("conversation")) {
 				        	
-				        	modelType = "SubProcess";
+				        	modelType = "Conversation";
 				        	//If i find the collaboration xml tag, i cant skip the for
 				        	break;
 				        } 
-		        		if((nodeModelType2.contains("collaboration")) == false &&
-		        		   (nodeModelType2.contains("choreography")) == false &&
-        				   (nodeModelType2.contains("conversation")) == false && 
-        				   (nodeModelType2.contains("subConversation")) == false && 
-			        	   (nodeModelType2.contains("callConversation")) == false &&
-		        		    nodeModelType2.contains("process")){
+				        
+		        		if((nodeModelType.contains("collaboration")) == false &&
+		        		   (nodeModelType.contains("choreography")) == false &&
+        				   (nodeModelType.contains("conversation")) == false && 
+		        		    nodeModelType.contains("process")){
 				        	modelType = "Process";
 					        }                 
           	 
