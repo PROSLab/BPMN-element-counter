@@ -1469,6 +1469,60 @@ public class XPathParserDemo {
                 	+ nTaskSendLoopStandardCompensate); 	   
         
 //        //N° of receive tasks
+        XPathExpression exprTaskS1 = xpath.compile("//bpmn:receiveTask[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+        Object resultTaskS1 = exprTaskS1.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskS1 = (NodeList) resultTaskS1;
+        doc.getDocumentElement().normalize();  
+        nTaskReceiveLoopMIParallelCompensate = nodesTaskS1.getLength();
+        
+        XPathExpression exprTaskS2= xpath.compile("//bpmn:receiveTask[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+        Object resultTaskS2 = exprTaskS2.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskS2 = (NodeList) resultTaskS2;
+        doc.getDocumentElement().normalize();  
+        nTaskReceiveLoopMIParallelCompensateNone = nodesTaskS2.getLength();
+
+        XPathExpression exprTaskS3 = xpath.compile("//bpmn:receiveTask[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+        Object resultTaskS3= exprTaskS3.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskS3 = (NodeList) resultTaskS3;
+        doc.getDocumentElement().normalize();  
+        nTaskReceiveLoopMISequentialCompensate = nodesTaskS3.getLength();    
+        
+        XPathExpression exprTaskS4 = xpath.compile("//bpmn:receiveTask[@isForCompensation='true']//bpmn:standardLoopCharacteristics");
+        Object resultTaskS4= exprTaskS4.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskS4= (NodeList) resultTaskS4;
+        doc.getDocumentElement().normalize();  
+        nTaskReceiveLoopStandardCompensate = nodesTaskS4.getLength();
+        
+        XPathExpression exprTaskS5 = xpath.compile("//bpmn:receiveTask[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+        Object resultTaskS5 = exprTaskS5.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskS5 = (NodeList) resultTaskS5;
+        doc.getDocumentElement().normalize();  
+        nTaskReceiveLoopMISequentialCompensateNone = nodesTaskS5.getLength();     
+        
+        XPathExpression exprTaskS6 = xpath.compile("//bpmn:receiveTask[not(contains(@isForCompensation,'true'))]//bpmn:standardLoopCharacteristics");
+        Object resultTaskS6 = exprTaskS6.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskS6 = (NodeList) resultTaskS6;
+        doc.getDocumentElement().normalize();  
+        nTaskReceiveLoopStandardCompensateNone = nodesTaskS6.getLength();
+        
+        XPathExpression exprTaskS7 = xpath.compile("//bpmn:receiveTask[@isForCompensation='true']");
+        Object resultTaskS7 = exprTaskS7.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskS7 = (NodeList) resultTaskS7;
+        doc.getDocumentElement().normalize();  
+        nTaskReceiveLoopNoneCompensate = nodesTaskS7.getLength() 
+        	 - nTaskReceiveLoopStandardCompensate - nTaskReceiveLoopMISequentialCompensate 
+        	 - nTaskReceiveLoopMIParallelCompensate;         
+        
+        XPathExpression exprTaskS8 = xpath.compile("//bpmn:receiveTask");
+        Object resultTaskS8 = exprTaskS8.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskS8 = (NodeList) resultTaskS8;
+        doc.getDocumentElement().normalize();  
+        nTaskReceiveLoopNoneCompensateNone = nodesTaskS8.getLength() 
+        	- (nTaskReceiveLoopNoneCompensate + nTaskReceiveLoopStandardCompensateNone  
+                    + nTaskReceiveLoopMIParallelCompensate + nTaskReceiveLoopMISequentialCompensateNone
+                	+ nTaskReceiveLoopMISequentialCompensate + nTaskReceiveLoopMIParallelCompensateNone
+                	+ nTaskReceiveLoopStandardCompensate);
+        
 //        XPathExpression exprreceiveTask = xpath.compile("//bpmn:receiveTask");
 //        Object resultRT = exprreceiveTask.evaluate(doc, XPathConstants.NODESET);
 //        NodeList nodesReceiveTask = (NodeList) resultRT;
