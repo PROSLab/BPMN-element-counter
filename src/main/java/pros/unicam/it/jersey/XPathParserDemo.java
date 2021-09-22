@@ -1523,18 +1523,61 @@ public class XPathParserDemo {
                 	+ nTaskReceiveLoopMISequentialCompensate + nTaskReceiveLoopMIParallelCompensateNone
                 	+ nTaskReceiveLoopStandardCompensate);
         
-//        XPathExpression exprreceiveTask = xpath.compile("//bpmn:receiveTask");
-//        Object resultRT = exprreceiveTask.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesReceiveTask = (NodeList) resultRT;
-//        doc.getDocumentElement().normalize();  
-//        nReceiveTask = nodesReceiveTask.getLength();
-//        
-//        //N° of send tasks
-//        XPathExpression exprsendTask = xpath.compile("//bpmn:sendTask");
-//        Object resultST = exprsendTask.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesSendTask = (NodeList) resultST;
-//        doc.getDocumentElement().normalize();  
-//        nSendTask = nodesSendTask.getLength();
+      //All Task user
+	    XPathExpression exprTaskU1 = xpath.compile("//bpmn:userTask[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+	    Object resultTaskU1 = exprTaskU1.evaluate(doc, XPathConstants.NODESET);
+	    NodeList nodesTaskU1 = (NodeList) resultTaskU1;
+	    doc.getDocumentElement().normalize();  
+	    nTaskUserLoopMIParallelCompensate = nodesTaskU1.getLength();
+	    
+	    XPathExpression exprTaskU2= xpath.compile("//bpmn:userTask[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+	    Object resultTaskU2  = exprTaskU2.evaluate(doc, XPathConstants.NODESET);
+	    NodeList nodesTaskU2 = (NodeList) resultTaskU2;
+	    doc.getDocumentElement().normalize();  
+	    nTaskUserLoopMIParallelCompensateNone = nodesTaskU2.getLength();
+	
+	    XPathExpression exprTaskU3 = xpath.compile("//bpmn:userTask[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+	    Object resultTaskU3= exprTaskU3.evaluate(doc, XPathConstants.NODESET);
+	    NodeList nodesTaskU3 = (NodeList) resultTaskU3;
+	    doc.getDocumentElement().normalize();  
+	    nTaskUserLoopMISequentialCompensate = nodesTaskU3.getLength();    
+	    
+	    XPathExpression exprTaskU4 = xpath.compile("//bpmn:userTask[@isForCompensation='true']//bpmn:standardLoopCharacteristics");
+	    Object resultTaskU4 = exprTaskU4.evaluate(doc, XPathConstants.NODESET);
+	    NodeList nodesTaskU4 = (NodeList) resultTaskU4;
+	    doc.getDocumentElement().normalize();  
+	    nTaskUserLoopStandardCompensate = nodesTaskU4.getLength();
+	    
+	    XPathExpression exprTaskU5 = xpath.compile("//bpmn:userTask[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+	    Object resultTaskU5 = exprTaskU5.evaluate(doc, XPathConstants.NODESET);
+	    NodeList nodesTaskU5 = (NodeList) resultTaskU5;
+	    doc.getDocumentElement().normalize();  
+	    nTaskUserLoopMISequentialCompensateNone = nodesTaskU5.getLength();     
+	    
+	    XPathExpression exprTaskU6 = xpath.compile("//bpmn:userTask[not(contains(@isForCompensation,'true'))]//bpmn:standardLoopCharacteristics");
+	    Object resultTaskU6 = exprTask28.evaluate(doc, XPathConstants.NODESET);
+	    NodeList nodesTaskU6 = (NodeList) resultTaskU6;
+	    doc.getDocumentElement().normalize();  
+	    nTaskUserLoopStandardCompensateNone = nodesTaskU6.getLength();
+	    
+	    XPathExpression exprTaskU7= xpath.compile("//bpmn:userTask[@isForCompensation='true']");
+	    Object resultTaskU7 = exprTaskU7.evaluate(doc, XPathConstants.NODESET);
+	    NodeList nodesTaskU7 = (NodeList) resultTaskU7;
+	    doc.getDocumentElement().normalize();  
+	    nTaskUserLoopNoneCompensate = nodesTaskU7.getLength() 
+	    	 - nTaskUserLoopStandardCompensate - nTaskUserLoopMISequentialCompensate 
+	    	 - nTaskUserLoopMIParallelCompensate;         
+	    
+	    XPathExpression exprTaskU8 = xpath.compile("//bpmn:userTask");
+	    Object resultTaskU8 = exprTaskU8.evaluate(doc, XPathConstants.NODESET);
+	    NodeList nodesTaskU8 = (NodeList) resultTaskU8;
+	    doc.getDocumentElement().normalize();  
+	    nTaskUserLoopNoneCompensateNone = nodesTaskU8.getLength() 
+	    	- (nTaskUserLoopNoneCompensate + nTaskUserLoopStandardCompensateNone  
+	                + nTaskUserLoopMIParallelCompensate + nTaskUserLoopMISequentialCompensateNone
+	            	+ nTaskUserLoopMISequentialCompensate + nTaskUserLoopMIParallelCompensateNone
+	            	+ nTaskUserLoopStandardCompensate);
+        
 //        
 //        //N° of user tasks
 //        XPathExpression expruserTask = xpath.compile("//bpmn:userTask");
