@@ -1578,21 +1578,61 @@ public class XPathParserDemo {
 	            	+ nTaskUserLoopMISequentialCompensate + nTaskUserLoopMIParallelCompensateNone
 	            	+ nTaskUserLoopStandardCompensate);
         
-//        
-//        //N° of user tasks
-//        XPathExpression expruserTask = xpath.compile("//bpmn:userTask");
-//        Object resultUT = expruserTask.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesUserTask = (NodeList) resultUT;
-//        doc.getDocumentElement().normalize();  
-//        nUserTask = nodesUserTask.getLength();
-//        
-//        //N° of manual tasks
-//        XPathExpression exprmanualTask = xpath.compile("//bpmn:manualTask");
-//        Object resultMT = exprmanualTask.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesManualTask = (NodeList) resultMT;
-//        doc.getDocumentElement().normalize();  
-//        nManualTask = nodesManualTask.getLength();
-//        
+	    //All Task manual
+        XPathExpression exprTaskM1 = xpath.compile("//bpmn:manualTask[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+        Object resultTaskM1 = exprTaskM1.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskM1 = (NodeList) resultTaskM1;
+        doc.getDocumentElement().normalize();  
+        nTaskManualLoopMIParallelCompensate = nodesTaskM1.getLength();
+        
+        XPathExpression exprTaskM2= xpath.compile("//bpmn:manualTask[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='false']");
+        Object resultTaskM2  = exprTaskM2.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskM2 = (NodeList) resultTaskM2;
+        doc.getDocumentElement().normalize();  
+        nTaskManualLoopMIParallelCompensateNone = nodesTaskM2.getLength();
+
+        XPathExpression exprTaskM3 = xpath.compile("//bpmn:manualTask[@isForCompensation='true']//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+        Object resultTaskM3= exprTaskM3.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskM3 = (NodeList) resultTaskM3;
+        doc.getDocumentElement().normalize();  
+        nTaskManualLoopMISequentialCompensate = nodesTaskM3.getLength();    
+        
+        XPathExpression exprTaskM4 = xpath.compile("//bpmn:manualTask[@isForCompensation='true']//bpmn:standardLoopCharacteristics");
+        Object resultTaskM4 = exprTaskM4.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskM4 = (NodeList) resultTaskM4;
+        doc.getDocumentElement().normalize();  
+        nTaskManualLoopStandardCompensate = nodesTaskM4.getLength();
+        
+        XPathExpression exprTaskM5 = xpath.compile("//bpmn:manualTask[not(contains(@isForCompensation,'true'))]//bpmn:multiInstanceLoopCharacteristics[@isSequential='true']");
+        Object resultTaskM5 = exprTaskM5.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskM5 = (NodeList) resultTaskM5;
+        doc.getDocumentElement().normalize();  
+        nTaskManualLoopMISequentialCompensateNone = nodesTaskM5.getLength();     
+        
+        XPathExpression exprTaskM6 = xpath.compile("//bpmn:manualTask[not(contains(@isForCompensation,'true'))]//bpmn:standardLoopCharacteristics");
+        Object resultTaskM6 = exprTaskM6.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskM6 = (NodeList) resultTaskM6;
+        doc.getDocumentElement().normalize();  
+        nTaskManualLoopStandardCompensateNone = nodesTaskM6.getLength();
+        
+        XPathExpression exprTaskM7 = xpath.compile("//bpmn:manualTask[@isForCompensation='true']");
+        Object resultTaskM7= exprTaskM7.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskM7 = (NodeList) resultTaskM7;
+        doc.getDocumentElement().normalize();  
+        nTaskManualLoopNoneCompensate = nodesTaskM7.getLength() 
+        	 - nTaskManualLoopStandardCompensate - nTaskManualLoopMISequentialCompensate 
+        	 - nTaskManualLoopMIParallelCompensate;         
+        
+        XPathExpression exprTaskM8 = xpath.compile("//bpmn:manualTask");
+        Object resultTaskM8 = exprTaskM8.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodesTaskM8 = (NodeList) resultTaskM8;
+        doc.getDocumentElement().normalize();  
+        nTaskManualLoopNoneCompensateNone = nodesTaskM8.getLength() 
+        	- (nTaskManualLoopNoneCompensate + nTaskManualLoopStandardCompensateNone  
+                    + nTaskManualLoopMIParallelCompensate + nTaskManualLoopMISequentialCompensateNone
+                	+ nTaskManualLoopMISequentialCompensate + nTaskManualLoopMIParallelCompensateNone
+                	+ nTaskManualLoopStandardCompensate);
+       
 //        //N° of businessrule tasks
 //        XPathExpression exprbusinessRuleTask = xpath.compile("//bpmn:businessRuleTask");
 //        Object resultBRT = exprbusinessRuleTask.evaluate(doc, XPathConstants.NODESET);
