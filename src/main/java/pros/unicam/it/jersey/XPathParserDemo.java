@@ -32,7 +32,8 @@ import org.xml.sax.InputSource;
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.FillPatternType;  
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;  
 import org.apache.poi.ss.usermodel.Row;  
 import org.apache.poi.ss.usermodel.Sheet;   
@@ -376,7 +377,21 @@ public class XPathParserDemo {
         rowhead.createCell(323).setCellValue("nGroup");
         rowhead.createCell(324).setCellValue("nTextAnnotation");
         rowhead.createCell(325).setCellValue("nOfExtensionElements");
-        rowhead.createCell(326).setCellValue("TotalElements");        
+        rowhead.createCell(326).setCellValue("TotalElements");
+        
+//        Font font = wb.createFont();  
+//        font.setFontHeightInPoints((short)15);  
+//        font.setFontName("Gill Sans MT");  
+//        font.setBold(true);  
+//        font.setStrikeout(true);
+//        
+//        CellStyle bold = wb.createCellStyle(); 
+//		bold.setFont(font);
+//		
+//		 
+//			 rowhead.setRowStyle(bold);        	
+       
+        
 
         // File's cycle of the testmodels folder
         File folder = new File("testmodels");
@@ -2474,7 +2489,7 @@ public class XPathParserDemo {
                  }
              });
         	 
-        	//N° of Call Choreography             
+        //N° of Call Choreography             
         XPathExpression exprChoSubCallLoop = xpath.compile("//bpmn:callChoreography[@loopType='Standard']");
         Object resultChoSubCallLoop = exprChoSubCallLoop.evaluate(doc, XPathConstants.NODESET);
         NodeList nodesChoSubCallLoop = (NodeList) resultChoSubCallLoop;
@@ -2656,11 +2671,11 @@ public class XPathParserDemo {
         	
         	//creating the rows 
             XSSFRow row = sheet.createRow((short)x+1);  
-               
+                      
             CellStyle styleLOW = wb.createCellStyle();  
             CellStyle styleMEDIUM = wb.createCellStyle();  
             CellStyle styleHIGH = wb.createCellStyle();  
-
+     
             styleLOW.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());  
             styleLOW.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             styleMEDIUM.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());  
