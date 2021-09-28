@@ -866,76 +866,88 @@ public class XPathParserDemo {
 		        	for(int z=0;z<SubPnodeChildNodes.getLength(); z++)
 		        	{
 		        		try {
-		        			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
+		        			if(SubPnodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
+		        			
+		        				if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
 		        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")) {
 
-					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
+					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopStandardCompensateNone++;
-					        						break;
+					        						
 					        					}
 					        					
-					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
+					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopStandardCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
 					        					//mi par
-					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+					        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopMIParallelCompensateNone++;
-					        						break;
+					        						
 					        						
 					        					}
 					        					
 					        					//mi par comp
-					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+					        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopMIParallelCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
 					        					//mi seq
-					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+					        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
+					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopMISequentialCompensateNone++;
-					        						break;
+					        						
 					        						
 					        					}
 					        					//mi seq comp
-					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
+					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+					        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
 					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopMISequentialCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
-					        					if(SubPnodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-							        					   SubPnodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-							        						((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("false")) {
-							        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone++;					        						
+					        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+							        					   SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+							        						((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+							        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone++;		
+							        						
 							        			}
 							        					
-							        			if(SubPnodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-									        			   SubPnodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+							        			if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+									        			   SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 							        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")) {
 							        						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensate++;
+							        						
 							        			}
 					        					
 		            					
 		                      			}    						
 		        			
-		        				}catch (Exception e) {}
+		        			}}catch (Exception e) {}
+		        		
 		        				}
 		        			}
         			}
         				  				        
         		}	
+        	nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone = nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone
+            - nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopStandardCompensateNone - nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopMIParallelCompensateNone
+            - nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopMISequentialCompensateNone;
         	
+        	nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensate = nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensate 
+        	- nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopStandardCompensate - nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopMIParallelCompensate
+        	- nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopMISequentialCompensate;
+        
         	// SubProcess adhoc Extended
         	for(int i=0;i<nodesSubprocessesAdHoc.getLength();i++) {
         		String SubprocessesID = (((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("id"));
@@ -952,76 +964,86 @@ public class XPathParserDemo {
 		        	for(int z=0;z<SPAdHocNodeChildNodes.getLength(); z++)
 		        	{
 		        		try {
+		        			if(SPAdHocNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
+		        				
 		        			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
 		        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")) {
 
-					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
+					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneAdHocLoopStandardCompensateNone++;
-					        						break;
+					        						
 					        					}
 					        					
-					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
+					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneAdHocLoopStandardCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
 					        					//mi par
-					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+					        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensateNone++;
-					        						break;
+					        						
 					        						
 					        					}
 					        					
 					        					//mi par comp
-					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+					        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
 					        					//mi seq
-					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+					        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
+					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensateNone++;
-					        						break;
+					        						
 					        						
 					        					}
 					        					//mi seq comp
-					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
+					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+					        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
 					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
-					        					if(SPAdHocNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-					        							SPAdHocNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-							        						((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("false")) {
-					        						nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone++;					        						
+					        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+					        							SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+							        						((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+					        						nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone++;	
+					        						
 							        			}
 							        					
-							        			if(SPAdHocNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-							        					SPAdHocNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+							        			if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+							        					SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 							        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
 							        				nSubProcessExtendedEventNoneAdHocLoopNoneCompensate++;
+							        				
 							        			}
 
 		            					
 		                      			}    						
 		        			
-		        				}catch (Exception e) {}
+		        		}}catch (Exception e) {}
 		        				}
 		        			}
         			}
         				  				        
         		}		
-        	
+        	nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone = nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone
+        	- nSubProcessExtendedEventNoneAdHocLoopStandardCompensateNone - nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensateNone
+        	- nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensateNone;
+        	nSubProcessExtendedEventNoneAdHocLoopNoneCompensate = nSubProcessExtendedEventNoneAdHocLoopNoneCompensate
+        	- nSubProcessExtendedEventNoneAdHocLoopStandardCompensate - nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensate
+        	- nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensate;
+       	
         	// SubProcess transaction Extended
         	for(int i=0;i<nodesTransaction.getLength();i++) {
         		String SubprocessesID = (((Element) nodesTransaction.item(i)).getAttribute("id"));
@@ -1038,44 +1060,45 @@ public class XPathParserDemo {
 		        	for(int z=0;z<TransactionNodeChildNodes.getLength(); z++)
 		        	{
 		        		try {
+		        			if(TransactionNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 		        			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
 		        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")) {
 
 					        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneTransactionLoopStandardCompensateNone++;
-					        						break;
+					        						
 					        					}
 					        					
 					        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
 					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneTransactionLoopStandardCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
 					        					//mi par
 					        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensateNone++;
-					        						break;
+					        						
 					        						
 					        					}
 					        					
 					        					//mi par comp
 					        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-					        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+					        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
 					        					//mi seq
 					        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 					        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("false")) {
+					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 					        						nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensateNone++;
-					        						break;
+					        						
 					        						
 					        					}
 					        					//mi seq comp
@@ -1083,30 +1106,39 @@ public class XPathParserDemo {
 					        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
 					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensate++;
-					        						break;
+					        						
 					        					}
 					        					
-					        					if(TransactionNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-					        							TransactionNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-							        						((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("false")) {
-							        						nSubProcessExtendedEventNoneTransactionLoopNoneCompensateNone++;					        						
+					        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+					        							TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+							        						((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+							        						nSubProcessExtendedEventNoneTransactionLoopNoneCompensateNone++;	
+							        						
 							        			}
 							        					
-							        			if(TransactionNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-							        					TransactionNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+							        			if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+							        					TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 							        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")) {
 							        						nSubProcessExtendedEventNoneTransactionLoopNoneCompensate++;
+							        						
 							        			}
 					        					
 		            					
 		                      			}    						
 		        			
-		        				}catch (Exception e) {}
+		        			}}catch (Exception e) {}
 		        				}
 		        			}
         			}
         				  				        
         		}
+        	nSubProcessExtendedEventNoneTransactionLoopNoneCompensateNone = nSubProcessExtendedEventNoneTransactionLoopNoneCompensateNone 
+        	- nSubProcessExtendedEventNoneTransactionLoopStandardCompensateNone - nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensateNone
+        	- nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensateNone;
+        	
+        	nSubProcessExtendedEventNoneTransactionLoopNoneCompensate = nSubProcessExtendedEventNoneTransactionLoopNoneCompensate 
+        	- nSubProcessExtendedEventNoneTransactionLoopStandardCompensate - nSubProcessExtendedEventNoneTransactionLoopMIParallelCompensate
+        	- nSubProcessExtendedEventNoneTransactionLoopMISequentialCompensate;
         	
 	// SubProcess event Extended
 	for(int i=0;i<nodesSubprocessesEvent.getLength();i++) {
@@ -1124,46 +1156,43 @@ public class XPathParserDemo {
         	for(int z=0;z<SubprocessesEventNodeChildNodes.getLength(); z++)
         	{
         		try {
+        			if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
         			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
         			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")) {
 
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessExtendedEventLoopStandardCompensateNone++;
-			        						break;
+			        					
 			        					}
 
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessExtendedEventLoopStandardCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi par
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessExtendedEventLoopMIParallelCompensateNone++;
-			        						
-			        						break;
 			        						
 			        					}
 			        					
 			        					//mi par comp
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")) {
+			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessExtendedEventLoopMIParallelCompensate++;
-			        						
-			        						break;
 			        					}
 			        					
 			        					//mi seq
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessExtendedEventLoopMISequentialCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					//mi seq comp
@@ -1171,31 +1200,38 @@ public class XPathParserDemo {
 			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessExtendedEventLoopMISequentialCompensate++;			        					
-			        						break;
+			        						
 			        					}
 			        					
-			        					if(SubprocessesEventNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-			        							SubprocessesEventNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-					        						((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false")) {
-			        						nSubProcessExtendedEventLoopNoneCompensateNone++;					        						
+			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+			        							SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        						((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+			        						nSubProcessExtendedEventLoopNoneCompensateNone++;	
+			        						
 					        			}
 					        					
-					        			if(SubprocessesEventNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-					        					SubprocessesEventNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        			if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+					        					SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 					        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        				nSubProcessExtendedEventLoopNoneCompensate++;
+					        				
 					        			}
 			        					
             					
                       			}    						
         			
-        				}catch (Exception e) {}
+        			}}catch (Exception e) {}
         				}
         			}
 			}
 				  				        
 		}	
-/*
+	nSubProcessExtendedEventLoopNoneCompensateNone = nSubProcessExtendedEventLoopNoneCompensateNone - nSubProcessExtendedEventLoopStandardCompensateNone
+			- nSubProcessExtendedEventLoopMIParallelCompensateNone - nSubProcessExtendedEventLoopMISequentialCompensateNone;
+	nSubProcessExtendedEventLoopNoneCompensate = nSubProcessExtendedEventLoopNoneCompensate - nSubProcessExtendedEventLoopStandardCompensate
+			- nSubProcessExtendedEventLoopMIParallelCompensate - nSubProcessExtendedEventLoopMISequentialCompensate;
+ /* 
+ 
 SUBPROCESS EXPANDED EVENT + ADHOC
        */
 	for(int i=0;i<nodesSubprocessesEvent.getLength();i++) {
@@ -1213,49 +1249,50 @@ SUBPROCESS EXPANDED EVENT + ADHOC
         	for(int z=0;z<SubprocessesEventNodeChildNodes.getLength(); z++)
         	{
         		try {
+        			if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
         			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
         			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")) {
 
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") &&
+			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1") ) {
 			        						nSubProcessExtendedEventAdHocLoopStandardCompensateNone++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 			        						nSubProcessExtendedEventAdHocLoopStandardCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi par
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") &&
+			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 			        						nSubProcessExtendedEventAdHocLoopMIParallelCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					
 			        					//mi par comp
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 			        						nSubProcessExtendedEventAdHocLoopMIParallelCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi seq
 			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 			        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") &&
+			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 			        						nSubProcessExtendedEventAdHocLoopMISequentialCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					//mi seq comp
@@ -1264,32 +1301,40 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 			        						nSubProcessExtendedEventAdHocLoopMISequentialCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
-			        					if(SubprocessesEventNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-			        							SubprocessesEventNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-					        						((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") &&
+			        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+			        							SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        						((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 				        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
-			        						nSubProcessExtendedEventAdHocLoopNoneCompensateNone++;					        						
+			        						nSubProcessExtendedEventAdHocLoopNoneCompensateNone++;	
+			        						
 					        			}
 					        					
-					        			if(SubprocessesEventNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-					        					SubprocessesEventNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        			if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+					        					SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 					        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
 					        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 					        				nSubProcessExtendedEventAdHocLoopNoneCompensate++;
+					        				
 					        			}
 			        					
             					
                       			}    						
         			
-        				}catch (Exception e) {}
+        			}}catch (Exception e) {}
         				}
         			}
 			}
 				  				        
 		}	
+	
+	nSubProcessExtendedEventAdHocLoopNoneCompensateNone = nSubProcessExtendedEventAdHocLoopNoneCompensateNone - nSubProcessExtendedEventAdHocLoopStandardCompensateNone
+	- nSubProcessExtendedEventAdHocLoopMIParallelCompensateNone - nSubProcessExtendedEventAdHocLoopMISequentialCompensateNone;
+	
+	nSubProcessExtendedEventAdHocLoopNoneCompensate = nSubProcessExtendedEventAdHocLoopNoneCompensate - nSubProcessExtendedEventAdHocLoopStandardCompensate
+	- nSubProcessExtendedEventAdHocLoopMIParallelCompensate - nSubProcessExtendedEventAdHocLoopMISequentialCompensate;
 	
 	// SubProcess Normal Collapsed 
 	for(int i=0;i<nodesSubprocesses.getLength();i++) {
@@ -1307,76 +1352,94 @@ SUBPROCESS EXPANDED EVENT + ADHOC
         	for(int z=0;z<SubPnodeChildNodes.getLength(); z++)
         	{
         		try {
+        			if(SubPnodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
         			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
         			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
 
-			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
+			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopStandardCompensateNone++;
-			        						break;
+			        						
 			        					}
 			        					
-			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
+			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopStandardCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi par
-			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopMIParallelCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					
 			        					//mi par comp
-			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopMIParallelCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi seq
-			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
+			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopMISequentialCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					//mi seq comp
-			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
+			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) SubPnodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
 			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopMISequentialCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
-			        					if(SubPnodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-					        					   SubPnodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-					        						((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("false")) {
-					        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone++;					        						
+			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+					        					   SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        						((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+					        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone++;
+					        						
 					        			}
 					        					
-					        			if(SubPnodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-							        			   SubPnodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        			if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+							        			   SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 					        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopNoneCompensate++;
+					        						
 					        			}
 			        					
             					
                       			}    						
         			
-        				}catch (Exception e) {}
+        			}}catch (Exception e) {}
         				}
         			}
 			}
 				  				        
 		}	
+	nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone = nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone 
+		- nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopStandardCompensateNone - nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopMIParallelCompensateNone
+		- nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopMISequentialCompensateNone;
+    
+	nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopNoneCompensate = nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopNoneCompensate
+			- nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopStandardCompensate - nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopMIParallelCompensate
+			- nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopMISequentialCompensate;
+    
+   
 	
+    
+	 //Subprocess Collapsed
+		/*
+	
+	
+    */
 	// SubProcess adhoc Collapsed
 	for(int i=0;i<nodesSubprocessesAdHoc.getLength();i++) {
 		String SubprocessesID = (((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("id"));
@@ -1393,76 +1456,84 @@ SUBPROCESS EXPANDED EVENT + ADHOC
         	for(int z=0;z<SPAdHocNodeChildNodes.getLength(); z++)
         	{
         		try {
+        			if(SPAdHocNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
         			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
         			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
 
-			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
+			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneAdHocLoopStandardCompensateNone++;
-			        						break;
+			        						
 			        					}
 			        					
-			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
+			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneAdHocLoopStandardCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi par
-			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("false") &&
+			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					
 			        					//mi par comp
 			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi seq
 			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
+			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					//mi seq comp
-			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
+			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")&&
+			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")&&
 			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
-			        					if(SPAdHocNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-			        							SPAdHocNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-					        						((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("false")) {
-			        						nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone++;					        						
+			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+			        							SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        						((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+			        						nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone++;	
+			        						
 					        			}
 					        					
-					        			if(SPAdHocNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-					        					SPAdHocNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        			if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+					        					SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 					        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        				nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate++;
+					        				
 					        			}
 
             					
                       			}    						
         			
-        				}catch (Exception e) {}
+        			}}catch (Exception e) {}
         				}
         			}
 			}
 				  				        
 		}		
-	
+	nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone = nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone - nSubProcessCollapsedEventNoneAdHocLoopStandardCompensateNone
+			- nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensateNone - nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensateNone;
+			
+			nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate = nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate - nSubProcessCollapsedEventNoneAdHocLoopStandardCompensate
+			- nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate - nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate;
+			
 	// SubProcess transaction Collapsed
 	for(int i=0;i<nodesTransaction.getLength();i++) {
 		String SubprocessesID = (((Element) nodesTransaction.item(i)).getAttribute("id"));
@@ -1479,76 +1550,84 @@ SUBPROCESS EXPANDED EVENT + ADHOC
         	for(int z=0;z<TransactionNodeChildNodes.getLength(); z++)
         	{
         		try {
+        			if(TransactionNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
         			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
         			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
 
-			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
+			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneTransactionLoopStandardCompensateNone++;
-			        						break;
+			        						
 			        					}
 			        					
-			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
+			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneTransactionLoopStandardCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi par
-			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					
 			        					//mi par comp
-			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
 			        					//mi seq
-			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("false")) {
+			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
+			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensateNone++;
-			        						break;
+			        						
 			        						
 			        					}
 			        					//mi seq comp
-			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-			        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
+			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+			        							((Element) TransactionNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
 			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")) {
 			        						nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensate++;
-			        						break;
+			        						
 			        					}
 			        					
-			        					if(TransactionNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-			        							TransactionNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-					        						((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("false")) {
-					        						nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone++;					        						
+			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+			        							TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        						((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+					        						nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone++;			
+					        						
 					        			}
 					        					
-					        			if(TransactionNodeChildNodes.item(i).getNodeName().contains("standardLoopCharacteristics")==false &&
-					        					TransactionNodeChildNodes.item(i).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+					        			if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
+					        					TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 					        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")) {
 					        						nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate++;
+					        						
 					        			}
 			        					
             					
                       			}    						
         			
-        				}catch (Exception e) {}
+        			}}catch (Exception e) {}
         				}
         			}
 			}
 				  				        
 		}
-	
+	nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone = nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone - nSubProcessCollapsedEventNoneTransactionLoopStandardCompensateNone
+			- nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensateNone - nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensateNone;
+			
+			nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate = nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate - nSubProcessCollapsedEventNoneTransactionLoopStandardCompensate
+			- nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensate - nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensate;
+			
 // SubProcess event Collapsed
 for(int i=0;i<nodesSubprocessesEvent.getLength();i++) {
 String SubprocessesID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
@@ -1565,75 +1644,84 @@ if(SubPExtendedEventNodeChild.hasChildNodes()) {
 	for(int z=0;z<SubprocessesEventNodeChildNodes.getLength(); z++)
 	{
 		try {
+			if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
 			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
 
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") ) {
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
+	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false ) {
 	        						nSubProcessCollapsedEventLoopStandardCompensateNone++;
-	        						break;
+	        						
 	        					}
 	        					
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") ) {
 	        						nSubProcessCollapsedEventLoopStandardCompensate++;
-	        						break;
+	        						
 	        					}
 	        					
 	        					//mi par
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") ) {
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false ) {
 	        						nSubProcessCollapsedEventLoopMIParallelCompensateNone++;
-	        						break;
+	        						
 	        						
 	        					}
 	        					
 	        					//mi par comp
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") ) {
 	        						nSubProcessCollapsedEventLoopMIParallelCompensate++;
-	        						break;
+	        						
 	        					}
 	        					
 	        					//mi seq
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") ) {
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
+	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false ) {
 	        						nSubProcessCollapsedEventLoopMISequentialCompensateNone++;
-	        						break;
+	        						
 	        						
 	        					}
 	        					//mi seq comp
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") ) {
 	        						nSubProcessCollapsedEventLoopMISequentialCompensate++;
-	        						break;
+	        						
 	        					}
 	        					
 	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 	        							SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-			        						((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") ) {
-	        						nSubProcessCollapsedEventLoopNoneCompensateNone++;					        						
+			        						((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false ) {
+	        						nSubProcessCollapsedEventLoopNoneCompensateNone++;		
+	        						
 			        			}
 			        					
 			        			if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 			        					SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")  ) {
 			        				nSubProcessCollapsedEventLoopNoneCompensate++;
+			        				
 			        			}
 	        					
     					
               			}    						
 			
-				}catch (Exception e) {}
+			}}catch (Exception e) {}
 				}
 			}
 	}
 		  				        
 }	
+nSubProcessCollapsedEventLoopNoneCompensateNone = nSubProcessCollapsedEventLoopNoneCompensateNone - nSubProcessCollapsedEventLoopStandardCompensateNone 
+- nSubProcessCollapsedEventLoopMIParallelCompensateNone - nSubProcessCollapsedEventLoopMISequentialCompensateNone;
+
+nSubProcessCollapsedEventLoopNoneCompensate = nSubProcessCollapsedEventLoopNoneCompensate - nSubProcessCollapsedEventLoopStandardCompensate
+- nSubProcessCollapsedEventLoopMIParallelCompensate - nSubProcessCollapsedEventLoopMISequentialCompensate;
+
 /*
 SUBPROCESS Collapsed EVENT + ADHOC
 */
@@ -1652,65 +1740,67 @@ if(SubPExtendedEventNodeChild.hasChildNodes()) {
 	for(int z=0;z<SubprocessesEventNodeChildNodes.getLength(); z++)
 	{
 		try {
+			if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
 			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
 
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")&&
+	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1") ) {
 	        						nSubProcessCollapsedEventAdHocLoopStandardCompensateNone++;
-	        						break;
+	        						
 	        					}
 	        					
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 	        						nSubProcessCollapsedEventAdHocLoopStandardCompensate++;
-	        						break;
+	        						
 	        					}
 	        					
 	        					//mi par
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
-	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
+	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 	        						nSubProcessCollapsedEventAdHocLoopMIParallelCompensateNone++;
-	        						break;
+	        						
 	        						
 	        					}
 	        					
 	        					//mi par comp
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("false")==true &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 	        						nSubProcessCollapsedEventAdHocLoopMIParallelCompensate++;
-	        						break;
+	        						
 	        					}
 	        					
 	        					//mi seq
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")&&
+	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 	        						nSubProcessCollapsedEventAdHocLoopMISequentialCompensateNone++;
-	        						break;
+	        						
 	        						
 	        					}
 	        					//mi seq comp
-	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
-	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
+	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
+	        							((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 	        						nSubProcessCollapsedEventAdHocLoopMISequentialCompensate++;
-	        						break;
+	        						
 	        					}
 	        					
 	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 	        							SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-			        						((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("false") &&
+			        						((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 		        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
-	        						nSubProcessCollapsedEventAdHocLoopNoneCompensateNone++;					        						
+	        						nSubProcessCollapsedEventAdHocLoopNoneCompensateNone++;			
+	        						
 			        			}
 			        					
 			        			if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
@@ -1718,18 +1808,24 @@ if(SubPExtendedEventNodeChild.hasChildNodes()) {
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
 			        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 			        				nSubProcessCollapsedEventAdHocLoopNoneCompensate++;
+			        				
 			        			}
 	        					
     					
               			}    						
 			
-				}catch (Exception e) {}
+			}}catch (Exception e) {}
 				}
 			}
 	}
 		  				        
 }	
-        	
+nSubProcessCollapsedEventAdHocLoopNoneCompensateNone = nSubProcessCollapsedEventAdHocLoopNoneCompensateNone - nSubProcessCollapsedEventAdHocLoopStandardCompensateNone
+- nSubProcessCollapsedEventAdHocLoopMIParallelCompensateNone - nSubProcessCollapsedEventAdHocLoopMISequentialCompensateNone;
+
+nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHocLoopNoneCompensate - nSubProcessCollapsedEventAdHocLoopStandardCompensate
+- nSubProcessCollapsedEventAdHocLoopMIParallelCompensate - nSubProcessCollapsedEventAdHocLoopMISequentialCompensate;
+     	
         	 xpath.setNamespaceContext(new NamespaceContext() {
 
                  @Override
