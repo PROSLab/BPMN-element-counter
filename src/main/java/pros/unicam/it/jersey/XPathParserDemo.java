@@ -1354,7 +1354,7 @@ SUBPROCESS EXPANDED EVENT + ADHOC
         		try {
         			if(SubPnodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
         			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
-        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
+        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")==false) {
 
 			        					if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 			        							((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
@@ -1458,7 +1458,7 @@ SUBPROCESS EXPANDED EVENT + ADHOC
         		try {
         			if(SPAdHocNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
         			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
-        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
+        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")==false) {
 
 			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
@@ -1474,7 +1474,7 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 			        					
 			        					//mi par
 			        					if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
-			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("false") &&
+			        							((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
 			        							((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
 			        						nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensateNone++;
 			        						
@@ -1552,7 +1552,7 @@ SUBPROCESS EXPANDED EVENT + ADHOC
         		try {
         			if(TransactionNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
         			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
-        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
+        			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")==false) {
 
 			        					if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 			        							((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
@@ -1646,7 +1646,7 @@ if(SubPExtendedEventNodeChild.hasChildNodes()) {
 		try {
 			if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
-			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
+			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")==false) {
 
 	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false ) {
@@ -1742,7 +1742,7 @@ if(SubPExtendedEventNodeChild.hasChildNodes()) {
 		try {
 			if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 			if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
-			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("false")) {
+			  ((Element) nodesSubprocessesShapesEx.item(j)).getAttribute("isExpanded").contains("true")==false) {
 
 	        					if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")&&
 	        							((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
@@ -2604,27 +2604,27 @@ nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHo
 	                  	   }
 	                  				                  			
 	                  		if(StartEventSubProcessNonIntChildNodes.item(j).getNodeName().contains("signalEventDefinition") &&
-	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false") == true) {
+	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("true")==false == true) {
 	                  			nStartSignalEventSubProcessNonInterruptingDefinition++;
 	                  		}
 	                  		
 	                  		if(StartEventSubProcessNonIntChildNodes.item(j).getNodeName().contains("conditionalEventDefinition") &&
-	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false") == true) {
+	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("true")==false == true) {
 	                  			nStartConditionalEventSubProcessNonInterruptingDefinition++;
 	                  			}	
 	                  		
 	                  		if(StartEventSubProcessNonIntChildNodes.item(j).getNodeName().contains("timerEventDefinition") &&
-	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false") == true) {
+	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("true")==false == true) {
 	                  			nStartTimerEventSubProcessNonInterruptingDefinition++;
 	                  		}
 	                  		
 	                  		if(StartEventSubProcessNonIntChildNodes.item(j).getNodeName().contains("messageEventDefinition")&&
-	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false") == true) {
+	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("true")==false == true) {
 	                  			nStartMessageEventSubProcessNonInterruptingDefinition++;
 	                  			}                  		
 	                  		
 	                  		if(StartEventSubProcessNonIntChildNodes.item(j).getNodeName().contains("escalationEventDefinition")&&
-	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false") == true) {
+	                  				((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("true")==false == true) {
 	                  			nStartEscalationEventSubProcessNonInterruptingDefinition++;
 	                  		}
 		                  	
@@ -2834,55 +2834,55 @@ nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHo
 	                  	if(CatchIntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 	                  		
 	                  		if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
-	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                    		nIntermediateBoundaryMultipleParallelEvent++;
 	                    		break;
 	                    	}           
 	                  		
 	                  		if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false &&
-	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                    		nIntermediateBoundaryMultipleEvent++;
 	                    		break;
 	                    	}      
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition") &&
-	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                  			nIntermediateBoundaryMessageEvent++;
 	                  		}
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition") &&
-	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                  			nIntermediateBoundaryTimerEvent++;
 	                  		}
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition") &&
-	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                  			nIntermediateBoundaryEscalationEvent++;
 	                  		}
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition") &&
-	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                  			nIntermediateBoundaryConditionalEvent++;
 	                  		}
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("errorEventDefinition") &&
-	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                  			nIntermediateBoundaryErrorEvent++;
 	                  		}
 
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition") &&
-	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                  			nIntermediateBoundaryCancelEvent++;
 	                  		}	 
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition") &&
-	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                  			nIntermediateBoundaryCompensateEvent++;
 	                  		}	                  		
 	                  		
 	                  		if(CatchIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition") &&
-	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false") == false) {
+	 	                  		   ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false == false) {
 	                  			nIntermediateBoundarySignalEvent++;
 	                  		}	   
                   		             	
@@ -2915,14 +2915,14 @@ nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHo
 	                  	if(CatchNonIntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 	                  		
 	                  		if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false &&
-	                  		   ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false") &&
+	                  		   ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false &&
 	                  			CatchNonIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
 	                  			nIntermediateBoundaryMultipleEventNonInterrupting++;
 	                  			break;
 	                  	    }	     
 	                  		
 	                  		if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
-	 	                  	   ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false") &&
+	 	                  	   ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false &&
 	 	                  	   CatchNonIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
 	                  		   nIntermediateBoundaryMultipleParallelEventNonInterrupting++;
 	 	                  			break;
@@ -2930,28 +2930,28 @@ nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHo
 	 	                  		
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition") &&
-	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
+	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false) {
 	                  			nIntermediateBoundaryMessageEventNonInterrupting++;
 	                  			break;
 	                  		}
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")&&
-	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
+	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false) {
 	                  			nIntermediateBoundaryTimerEventNonInterrupting++;
 	                  		}
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")&&
-	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
+	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false) {
 	                  			nIntermediateBoundaryEscalationEventNonInterrupting++;
 	                  		}
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition") &&
-	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")){
+	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false){
 	                  			nIntermediateBoundaryConditionalEventNonInterrupting++;
 	                  		}	                  		                  		
 	                  		
 	                  		if(CatchNonIntEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")&&
-	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")) {
+	  	                  		  ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("true")==false) {
 	                  			nIntermediateBoundarySignalEventNonInterrupting++;
 	                  		}	   
 	                  		
