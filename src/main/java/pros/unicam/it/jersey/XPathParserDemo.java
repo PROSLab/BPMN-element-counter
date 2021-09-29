@@ -32,6 +32,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -670,8 +671,13 @@ public class XPathParserDemo {
 			//Set BPMN models name
 			fileName= listOfFiles[x].getName();
 
-			System.out.println(folderString+"/"+fileName);
-			if(!(folderString+"/"+fileName).contains(".bpmn"))continue;
+			if(SystemUtils.IS_OS_WINDOWS) {
+				System.out.println(folderString+"\\"+fileName);
+				if(!(folderString+"\\"+fileName).contains(".bpmn"))continue;
+			}else {
+				System.out.println(folderString+"/"+fileName);
+				if(!(folderString+"/"+fileName).contains(".bpmn"))continue;
+			}
 			//Read bpmn models
 			File xmlFile = new File(folderString+"/"+fileName);
 
@@ -2532,6 +2538,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 
 						if(StartEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
+							
+							//[TODO: UPDATE THE WAY MULTIPLE ELEMENTS ARE CALCULATED]
 
 							if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false && StartEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
 
@@ -2692,6 +2700,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			}
 
 
+			//[TODO: END EVENTS]
 			// End Events
 
 			XPathExpression exprEndEvent = xpath.compile("//bpmn:endEvent");
@@ -2764,6 +2773,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					nEndNoneEventDefinition++;
 			}
 
+			//[TODO: INTERMEDIATE CATCH EVENTS]
 			// Intermediate Catch Events
 
 			XPathExpression exprIntEvent = xpath.compile("//bpmn:intermediateCatchEvent");
@@ -2818,6 +2828,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 			}
 
+			//[TODO: INTERMEDIATE CATCH EVENTS]
 			// Intermediate Throw Events
 
 			XPathExpression exprThrEvent = xpath.compile("//bpmn:intermediateThrowEvent");
