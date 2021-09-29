@@ -3000,7 +3000,7 @@ nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHo
         NodeList nodesChoTask = (NodeList) resultChoTask;
         doc.getDocumentElement().normalize();  
         nChoreographyTask = nodesChoTask.getLength() - nChoreographyTaskLoop - nChoreographyTaskSequentialMultipleInstance - nChoreographyTaskParallelMultipleInstance;
-        
+
         //message
         XPathExpression exprChoMsg = xpath.compile("//bpmn:message");
         Object resultChoMsg = exprChoMsg.evaluate(doc, XPathConstants.NODESET);
@@ -3292,13 +3292,11 @@ nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHo
         doc.getDocumentElement().normalize();  
         nTextAnnotation = nodesTextAnn.getLength();
         
-        //Extension Elements 
-//        XPathExpression exprExtension = xpath.compile("//bpmn:extensionElements");
-//        Object resultExtension = exprExtension.evaluate(doc, XPathConstants.NODESET);
-//        NodeList nodesExtension = (NodeList) resultExtension;
-//        doc.getDocumentElement().normalize();  
-//        nOfExtensionElements = nodesExtension.getLength();
-        
+        if(modelType=="Choreography")
+        nMessageFlow = 0;
+        	
+        //Not Considered elements:
+        // 1. ChoreographyParticipant (integrated into choreography task)
         	TotalElements = 0; //TODO
         	
         	//creating the rows 
