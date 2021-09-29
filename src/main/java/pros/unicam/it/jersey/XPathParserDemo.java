@@ -349,12 +349,14 @@ public class XPathParserDemo {
 		// File's cycle of the testmodels folder
 
 
-		JFileChooser f = new JFileChooser();
-		f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+		JFileChooser f = new JFileChooser();		
+		f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		f.showSaveDialog(null);
 
-		System.out.println(f.getCurrentDirectory());
-		String folderString = f.getCurrentDirectory().toString();
+		File file = f.getSelectedFile();
+		String folderString = file.getAbsolutePath().toString();
+
+		System.out.println(folderString);
 
 		File folder = new File(folderString);
 
