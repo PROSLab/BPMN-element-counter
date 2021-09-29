@@ -2103,7 +2103,7 @@ nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHo
 	    nTaskUserLoopMISequentialCompensateNone = nodesTaskU5.getLength();     
 	    
 	    XPathExpression exprTaskU6 = xpath.compile("//bpmn:userTask[not(contains(@isForCompensation,'true'))]//bpmn:standardLoopCharacteristics");
-	    Object resultTaskU6 = exprTask28.evaluate(doc, XPathConstants.NODESET);
+	    Object resultTaskU6 = exprTaskU6.evaluate(doc, XPathConstants.NODESET);
 	    NodeList nodesTaskU6 = (NodeList) resultTaskU6;
 	    doc.getDocumentElement().normalize();  
 	    nTaskUserLoopStandardCompensateNone = nodesTaskU6.getLength();
@@ -3298,7 +3298,7 @@ nSubProcessCollapsedEventAdHocLoopNoneCompensate = nSubProcessCollapsedEventAdHo
         //Not Considered elements:
         // 1. ChoreographyParticipant (integrated into choreography task)
         // 2. ChoreographyParticipantMultiplicity (integrated into choreography task)
-        	TotalElements = 	    nTaskNoneLoopNoneCompensateNoneCallNone+
+        	TotalElements = nTaskNoneLoopNoneCompensateNoneCallNone+
                     nTaskNoneLoopNoneCompensateNoneCall+
                     nTaskNoneLoopNoneCompensateCallNone+
                     nTaskNoneLoopNoneCompensateCall+
