@@ -2588,9 +2588,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				if(StartEventNodeSubProcessInt.hasChildNodes()) {                
 
 					NodeList StartEventSubProcessIntChildNodes = StartEventNodeSubProcessInt.getChildNodes();
-					
-					
-					
+
 					int NumberOfChildsOfEachStartEventSubProcessNonInt=0;
 					
 					for (int z = 0; z < StartEventSubProcessIntChildNodes.getLength(); z++) {
@@ -2737,65 +2735,64 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 				Node EndEventNode = nodesEndEvent.item(i);   
 
-
-
-				if(EndEventNode.hasChildNodes()) {                
-
-					NodeList EndEventChildNodes = EndEventNode.getChildNodes();
-
-					boolean msg = false;
-					boolean term = false;
-					boolean canc = false;
-
+				NodeList EndEventChildNodes = EndEventNode.getChildNodes();
+				
+				int NumberOfChildsOfEachEndEvent=0;
+				
+				for (int z = 0; z < EndEventChildNodes.getLength(); z++) {
+			        if (EndEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        	EndEventChildNodes.item(z).getNodeName() != "outgoing" &&
+			        	EndEventChildNodes.item(z).getNodeName() != "ingoing" &&
+			        	EndEventChildNodes.item(z).getNodeName() != "extensionElements" ) {
+			        	NumberOfChildsOfEachEndEvent++;
+			        }
+			    }
+				
+				if(NumberOfChildsOfEachEndEvent==0)
+				nEndNoneEventDefinition++;
+				
+				if(NumberOfChildsOfEachEndEvent > 1)
+				nStartMultipleEventSubProcessNonInterruptingDefinition++;
+				
+				
 					for(int j=0;j<EndEventChildNodes.getLength(); j++) {
 
+							if(EndEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 
+								if(EndEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+									nEndSignalEventDefinition++;
+								}
+	
+								if(EndEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+									nEndMessageEventDefinition++;
+								}
+	
+								if(EndEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition")) {
+									nEndCompensateEventDefinition++;
+								}	                  		
+	
+								if(EndEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
+									nEndEscalationEventDefinition++;
+								}
+	
+								if(EndEventChildNodes.item(j).getNodeName().contains("errorEventDefinition")) {
+									nEndErrorEventDefinition++;
+								}	
+	
+								if(EndEventChildNodes.item(j).getNodeName().contains("terminateEventDefinition")) {
+									nEndTerminateEventDefinition++;
+								}
+	
+								if(EndEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
+									nEndCancelEventDefinition++;	                  			
+									
+								}
 
-						if(EndEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-
-
-							if(EndEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
-								nEndSignalEventDefinition++;
-							}
-
-							if(EndEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
-								nEndMessageEventDefinition++;
-								msg = true;
-							}
-
-							if(EndEventChildNodes.item(j).getNodeName().contains("compensateEventDefinition")) {
-								nEndCompensateEventDefinition++;
-							}	                  		
-
-							if(EndEventChildNodes.item(j).getNodeName().contains("escalationEventDefinition")) {
-								nEndEscalationEventDefinition++;
-							}
-
-							if(EndEventChildNodes.item(j).getNodeName().contains("errorEventDefinition")) {
-								nEndErrorEventDefinition++;
-							}	
-
-							if(EndEventChildNodes.item(j).getNodeName().contains("terminateEventDefinition")) {
-								nEndTerminateEventDefinition++;
-								term = true;
-							}
-
-							if(EndEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
-								nEndCancelEventDefinition++;	                  			
-								canc = true;
-							}
-
-							if(msg && term && canc) {
-								nEndMultipleEventDefinition++;
-								nEndCancelEventDefinition = nEndCancelEventDefinition - nEndMultipleEventDefinition;
-								nEndTerminateEventDefinition = nEndTerminateEventDefinition - nEndMultipleEventDefinition;
-								nEndMessageEventDefinition = nEndMessageEventDefinition - nEndMultipleEventDefinition;
-							}
 						}
 					}      		
-				} 
-				else
-					nEndNoneEventDefinition++;
+				 
+				
+					
 			}
 
 			//[TODO: INTERMEDIATE CATCH EVENTS]
