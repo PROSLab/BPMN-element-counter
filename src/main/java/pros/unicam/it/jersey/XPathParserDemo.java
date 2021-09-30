@@ -2589,18 +2589,46 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 					NodeList StartEventSubProcessIntChildNodes = StartEventNodeSubProcessInt.getChildNodes();
 
-					int NumberOfChildsOfEachStartEventSubProcessNonInt=0;
+					int NumberOfChildsOfEachStartEventSubProcessInt=0;
 					
 					for (int z = 0; z < StartEventSubProcessIntChildNodes.getLength(); z++) {
+						
 				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        	StartEventSubProcessIntChildNodes.item(z).getNodeName() != "outgoing" &&
-				        	StartEventSubProcessIntChildNodes.item(z).getNodeName() != "ingoing" &&
-				        	StartEventSubProcessIntChildNodes.item(z).getNodeName() != "extensionElements" ) {
-				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "signalEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessInt++;
 				        }
+				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "conditionalEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessInt++;
+				        }
+				        
+				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "cancelEventDefinition") {
+					        	NumberOfChildsOfEachStartEventSubProcessInt++;
+					        }	
+				        
+				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "terminateEventDefinition") {
+					        	NumberOfChildsOfEachStartEventSubProcessInt++;
+					        }
+				        
+				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "timerEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessInt++;
+				        }
+				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "messageEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessInt++;
+				        }
+				        
+				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "escalationEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessInt++;				        	
+				        }
+				       
 				    }
 
-					if(NumberOfChildsOfEachStartEventSubProcessNonInt > 1 && ((Element) nodesStartEventSubProcessInt.item(i)).getAttribute("parallelMultiple").contains("true")==false
+					if(NumberOfChildsOfEachStartEventSubProcessInt > 1 && ((Element) nodesStartEventSubProcessInt.item(i)).getAttribute("parallelMultiple").contains("true")==false
 							&& ((Element) nodesStartEventSubProcessInt.item(i)).getAttribute("isInterrupting").contains("false")==false)
 						nStartMultipleEventSubProcessInterruptingDefinition++;
 					
@@ -2671,14 +2699,43 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					int NumberOfChildsOfEachStartEventSubProcessNonInt=0;
 					
 					for (int z = 0; z < StartEventSubProcessNonIntChildNodes.getLength(); z++) {
+						
 				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() != "outgoing" &&
-				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() != "ingoing" &&
-				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() != "extensionElements" ) {
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "signalEventDefinition") {
 				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 				        }
+				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "conditionalEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
+				        }
+				        
+				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "cancelEventDefinition") {
+					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
+					        }	
+				        
+				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "terminateEventDefinition") {
+					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
+					        }
+				        
+				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "timerEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
+				        }
+				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "messageEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
+				        }
+				        
+				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "escalationEventDefinition") {
+				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;				        	
+				        }
+				       
 				    }
-
+					
+					
 					if(NumberOfChildsOfEachStartEventSubProcessNonInt > 1 && ((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("parallelMultiple").contains("true")==false
 							&& ((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false"))
 						nStartMultipleEventSubProcessNonInterruptingDefinition++;
@@ -2740,19 +2797,49 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				int NumberOfChildsOfEachEndEvent=0;
 				
 				for (int z = 0; z < EndEventChildNodes.getLength(); z++) {
+					
 			        if (EndEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-			        	EndEventChildNodes.item(z).getNodeName() != "outgoing" &&
-			        	EndEventChildNodes.item(z).getNodeName() != "ingoing" &&
-			        	EndEventChildNodes.item(z).getNodeName() != "extensionElements" ) {
+			        		EndEventChildNodes.item(z).getNodeName().contains("signalEventDefinition")) {
+			        	NumberOfChildsOfEachEndEvent++;
+			        }
+			        
+			        if (EndEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							EndEventChildNodes.item(z).getNodeName().contains("messageEventDefinition")) {
+			        	NumberOfChildsOfEachEndEvent++;
+			        }
+			        
+			        if (EndEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							EndEventChildNodes.item(z).getNodeName().contains("compensateEventDefinition")) {	
+			        	NumberOfChildsOfEachEndEvent++;
+			        }
+			        
+			        if (EndEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							EndEventChildNodes.item(z).getNodeName().contains("escalationEventDefinition")) {
+			        	NumberOfChildsOfEachEndEvent++;
+			        	
+			        }
+			        if (EndEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							EndEventChildNodes.item(z).getNodeName().contains("errorEventDefinition")) {
+			        	NumberOfChildsOfEachEndEvent++;
+			        	
+			        }
+			        if (EndEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							EndEventChildNodes.item(z).getNodeName().contains("terminateEventDefinition")) {
+			        	NumberOfChildsOfEachEndEvent++;
+			        	
+			        }
+			        if (EndEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+						EndEventChildNodes.item(z).getNodeName().contains("cancelEventDefinition")) {
 			        	NumberOfChildsOfEachEndEvent++;
 			        }
 			    }
-				
+
 				if(NumberOfChildsOfEachEndEvent==0)
 				nEndNoneEventDefinition++;
 				
+				//PROBLEMA CHE CONTA COME SINGOLI CHI STA DENTRO ALL'END MULTIPLE PARALLEL
 				if(NumberOfChildsOfEachEndEvent > 1)
-				nStartMultipleEventSubProcessNonInterruptingDefinition++;
+				nEndMultipleEventDefinition++;
 				
 				
 					for(int j=0;j<EndEventChildNodes.getLength(); j++) {
