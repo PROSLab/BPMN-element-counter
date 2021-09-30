@@ -44,7 +44,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 
 public class XPathParserDemo {
 
-	private static boolean ConsiderExtendedSubProcess = true;
+	private static boolean ConsiderExtendedSubProcess = false;
 
 	public static void main(String[] args) {
 
@@ -719,24 +719,24 @@ public class XPathParserDemo {
 			NodeList nodesModelWords = (NodeList) resultModelWords;
 			ArrayList<String> modelWords = new ArrayList<String>();       
 
-			for(int a=0; a<nodesModelWords.getLength(); a++) {
-
-				modelWords.add(nodesModelWords.item(a).getTextContent());
-				JLanguageTool langTool = new JLanguageTool(new BritishEnglish());
-				List<RuleMatch> matches = langTool.check(modelWords.get(a));
-				isEnglish=true;
-				//If there is a word not in english, check this word and suggest correction
-				for (RuleMatch match : matches) {
-
-					//		              System.out.println("Potential error in model "+fileName+" at characters " +
-					//		                  match.getFromPos() + "-" + match.getToPos() + ": " +
-					//		                  match.getMessage());
-					//		              System.out.println("Suggested correction(s): " +
-					//		                  match.getSuggestedReplacements());
-					isEnglish=false;
-					break;		              
-				}	            
-			}
+//			for(int a=0; a<nodesModelWords.getLength(); a++) {
+//
+//				modelWords.add(nodesModelWords.item(a).getTextContent());
+//				JLanguageTool langTool = new JLanguageTool(new BritishEnglish());
+//				List<RuleMatch> matches = langTool.check(modelWords.get(a));
+//				isEnglish=true;
+//				//If there is a word not in english, check this word and suggest correction
+//				for (RuleMatch match : matches) {
+//
+//					//		              System.out.println("Potential error in model "+fileName+" at characters " +
+//					//		                  match.getFromPos() + "-" + match.getToPos() + ": " +
+//					//		                  match.getMessage());
+//					//		              System.out.println("Suggested correction(s): " +
+//					//		                  match.getSuggestedReplacements());
+//					isEnglish=false;
+//					break;		              
+//				}	            
+//			}
 
 
 			//[TODO: Namespace]
@@ -3599,8 +3599,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					nGroup+
 					nTextAnnotation;
 
-
-			System.out.println("Create XLS file");
 			//creating the rows 
 			XSSFRow row = sheet.createRow((short)x+1);  
 
@@ -4498,14 +4496,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				}
 			}
 
-			System.out.println("Here");
+			
 			FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xlsx");
 			wb.write(fileOut);  
 			//closing the Stream  
 			fileOut.close();  
-			System.out.println(fileName+": Analysis DONE");
+			//System.out.println(fileName+": Analysis DONE");
 		}
-
+		
 		//closing the workbook  
 		wb.close(); 
 		} catch (Exception e) {
@@ -4515,6 +4513,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			return;
 
 	    }
+		System.out.println("Analysis DONE");
 	}
-
-}
+	}
+	
