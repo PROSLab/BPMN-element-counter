@@ -2,45 +2,30 @@ package pros.unicam.it.jersey;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
 import javax.swing.JFileChooser;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.*;
 import javax.xml.xpath.*;
-
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.intellij.lang.annotations.Language;
-import org.languagetool.JLanguageTool;
-import org.languagetool.language.BritishEnglish;
-import org.languagetool.rules.RuleMatch;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.IndexedColors;  
-import org.apache.poi.ss.usermodel.Row;  
-import org.apache.poi.ss.usermodel.Sheet;   
+import org.apache.poi.ss.usermodel.IndexedColors;    
 
 public class XPathParserDemo {
 
@@ -2522,59 +2507,72 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			XPathExpression exprStartEvent = xpath.compile("//bpmn:startEvent");
 			Object resultStartEvent = exprStartEvent.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesStartEvent = (NodeList) resultStartEvent;
-			doc.getDocumentElement().normalize();         
+			doc.getDocumentElement().normalize();    
 
 			for(int i=0; i<nodesStartEvent.getLength(); i++) {
 
 				Node StartEventNode = nodesStartEvent.item(i);   
 
-				if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true")) {
+				if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true")
+				   && ((Element) nodesStartEvent.item(i)).getAttribute("isInterrupting").contains("false")==false) {
 					nStartMultipleParallelEventDefinition++;
 				}      	
 
-				if(StartEventNode.hasChildNodes()) {                
-
 					NodeList StartEventChildNodes = StartEventNode.getChildNodes();
-
+					
+					
+						int NumberOfChildsOfEachStartEventNode=0;
+						
+						for (int z = 0; z < StartEventChildNodes.getLength(); z++) {
+					        if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+					        		StartEventChildNodes.item(z).getNodeName() != "outgoing" &&
+					        		StartEventChildNodes.item(z).getNodeName() != "ingoing" &&
+					        		StartEventChildNodes.item(z).getNodeName() != "extensionElements" ) {
+					        	NumberOfChildsOfEachStartEventNode++;
+					        }
+					    }
+						
+						if(NumberOfChildsOfEachStartEventNode==0)
+						nStartNoneEventDefinition++;						
+						
+						if(NumberOfChildsOfEachStartEventNode > 1 && ((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true")==false
+								&& ((Element) nodesStartEvent.item(i)).getAttribute("isInterrupting").contains("false")==false)
+						nStartMultipleEventDefinition++;
+						
+					
 					for(int j=0;j<StartEventChildNodes.getLength(); j++) {
 
-
 						if(StartEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-							
-							//[TODO: UPDATE THE WAY MULTIPLE ELEMENTS ARE CALCULATED]
 
-							if(((Element) nodesStartEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false && StartEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
-
-								nStartMultipleEventDefinition++;
-							}
-
-							if(StartEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
+							if(StartEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")									
+									&& ((Element) nodesStartEvent.item(i)).getAttribute("isInterrupting").contains("false")==false) {
 								nStartSignalEventDefinition++;
 							}
 
-							if(StartEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition")) {
+							if(StartEventChildNodes.item(j).getNodeName().contains("conditionalEventDefinition")
+									&& ((Element) nodesStartEvent.item(i)).getAttribute("isInterrupting").contains("false")==false) {
 								nStartConditionalEventDefinition++;
 							}	
 
-							if(StartEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")) {
+							if(StartEventChildNodes.item(j).getNodeName().contains("timerEventDefinition")
+									&& ((Element) nodesStartEvent.item(i)).getAttribute("isInterrupting").contains("false")==false) {
 								nStartTimerEventDefinition++;
 							}
 
-							if(StartEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
+							if(StartEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")
+									&& ((Element) nodesStartEvent.item(i)).getAttribute("isInterrupting").contains("false")==false) {
 								nStartMessageEventDefinition++;
 							}
 						}
 					}
 
-				} 
-				else
-					nStartNoneEventDefinition++;
+				 				
 			}
 
 			//[TODO: START EVENTS SUB PROCESS INTERRUPTING AND NON INTERRUPTING ARE AVAILABLE ONLY INSIDE EVENT-SUBPROCESSES]
 			// Start Events Sub Process Interrupting
 
-			XPathExpression exprStartEventSubProcessInt = xpath.compile("//bpmn:startEvent");
+			XPathExpression exprStartEventSubProcessInt = xpath.compile("//bpmn:subProcess[@triggeredByEvent='true']//bpmn:startEvent");
 			Object resultStartEventSubProcessInt = exprStartEventSubProcessInt.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesStartEventSubProcessInt = (NodeList) resultStartEventSubProcessInt;
 			doc.getDocumentElement().normalize();         
@@ -2590,15 +2588,28 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				if(StartEventNodeSubProcessInt.hasChildNodes()) {                
 
 					NodeList StartEventSubProcessIntChildNodes = StartEventNodeSubProcessInt.getChildNodes();
+					
+					
+					
+					int NumberOfChildsOfEachStartEventSubProcessNonInt=0;
+					
+					for (int z = 0; z < StartEventSubProcessIntChildNodes.getLength(); z++) {
+				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        	StartEventSubProcessIntChildNodes.item(z).getNodeName() != "outgoing" &&
+				        	StartEventSubProcessIntChildNodes.item(z).getNodeName() != "ingoing" &&
+				        	StartEventSubProcessIntChildNodes.item(z).getNodeName() != "extensionElements" ) {
+				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
+				        }
+				    }
 
+					if(NumberOfChildsOfEachStartEventSubProcessNonInt > 1 && ((Element) nodesStartEventSubProcessInt.item(i)).getAttribute("parallelMultiple").contains("true")==false
+							&& ((Element) nodesStartEventSubProcessInt.item(i)).getAttribute("isInterrupting").contains("false")==false)
+						nStartMultipleEventSubProcessInterruptingDefinition++;
+					
 					for(int j=0;j<StartEventSubProcessIntChildNodes.getLength(); j++) {
 
 
 						if(StartEventSubProcessIntChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-
-							if(((Element) nodesStartEventSubProcessInt.item(i)).getAttribute("parallelMultiple").contains("true") == false && StartEventSubProcessIntChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
-								nStartMultipleEventSubProcessInterruptingDefinition++;
-							}
 
 							if(StartEventSubProcessIntChildNodes.item(j).getNodeName().contains("signalEventDefinition")&&
 									((Element) nodesStartEventSubProcessInt.item(i)).getAttribute("isInterrupting").contains("false") == false) {
@@ -2652,22 +2663,34 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 				Node StartEventNodeSubProcessNonInt = nodesStartEventSubProcessNonInt.item(i);   
 
-				if(((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("parallelMultiple").contains("true")) {
+				if(((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("parallelMultiple").contains("true")
+						&& ((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false")) {
 					nStartMultipleParallelEventSubProcessNonInterruptingDefinition++;
-				}      	
-
-				if(StartEventNodeSubProcessNonInt.hasChildNodes()) {                
+				}      	              
 
 					NodeList StartEventSubProcessNonIntChildNodes = StartEventNodeSubProcessNonInt.getChildNodes();
+					
+					int NumberOfChildsOfEachStartEventSubProcessNonInt=0;
+					
+					for (int z = 0; z < StartEventSubProcessNonIntChildNodes.getLength(); z++) {
+				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() != "outgoing" &&
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() != "ingoing" &&
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() != "extensionElements" ) {
+				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
+				        }
+				    }
 
+					if(NumberOfChildsOfEachStartEventSubProcessNonInt > 1 && ((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("parallelMultiple").contains("true")==false
+							&& ((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false"))
+						nStartMultipleEventSubProcessNonInterruptingDefinition++;
+					
+					
 					for(int j=0;j<StartEventSubProcessNonIntChildNodes.getLength(); j++) {
 
 
 						if(StartEventSubProcessNonIntChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
 
-							if(((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("parallelMultiple").contains("true") == false && StartEventSubProcessNonIntChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
-								nStartMultipleEventSubProcessNonInterruptingDefinition++;
-							}
 
 							if(StartEventSubProcessNonIntChildNodes.item(j).getNodeName().contains("signalEventDefinition") &&
 									((Element) nodesStartEventSubProcessNonInt.item(i)).getAttribute("isInterrupting").contains("false")) {
@@ -2697,10 +2720,10 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						}
 					}
 
-				} 
-
 			}
-
+			
+			nStartMultipleEventDefinition = nStartMultipleEventDefinition - nStartMultipleParallelEventSubProcessInterruptingDefinition;
+			nStartMultipleParallelEventDefinition = nStartMultipleParallelEventDefinition - nStartMultipleEventSubProcessInterruptingDefinition;
 
 			//[TODO: END EVENTS]
 			// End Events
