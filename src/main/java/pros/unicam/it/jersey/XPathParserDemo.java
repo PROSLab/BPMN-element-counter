@@ -2834,18 +2834,23 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			        }
 			    }
 
-				if(NumberOfChildsOfEachEndEvent==0)
-				nEndNoneEventDefinition++;
 				
-				//PROBLEMA CHE CONTA COME SINGOLI CHI STA DENTRO ALL'END MULTIPLE PARALLEL
-				if(NumberOfChildsOfEachEndEvent > 1)
-				nEndMultipleEventDefinition++;
 				
 				
 					for(int j=0;j<EndEventChildNodes.getLength(); j++) {
 
 							if(EndEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-
+								
+								if(NumberOfChildsOfEachEndEvent==0)
+									nEndNoneEventDefinition++;
+									
+									//PROBLEMA CHE CONTA COME SINGOLI CHI STA DENTRO ALL'END MULTIPLE PARALLEL
+								if(NumberOfChildsOfEachEndEvent > 1) {
+									nEndMultipleEventDefinition++;
+									break;
+								}
+									
+									
 								if(EndEventChildNodes.item(j).getNodeName().contains("signalEventDefinition")) {
 									nEndSignalEventDefinition++;
 								}
