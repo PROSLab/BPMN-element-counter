@@ -588,7 +588,7 @@ public class XPathParserDemo {
 			int nIntermediateThrowLinkEventDefinition=0;
 			int nIntermediateThrowSignalEventDefinition=0;
 			int nIntermediateThrowCompensateEventDefinition=0;
-			int nIntermediateThrowMultipleParallelEventDefinition=0;
+			int nIntermediateThrowMultipleEventDefinition=0;
 			int nIntermediateBoundaryMessageEvent=0;
 			int nIntermediateBoundaryTimerEvent=0;
 			int nIntermediateBoundaryCancelEvent=0;
@@ -2525,41 +2525,43 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						for (int z = 0; z < StartEventChildNodes.getLength(); z++) {
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        		StartEventChildNodes.item(z).getNodeName() == "messageEventDefinition") 
+					        		StartEventChildNodes.item(z).getNodeName() == "bpmn:messageEventDefinition") 
 						        	NumberOfChildsOfEachStartEventNode++;
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-						        	StartEventChildNodes.item(z).getNodeName() == "timerEventDefinition")
+						        	StartEventChildNodes.item(z).getNodeName().contains("timerEventDefinition"))
 						        	NumberOfChildsOfEachStartEventNode++;
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-						        	StartEventChildNodes.item(z).getNodeName() == "escalationEventDefinition") 
+						        	StartEventChildNodes.item(z).getNodeName().contains("escalationEventDefinition")) 
 					        		NumberOfChildsOfEachStartEventNode++;
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-						        	StartEventChildNodes.item(z).getNodeName() == "conditionalEventDefinition")
+						        	StartEventChildNodes.item(z).getNodeName().contains("conditionalEventDefinition"))
 						        	NumberOfChildsOfEachStartEventNode++;
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-						        	StartEventChildNodes.item(z).getNodeName() == "errorEventDefinition")
+						        	StartEventChildNodes.item(z).getNodeName().contains("errorEventDefinition"))
 						        	NumberOfChildsOfEachStartEventNode++;
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-						        	StartEventChildNodes.item(z).getNodeName() == "cancelEventDefinition")
+						        	StartEventChildNodes.item(z).getNodeName().contains("cancelEventDefinition"))
 						        	NumberOfChildsOfEachStartEventNode++;
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-						        	StartEventChildNodes.item(z).getNodeName() == "compensateEventDefinition")
+						        	StartEventChildNodes.item(z).getNodeName().contains("compensateEventDefinition"))
 						        	NumberOfChildsOfEachStartEventNode++;
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-						        	StartEventChildNodes.item(z).getNodeName() == "signalEventDefinition")
+						        	StartEventChildNodes.item(z).getNodeName().contains("signalEventDefinition"))
 						        	NumberOfChildsOfEachStartEventNode++;
 							
 							if (StartEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-						        	StartEventChildNodes.item(z).getNodeName() == "terminateEventDefinition")
+						        	StartEventChildNodes.item(z).getNodeName().contains("terminateEventDefinition"))
 						        	NumberOfChildsOfEachStartEventNode++;    					        
 					    }
+						
+						System.out.println(NumberOfChildsOfEachStartEventNode);
 						
 						if(NumberOfChildsOfEachStartEventNode==0)
 							nStartNoneEventDefinition++;						
@@ -2621,49 +2623,49 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					for (int z = 0; z < StartEventSubProcessIntChildNodes.getLength(); z++) {
 						
 						if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "messageEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("messageEventDefinition")) {
 				        	NumberOfChildsOfEachStartEventSubProcessInt++;
 				        }
 						
 						if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "timerEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("timerEventDefinition")) {
 				        	NumberOfChildsOfEachStartEventSubProcessInt++;
 				        }
 						
 						
 						if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "escalationEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("escalationEventDefinition")) {
 				        	NumberOfChildsOfEachStartEventSubProcessInt++;				        	
 				        }
 						
 				        
 				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "conditionalEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("conditionalEventDefinition")) {
 				        	NumberOfChildsOfEachStartEventSubProcessInt++;
 				        }
 				        
 				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "errorEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("errorEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessInt++;
 					        }
 				        
 				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "cancelEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("cancelEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessInt++;
 					        }	
 				        
 				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "compensateEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("compensateEventDefinition")) {
 				        	NumberOfChildsOfEachStartEventSubProcessInt++;
 				        }
 				        
 				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "signalEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("signalEventDefinition")) {
 				        	NumberOfChildsOfEachStartEventSubProcessInt++;
 				        }
 				        
 				        if (StartEventSubProcessIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        		StartEventSubProcessIntChildNodes.item(z).getNodeName() == "terminateEventDefinition") {
+				        		StartEventSubProcessIntChildNodes.item(z).getNodeName().contains("terminateEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessInt++;
 					        }   
 				     
@@ -2744,48 +2746,48 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					for (int z = 0; z < StartEventSubProcessNonIntChildNodes.getLength(); z++) {
 						
 						if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "messageEventDefinition") {
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("messageEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 					        }
 						
 						if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "timerEventDefinition") {
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("timerEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 					        }
 						
 						if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "escalationEventDefinition") {
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("escalationEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;				        	
 					        }
 						
 						
 						if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "conditionalEventDefinition") {
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("conditionalEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 					        }
 						
 						if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "errorEventDefinition") {
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("errorEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 					        }
 						
 						if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "cancelEventDefinition") {
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("cancelEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 					        }
 						
 						if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "compensateEventDefinition") {
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("compensateEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 					        }
 						
 				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "signalEventDefinition") {
+				        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("signalEventDefinition")) {
 				        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 				        }
 				         
 				        if (StartEventSubProcessNonIntChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
-					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName() == "terminateEventDefinition") {
+					        	StartEventSubProcessNonIntChildNodes.item(z).getNodeName().contains("terminateEventDefinition")) {
 					        	NumberOfChildsOfEachStartEventSubProcessNonInt++;
 					        }
 				        				      
@@ -2935,10 +2937,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 								}
 
 						}
-					}      		
-				 
-				
-					
+					}      				
 			}
 
 			//[TODO: INTERMEDIATE CATCH EVENTS]
@@ -2956,18 +2955,66 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				if(((Element) nodesIntEvent.item(i)).getAttribute("parallelMultiple").contains("true")) {
 					nIntermediateCatchMultipleParallelEventDefinition++;
 				}           	
-
-				if(IntEventNode.hasChildNodes()) {                
-
-					NodeList IntEventChildNodes = IntEventNode.getChildNodes();
+				
+				int NumberOfChildsOfEachIntermediateCatchtEvent=0;
+				NodeList IntEventChildNodes = IntEventNode.getChildNodes();
+				
+				for (int z = 0; z < IntEventChildNodes.getLength(); z++) {
+					
+					if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							IntEventChildNodes.item(z).getNodeName().contains("messageEventDefinition")) {
+						NumberOfChildsOfEachIntermediateCatchtEvent++;
+				        }
+					
+					if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							IntEventChildNodes.item(z).getNodeName().contains("timerEventDefinition")) {
+						NumberOfChildsOfEachIntermediateCatchtEvent++;
+				        }
+					
+					if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							IntEventChildNodes.item(z).getNodeName().contains("escalationEventDefinition")) {
+						NumberOfChildsOfEachIntermediateCatchtEvent++;				        	
+				        }					
+					
+					if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							IntEventChildNodes.item(z).getNodeName().contains("conditionalEventDefinition")) {
+						NumberOfChildsOfEachIntermediateCatchtEvent++;
+				        }
+					
+					if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							IntEventChildNodes.item(z).getNodeName().contains("errorEventDefinition")) {
+						NumberOfChildsOfEachIntermediateCatchtEvent++;
+				        }
+					
+					if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							IntEventChildNodes.item(z).getNodeName().contains("cancelEventDefinition")) {
+						NumberOfChildsOfEachIntermediateCatchtEvent++;
+				        }
+					
+					if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							IntEventChildNodes.item(z).getNodeName().contains("compensateEventDefinition")) {
+						NumberOfChildsOfEachIntermediateCatchtEvent++;
+				        }
+					
+			        if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        		IntEventChildNodes.item(z).getNodeName().contains("signalEventDefinition")) {
+			        	NumberOfChildsOfEachIntermediateCatchtEvent++;
+			        }
+			         
+			        if (IntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        		IntEventChildNodes.item(z).getNodeName().contains("terminateEventDefinition")) {
+			        	NumberOfChildsOfEachIntermediateCatchtEvent++;
+				        }
+			        
+			        if(NumberOfChildsOfEachIntermediateCatchtEvent > 1 && ((Element) nodesIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false ) {
+						nIntermediateCatchMultipleEventDefinition++;
+					}
+				
+					
 
 					for(int j=0;j<IntEventChildNodes.getLength(); j++) {
 
 						if(IntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-
-							if(((Element) nodesIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false && IntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition")) {
-								nIntermediateCatchMultipleEventDefinition++;
-							}
 
 							if(IntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition")) {
 								nIntermediateCatchMessageEventDefinition++;
@@ -2992,7 +3039,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						}
 					}
 
-				} 
+				}
 
 			}
 
@@ -3007,10 +3054,63 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			for(int i=0; i<nodesThrEvent.getLength(); i++) {
 
 				Node ThrEventNode = nodesThrEvent.item(i);   
-
-				if(ThrEventNode.hasChildNodes()) {                
-
-					NodeList ThrEventChildNodes = ThrEventNode.getChildNodes();
+				NodeList ThrEventChildNodes = ThrEventNode.getChildNodes();
+				
+				int NumberOfChildsOfEachIntermediateThrowEvent=0;
+				
+				for (int z = 0; z < ThrEventChildNodes.getLength(); z++) {
+					
+					if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							ThrEventChildNodes.item(z).getNodeName().contains("messageEventDefinition")) {
+						NumberOfChildsOfEachIntermediateThrowEvent++;
+				        }
+					
+					if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							ThrEventChildNodes.item(z).getNodeName().contains("timerEventDefinition")) {
+						NumberOfChildsOfEachIntermediateThrowEvent++;
+				        }
+					
+					if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							ThrEventChildNodes.item(z).getNodeName().contains("escalationEventDefinition")) {
+						NumberOfChildsOfEachIntermediateThrowEvent++;				        	
+				        }					
+					
+					if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							ThrEventChildNodes.item(z).getNodeName().contains("conditionalEventDefinition")) {
+						NumberOfChildsOfEachIntermediateThrowEvent++;
+				        }
+					
+					if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							ThrEventChildNodes.item(z).getNodeName().contains("errorEventDefinition")) {
+						NumberOfChildsOfEachIntermediateThrowEvent++;
+				        }
+					
+					if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							ThrEventChildNodes.item(z).getNodeName().contains("cancelEventDefinition")) {
+						NumberOfChildsOfEachIntermediateThrowEvent++;
+				        }
+					
+					if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							ThrEventChildNodes.item(z).getNodeName().contains("compensateEventDefinition")) {
+						NumberOfChildsOfEachIntermediateThrowEvent++;
+				        }
+					
+			        if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        		ThrEventChildNodes.item(z).getNodeName().contains("signalEventDefinition")) {
+			        	NumberOfChildsOfEachIntermediateThrowEvent++;
+			        }
+			         
+			        if (ThrEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        		ThrEventChildNodes.item(z).getNodeName().contains("terminateEventDefinition")) {
+			        	NumberOfChildsOfEachIntermediateThrowEvent++;
+				        }
+			        
+			        if(NumberOfChildsOfEachIntermediateThrowEvent==0)
+						nIntermediateThrowNoneEventDefinition++;
+			        
+			        if(NumberOfChildsOfEachIntermediateThrowEvent > 1 && ((Element) nodesIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false ) {
+						nIntermediateCatchMultipleEventDefinition++;
+					}
 
 					for(int j=0;j<ThrEventChildNodes.getLength(); j++) {
 
@@ -3038,15 +3138,12 @@ SUBPROCESS Collapsed EVENT + ADHOC
 							}	                  		
 
 							if(ThrEventChildNodes.item(j).getNodeName().contains("terminateEventDefinition")) {
-								nIntermediateThrowMultipleParallelEventDefinition++;
+								nIntermediateThrowMultipleEventDefinition++;
 							}
 
 						}
 					}
-
-				} 
-				else
-					nIntermediateThrowNoneEventDefinition++;
+				}
 			}
 
 			// Intermediate Catch Events - Boundary Interrupting
@@ -3057,28 +3154,74 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			doc.getDocumentElement().normalize();  
 
 			for(int i=0; i<nodesBoundaryCatchIntEvent.getLength(); i++) {
-
+				
 				Node BoundaryCatchIntEventNode = nodesBoundaryCatchIntEvent.item(i);   
+				
+				 if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
+							((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false ) {
+						nIntermediateBoundaryMultipleParallelEvent++;
+						
+					}    
 
-				if(BoundaryCatchIntEventNode.hasChildNodes()) {                
+				NodeList CatchIntEventChildNodes = BoundaryCatchIntEventNode.getChildNodes();
+				
+				int NumberOfChildsOfEachBoundaryCatchEvent=0;
+				
+				for (int z = 0; z < CatchIntEventChildNodes.getLength(); z++) {
+					
+					if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchIntEventChildNodes.item(z).getNodeName().contains("messageEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchEvent++;
+				        }
+					
+					if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchIntEventChildNodes.item(z).getNodeName().contains("timerEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchEvent++;
+				        }
+					
+					if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchIntEventChildNodes.item(z).getNodeName().contains("escalationEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchEvent++;				        	
+				        }					
+					
+					if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchIntEventChildNodes.item(z).getNodeName().contains("conditionalEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchEvent++;
+				        }
+					
+					if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchIntEventChildNodes.item(z).getNodeName().contains("errorEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchEvent++;
+				        }
+					
+					if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchIntEventChildNodes.item(z).getNodeName().contains("cancelEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchEvent++;
+				        }
+					
+					if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchIntEventChildNodes.item(z).getNodeName().contains("compensateEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchEvent++;
+				        }
+					
+			        if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        		CatchIntEventChildNodes.item(z).getNodeName().contains("signalEventDefinition")) {
+			        	NumberOfChildsOfEachBoundaryCatchEvent++;
+			        }
+			         
+			        if (CatchIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        		CatchIntEventChildNodes.item(z).getNodeName().contains("terminateEventDefinition")) {
+			        	NumberOfChildsOfEachBoundaryCatchEvent++;
+				        }
 
-					NodeList CatchIntEventChildNodes = BoundaryCatchIntEventNode.getChildNodes();
+			        if(NumberOfChildsOfEachBoundaryCatchEvent > 1 && ((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false ) {
+			        	nIntermediateBoundaryMultipleEvent++;
+					}      
 
+			        
 					for(int j=0;j<CatchIntEventChildNodes.getLength(); j++) {
 
 						if(CatchIntEventChildNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
-
-							if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
-									((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false ) {
-								nIntermediateBoundaryMultipleParallelEvent++;
-								break;
-							}           
-
-							if(((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false &&
-									((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false ) {
-								nIntermediateBoundaryMultipleEvent++;
-								break;
-							}      
 
 							if(CatchIntEventChildNodes.item(j).getNodeName().contains("messageEventDefinition") &&
 									((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false ) {
@@ -3123,8 +3266,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 						}
 					}
-
-				} 
+				}
 			}
 
 			// Intermediate Catch Events - Boundary NON Interrupting
@@ -3138,11 +3280,68 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 				Node CatchNonIntEventNode = nodesCatchNonIntEvent.item(i);   
 
+				 if(((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") &&
+							((Element) nodesCatchNonIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false ) {
+						nIntermediateBoundaryMultipleParallelEvent++;
+						
+					}    
 
+				 NodeList CatchNonIntEventChildNodes = CatchNonIntEventNode.getChildNodes();
+				
+				int NumberOfChildsOfEachBoundaryCatchNonIntEvent=0;
+				
+				for (int z = 0; z < CatchNonIntEventChildNodes.getLength(); z++) {
+					
+					if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchNonIntEventChildNodes.item(z).getNodeName().contains("messageEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchNonIntEvent++;
+				        }
+					
+					if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchNonIntEventChildNodes.item(z).getNodeName().contains("timerEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchNonIntEvent++;
+				        }
+					
+					if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchNonIntEventChildNodes.item(z).getNodeName().contains("escalationEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchNonIntEvent++;				        	
+				        }					
+					
+					if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchNonIntEventChildNodes.item(z).getNodeName().contains("conditionalEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchNonIntEvent++;
+				        }
+					
+					if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchNonIntEventChildNodes.item(z).getNodeName().contains("errorEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchNonIntEvent++;
+				        }
+					
+					if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchNonIntEventChildNodes.item(z).getNodeName().contains("cancelEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchNonIntEvent++;
+				        }
+					
+					if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+							CatchNonIntEventChildNodes.item(z).getNodeName().contains("compensateEventDefinition")) {
+						NumberOfChildsOfEachBoundaryCatchNonIntEvent++;
+				        }
+					
+			        if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        		CatchNonIntEventChildNodes.item(z).getNodeName().contains("signalEventDefinition")) {
+			        	NumberOfChildsOfEachBoundaryCatchNonIntEvent++;
+			        }
+			         
+			        if (CatchNonIntEventChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE &&
+			        		CatchNonIntEventChildNodes.item(z).getNodeName().contains("terminateEventDefinition")) {
+			        	NumberOfChildsOfEachBoundaryCatchNonIntEvent++;
+				        }
 
-				if(CatchNonIntEventNode.hasChildNodes()) {                
+			        if(NumberOfChildsOfEachBoundaryCatchNonIntEvent > 1 && ((Element) nodesCatchNonIntEvent.item(i)).getAttribute("parallelMultiple").contains("true") == false ) {
+			        	nIntermediateBoundaryMultipleEvent++;
+					}         
 
-					NodeList CatchNonIntEventChildNodes = CatchNonIntEventNode.getChildNodes();
+					
 
 					for(int j=0;j<CatchNonIntEventChildNodes.getLength(); j++) {
 
@@ -3193,8 +3392,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 						}
 					}
-
-				} 
+				}
 			}
 
 			//N° of Choreography participant multiple      
@@ -3707,7 +3905,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					nIntermediateThrowLinkEventDefinition+
 					nIntermediateThrowSignalEventDefinition+
 					nIntermediateThrowCompensateEventDefinition+
-					nIntermediateThrowMultipleParallelEventDefinition+
+					nIntermediateThrowMultipleEventDefinition+
 					nIntermediateBoundaryMessageEvent+
 					nIntermediateBoundaryTimerEvent+
 					nIntermediateBoundaryCancelEvent+
@@ -3995,7 +4193,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			row.createCell(212).setCellValue(nIntermediateThrowLinkEventDefinition);
 			row.createCell(213).setCellValue(nIntermediateThrowSignalEventDefinition);
 			row.createCell(214).setCellValue(nIntermediateThrowCompensateEventDefinition);
-			row.createCell(215).setCellValue(nIntermediateThrowMultipleParallelEventDefinition);
+			row.createCell(215).setCellValue(nIntermediateThrowMultipleEventDefinition);
 			row.createCell(216).setCellValue(nIntermediateBoundaryMessageEvent);
 			row.createCell(217).setCellValue(nIntermediateBoundaryTimerEvent);
 			row.createCell(218).setCellValue(nIntermediateBoundaryCancelEvent);
@@ -4578,7 +4776,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				row2.createCell(212).setCellValue(nIntermediateThrowLinkEventDefinition);
 				row2.createCell(213).setCellValue(nIntermediateThrowSignalEventDefinition);
 				row2.createCell(214).setCellValue(nIntermediateThrowCompensateEventDefinition);
-				row2.createCell(215).setCellValue(nIntermediateThrowMultipleParallelEventDefinition);
+				row2.createCell(215).setCellValue(nIntermediateThrowMultipleEventDefinition);
 				row2.createCell(216).setCellValue(nIntermediateBoundaryMessageEvent);
 				row2.createCell(217).setCellValue(nIntermediateBoundaryTimerEvent);
 				row2.createCell(218).setCellValue(nIntermediateBoundaryCancelEvent);
