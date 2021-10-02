@@ -3552,14 +3552,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			nPoolExpandedMultiplicityNone = nodesPoolEx.getLength() - nPoolExpandedMultiplicity;
 
 			// Pool Collapsed Multiplicity 
-			XPathExpression exprPoolColM = xpath.compile("//bpmn:collaboration//bpmn:participant[not(contains(@processRef,'sid'))]//bpmn:participantMultiplicity");
+			XPathExpression exprPoolColM = xpath.compile("//bpmn:collaboration//bpmn:participant[not[@processRef]]//bpmn:participantMultiplicity");
 			Object resultPoolColM = exprPoolColM.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesPoolColM = (NodeList) resultPoolColM;
 			doc.getDocumentElement().normalize();  
 			nPoolCollapsedMultiplicity = nodesPoolColM.getLength();
 
 			// Pool Collapsed Multiplicity None
-			XPathExpression exprPoolCol = xpath.compile("//bpmn:collaboration//bpmn:participant[not(contains(@processRef,'sid'))]");
+			XPathExpression exprPoolCol = xpath.compile("//bpmn:collaboration//bpmn:participant[not[@processRef]]");
 			Object resultPoolCol= exprPoolCol.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesPoolCol = (NodeList) resultPoolCol;
 			doc.getDocumentElement().normalize();  
@@ -4848,7 +4848,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			}
 
 			
-			FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xlsx");
+			FileOutputStream fileOut = new FileOutputStream("bpmn_stats2.xlsx");
 			wb.write(fileOut);  
 			//closing the Stream  
 			fileOut.close();  
