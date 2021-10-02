@@ -3594,7 +3594,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			Object resultSFlow = exprSFlow.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesSFlow = (NodeList) resultSFlow;
 			doc.getDocumentElement().normalize();  
-			nSequenceFlow = nodesSFlow.getLength();
+			nSequenceFlow = nodesSFlow.getLength() - (nDefaultFlow + nConditionalFlow);
 			
 			//[TODO: ASSOCIATIONS]
 			// ASSOCIATIONS
@@ -3625,20 +3625,20 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			NodeList nodesUnidirectionalAssoc = (NodeList) resultUnidirectionalAssoc;
 			doc.getDocumentElement().normalize();  
 			nAssociationUnidirectional = nodesUnidirectionalAssoc.getLength();
-
-			//Unidirected Association
-			XPathExpression exprUndirectedAssoc = xpath.compile("//bpmn:association[@associationDirection='None']");
-			Object resultUndirectedAssoc = exprUndirectedAssoc.evaluate(doc, XPathConstants.NODESET);
-			NodeList nodesUndirectedAssoc = (NodeList) resultUndirectedAssoc;
-			doc.getDocumentElement().normalize();  
-			nAssociationUndirected = nodesUndirectedAssoc.getLength();
-
+			
 			//Bidirectional Association
 			XPathExpression exprBidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='Both']");
 			Object resultBidirectionalAssoc = exprBidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesBidirectionalAssoc = (NodeList) resultBidirectionalAssoc;
 			doc.getDocumentElement().normalize();  
 			nAssociationBidirectional = nodesBidirectionalAssoc.getLength();
+
+			//Unidirected Association
+			XPathExpression exprUndirectedAssoc = xpath.compile("//bpmn:association");
+			Object resultUndirectedAssoc = exprUndirectedAssoc.evaluate(doc, XPathConstants.NODESET);
+			NodeList nodesUndirectedAssoc = (NodeList) resultUndirectedAssoc;
+			doc.getDocumentElement().normalize();  
+			nAssociationUndirected = nodesUndirectedAssoc.getLength() - (nAssociationCompensate + nAssociationUnidirectional + nAssociationBidirectional );
 
 
 			//[TODO: CONVERSATION]
