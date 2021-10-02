@@ -2472,7 +2472,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			doc.getDocumentElement().normalize();  
 			nInclusiveGateway = nodesInG.getLength();
 
-			XPathExpression exprEBG = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Exclusive']");
+			XPathExpression exprEBG = xpath.compile("//bpmn:eventBasedGateway");
 			Object resultEBG = exprEBG.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesEBG = (NodeList) resultEBG;
 			doc.getDocumentElement().normalize();  
@@ -3552,14 +3552,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			nPoolExpandedMultiplicityNone = nodesPoolEx.getLength() - nPoolExpandedMultiplicity;
 
 			// Pool Collapsed Multiplicity 
-			XPathExpression exprPoolColM = xpath.compile("//bpmn:collaboration//bpmn:participant[not[@processRef]]//bpmn:participantMultiplicity");
+			XPathExpression exprPoolColM = xpath.compile("//bpmn:collaboration//bpmn:participant[not(@processRef)]//bpmn:participantMultiplicity");
 			Object resultPoolColM = exprPoolColM.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesPoolColM = (NodeList) resultPoolColM;
 			doc.getDocumentElement().normalize();  
 			nPoolCollapsedMultiplicity = nodesPoolColM.getLength();
 
 			// Pool Collapsed Multiplicity None
-			XPathExpression exprPoolCol = xpath.compile("//bpmn:collaboration//bpmn:participant[not[@processRef]]");
+			XPathExpression exprPoolCol = xpath.compile("//bpmn:collaboration//bpmn:participant[not(@processRef)]");
 			Object resultPoolCol= exprPoolCol.evaluate(doc, XPathConstants.NODESET);
 			NodeList nodesPoolCol = (NodeList) resultPoolCol;
 			doc.getDocumentElement().normalize();  
