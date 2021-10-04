@@ -7,6 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.JFileChooser;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.*;
@@ -318,7 +320,8 @@ public class XPathParserDemo {
 		rowhead.createCell(271).setCellValue("nAssociationDataInput");            
 		rowhead.createCell(272).setCellValue("nGroup");
 		rowhead.createCell(273).setCellValue("nTextAnnotation");
-		rowhead.createCell(274).setCellValue("TotalElements"); 
+		rowhead.createCell(274).setCellValue("Model's Execution Time");
+		rowhead.createCell(275).setCellValue("TotalElements"); 
 
 		//        Font font = wb.createFont();  
 		//        font.setFontHeightInPoints((short)15);  
@@ -352,6 +355,8 @@ public class XPathParserDemo {
 
 		for (int x = 0; x < listOfFiles.length; x++) {
 
+			long StartingtimeMillis = System.currentTimeMillis();
+			long StartingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(StartingtimeMillis);
 			//Defining global variables
 			String fileName;
 			String bpmnModeler;
@@ -3978,7 +3983,17 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					nAssociationDataInput+            
 					nGroup+
 					nTextAnnotation;
-
+			
+			
+			long EndingtimeMillis = System.currentTimeMillis();
+			long EndingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(EndingtimeMillis);
+			
+			double ExecutionTime = (EndingtimeSeconds - StartingtimeSeconds)/1000;
+			
+			System.out.println(StartingtimeMillis);
+			System.out.println(EndingtimeSeconds);
+			System.out.println(ExecutionTime);
+			
 			//creating the rows 
 			XSSFRow row = sheet.createRow((short)x+1);  
 
@@ -4296,7 +4311,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			row.createCell(271).setCellValue(nAssociationDataInput);            
 			row.createCell(272).setCellValue(nGroup);
 			row.createCell(273).setCellValue(nTextAnnotation);
-			row.createCell(274).setCellValue(TotalElements);             
+			row.createCell(274).setCellValue(ExecutionTime);      
+			row.createCell(275).setCellValue(TotalElements);
 			
 			
 			
@@ -4631,7 +4647,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				rowhead2.createCell(271).setCellValue("nAssociationDataInput");            
 				rowhead2.createCell(272).setCellValue("nGroup");
 				rowhead2.createCell(273).setCellValue("nTextAnnotation");
-				rowhead2.createCell(274).setCellValue("TotalElements");          
+				rowhead2.createCell(274).setCellValue("Subprocess's Execution Time");
+				rowhead2.createCell(275).setCellValue("TotalElements");          
 
 				// TO READAPT
 				XSSFRow row2 = sheet2.createRow((short)x+1);  
@@ -4909,7 +4926,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				row2.createCell(271).setCellValue(nAssociationDataInput);            
 				row2.createCell(272).setCellValue(nGroup);
 				row2.createCell(273).setCellValue(nTextAnnotation);
-				row2.createCell(274).setCellValue(TotalElements);           
+				row2.createCell(274).setCellValue(ExecutionTime);   
+				row2.createCell(275).setCellValue(TotalElements);           
 
 				for(Cell cell : row2) {
 					String data="";
@@ -4935,7 +4953,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			}
 
 			
-			FileOutputStream fileOut = new FileOutputStream("bpmn_stats2.xlsx");
+			FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xlsx");
 			wb.write(fileOut);  
 			//closing the Stream  
 			fileOut.close();  
