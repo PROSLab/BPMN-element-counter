@@ -15,12 +15,15 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.RegionUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;  
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -922,7 +925,11 @@ public class XPathParserDemo {
 
 										if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 												SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-												((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												SubPnodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
+												SubPnodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
+												SubPnodeChildNodes.item(z).getNodeName().contains("outgoing")==false
+												) {
 											nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone++;		
 
 										}
@@ -1021,7 +1028,10 @@ public class XPathParserDemo {
 
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 												SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												SPAdHocNodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
+												SPAdHocNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
+												SPAdHocNodeChildNodes.item(z).getNodeName().contains("outgoing")==false) {
 											nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone++;	
 
 										}
@@ -1117,7 +1127,10 @@ public class XPathParserDemo {
 
 										if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 												TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-												((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												TransactionNodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
+												TransactionNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
+												TransactionNodeChildNodes.item(z).getNodeName().contains("outgoing")==false) {
 											nSubProcessExtendedEventNoneTransactionLoopNoneCompensateNone++;	
 
 										}
@@ -1212,7 +1225,10 @@ public class XPathParserDemo {
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("outgoing")==false ) {
 											nSubProcessExtendedEventLoopNoneCompensateNone++;	
 
 										}
@@ -1313,7 +1329,10 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false && 
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("outgoing")==false &&
 												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
 											nSubProcessExtendedEventAdHocLoopNoneCompensateNone++;	
 
@@ -1416,6 +1435,7 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										
 										if(SubPnodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 										   SubPnodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
+										   SubPnodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
 										   SubPnodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
 										   SubPnodeChildNodes.item(z).getNodeName().contains("outgoing")==false &&
 										   ((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false) {
@@ -1511,8 +1531,9 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 												SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-														SPAdHocNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
-																SPAdHocNodeChildNodes.item(z).getNodeName().contains("outgoing")==false ) {
+												SPAdHocNodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
+												SPAdHocNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
+												SPAdHocNodeChildNodes.item(z).getNodeName().contains("outgoing")==false ) {
 											nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone++;	
 
 										}
@@ -1608,8 +1629,9 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										if(TransactionNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 												TransactionNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 												((Element) nodesTransaction.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-														TransactionNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
-																TransactionNodeChildNodes.item(z).getNodeName().contains("outgoing")==false
+												TransactionNodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
+												TransactionNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
+												TransactionNodeChildNodes.item(z).getNodeName().contains("outgoing")==false
 												) {
 											nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone++;			
 
@@ -1706,8 +1728,9 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-														SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
-																SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("outgoing")==false  ) {
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("outgoing")==false  ) {
 											nSubProcessCollapsedEventLoopNoneCompensateNone++;		
 
 										}
@@ -1812,6 +1835,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")  &&
+												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("incoming")==false &&
 												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("ingoing")==false &&
 												SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("outgoing")==false ) {
 											nSubProcessCollapsedEventAdHocLoopNoneCompensateNone++;			
@@ -3966,6 +3990,11 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			CellStyle styleLOW = wb.createCellStyle();  
 			CellStyle styleMEDIUM = wb.createCellStyle();  
 			CellStyle styleHIGH = wb.createCellStyle();  
+			CellStyle styleDelimeterDX = wb.createCellStyle(); 
+			
+			CellStyle mixedstyleLOW = wb.createCellStyle(); 
+			CellStyle mixedstyleMEDIUM = wb.createCellStyle(); 
+			CellStyle mixedstyleHIGH  = wb.createCellStyle(); 
 
 			styleLOW.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());  
 			styleLOW.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -3973,7 +4002,30 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			styleMEDIUM.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 			styleHIGH.setFillForegroundColor(IndexedColors.GREEN.getIndex());  
 			styleHIGH.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
+			
+			styleDelimeterDX.setBorderRight(BorderStyle.THICK);
+			
+			mixedstyleLOW.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+			mixedstyleLOW.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			mixedstyleLOW.setBorderRight(BorderStyle.THICK);
+			mixedstyleMEDIUM.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());  
+			mixedstyleMEDIUM.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			mixedstyleMEDIUM.setBorderRight(BorderStyle.THICK);
+			mixedstyleHIGH.setFillForegroundColor(IndexedColors.GREEN.getIndex());  
+			mixedstyleHIGH.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			mixedstyleHIGH.setBorderRight(BorderStyle.THICK);
+			
+//			styleDelimeter.setBorderTop(BorderStyle.THIN);
+//			styleDelimeter.setTopBorderColor(IndexedColors.BLUE_GREY.getIndex());
+//			styleDelimeter.setBorderBottom(BorderStyle.THICK);
+//			styleDelimeter.setLeftBorderColor(IndexedColors.AQUA.getIndex());
+//			styleDelimeterDX.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+//			styleDelimeter.setRightBorderColor(IndexedColors.BROWN.getIndex());
+			
+			
+			
+			
+			
 			//inserting data        
 			row.createCell(0).setCellValue(fileName);
 			row.createCell(1).setCellValue(bpmnModeler);
@@ -4250,27 +4302,57 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			row.createCell(272).setCellValue(nGroup);
 			row.createCell(273).setCellValue(nTextAnnotation);
 			row.createCell(274).setCellValue(TotalElements);             
-
+			
+			
+			
 			for(Cell cell : row) {
 				String data="";
-
+				
+				
+				
 				if(cell.getCellType()==CellType.NUMERIC) {
 					data = String.valueOf(cell.getNumericCellValue());
 					double str1 = Double.parseDouble(data);
 
-					if(str1 >= 1 && str1 <= 5){
+					
+					if ((str1 >= 1 && str1 <= 5) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+						   cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
+						   cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
+						   cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
+						   cell.getColumnIndex()==265 || cell.getColumnIndex()==271 || cell.getColumnIndex()==273 || 
+						   cell.getColumnIndex()==274))) {
+						cell.setCellStyle(mixedstyleLOW);
+						
+					}else if(str1 >= 1 && str1 <= 5){
 						cell.setCellStyle(styleLOW);       
 					}
 
-					if(str1 > 5 && str1 <= 10){
-						cell.setCellStyle(styleMEDIUM);       
+					if((str1 > 5 && str1 <= 10) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+							   cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
+							   cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
+							   cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
+							   cell.getColumnIndex()==265 || cell.getColumnIndex()==271 || cell.getColumnIndex()==273 || 
+							   cell.getColumnIndex()==274))){
+						cell.setCellStyle(mixedstyleMEDIUM);       
+					}else if(str1 > 5 && str1 <= 10) {
+						cell.setCellStyle(styleMEDIUM);  
 					}
-
-					if(str1 > 10){
-						cell.setCellStyle(styleHIGH);       
+					
+					if((str1 > 10) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+							   cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
+							   cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
+							   cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
+							   cell.getColumnIndex()==265 || cell.getColumnIndex()==271 || cell.getColumnIndex()==273 || 
+							   cell.getColumnIndex()==274))){
+						cell.setCellStyle(mixedstyleHIGH);       
+					}else if(str1 > 10) {
+						cell.setCellStyle(styleHIGH);
 					}
-				}
-
+					
+					
+				}	
+			
+				
 			}
 
 			if(ConsiderExtendedSubProcess && nExtendedSubProcess>0) {
