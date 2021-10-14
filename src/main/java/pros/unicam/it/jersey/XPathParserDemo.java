@@ -662,12 +662,8 @@ public class XPathParserDemo {
 			int nTextAnnotation=0;
 			int TotalElements=0;
 			//SubProcesses Analysis variables
-			String SubProcessModelID="";
-			String SubProcessType="";
 			int nExtendedSubProcess=0;
-			long SPStartExecution =0;
-			long SPEndExecution=0;
-			long SPExecutionTime=0;
+
 
 			//Set BPMN models name
 			fileName= listOfFiles[x].getName();
@@ -4370,72 +4366,150 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			
 				
 			}
-			
+
+			//SUBPROCESSES ANALYSIS
 			if(ConsiderExtendedSubProcess && nExtendedSubProcess>0) {
 				
-				try {
-				
-				for(int i=0;i<nodesSubprocesses.getLength();i++) {
+		
+				//SubProcesses Analysis variables
+				String SubprocessesID="";
+				String SubProcessType="";
+				long SPStartExecution =0;
+				long SPEndExecution=0;
+				long SPExecutionTime=0;	
+						
+				XPathExpression exprNodeShapes2 = xpathShape.compile("//bpmn:BPMNShape");
+				Object resultNodeShapes2  = exprNodeShapes2.evaluate(doc, XPathConstants.NODESET);       
+				NodeList nodesShapesList2 = (NodeList) resultNodeShapes2;
+				doc.getDocumentElement().normalize();    
+
+				//[TODO: Subprocess NodeList]
+				// SUBPROCESSES
+				//N° subProcess 
+				XPathExpression exprSubprocesses2 = xpath.compile("//bpmn:subProcess[not(contains(@triggeredByEvent,'true'))]");
+				Object resultSubprocesses2  = exprSubprocesses2.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesSubprocesses2 = (NodeList) resultSubprocesses2;
+				doc.getDocumentElement().normalize();  
+
+				//N° subProcess Event
+				XPathExpression exprSubprocessesEvent2 = xpath.compile("//bpmn:subProcess[@triggeredByEvent='true']");
+				Object resultSubprocessesEvent2  = exprSubprocessesEvent2.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesSubprocessesEvent2 = (NodeList) resultSubprocessesEvent2;
+				doc.getDocumentElement().normalize(); 
+
+				//N° subProcess AdHoc
+				XPathExpression exprSubprocessesAdHoc2 = xpath.compile("//bpmn:adHocSubProcess");
+				Object resultSubprocessesAdHoc2  = exprSubprocessesAdHoc2.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesSubprocessesAdHoc2 = (NodeList) resultSubprocessesAdHoc2;
+				doc.getDocumentElement().normalize(); 
+
+				//N° Transaction
+				XPathExpression exprTransaction2 = xpath.compile("//bpmn:transaction");
+				Object resultTransaction2  = exprTransaction2.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesTransaction2 = (NodeList) resultTransaction2;
+				doc.getDocumentElement().normalize(); 
+
+				// [TODO: SUBPROCESS EXTENDED]
+				// SubProcess Normal Extended 
+				for(int i=0;i<nodesSubprocesses2.getLength()+1;i++) {
 					
-					String SubprocessesID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
-
-					Node SubPExtendedEventNodeChild = nodesSubprocessesEvent.item(i);  
+					try {						
+					
+					SubprocessesID = (((Element) nodesSubprocesses2.item(i)).getAttribute("id"));					
+					System.out.println(SubprocessesID);		
+	
+					Node SubPnodeChild = nodesSubprocesses.item(i);  
 
 					for(int j=0;j<nodesShapesList.getLength();j++) {
 						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
-						
-						System.out.println("SP Shape:"+SubprocessesShape+" subprocessid: "+SubprocessesID);
-						
+
+							NodeList SubPnodeChildNodes = SubPnodeChild.getChildNodes();  
+														
+							for(int z=0;z<SubPnodeChildNodes.getLength(); z++)
+							{
+									
 										if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
 												((Element) nodesShapesList.item(j)).getAttribute("isExpanded").contains("true")) {
-											System.out.println("entro");
-											SubProcessModelID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
-										}
-					}}	
+											SubProcessType = "Sub Process";	
+										}				
+							}
 				
-				for(int i=0;i<nodesSubprocessesEvent.getLength();i++) {
-					String SubprocessesID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
+					}}catch (Exception e) {}
+				}
 
-					Node SubPExtendedEventNodeChild = nodesSubprocessesEvent.item(i);  
-
-					for(int j=0;j<nodesShapesList.getLength();j++) {
-						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
-
-										if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
-												((Element) nodesShapesList.item(j)).getAttribute("isExpanded").contains("true")) {
-											SubProcessModelID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
-										}
-					}}					
-
-				for(int i=0;i<nodesSubprocessesAdHoc.getLength();i++) {
-					String SubprocessesID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
-
-					Node SubPExtendedEventNodeChild = nodesSubprocessesEvent.item(i);  
-
-					for(int j=0;j<nodesShapesList.getLength();j++) {
-						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
-
-										if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
-												((Element) nodesShapesList.item(j)).getAttribute("isExpanded").contains("true")) {
-											SubProcessModelID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
-										}
-					}}					
 				
-				for(int i=0;i<nodesTransaction.getLength();i++) {
-					String SubprocessesID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
-
-					Node SubPExtendedEventNodeChild = nodesSubprocessesEvent.item(i);  
+				for(int i=0;i<nodesSubprocessesEvent2.getLength();i++) {
+					
+					try {						
+					SubprocessesID = (((Element) nodesSubprocessesEvent2.item(i)).getAttribute("id"));	
+					System.out.println(SubprocessesID);	
+					
+					Node SubPnodeChild = nodesSubprocessesEvent2.item(i);  
 
 					for(int j=0;j<nodesShapesList.getLength();j++) {
 						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
 
+							NodeList SubPnodeChildNodes = SubPnodeChild.getChildNodes();  
+														
+							for(int z=0;z<SubPnodeChildNodes.getLength(); z++)
+							{
 										if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
 												((Element) nodesShapesList.item(j)).getAttribute("isExpanded").contains("true")) {
-											SubProcessModelID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
+											SubProcessType = "Sub Process Event";
 										}
-					}}	
-				}catch (Exception e) {}
+							}
+				
+					}}catch (Exception e) {}
+				}
+				
+				for(int i=0;i<nodesSubprocessesAdHoc2.getLength();i++) {
+					
+					try {						
+					SubprocessesID = (((Element) nodesSubprocessesAdHoc2.item(i)).getAttribute("id"));	
+					System.out.println(SubprocessesID);	
+					
+					Node SubPnodeChild = nodesSubprocessesAdHoc2.item(i);  
 
+					for(int j=0;j<nodesShapesList.getLength();j++) {
+						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
+
+							NodeList SubPnodeChildNodes = SubPnodeChild.getChildNodes();  
+														
+							for(int z=0;z<SubPnodeChildNodes.getLength(); z++)
+							{
+										if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
+												((Element) nodesShapesList.item(j)).getAttribute("isExpanded").contains("true")) {
+											SubProcessType = "Sub Process Ad Hoc";
+										}
+							}
+				
+					}}catch (Exception e) {}
+				}
+				
+				for(int i=0;i<nodesTransaction2.getLength();i++) {
+					
+					try {						
+					SubprocessesID = (((Element) nodesTransaction2.item(i)).getAttribute("id"));
+					System.out.println(SubprocessesID);	
+					
+					Node SubPnodeChild = nodesTransaction2.item(i);  
+
+					for(int j=0;j<nodesShapesList.getLength();j++) {
+						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
+
+							NodeList SubPnodeChildNodes = SubPnodeChild.getChildNodes();  
+														
+							for(int z=0;z<SubPnodeChildNodes.getLength(); z++)
+							{
+										if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
+												((Element) nodesShapesList.item(j)).getAttribute("isExpanded").contains("true")) {
+											SubProcessType = "Transaction";
+										}
+							}
+				
+					}}catch (Exception e) {}
+				}
+								
 				// TO READAPT
 				XSSFRow rowhead2 = sheet2.createRow((short)0); 
 				rowhead2.createCell(0).setCellValue("fileName");
@@ -4696,7 +4770,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				// TO READAPT
 				XSSFRow row2 = sheet2.createRow((short)x+1);  
 				row2.createCell(0).setCellValue(fileName);
-				row2.createCell(1).setCellValue(SubProcessModelID);
+				row2.createCell(1).setCellValue(SubprocessesID);
 				row2.createCell(2).setCellValue(bpmnModeler);
 				row2.createCell(3).setCellValue(SubProcessType);
 				row2.createCell(4).setCellValue(isEnglish);
