@@ -3493,8 +3493,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					String ChoSubprocessesShape = (((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("bpmnElement"));
 
 					if(ChoSubprocessesID.equalsIgnoreCase(ChoSubprocessesShape)) {
-						//System.out.println("id: "+ChoSubprocessesID+" bpmnElement: "+ChoSubprocessesShape+" SONO UGUALI");
-
+						
 						// Choreography Expanded
 						if(((Element) nodesChoSubprocesses.item(i)).getAttribute("loopType").contains("Standard") &&
 								((Element) nodesChoSubprocessesShapes.item(j)).getAttribute("isExpanded").contains("true")) {
@@ -4002,10 +4001,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			
 			double ExecutionTime = (EndingtimeSeconds - StartingtimeSeconds)/1000;
 			
-//			System.out.println(StartingtimeMillis);
-//			System.out.println(EndingtimeSeconds);
-//			System.out.println(ExecutionTime);
-			
 			//creating the rows 
 			XSSFRow row = sheet.createRow((short)x+1);  
 
@@ -4423,14 +4418,12 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 				// [TODO: SUBPROCESS EXTENDED]
 				// SubProcess Normal Extended 
-				System.out.println(nodesSubprocesses2.getLength());
+
 				for(int i=0;i<nodesSubprocesses2.getLength();i++) {
 					
 					try {						
 					
 					SubprocessesID = (((Element) nodesSubprocesses2.item(i)).getAttribute("id"));					
-					System.out.println(SubprocessesID);		
-	
 					Node SubPnodeChild = nodesSubprocesses.item(i);  
 
 					for(int j=0;j<nodesShapesList.getLength();j++) {
@@ -4455,7 +4448,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					
 					try {						
 					SubprocessesID = (((Element) nodesSubprocessesEvent2.item(i)).getAttribute("id"));	
-					System.out.println(SubprocessesID);	
+				
 					
 					Node SubPnodeChild = nodesSubprocessesEvent2.item(i);  
 
@@ -4479,7 +4472,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					
 					try {						
 					SubprocessesID = (((Element) nodesSubprocessesAdHoc2.item(i)).getAttribute("id"));	
-					System.out.println(SubprocessesID);	
 					
 					Node SubPnodeChild = nodesSubprocessesAdHoc2.item(i);  
 
@@ -4503,8 +4495,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					
 					try {						
 					SubprocessesID = (((Element) nodesTransaction2.item(i)).getAttribute("id"));
-					System.out.println(SubprocessesID);	
-					
+				
 					Node SubPnodeChild = nodesTransaction2.item(i);  
 
 					for(int j=0;j<nodesShapesList.getLength();j++) {
