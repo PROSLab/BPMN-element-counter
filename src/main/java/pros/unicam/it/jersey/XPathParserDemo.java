@@ -42,6 +42,9 @@ public class XPathParserDemo {
 
 	public static void main(String[] args) {
 
+		 System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
+		 System.out.println("\nSelect the folder of BPMN models to be analysed: ");
+		
 		try {
 
 			//Creation of the xls empty file
@@ -358,11 +361,11 @@ public class XPathParserDemo {
 			
 			
 			ProgressBar pb = new ProgressBarBuilder().setMaxRenderedLength(100)
-		             .setTaskName("Analysis Percentage").setInitialMax(listOfFiles.length).setUpdateIntervalMillis(50)
+		             .setTaskName("Analysis Percentage").setInitialMax(listOfFiles.length-1).setUpdateIntervalMillis(50)
 		             .setStyle(ProgressBarStyle.ASCII).setUnit(" Total Models", 1).build();
 
 		             
-			pb.maxHint(listOfFiles.length);
+			pb.maxHint(listOfFiles.length-1);
 
 			for (int x = 0; x < listOfFiles.length; x++) {
 
@@ -370,7 +373,7 @@ public class XPathParserDemo {
 				long StartingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(StartingtimeMillis);
 				//Defining global variables
 				String fileName;
-				String bpmnModeler;
+				String bpmnModeler="Undefined";
 				boolean isEnglish=false;
 
 				//Process Subprocess or Collaboration
@@ -744,28 +747,32 @@ public class XPathParserDemo {
 				//				}	            
 				//			}
 
-
-				//[TODO: Namespace]
-				// Check the modeler type
-				if(doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("bpmn.io")) {
-					bpmnModeler = "bpmn-js";
-				}
-				else if (doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("signavio")) {
-					bpmnModeler = "Signavio";
-				}
-				else if (doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("camunda")) {
-					bpmnModeler = "Camunda";
-				}
-				else if(doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("bpmn2")) {
-					bpmnModeler = "BPMN2";
-				}
-				else if(doc.getDocumentElement().getAttributeNode("targetNamespace").getTextContent().contains("bpt-lab")) {
-					bpmnModeler = "chor-js";
-				}
-				else {
-					bpmnModeler = "Undefined";
-				}
-
+				
+					//[TODO: Namespace]
+					// Check the modeler type
+					if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpmn.io")) {
+						bpmnModeler = "bpmn-js";
+						
+					}
+					else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("signavio")) {
+						bpmnModeler = "Signavio";
+					}
+					else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("signavio")) {
+						bpmnModeler = "Signavio";
+					}
+					else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("camunda")) {
+						bpmnModeler = "Camunda";
+					}
+					else if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpmn2")) {
+						bpmnModeler = "BPMN2";
+					}
+					else if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpt-lab")) {
+						bpmnModeler = "chor-js";
+					}
+					else {
+						bpmnModeler = "Undefined";
+					}
+				
 				// Check if the model is a Collaboration, a Process or contain a Subprocess
 
 				//[TODO: Diagram Type]
@@ -4385,13 +4392,12 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 
 				}
-				
+				System.out.println(fileName);
 				 pb.step(); 
 	
 				}
 			
-			System.out.println("\n\nAnalysis Percentage  100%");
-			System.out.println("\nAnalysis DONE. The .xlsx file is ready");
+			
 			FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xlsx");
 			wb.write(fileOut);  
 			//closing the Stream  
@@ -4400,15 +4406,16 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			//closing the workbook  
 			wb.close(); 
 
-
+			
 
 		} catch (Exception e) {
-			System.out.println("Exception: "+e.getMessage());
-			//writer.write(fileEntry.getName()+","+"invalid"+", "+e.getMessage().replace(",", "-")+"\n");            
-			//writer.write(fileEntry.getName()+","+"invalid"+", "+exp+"\n"); 
+			System.out.println("Ops!.. Something went wrong Exception: "+e.getMessage());
 			return;
 
 		}
+		
+		System.out.println("\n\nAnalysis Percentage 100%");
+		System.out.println("\n=========== Analysis succesfully DONE. The .xlsx file is ready ===========");
 
 	}
 }
