@@ -75,7 +75,11 @@
     <artifactId>xmlbeans</artifactId>
     <version>3.1.0</version>
 </dependency>
-
+<dependency>
+      <groupId>me.tongfei</groupId>
+      <artifactId>progressbar</artifactId>
+      <version>0.9.2</version>
+  </dependency>
 <dependency>
     <groupId>org.apache.poi</groupId>
     <artifactId>poi-scratchpad</artifactId>
