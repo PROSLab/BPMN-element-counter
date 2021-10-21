@@ -10,8 +10,15 @@ import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFileChooser;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.*;
+import javax.xml.transform.Source;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import javax.xml.xpath.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -22,6 +29,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import me.tongfei.progressbar.ProgressBar;
 import me.tongfei.progressbar.ProgressBarBuilder;
@@ -42,8 +50,8 @@ public class XPathParserDemo {
 
 	public static void main(String[] args) {
 
-		 System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
-		 System.out.println("\nSelect the folder of BPMN models to be analysed: ");
+		 //System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
+		 //System.out.println("\nSelect the folder of BPMN models to be analysed: ");
 		
 		try {
 
@@ -367,8 +375,12 @@ public class XPathParserDemo {
 		             
 			pb.maxHint(listOfFiles.length-1);
 
+			
+			
 			for (int x = 0; x < listOfFiles.length; x++) {
-
+			
+				try {
+				
 				long StartingtimeMillis = System.currentTimeMillis();
 				long StartingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(StartingtimeMillis);
 				//Defining global variables
@@ -683,23 +695,29 @@ public class XPathParserDemo {
 				fileName= listOfFiles[x].getName();
 
 				if(SystemUtils.IS_OS_WINDOWS) {
-					//System.out.println(folderString+"\\"+fileName);
+					////System.out.println(folderString+"\\"+fileName);
 					if(!(folderString+"\\"+fileName).contains(".bpmn"))continue;
 				}else {
-					//System.out.println(folderString+"/"+fileName);
+					////System.out.println(folderString+"/"+fileName);
 					if(!(folderString+"/"+fileName).contains(".bpmn"))continue;
 				}
-				//Read bpmn models
-				File xmlFile = new File(folderString+"/"+fileName);
-
-				String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);       
-				DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-				domFactory.setNamespaceAware(true);
-				DocumentBuilder builder = domFactory.newDocumentBuilder();
-				Document doc = builder.parse(new InputSource(new StringReader(xml)));
-				XPath xpath = XPathFactory.newInstance().newXPath();
-				xpath.setNamespaceContext(new NamespaceContext() {
-
+				
+				
+					//Read bpmn models
+					File xmlFile = new File(folderString+"/"+fileName);
+					
+					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
+					
+//					if(xml.isEmpty())
+//						break;
+					DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+					domFactory.setNamespaceAware(true);
+					DocumentBuilder builder = domFactory.newDocumentBuilder();
+					Document doc = builder.parse(new InputSource(new StringReader(xml)));
+																			
+					XPath xpath = XPathFactory.newInstance().newXPath();
+					xpath.setNamespaceContext(new NamespaceContext() {
+				
 					@Override
 					public Iterator getPrefixes(String arg0) {
 						return null;
@@ -737,10 +755,10 @@ public class XPathParserDemo {
 				//				//If there is a word not in english, check this word and suggest correction
 				//				for (RuleMatch match : matches) {
 				//
-				//					//		              System.out.println("Potential error in model "+fileName+" at characters " +
+				//					//		              //System.out.println("Potential error in model "+fileName+" at characters " +
 				//					//		                  match.getFromPos() + "-" + match.getToPos() + ": " +
 				//					//		                  match.getMessage());
-				//					//		              System.out.println("Suggested correction(s): " +
+				//					//		              //System.out.println("Suggested correction(s): " +
 				//					//		                  match.getSuggestedReplacements());
 				//					isEnglish=false;
 				//					break;		              
@@ -4392,30 +4410,35 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 
 				}
-				System.out.println(fileName);
-				 pb.step(); 
+				//System.out.println(fileName);
+				// pb.step(); 
 	
+				 
+				 
+				} catch (Exception e) {
+					
+					//System.out.println("Ops!.. Something went wrong Exception: "+e.getMessage());
+					continue;
 				}
-			
+			}
 			
 			FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xlsx");
 			wb.write(fileOut);  
 			//closing the Stream  
 			fileOut.close();  
-			//System.out.println(fileName+": Analysis DONE");
+			////System.out.println(fileName+": Analysis DONE");
 			//closing the workbook  
 			wb.close(); 
-
 			
 
 		} catch (Exception e) {
-			System.out.println("Ops!.. Something went wrong Exception: "+e.getMessage());
+			
+			//System.out.println("Ops!.. Something went wrong Exception: "+e.getMessage());
 			return;
-
 		}
 		
-		System.out.println("\n\nAnalysis Percentage 100%");
-		System.out.println("\n=========== Analysis succesfully DONE. The .xlsx file is ready ===========");
+		//System.out.println("\n\nAnalysis Percentage 100%");
+		//System.out.println("\n=========== Analysis succesfully DONE. The .xlsx file is ready ===========");
 
 	}
 }
