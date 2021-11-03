@@ -58,7 +58,7 @@ public class XPathParserDemo {
 			//Creation of the xls empty file
 			Workbook wb = new XSSFWorkbook();    
 			XSSFSheet sheet = (XSSFSheet) wb.createSheet("BPMN_Stats"); 
-			XSSFSheet sheet2 = (XSSFSheet) wb.createSheet("BPMN_Stats_ExtendedSubProcess"); 
+			//XSSFSheet sheet2 = (XSSFSheet) wb.createSheet("BPMN_Stats_ExtendedSubProcess"); 
 			XSSFRow rowhead = sheet.createRow((short)0);         
 			//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
 			rowhead.createCell(0).setCellValue("fileName");
@@ -766,82 +766,33 @@ public class XPathParserDemo {
 				//			}
 
 				
-					//[TODO: Namespace]
-					// Check the modeler type
-					if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpmn.io")) {
-						bpmnModeler = "bpmn-js";
-						
-					}
-					else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("signavio")) {
-						bpmnModeler = "Signavio";
-					}
-					else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("signavio")) {
-						bpmnModeler = "Signavio";
-					}
-					else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("camunda")) {
-						bpmnModeler = "Camunda";
-					}
-					else if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpmn2")) {
-						bpmnModeler = "BPMN2";
-					}
-					else if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpt-lab")) {
-						bpmnModeler = "chor-js";
-					}
-					else {
-						bpmnModeler = "Undefined";
-					}
+				//[TODO: Namespace]
+				// Check the modeler type
+				if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpmn.io")) {
+					bpmnModeler = "bpmn-js";					
+				}
+				else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("signavio")) {
+					bpmnModeler = "Signavio";
+				}
+				else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("signavio")) {
+					bpmnModeler = "Signavio";
+				}
+				else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("camunda")) {
+					bpmnModeler = "Camunda";
+				}
+				else if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpmn2")) {
+					bpmnModeler = "BPMN2";
+				}
+				else if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpt-lab")) {
+					bpmnModeler = "chor-js";
+				}
+				else {
+					bpmnModeler = "Undefined";
+				}
 				
 				// Check if the model is a Collaboration, a Process or contain a Subprocess
 
-				//[TODO: Diagram Type]
-				// Check if is a collaboration
-				XPathExpression exprModelTypeCol = xpath.compile("//bpmn:definitions");
-				Object resultModelType = exprModelTypeCol.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesModelType = (NodeList) resultModelType;       
-
-				for(int i=0; i<nodesModelType.getLength(); i++) {
-
-					Node ChildsModelType = nodesModelType.item(i);
-
-					if(ChildsModelType.hasChildNodes()) {
-
-						NodeList ChildModelType = ChildsModelType.getChildNodes();
-
-						for(int j=0;j<ChildModelType.getLength(); j++) {
-
-							if(ChildModelType.item(j).getNodeType() == Node.ELEMENT_NODE) {            
-
-								String nodeModelType =  ChildModelType.item(j).getNodeName();
-
-								if(nodeModelType.contains("conversation")) {				        	
-									modelType = "Conversation";
-									break;		
-								}
-
-								if(nodeModelType.contains("choreography")){
-
-									modelType = "Choreography";
-									break;
-								}
-
-								if(nodeModelType.contains("collaboration")) {
-
-									modelType = "Collaboration";
-									//If i find the collaboration xml tag, i cant skip the for
-									break;
-								}  
-
-								if((nodeModelType.contains("collaboration")) == false &&
-										(nodeModelType.contains("choreography")) == false &&
-										(nodeModelType.contains("conversation")) == false && 
-										nodeModelType.contains("process")){
-									modelType = "Process";
-								}                 
-
-							}
-						}
-					}
-				}
+				
 
 				//[TODO: BPMN STATS]
 				//----------------------------------------------BPMN STATS-------------------------------------------------
@@ -3753,7 +3704,57 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nConversationSubProcessCall = nodesConvSBC.getLength(); 
 
+				
+				//[TODO: Diagram Type]
+				// Check if is a collaboration
+				XPathExpression exprModelTypeCol = xpath.compile("//bpmn:definitions");
+				Object resultModelType = exprModelTypeCol.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesModelType = (NodeList) resultModelType;       
 
+				for(int i=0; i<nodesModelType.getLength(); i++) {
+
+					Node ChildsModelType = nodesModelType.item(i);
+
+					if(ChildsModelType.hasChildNodes()) {
+
+						NodeList ChildModelType = ChildsModelType.getChildNodes();
+
+						for(int j=0;j<ChildModelType.getLength(); j++) {
+
+							if(ChildModelType.item(j).getNodeType() == Node.ELEMENT_NODE) {            
+
+								String nodeModelType =  ChildModelType.item(j).getNodeName();
+
+								if(nodeModelType.contains("conversation")) {				        	
+									modelType = "Conversation";
+									break;		
+								}
+
+								if(nodeModelType.contains("choreography")){
+
+									modelType = "Choreography";
+									break;
+								}
+
+								if(nodeModelType.contains("collaboration") && nMessageFlow>0) {
+
+									modelType = "Collaboration";
+									//If i find the collaboration xml tag, i cant skip the for
+									break;
+								}  
+
+								if((nodeModelType.contains("collaboration")) == false &&
+										(nodeModelType.contains("choreography")) == false &&
+										(nodeModelType.contains("conversation")) == false && 
+										nodeModelType.contains("process")){
+									modelType = "Process";
+								}                 
+
+							}
+						}
+					}
+				}
+				
 				// USEFULL OPERATIONS
 				//[TODO: CHOREOGRAPHY]
 
@@ -4364,14 +4365,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				for(Cell cell : row) {
 					String data="";
 
-
-
 					if(cell.getCellType()==CellType.NUMERIC) {
 						data = String.valueOf(cell.getNumericCellValue());
 						double str1 = Double.parseDouble(data);
 
-
-						if ((str1 >= 1 && str1 <= 5) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+						if(str1 >= 1 && str1 <= 5){
+							cell.setCellStyle(styleLOW);       
+						}
+						else if ((str1 >= 1 && str1 <= 5) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
 								cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
 								cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
 								cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
@@ -4379,30 +4380,52 @@ SUBPROCESS Collapsed EVENT + ADHOC
 								cell.getColumnIndex()==274))) {
 							cell.setCellStyle(mixedstyleLOW);
 
-						}else if(str1 >= 1 && str1 <= 5){
-							cell.setCellStyle(styleLOW);       
+						}else if((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+								cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
+								cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
+								cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
+								cell.getColumnIndex()==265 || cell.getColumnIndex()==271 || cell.getColumnIndex()==273 || 
+								cell.getColumnIndex()==274)) {
+							cell.setCellStyle(mixedstyleLOW);
 						}
-
-						if((str1 > 5 && str1 <= 10) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+						
+						if(str1 > 5 && str1 <= 10) {
+							cell.setCellStyle(styleMEDIUM);  
+						}
+						else if((str1 > 5 && str1 <= 10) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
 								cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
 								cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
 								cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
 								cell.getColumnIndex()==265 || cell.getColumnIndex()==271 || cell.getColumnIndex()==273 || 
 								cell.getColumnIndex()==274))){
 							cell.setCellStyle(mixedstyleMEDIUM);       
-						}else if(str1 > 5 && str1 <= 10) {
-							cell.setCellStyle(styleMEDIUM);  
+						}else if((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+								cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
+								cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
+								cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
+								cell.getColumnIndex()==265 || cell.getColumnIndex()==271 || cell.getColumnIndex()==273 || 
+								cell.getColumnIndex()==274)) {
+							cell.setCellStyle(mixedstyleMEDIUM);
 						}
-
-						if((str1 > 10) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+						
+						if(str1 > 10) {
+							cell.setCellStyle(styleHIGH);
+						}
+						else if((str1 > 10) && ((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
 								cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
 								cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
 								cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
 								cell.getColumnIndex()==265 || cell.getColumnIndex()==271 || cell.getColumnIndex()==273 || 
 								cell.getColumnIndex()==274))){
 							cell.setCellStyle(mixedstyleHIGH);       
-						}else if(str1 > 10) {
-							cell.setCellStyle(styleHIGH);
+						}
+						else if((cell.getColumnIndex()==3 || cell.getColumnIndex()==75 || 
+								cell.getColumnIndex()==155 || cell.getColumnIndex()==161 || 
+								cell.getColumnIndex()==169 || cell.getColumnIndex()==232 || cell.getColumnIndex()==236 || 
+								cell.getColumnIndex()==241 || cell.getColumnIndex()==260 || 
+								cell.getColumnIndex()==265 || cell.getColumnIndex()==271 || cell.getColumnIndex()==273 || 
+								cell.getColumnIndex()==274)) {
+							cell.setCellStyle(mixedstyleHIGH);
 						}
 
 
@@ -4411,9 +4434,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 				}
 				//System.out.println(fileName);
-				// pb.step(); 
-	
-				 
+				//pb.step(); 
+					 
 				 
 				} catch (Exception e) {
 					
