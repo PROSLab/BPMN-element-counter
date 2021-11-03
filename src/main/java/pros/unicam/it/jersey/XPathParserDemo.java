@@ -58,6 +58,7 @@ public class XPathParserDemo {
 			//Creation of the xls empty file
 			Workbook wb = new XSSFWorkbook();    
 			XSSFSheet sheet = (XSSFSheet) wb.createSheet("BPMN_Stats"); 
+			FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xlsx");
 			//XSSFSheet sheet2 = (XSSFSheet) wb.createSheet("BPMN_Stats_ExtendedSubProcess"); 
 			XSSFRow rowhead = sheet.createRow((short)0);         
 			//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
@@ -3704,56 +3705,69 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nConversationSubProcessCall = nodesConvSBC.getLength(); 
 
+				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationSubProcessCall+nConversationLink)>0) 
+				modelType = "Conversation";
+				
+				else if((nChoreographyTask+nChoreographyMessage+nChoreographyTaskSequentialMultipleInstance+
+						nChoreographyTaskParallelMultipleInstance+nChoreographyTaskLoop+
+						nChoreographySubprocessCollapsed+nChoreographySubprocessCollapsedParallelMultipleInstance+
+						nChoreographySubprocessCollapsedSequentialMultipleInstance+
+						nChoreographySubprocessCollapsedLoop+
+						nChoreographySubprocessCollapsedCall+
+						nChoreographySubprocessCollapsedCallSequentialMultipleInstance+
+						nChoreographySubprocessCollapsedCallParallelMultipleInstance+
+						nChoreographySubprocessCollapsedCallLoop+
+						nChoreographySubprocessExpanded+
+						nChoreographySubprocessExpandedSequentialMultipleInstance+
+						nChoreographySubprocessExpandedParallelMultipleInstance+
+						nChoreographySubprocessExpandedLoop)>0)
+				modelType = "Choreography";
+				
+				else if(( ( (nPoolCollapsedMultiplicityNone+nPoolCollapsedMultiplicity+nPoolExpandedMultiplicityNone+nPoolExpandedMultiplicity) >1) || 
+							 ( (nPoolCollapsedMultiplicityNone+nPoolCollapsedMultiplicity+nPoolExpandedMultiplicityNone+nPoolExpandedMultiplicity)==1 && nMessageFlow>0))) {
+	
+							modelType = "Collaboration";
+							//If i find the collaboration xml tag, i cant skip the for
+							
+						}
+				else 
+					modelType = "Process";  
 				
 				//[TODO: Diagram Type]
 				// Check if is a collaboration
-				XPathExpression exprModelTypeCol = xpath.compile("//bpmn:definitions");
-				Object resultModelType = exprModelTypeCol.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesModelType = (NodeList) resultModelType;       
-
-				for(int i=0; i<nodesModelType.getLength(); i++) {
-
-					Node ChildsModelType = nodesModelType.item(i);
-
-					if(ChildsModelType.hasChildNodes()) {
-
-						NodeList ChildModelType = ChildsModelType.getChildNodes();
-
-						for(int j=0;j<ChildModelType.getLength(); j++) {
-
-							if(ChildModelType.item(j).getNodeType() == Node.ELEMENT_NODE) {            
-
-								String nodeModelType =  ChildModelType.item(j).getNodeName();
-
-								if(nodeModelType.contains("conversation")) {				        	
-									modelType = "Conversation";
-									break;		
-								}
-
-								if(nodeModelType.contains("choreography")){
-
-									modelType = "Choreography";
-									break;
-								}
-
-								if(nodeModelType.contains("collaboration") && nMessageFlow>0) {
-
-									modelType = "Collaboration";
-									//If i find the collaboration xml tag, i cant skip the for
-									break;
-								}  
-
-								if((nodeModelType.contains("collaboration")) == false &&
-										(nodeModelType.contains("choreography")) == false &&
-										(nodeModelType.contains("conversation")) == false && 
-										nodeModelType.contains("process")){
-									modelType = "Process";
-								}                 
-
-							}
-						}
-					}
-				}
+//				XPathExpression exprModelTypeCol = xpath.compile("//bpmn:definitions");
+//				Object resultModelType = exprModelTypeCol.evaluate(doc, XPathConstants.NODESET);
+//				NodeList nodesModelType = (NodeList) resultModelType;       
+//
+//				for(int i=0; i<nodesModelType.getLength(); i++) {
+//
+//					Node ChildsModelType = nodesModelType.item(i);
+//
+//					if(ChildsModelType.hasChildNodes()) {
+//
+//						NodeList ChildModelType = ChildsModelType.getChildNodes();
+//
+//						for(int j=0;j<ChildModelType.getLength(); j++) {
+//
+//							if(ChildModelType.item(j).getNodeType() == Node.ELEMENT_NODE) {            
+//
+//								String nodeModelType =  ChildModelType.item(j).getNodeName();
+//
+//								if(nodeModelType.contains("choreography")){
+//
+//									
+//									break;
+//								}
+//
+//
+//								else
+//									modelType = "Process";
+//								               
+//
+//							}
+//						}
+//					}
+//				}
 				
 				// USEFULL OPERATIONS
 				//[TODO: CHOREOGRAPHY]
@@ -4444,7 +4458,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				}
 			}
 			
-			FileOutputStream fileOut = new FileOutputStream("bpmn_stats.xlsx");
+			
 			wb.write(fileOut);  
 			//closing the Stream  
 			fileOut.close();  
