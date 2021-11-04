@@ -362,7 +362,6 @@ public class XPathParserDemo {
 				try {
 				
 				long StartingtimeMillis = System.currentTimeMillis();
-				long StartingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(StartingtimeMillis);
 				//Defining global variables
 				String fileName;
 				String bpmnModeler="Undefined";
@@ -3995,51 +3994,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 
 				long EndingtimeMillis = System.currentTimeMillis();
-				long EndingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(EndingtimeMillis);
-
-				double ExecutionTime = (EndingtimeSeconds - StartingtimeSeconds)/1000;
-
-				//creating the rows 
-//				XSSFRow row = sheet.createRow((short)x+1);  
-//
-//				CellStyle styleLOW = wb.createCellStyle();  
-//				CellStyle styleMEDIUM = wb.createCellStyle();  
-//				CellStyle styleHIGH = wb.createCellStyle();  
-//				CellStyle styleDelimeterDX = wb.createCellStyle(); 
-//
-//				CellStyle mixedstyleLOW = wb.createCellStyle(); 
-//				CellStyle mixedstyleMEDIUM = wb.createCellStyle(); 
-//				CellStyle mixedstyleHIGH  = wb.createCellStyle(); 
-//
-//				styleLOW.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());  
-//				styleLOW.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				styleMEDIUM.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());  
-//				styleMEDIUM.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				styleHIGH.setFillForegroundColor(IndexedColors.GREEN.getIndex());  
-//				styleHIGH.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//
-//				styleDelimeterDX.setBorderRight(BorderStyle.THICK);
-//
-//				mixedstyleLOW.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
-//				mixedstyleLOW.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				mixedstyleLOW.setBorderRight(BorderStyle.THICK);
-//				mixedstyleMEDIUM.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());  
-//				mixedstyleMEDIUM.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				mixedstyleMEDIUM.setBorderRight(BorderStyle.THICK);
-//				mixedstyleHIGH.setFillForegroundColor(IndexedColors.GREEN.getIndex());  
-//				mixedstyleHIGH.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				mixedstyleHIGH.setBorderRight(BorderStyle.THICK);
-
-				//			styleDelimeter.setBorderTop(BorderStyle.THIN);
-				//			styleDelimeter.setTopBorderColor(IndexedColors.BLUE_GREY.getIndex());
-				//			styleDelimeter.setBorderBottom(BorderStyle.THICK);
-				//			styleDelimeter.setLeftBorderColor(IndexedColors.AQUA.getIndex());
-				//			styleDelimeterDX.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-				//			styleDelimeter.setRightBorderColor(IndexedColors.BROWN.getIndex());
-
-
-
-
+				
+				double ExecutionTime = (EndingtimeMillis - StartingtimeMillis);
 
 				//inserting data        
 				bw.write(fileName+",");
