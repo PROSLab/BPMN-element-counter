@@ -328,7 +328,6 @@ public class XPathParserDemo {
 			bw.write("nConversationNone,");
 			bw.write("nConversationSubProcess,");
 			bw.write("nConversationCall,");
-			bw.write("nConversationSubProcessCall,");
 			bw.write("nConversationLink,");
 			bw.write("nAssociationCompensate,");
 			bw.write("nAssociationUndirected,");
@@ -653,7 +652,6 @@ public class XPathParserDemo {
 				int nConversationNone=0;
 				int nConversationSubProcess=0;
 				int nConversationCall=0;
-				int nConversationSubProcessCall=0;
 				int nConversationLink=0;
 				//Association
 				int nAssociationCompensate=0;
@@ -3310,7 +3308,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 
 								if(CatchIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition") &&
-										((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false ) {
+										((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false
+										&& NumberOfChildsOfEachBoundaryCatchEvent<=1) {
 									nIntermediateBoundaryCancelEvent++;
 								}	 
 
@@ -3436,20 +3435,44 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					}
 
 				}
-
+				
+				XPathExpression exprChoPartSubM = xpath.compile("//bpmn:subChoreography//bpmn:participant//bpmn:participantMultiplicity");
+				Object resultChoPartSubM = exprChoPartSubM.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesChoPartSubM = (NodeList) resultChoPartSubM;
+				doc.getDocumentElement().normalize();  
+				int nChoreographyParticipantSubM = nodesChoPartSubM.getLength();
+				
+				XPathExpression exprChoPartCallM = xpath.compile("//bpmn:callChoreography//bpmn:participant//bpmn:participantMultiplicity");
+				Object resultChoPartCallM = exprChoPartCallM.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesChoPartCallM = (NodeList) resultChoPartCallM;
+				doc.getDocumentElement().normalize();  
+				int nChoreographyParticipantCallM = nodesChoPartCallM.getLength();
+				
 				//N° of Choreography participant multiple      
 				XPathExpression exprChoPartM = xpath.compile("//bpmn:choreography//bpmn:participant//bpmn:participantMultiplicity");
 				Object resultChoPartM = exprChoPartM.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesChoPartM = (NodeList) resultChoPartM;
 				doc.getDocumentElement().normalize();  
-				nChoreographyParticipantMultiple = nodesChoPartM.getLength() ; 
+				nChoreographyParticipantMultiple = nodesChoPartM.getLength() + (nChoreographyParticipantSubM+nChoreographyParticipantCallM); 
 
+				XPathExpression exprChoPartSub = xpath.compile("//bpmn:subChoreography//bpmn:participant");
+				Object resultChoPartSub = exprChoPartSub.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesChoPartSub = (NodeList) resultChoPartSub;
+				doc.getDocumentElement().normalize();  
+				int nChoreographyParticipantSub = nodesChoPartSub.getLength() - nChoreographyParticipantSubM;
+				
+				XPathExpression exprChoPartCall = xpath.compile("//bpmn:callChoreography//bpmn:participant");
+				Object resultChoPartCall = exprChoPartCall.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesChoPartCall = (NodeList) resultChoPartCall;
+				doc.getDocumentElement().normalize();  
+				int nChoreographyParticipantCall = nodesChoPartCall.getLength() - nChoreographyParticipantCallM;
+				
 				//N° of Choreography participant
 				XPathExpression exprChoPart = xpath.compile("//bpmn:choreography//bpmn:participant");
 				Object resultChoPart = exprChoPart.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesChoPart = (NodeList) resultChoPart;
 				doc.getDocumentElement().normalize();  
-				nChoreographyParticipant = nodesChoPart.getLength() - nChoreographyParticipantMultiple; 
+				nChoreographyParticipant = nodesChoPart.getLength()+(nChoreographyParticipantSub+nChoreographyParticipantCall) - nChoreographyParticipantMultiple; 
 
 				//N° of Choreography tasks
 				XPathExpression exprChoTaskPI = xpath.compile("//bpmn:choreographyTask[@loopType='MultiInstanceParallel']");
@@ -3660,7 +3683,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				nAssociationDataOutput = nodesOAssoc.getLength();
 
 				//COMPENSATE ASSOCIATION
-				XPathExpression exprCAssoc = xpath.compile("//bpmn:endEvent//bpmn:compensateEventDefinition[@waitForCompletion='true']");
+				XPathExpression exprCAssoc = xpath.compile("//bpmn:compensateEventDefinition[@waitForCompletion='true']");
 				Object resultCAssoc = exprCAssoc.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesCAssoc = (NodeList) resultCAssoc;
 				doc.getDocumentElement().normalize();  
@@ -3671,7 +3694,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				Object resultUnidirectionalAssoc = exprUnidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesUnidirectionalAssoc = (NodeList) resultUnidirectionalAssoc;
 				doc.getDocumentElement().normalize();  
-				nAssociationUnidirectional = nodesUnidirectionalAssoc.getLength();
+				nAssociationUnidirectional = nodesUnidirectionalAssoc.getLength() - (nAssociationDataInput+nAssociationDataOutput);
 
 				//Bidirectional Association
 				XPathExpression exprBidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='Both']");
@@ -3681,11 +3704,11 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				nAssociationBidirectional = nodesBidirectionalAssoc.getLength();
 
 				//Unidirected Association
-				XPathExpression exprUndirectedAssoc = xpath.compile("//bpmn:association");
+				XPathExpression exprUndirectedAssoc = xpath.compile("//bpmn:association[@associationDirection='None']");
 				Object resultUndirectedAssoc = exprUndirectedAssoc.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesUndirectedAssoc = (NodeList) resultUndirectedAssoc;
 				doc.getDocumentElement().normalize();  
-				nAssociationUndirected = nodesUndirectedAssoc.getLength() - (nAssociationCompensate + nAssociationUnidirectional + nAssociationBidirectional );
+				nAssociationUndirected = nodesUndirectedAssoc.getLength();
 
 				//N° of Sequence Flow
 				XPathExpression exprSFlow = xpath.compile("//bpmn:sequenceFlow");
@@ -3708,7 +3731,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nConversationSubProcess = nodesSConv.getLength();
 
-				XPathExpression exprCConv = xpath.compile("//bpmn:callConversation[(contains(@calledElementRef,'sid'))]");
+				XPathExpression exprCConv = xpath.compile("//bpmn:callConversation");
 				Object resultCConv = exprCConv.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesCConv = (NodeList) resultCConv;
 				doc.getDocumentElement().normalize();  
@@ -3720,13 +3743,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nConversationLink = nodesConvLink.getLength();        
 
-				XPathExpression exprConvSBC = xpath.compile("//bpmn:callConversation[not(contains(@calledElementRef,'sid'))]");
-				Object resultConvSBC = exprConvSBC.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesConvSBC = (NodeList) resultConvSBC;
-				doc.getDocumentElement().normalize();  
-				nConversationSubProcessCall = nodesConvSBC.getLength(); 
-
-				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationSubProcessCall+nConversationLink)>0) 
+				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationLink)>0) 
 				modelType = "Conversation";
 				
 				else if((nChoreographyTask+nChoreographyTaskSequentialMultipleInstance+
@@ -4024,7 +4041,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nConversationNone+
 						nConversationSubProcess+
 						nConversationCall+
-						nConversationSubProcessCall+
 						nConversationLink+
 						nAssociationCompensate+
 						nAssociationUndirected+
@@ -4305,7 +4321,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nConversationNone+",");
 				bw.write(nConversationSubProcess+",");
 				bw.write(nConversationCall+",");
-				bw.write(nConversationSubProcessCall+",");
 				bw.write(nConversationLink+",");
 				bw.write(nAssociationCompensate+",");
 				bw.write(nAssociationUndirected+",");
