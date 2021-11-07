@@ -222,7 +222,6 @@ public class XPathParserDemo {
 			bw.write("nSubProcessCollapsedEventAdHocLoopMISequentialCompensate,");
 			bw.write("nDataObject,");
 			bw.write("nDataObjectCollection,");
-			//bw.write("nDataObjectReference,");
 			bw.write("nDataStore,");
 			bw.write("nDataInput,");
 			bw.write("nDataOutput,");
@@ -537,7 +536,6 @@ public class XPathParserDemo {
 				// Data Object
 				int nDataObject=0;
 				int nDataObjectCollection=0;
-				int nDataObjectReference=0;
 				int nDataStore=0;
 				int nDataInput=0;
 				int nDataOutput=0;
@@ -3929,7 +3927,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nSubProcessCollapsedEventAdHocLoopMISequentialCompensate+
 						nDataObject+
 						nDataObjectCollection+
-						//nDataObjectReference+
 						nDataStore+
 						nDataInput+
 						nDataOutput+
@@ -4206,7 +4203,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nSubProcessCollapsedEventAdHocLoopMISequentialCompensate+",");
 				bw.write(nDataObject+",");
 				bw.write(nDataObjectCollection+",");
-				//bw.write(nDataObjectReference+",");
 				bw.write(nDataStore+",");
 				bw.write(nDataInput+",");
 				bw.write(nDataOutput+",");
