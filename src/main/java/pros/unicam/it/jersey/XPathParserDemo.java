@@ -329,7 +329,6 @@ public class XPathParserDemo {
 			bw.write("nConversationSubProcess,");
 			bw.write("nConversationCall,");
 			bw.write("nConversationLink,");
-			bw.write("nAssociationCompensate,");
 			bw.write("nAssociationUndirected,");
 			bw.write("nAssociationUnidirectional,");        
 			bw.write("nAssociationBidirectional,");
@@ -654,7 +653,6 @@ public class XPathParserDemo {
 				int nConversationCall=0;
 				int nConversationLink=0;
 				//Association
-				int nAssociationCompensate=0;
 				int nAssociationUndirected=0;
 				int nAssociationUnidirectional=0;        
 				int nAssociationBidirectional=0;
@@ -3683,12 +3681,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				nAssociationDataOutput = nodesOAssoc.getLength();
 
 				//COMPENSATE ASSOCIATION
-				XPathExpression exprCAssoc = xpath.compile("//bpmn:compensateEventDefinition[@waitForCompletion='true']");
-				Object resultCAssoc = exprCAssoc.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesCAssoc = (NodeList) resultCAssoc;
-				doc.getDocumentElement().normalize();  
-				nAssociationCompensate = nodesCAssoc.getLength();
-
 				//Unidirectional Association
 				XPathExpression exprUnidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='One']");
 				Object resultUnidirectionalAssoc = exprUnidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
@@ -3715,7 +3707,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				Object resultSFlow = exprSFlow.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesSFlow = (NodeList) resultSFlow;
 				doc.getDocumentElement().normalize();  
-				nSequenceFlow = nodesSFlow.getLength() - (nDefaultFlow + nConditionalFlow + nAssociationCompensate);
+				nSequenceFlow = nodesSFlow.getLength() - (nDefaultFlow + nConditionalFlow);
 
 				//[TODO: CONVERSATION]
 				//CONVERSATION
@@ -4042,7 +4034,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nConversationSubProcess+
 						nConversationCall+
 						nConversationLink+
-						nAssociationCompensate+
 						nAssociationUndirected+
 						nAssociationUnidirectional+        
 						nAssociationBidirectional+
@@ -4322,7 +4313,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nConversationSubProcess+",");
 				bw.write(nConversationCall+",");
 				bw.write(nConversationLink+",");
-				bw.write(nAssociationCompensate+",");
 				bw.write(nAssociationUndirected+",");
 				bw.write(nAssociationUnidirectional+",");        
 				bw.write(nAssociationBidirectional+",");
