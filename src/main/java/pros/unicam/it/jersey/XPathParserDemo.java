@@ -4318,11 +4318,9 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nTextAnnotation+",");
 				bw.write(ExecutionTime+",");      
 				bw.write(TotalElements+"\n");				
-
-				//System.out.println(fileName);
 				 
 				} catch (Exception e) {
-
+								
 					continue;
 				}
 			}

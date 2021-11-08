@@ -58,7 +58,7 @@ public class XPathParserDemo_github {
 
 	public static void main(String[] args) {
 
-		 System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
+		System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
 		 System.out.println("\nSelect the folder of BPMN models to be analysed: ");
 		
 		try {
@@ -214,7 +214,7 @@ public class XPathParserDemo_github {
 			bw.write("nSubProcessCollapsedEventLoopMIParallelCompensate,");
 			bw.write("nSubProcessCollapsedEventLoopMISequentialCompensateNone,");
 			bw.write("nSubProcessCollapsedEventLoopMISequentialCompensate,");
-			bw.write("nSubProcessCollapsedEventLoopNoneCompensateNone,");
+			bw.write("nSubProcessCollapsedEventAdHocLoopNoneCompensateNone,");
 			bw.write("nSubProcessCollapsedEventAdHocLoopNoneCompensate,");
 			bw.write("nSubProcessCollapsedEventAdHocLoopStandardCompensateNone,");
 			bw.write("nSubProcessCollapsedEventAdHocLoopStandardCompensate,");
@@ -224,7 +224,6 @@ public class XPathParserDemo_github {
 			bw.write("nSubProcessCollapsedEventAdHocLoopMISequentialCompensate,");
 			bw.write("nDataObject,");
 			bw.write("nDataObjectCollection,");
-			bw.write("nDataObjectReference,");
 			bw.write("nDataStore,");
 			bw.write("nDataInput,");
 			bw.write("nDataOutput,");
@@ -330,9 +329,7 @@ public class XPathParserDemo_github {
 			bw.write("nConversationNone,");
 			bw.write("nConversationSubProcess,");
 			bw.write("nConversationCall,");
-			bw.write("nConversationSubProcessCall,");
 			bw.write("nConversationLink,");
-			bw.write("nAssociationCompensate,");
 			bw.write("nAssociationUndirected,");
 			bw.write("nAssociationUnidirectional,");        
 			bw.write("nAssociationBidirectional,");
@@ -345,12 +342,13 @@ public class XPathParserDemo_github {
 			bw.write("\n"); 
 
 
+
 			// File's cycle of the testmodels folder
 
 
 			String folderPath = "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\Crawler_Models";
 
-			String filePath= "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\github.csv";
+			String filePath= "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\GITHUBDEFINITIVO.csv";
 			BufferedReader br = new BufferedReader(new FileReader(filePath));
 			String line;
 			int x=-1;
@@ -365,7 +363,7 @@ public class XPathParserDemo_github {
 				long StartingtimeMillis = System.currentTimeMillis();
 				//long StartingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(StartingtimeMillis);
 				//Defining global variables
-				String fileName;
+				String fileName = line;
 				String bpmnModeler="Undefined";
 				boolean isEnglish=false;
 
@@ -541,7 +539,6 @@ public class XPathParserDemo_github {
 				// Data Object
 				int nDataObject=0;
 				int nDataObjectCollection=0;
-				int nDataObjectReference=0;
 				int nDataStore=0;
 				int nDataInput=0;
 				int nDataOutput=0;
@@ -655,10 +652,8 @@ public class XPathParserDemo_github {
 				int nConversationNone=0;
 				int nConversationSubProcess=0;
 				int nConversationCall=0;
-				int nConversationSubProcessCall=0;
 				int nConversationLink=0;
 				//Association
-				int nAssociationCompensate=0;
 				int nAssociationUndirected=0;
 				int nAssociationUnidirectional=0;        
 				int nAssociationBidirectional=0;
@@ -670,10 +665,7 @@ public class XPathParserDemo_github {
 				int TotalElements=0;
 				//SubProcesses Analysis variables
 				int nExtendedSubProcess=0;
-
-
-
-				
+	
 					//Read bpmn models
 					File xmlFile = new File(folderPath+"/"+line);
 					
@@ -941,8 +933,9 @@ public class XPathParserDemo_github {
 
 									if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-											SPAdHocNodeChildNodes.item(z).getNodeName().contains("startEvent")==false)
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false && 
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false)
+											
 									{
 										if(z==SPAdHocNodeChildNodes.getLength()-1) 
 											nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone++;	
@@ -951,7 +944,8 @@ public class XPathParserDemo_github {
 
 									if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 										if(z==SPAdHocNodeChildNodes.getLength()-1) 
 											nSubProcessExtendedEventNoneAdHocLoopNoneCompensate++;	
 									}
@@ -959,13 +953,15 @@ public class XPathParserDemo_github {
 									if(SPAdHocNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {			
 
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false && 
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessExtendedEventNoneAdHocLoopStandardCompensateNone++;
 
 										}
 
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")&& 
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessExtendedEventNoneAdHocLoopStandardCompensate++;
 
 										}
@@ -973,7 +969,8 @@ public class XPathParserDemo_github {
 										//mi par
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false&& 
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensateNone++;
 
 
@@ -982,7 +979,8 @@ public class XPathParserDemo_github {
 										//mi par comp
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")&& 
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessExtendedEventNoneAdHocLoopMIParallelCompensate++;
 
 										}
@@ -990,7 +988,8 @@ public class XPathParserDemo_github {
 										//mi seq
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false&& 
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensateNone++;
 
 
@@ -998,7 +997,8 @@ public class XPathParserDemo_github {
 										//mi seq comp
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")&& 
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessExtendedEventNoneAdHocLoopMISequentialCompensate++;
 
 										}
@@ -1143,7 +1143,8 @@ public class XPathParserDemo_github {
 
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false)
+											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+											((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true"))
 									{
 										if(z==SubprocessesEventNodeChildNodes.getLength()-1) 
 											nSubProcessExtendedEventLoopNoneCompensateNone++;		
@@ -1151,7 +1152,8 @@ public class XPathParserDemo_github {
 
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true"))
+											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")&&
+											((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true"))
 									{
 										if(z==SubprocessesEventNodeChildNodes.getLength()-1) 
 											nSubProcessExtendedEventLoopNoneCompensate++;		
@@ -1160,13 +1162,15 @@ public class XPathParserDemo_github {
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false&&
+										((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventLoopStandardCompensateNone++;
 
 										}
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")&&
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventLoopStandardCompensate++;
 
 										}
@@ -1174,7 +1178,8 @@ public class XPathParserDemo_github {
 										//mi par
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false&&
+														((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventLoopMIParallelCompensateNone++;
 
 										}
@@ -1182,14 +1187,16 @@ public class XPathParserDemo_github {
 										//mi par comp
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false&&
+														((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventLoopMIParallelCompensate++;
 										}
 
 										//mi seq
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false&&
+														((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventLoopMISequentialCompensateNone++;
 
 
@@ -1197,7 +1204,8 @@ public class XPathParserDemo_github {
 										//mi seq comp
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")&&
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventLoopMISequentialCompensate++;			        					
 
 										}
@@ -1219,10 +1227,10 @@ public class XPathParserDemo_github {
              // [TODO: SUBPROCESS EXPANDED EVENT + ADHOC]
 SUBPROCESS EXPANDED EVENT + ADHOC
 				 */
-				for(int i=0;i<nodesSubprocessesEvent.getLength();i++) {
-					String SubprocessesID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
+				for(int i=0;i<nodesSubprocessesAdHoc.getLength();i++) {
+					String SubprocessesID = (((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("id"));
 
-					Node SubPExtendedEventNodeChild = nodesSubprocessesEvent.item(i);  
+					Node SubPExtendedEventNodeChild = nodesSubprocessesAdHoc.item(i);  
 
 					for(int j=0;j<nodesShapesList.getLength();j++) {
 						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
@@ -1238,8 +1246,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1"))
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true"))
 									{
 										if(z==SubprocessesEventNodeChildNodes.getLength()-1) 
 											nSubProcessExtendedEventAdHocLoopNoneCompensateNone++;														
@@ -1247,8 +1255,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 
 										if(z==SubprocessesEventNodeChildNodes.getLength()-1) 
 											nSubProcessExtendedEventAdHocLoopNoneCompensate++;														
@@ -1258,15 +1266,15 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1") ) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventAdHocLoopStandardCompensateNone++;
 
 										}
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==true &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventAdHocLoopStandardCompensate++;
 
 										}
@@ -1274,8 +1282,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi par
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventAdHocLoopMIParallelCompensateNone++;
 
 
@@ -1284,8 +1292,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi par comp
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventAdHocLoopMIParallelCompensate++;
 
 										}
@@ -1293,8 +1301,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi seq
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventAdHocLoopMISequentialCompensateNone++;
 
 
@@ -1302,8 +1310,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi seq comp
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==true &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessExtendedEventAdHocLoopMISequentialCompensate++;
 
 										}
@@ -1446,17 +1454,19 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 									if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false)
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false)
 									{
 										if(z==SPAdHocNodeChildNodes.getLength()-1) 
-											nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone++;
+											nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone++;										    
 
 									}
 
 
 									if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 										if(z==SPAdHocNodeChildNodes.getLength()-1) 
 											nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate++;
 
@@ -1466,13 +1476,15 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 									if(SPAdHocNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessCollapsedEventNoneAdHocLoopStandardCompensateNone++;
 
 										}
 
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessCollapsedEventNoneAdHocLoopStandardCompensate++;
 
 										}
@@ -1480,7 +1492,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi par
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensateNone++;
 
 
@@ -1489,7 +1502,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi par comp
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate++;
 
 										}
@@ -1497,7 +1511,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi seq
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==true &&
 												((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensateNone++;
 
 
@@ -1505,7 +1520,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi seq comp
 										if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")&&
 												((Element) SPAdHocNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")&&
-												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false) {
 											nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate++;
 
 										}
@@ -1646,7 +1662,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false)
+											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+											((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true"))
 									{
 										if(z==SubprocessesEventNodeChildNodes.getLength()-1) 
 											nSubProcessCollapsedEventLoopNoneCompensateNone++;
@@ -1655,7 +1672,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")  ) 
+											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
+											((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true") ) 
 									{
 										if(z==SubprocessesEventNodeChildNodes.getLength()-1) 
 											nSubProcessCollapsedEventLoopNoneCompensate++;	
@@ -1665,13 +1683,15 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false ) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+														((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventLoopStandardCompensateNone++;
 
 										}
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") ) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventLoopStandardCompensate++;
 
 										}
@@ -1679,7 +1699,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi par
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false ) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+														((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventLoopMIParallelCompensateNone++;
 
 
@@ -1688,7 +1709,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi par comp
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") ) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")&&
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true") ) {
 											nSubProcessCollapsedEventLoopMIParallelCompensate++;
 
 										}
@@ -1696,7 +1718,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi seq
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false ) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false&&
+														((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true") ) {
 											nSubProcessCollapsedEventLoopMISequentialCompensateNone++;
 
 
@@ -1704,7 +1727,8 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 										//mi seq comp
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") ) {
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesEvent.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventLoopMISequentialCompensate++;
 
 										}
@@ -1729,10 +1753,10 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 				/*
 SUBPROCESS Collapsed EVENT + ADHOC
 				 */
-				for(int i=0;i<nodesSubprocessesEvent.getLength();i++) {
-					String SubprocessesID = (((Element) nodesSubprocessesEvent.item(i)).getAttribute("id"));
+				for(int i=0;i<nodesSubprocessesAdHoc.getLength();i++) {
+					String SubprocessesID = (((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("id"));
 
-					Node SubPExtendedEventNodeChild = nodesSubprocessesEvent.item(i);  
+					Node SubPExtendedEventNodeChild = nodesSubprocessesAdHoc.item(i);  
 
 					for(int j=0;j<nodesShapesList.getLength();j++) {
 						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
@@ -1748,8 +1772,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1"))
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false&&
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true"))
 									{
 										if(z==SubprocessesEventNodeChildNodes.getLength()-1) 
 											nSubProcessCollapsedEventAdHocLoopNoneCompensateNone++;														
@@ -1757,8 +1781,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
-											((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) 
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) 
 									{
 										if(z==SubprocessesEventNodeChildNodes.getLength()-1) 
 											nSubProcessCollapsedEventAdHocLoopNoneCompensate++;														
@@ -1767,15 +1791,15 @@ SUBPROCESS Collapsed EVENT + ADHOC
 									if(SubprocessesEventNodeChildNodes.item(z).getNodeType() == Node.ELEMENT_NODE) {
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")&&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1") ) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventAdHocLoopStandardCompensateNone++;
 
 										}
 
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")&&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventAdHocLoopStandardCompensate++;
 
 										}
@@ -1783,8 +1807,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 										//mi par
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventAdHocLoopMIParallelCompensateNone++;
 
 
@@ -1793,8 +1817,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 										//mi par comp
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventAdHocLoopMIParallelCompensate++;
 
 										}
@@ -1802,8 +1826,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 										//mi seq
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true")&&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true")==false &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventAdHocLoopMISequentialCompensateNone++;
 
 
@@ -1811,8 +1835,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 										//mi seq comp
 										if(SubprocessesEventNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics") &&
 												((Element) SubprocessesEventNodeChildNodes.item(z)).getAttribute("isSequential").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("isForCompensation").contains("true") &&
-												((Element) nodesSubprocessesEvent.item(i)).getAttribute("completionQuantity").contains("1")) {
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")&&
+												((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")) {
 											nSubProcessCollapsedEventAdHocLoopMISequentialCompensate++;
 
 										}
@@ -2400,7 +2424,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nGroup = nodesGroup.getLength();  
 
-				//[TODO DATA ONJECTS]
+				//[TODO DATA OBJECTS]
 				//DATA OBJECTS------------------------------------------------------------------------------------
 
 				// N° of Data Object
@@ -2418,18 +2442,18 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				nDataObject = nodesDO.getLength() - nDataObjectCollection;
 
 				// N° of Data Input
-				XPathExpression exprDI = xpath.compile("/bpmn:process//bpmn:dataInput");
+				XPathExpression exprDI = xpath.compile("//bpmn:ioSpecification//bpmn:dataInput");
 				Object resultDI = exprDI.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesDI = (NodeList) resultDI;
 				doc.getDocumentElement().normalize();  
-				nDataInput = nodesDI.getLength();
+				nDataInput = nodesDI.getLength()/2;
 
 				// N° of Data Output
-				XPathExpression exprDOut = xpath.compile("/bpmn:process//bpmn:dataOutput");
+				XPathExpression exprDOut = xpath.compile("//bpmn:ioSpecification//bpmn:dataOutput");
 				Object resultDOut = exprDOut.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesDOut = (NodeList) resultDOut;
 				doc.getDocumentElement().normalize();  
-				nDataOutput = nodesDOut.getLength();
+				nDataOutput = nodesDOut.getLength()/2;
 
 
 				// N° of Data Store
@@ -2448,20 +2472,32 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 				//[TODO GATEWAYS]
 				// GATEWAYS-------------------------------------------------------------------------------------
-
-				// Exclusive Gateway Empty 
-				XPathExpression exprExGEmpty = xpath.compile("//bpmn:exclusiveGateway//bpmn:BPMNShape[@isMarkerVisible='false']");
-				Object resultExGEmpty = exprExGEmpty.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesExGEmpty = (NodeList) resultExGEmpty;
-				doc.getDocumentElement().normalize();  
-				nExclusiveGatewayNoMarker = nodesExGEmpty.getLength();
-
-				// Exclusive Gateway 
+				
 				XPathExpression exprExG = xpath.compile("//bpmn:exclusiveGateway");
 				Object resultExG = exprExG.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesExclusiveGateway = (NodeList) resultExG;
 				NodeList nodesExG = (NodeList) resultExG;
-				doc.getDocumentElement().normalize();  
-				nExclusiveGatewayMarker = nodesExG.getLength() - nExclusiveGatewayNoMarker;
+				
+				XPathExpression exprExclusiveGatewayShape = xpathShape.compile("//bpmn:BPMNShape");
+				Object resultExclusiveGatewayShape  = exprExclusiveGatewayShape.evaluate(doc, XPathConstants.NODESET);       
+				NodeList nodesExclusiveGatewayShape = (NodeList) resultExclusiveGatewayShape;
+				doc.getDocumentElement().normalize();               
+
+				for(int i=0;i<nodesExclusiveGateway.getLength();i++) {
+					String GatewayID = (((Element) nodesExclusiveGateway.item(i)).getAttribute("id"));
+
+					for(int j=0;j<nodesExclusiveGatewayShape.getLength();j++) {
+						String GatewayShapeID = (((Element) nodesExclusiveGatewayShape.item(j)).getAttribute("bpmnElement"));
+
+						if(GatewayID.equalsIgnoreCase(GatewayShapeID)) {
+							
+							if(((Element) nodesExclusiveGatewayShape.item(j)).getAttribute("isMarkerVisible").contains("false"))
+									nExclusiveGatewayNoMarker++;
+							else
+								    nExclusiveGatewayMarker++;
+						}
+					}
+				}
 
 				XPathExpression exprPaG = xpath.compile("//bpmn:parallelGateway");
 				Object resultPaG = exprPaG.evaluate(doc, XPathConstants.NODESET);
@@ -2474,12 +2510,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				NodeList nodesInG = (NodeList) resultInG;
 				doc.getDocumentElement().normalize();  
 				nInclusiveGateway = nodesInG.getLength();
-
-				XPathExpression exprEBG = xpath.compile("//bpmn:eventBasedGateway");
-				Object resultEBG = exprEBG.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesEBG = (NodeList) resultEBG;
-				doc.getDocumentElement().normalize();  
-				nEventBasedGateway = nodesEBG.getLength();
 
 				//TO TEST Event Based Gateway Exclusive Instantiation
 				XPathExpression exprEBGEI = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Exclusive' and @instantiate='true']");
@@ -2495,6 +2525,12 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nEventBasedGatewayParallelInstantiation = nodesEBGPI.getLength();
 
+				XPathExpression exprEBG = xpath.compile("//bpmn:eventBasedGateway");
+				Object resultEBG = exprEBG.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesEBG = (NodeList) resultEBG;
+				doc.getDocumentElement().normalize();  
+				nEventBasedGateway = nodesEBG.getLength() - (nEventBasedGatewayExclusiveInstantiation+nEventBasedGatewayParallelInstantiation);
+				
 				XPathExpression exprCoG = xpath.compile("//bpmn:complexGateway");
 				Object resultCoG = exprCoG.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesCoG = (NodeList) resultCoG;
@@ -3258,7 +3294,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 
 								if(CatchIntEventChildNodes.item(j).getNodeName().contains("cancelEventDefinition") &&
-										((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false ) {
+										((Element) nodesBoundaryCatchIntEvent.item(i)).getAttribute("cancelActivity").contains("false")==false
+										&& NumberOfChildsOfEachBoundaryCatchEvent<=1) {
 									nIntermediateBoundaryCancelEvent++;
 								}	 
 
@@ -3384,20 +3421,44 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					}
 
 				}
-
+				
+				XPathExpression exprChoPartSubM = xpath.compile("//bpmn:subChoreography//bpmn:participant//bpmn:participantMultiplicity");
+				Object resultChoPartSubM = exprChoPartSubM.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesChoPartSubM = (NodeList) resultChoPartSubM;
+				doc.getDocumentElement().normalize();  
+				int nChoreographyParticipantSubM = nodesChoPartSubM.getLength();
+				
+				XPathExpression exprChoPartCallM = xpath.compile("//bpmn:callChoreography//bpmn:participant//bpmn:participantMultiplicity");
+				Object resultChoPartCallM = exprChoPartCallM.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesChoPartCallM = (NodeList) resultChoPartCallM;
+				doc.getDocumentElement().normalize();  
+				int nChoreographyParticipantCallM = nodesChoPartCallM.getLength();
+				
 				//N° of Choreography participant multiple      
 				XPathExpression exprChoPartM = xpath.compile("//bpmn:choreography//bpmn:participant//bpmn:participantMultiplicity");
 				Object resultChoPartM = exprChoPartM.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesChoPartM = (NodeList) resultChoPartM;
 				doc.getDocumentElement().normalize();  
-				nChoreographyParticipantMultiple = nodesChoPartM.getLength() ; 
+				nChoreographyParticipantMultiple = nodesChoPartM.getLength() + (nChoreographyParticipantSubM+nChoreographyParticipantCallM); 
 
+				XPathExpression exprChoPartSub = xpath.compile("//bpmn:subChoreography//bpmn:participant");
+				Object resultChoPartSub = exprChoPartSub.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesChoPartSub = (NodeList) resultChoPartSub;
+				doc.getDocumentElement().normalize();  
+				int nChoreographyParticipantSub = nodesChoPartSub.getLength() - nChoreographyParticipantSubM;
+				
+				XPathExpression exprChoPartCall = xpath.compile("//bpmn:callChoreography//bpmn:participant");
+				Object resultChoPartCall = exprChoPartCall.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesChoPartCall = (NodeList) resultChoPartCall;
+				doc.getDocumentElement().normalize();  
+				int nChoreographyParticipantCall = nodesChoPartCall.getLength() - nChoreographyParticipantCallM;
+				
 				//N° of Choreography participant
 				XPathExpression exprChoPart = xpath.compile("//bpmn:choreography//bpmn:participant");
 				Object resultChoPart = exprChoPart.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesChoPart = (NodeList) resultChoPart;
 				doc.getDocumentElement().normalize();  
-				nChoreographyParticipant = nodesChoPart.getLength() - nChoreographyParticipantMultiple; 
+				nChoreographyParticipant = nodesChoPart.getLength()+(nChoreographyParticipantSub+nChoreographyParticipantCall) - nChoreographyParticipantMultiple; 
 
 				//N° of Choreography tasks
 				XPathExpression exprChoTaskPI = xpath.compile("//bpmn:choreographyTask[@loopType='MultiInstanceParallel']");
@@ -3591,13 +3652,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nConditionalFlow = nodesCFlow.getLength();
 
-				//N° of Sequence Flow
-				XPathExpression exprSFlow = xpath.compile("//bpmn:sequenceFlow");
-				Object resultSFlow = exprSFlow.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesSFlow = (NodeList) resultSFlow;
-				doc.getDocumentElement().normalize();  
-				nSequenceFlow = nodesSFlow.getLength() - (nDefaultFlow + nConditionalFlow);
-
 				//[TODO: ASSOCIATIONS]
 				// ASSOCIATIONS
 				//dataInputAssociation
@@ -3615,18 +3669,12 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				nAssociationDataOutput = nodesOAssoc.getLength();
 
 				//COMPENSATE ASSOCIATION
-				XPathExpression exprCAssoc = xpath.compile("//bpmn:endEvent//bpmn:compensateEventDefinition[@waitForCompletion='true']");
-				Object resultCAssoc = exprCAssoc.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesCAssoc = (NodeList) resultCAssoc;
-				doc.getDocumentElement().normalize();  
-				nAssociationCompensate = nodesCAssoc.getLength();
-
 				//Unidirectional Association
 				XPathExpression exprUnidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='One']");
 				Object resultUnidirectionalAssoc = exprUnidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesUnidirectionalAssoc = (NodeList) resultUnidirectionalAssoc;
 				doc.getDocumentElement().normalize();  
-				nAssociationUnidirectional = nodesUnidirectionalAssoc.getLength();
+				nAssociationUnidirectional = nodesUnidirectionalAssoc.getLength() - (nAssociationDataInput+nAssociationDataOutput);
 
 				//Bidirectional Association
 				XPathExpression exprBidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='Both']");
@@ -3636,12 +3684,18 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				nAssociationBidirectional = nodesBidirectionalAssoc.getLength();
 
 				//Unidirected Association
-				XPathExpression exprUndirectedAssoc = xpath.compile("//bpmn:association");
+				XPathExpression exprUndirectedAssoc = xpath.compile("//bpmn:association[@associationDirection='None']");
 				Object resultUndirectedAssoc = exprUndirectedAssoc.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesUndirectedAssoc = (NodeList) resultUndirectedAssoc;
 				doc.getDocumentElement().normalize();  
-				nAssociationUndirected = nodesUndirectedAssoc.getLength() - (nAssociationCompensate + nAssociationUnidirectional + nAssociationBidirectional );
+				nAssociationUndirected = nodesUndirectedAssoc.getLength();
 
+				//N° of Sequence Flow
+				XPathExpression exprSFlow = xpath.compile("//bpmn:sequenceFlow");
+				Object resultSFlow = exprSFlow.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesSFlow = (NodeList) resultSFlow;
+				doc.getDocumentElement().normalize();  
+				nSequenceFlow = nodesSFlow.getLength() - (nDefaultFlow + nConditionalFlow);
 
 				//[TODO: CONVERSATION]
 				//CONVERSATION
@@ -3657,7 +3711,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nConversationSubProcess = nodesSConv.getLength();
 
-				XPathExpression exprCConv = xpath.compile("//bpmn:callConversation[(contains(@calledElementRef,'sid'))]");
+				XPathExpression exprCConv = xpath.compile("//bpmn:callConversation");
 				Object resultCConv = exprCConv.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesCConv = (NodeList) resultCConv;
 				doc.getDocumentElement().normalize();  
@@ -3669,13 +3723,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				doc.getDocumentElement().normalize();  
 				nConversationLink = nodesConvLink.getLength();        
 
-				XPathExpression exprConvSBC = xpath.compile("//bpmn:callConversation[not(contains(@calledElementRef,'sid'))]");
-				Object resultConvSBC = exprConvSBC.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesConvSBC = (NodeList) resultConvSBC;
-				doc.getDocumentElement().normalize();  
-				nConversationSubProcessCall = nodesConvSBC.getLength(); 
-
-				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationSubProcessCall+nConversationLink)>0) 
+				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationLink)>0) 
 				modelType = "Conversation";
 				
 				else if((nChoreographyTask+nChoreographyTaskSequentialMultipleInstance+
@@ -3859,7 +3907,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nSubProcessCollapsedEventLoopMIParallelCompensate+
 						nSubProcessCollapsedEventLoopMISequentialCompensateNone+
 						nSubProcessCollapsedEventLoopMISequentialCompensate+
-						nSubProcessCollapsedEventLoopNoneCompensateNone+
+						nSubProcessCollapsedEventAdHocLoopNoneCompensateNone+
 						nSubProcessCollapsedEventAdHocLoopNoneCompensate+
 						nSubProcessCollapsedEventAdHocLoopStandardCompensateNone+
 						nSubProcessCollapsedEventAdHocLoopStandardCompensate+
@@ -3869,7 +3917,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nSubProcessCollapsedEventAdHocLoopMISequentialCompensate+
 						nDataObject+
 						nDataObjectCollection+
-						nDataObjectReference+
 						nDataStore+
 						nDataInput+
 						nDataOutput+
@@ -3973,9 +4020,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nConversationNone+
 						nConversationSubProcess+
 						nConversationCall+
-						nConversationSubProcessCall+
 						nConversationLink+
-						nAssociationCompensate+
 						nAssociationUndirected+
 						nAssociationUnidirectional+        
 						nAssociationBidirectional+
@@ -3986,54 +4031,11 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 
 				long EndingtimeMillis = System.currentTimeMillis();
-				//long EndingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(EndingtimeMillis);
-
+				
 				double ExecutionTime = (EndingtimeMillis - StartingtimeMillis);
 
-				//creating the rows 
-//				XSSFRow row = sheet.createRow((short)x+1);  
-//
-//				CellStyle styleLOW = wb.createCellStyle();  
-//				CellStyle styleMEDIUM = wb.createCellStyle();  
-//				CellStyle styleHIGH = wb.createCellStyle();  
-//				CellStyle styleDelimeterDX = wb.createCellStyle(); 
-//
-//				CellStyle mixedstyleLOW = wb.createCellStyle(); 
-//				CellStyle mixedstyleMEDIUM = wb.createCellStyle(); 
-//				CellStyle mixedstyleHIGH  = wb.createCellStyle(); 
-//
-//				styleLOW.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());  
-//				styleLOW.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				styleMEDIUM.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());  
-//				styleMEDIUM.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				styleHIGH.setFillForegroundColor(IndexedColors.GREEN.getIndex());  
-//				styleHIGH.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//
-//				styleDelimeterDX.setBorderRight(BorderStyle.THICK);
-//
-//				mixedstyleLOW.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
-//				mixedstyleLOW.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				mixedstyleLOW.setBorderRight(BorderStyle.THICK);
-//				mixedstyleMEDIUM.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());  
-//				mixedstyleMEDIUM.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				mixedstyleMEDIUM.setBorderRight(BorderStyle.THICK);
-//				mixedstyleHIGH.setFillForegroundColor(IndexedColors.GREEN.getIndex());  
-//				mixedstyleHIGH.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//				mixedstyleHIGH.setBorderRight(BorderStyle.THICK);
-
-				//			styleDelimeter.setBorderTop(BorderStyle.THIN);
-				//			styleDelimeter.setTopBorderColor(IndexedColors.BLUE_GREY.getIndex());
-				//			styleDelimeter.setBorderBottom(BorderStyle.THICK);
-				//			styleDelimeter.setLeftBorderColor(IndexedColors.AQUA.getIndex());
-				//			styleDelimeterDX.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-				//			styleDelimeter.setRightBorderColor(IndexedColors.BROWN.getIndex());
-
-
-
-
-
 				//inserting data        
-				bw.write(line+",");
+				bw.write(fileName+",");
 				bw.write(bpmnModeler+",");
 				bw.write(modelType+",");
 				bw.write(isEnglish+",");
@@ -4181,7 +4183,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nSubProcessCollapsedEventLoopMIParallelCompensate+",");
 				bw.write(nSubProcessCollapsedEventLoopMISequentialCompensateNone+",");
 				bw.write(nSubProcessCollapsedEventLoopMISequentialCompensate+",");
-				bw.write(nSubProcessCollapsedEventLoopNoneCompensateNone+",");
+				bw.write(nSubProcessCollapsedEventAdHocLoopNoneCompensateNone+",");
 				bw.write(nSubProcessCollapsedEventAdHocLoopNoneCompensate+",");
 				bw.write(nSubProcessCollapsedEventAdHocLoopStandardCompensateNone+",");
 				bw.write(nSubProcessCollapsedEventAdHocLoopStandardCompensate+",");
@@ -4191,7 +4193,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nSubProcessCollapsedEventAdHocLoopMISequentialCompensate+",");
 				bw.write(nDataObject+",");
 				bw.write(nDataObjectCollection+",");
-				bw.write(nDataObjectReference+",");
 				bw.write(nDataStore+",");
 				bw.write(nDataInput+",");
 				bw.write(nDataOutput+",");
@@ -4297,9 +4298,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nConversationNone+",");
 				bw.write(nConversationSubProcess+",");
 				bw.write(nConversationCall+",");
-				bw.write(nConversationSubProcessCall+",");
 				bw.write(nConversationLink+",");
-				bw.write(nAssociationCompensate+",");
 				bw.write(nAssociationUndirected+",");
 				bw.write(nAssociationUnidirectional+",");        
 				bw.write(nAssociationBidirectional+",");
@@ -4313,10 +4312,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				//System.out.println(fileName);
 				 
 				} catch (Exception e) {
-					System.out.println(line+"^"+e.getMessage());
-					//System.out.println("Ops!.. Something went wrong Exception: "+e.getMessage());
-					//writer.write(e.getMessage().toString());
-					//writer.write(",\n");
+
 					continue;
 				}
 			}
