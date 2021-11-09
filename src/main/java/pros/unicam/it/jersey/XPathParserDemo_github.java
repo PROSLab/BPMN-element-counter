@@ -3674,7 +3674,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				Object resultUnidirectionalAssoc = exprUnidirectionalAssoc.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesUnidirectionalAssoc = (NodeList) resultUnidirectionalAssoc;
 				doc.getDocumentElement().normalize();  
-				nAssociationUnidirectional = nodesUnidirectionalAssoc.getLength() - (nAssociationDataInput+nAssociationDataOutput);
+				nAssociationUnidirectional = nodesUnidirectionalAssoc.getLength();
 
 				//Bidirectional Association
 				XPathExpression exprBidirectionalAssoc = xpath.compile("//bpmn:association[@associationDirection='Both']");
