@@ -662,7 +662,7 @@ public class XPathParserDemo {
 				int TotalElements=0;
 				//SubProcesses Analysis variables
 				int nExtendedSubProcess=0;
-
+				int nExtensionElement=0;
 
 				//Set BPMN models name
 				fileName= listOfFiles[x].getName();
@@ -3706,7 +3706,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				NodeList nodesSFlow = (NodeList) resultSFlow;
 				doc.getDocumentElement().normalize();  
 				nSequenceFlow = nodesSFlow.getLength() - (nDefaultFlow + nConditionalFlow);
-
+				
 				//[TODO: CONVERSATION]
 				//CONVERSATION
 				XPathExpression exprConv = xpath.compile("//bpmn:conversation");
@@ -3731,8 +3731,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				Object resultConvLink = exprConvLink.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesConvLink = (NodeList) resultConvLink;
 				doc.getDocumentElement().normalize();  
-				nConversationLink = nodesConvLink.getLength();        
+				nConversationLink = nodesConvLink.getLength();  
 
+//				XPathExpression exprEX = xpath.compile("//bpmn:extensionElements");
+//				Object resultEX= exprEX.evaluate(doc, XPathConstants.NODESET);
+//				NodeList nodesEX = (NodeList) resultEX;
+//				doc.getDocumentElement().normalize();  
+//				nExtensionElement = nodesEX.getLength();   
+				
 				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationLink)>0) 
 				modelType = "Conversation";
 				

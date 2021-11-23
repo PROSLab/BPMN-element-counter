@@ -52,13 +52,13 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;    
 
-public class XPathParserDemo_github {
+public class XPathParserDemoGithub {
 
 	private static boolean ConsiderExtendedSubProcess = false;
 
 	public static void main(String[] args) {
 
-		System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
+		 System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
 		 System.out.println("\nSelect the folder of BPMN models to be analysed: ");
 		
 		try {
@@ -342,7 +342,6 @@ public class XPathParserDemo_github {
 			bw.write("\n"); 
 
 
-
 			// File's cycle of the testmodels folder
 
 
@@ -361,9 +360,8 @@ public class XPathParserDemo_github {
 		    writer.write(x+" "+line);
 				
 				long StartingtimeMillis = System.currentTimeMillis();
-				//long StartingtimeSeconds = TimeUnit.MILLISECONDS.toSeconds(StartingtimeMillis);
 				//Defining global variables
-				String fileName = line;
+				String fileName;
 				String bpmnModeler="Undefined";
 				boolean isEnglish=false;
 
@@ -665,12 +663,17 @@ public class XPathParserDemo_github {
 				int TotalElements=0;
 				//SubProcesses Analysis variables
 				int nExtendedSubProcess=0;
-	
-					//Read bpmn models
-					File xmlFile = new File(folderPath+"/"+line);
-					
-					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
-					
+				int nExtensionElement=0;
+
+				//Set BPMN models name
+				fileName= line;
+				
+				
+				//Read bpmn models
+				File xmlFile = new File(folderPath+"/"+line);
+				
+				String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
+				
 //					if(xml.isEmpty())
 //						break;
 					DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
@@ -3696,7 +3699,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				NodeList nodesSFlow = (NodeList) resultSFlow;
 				doc.getDocumentElement().normalize();  
 				nSequenceFlow = nodesSFlow.getLength() - (nDefaultFlow + nConditionalFlow);
-
+				
 				//[TODO: CONVERSATION]
 				//CONVERSATION
 				XPathExpression exprConv = xpath.compile("//bpmn:conversation");
@@ -3721,8 +3724,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				Object resultConvLink = exprConvLink.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesConvLink = (NodeList) resultConvLink;
 				doc.getDocumentElement().normalize();  
-				nConversationLink = nodesConvLink.getLength();        
+				nConversationLink = nodesConvLink.getLength();  
 
+//				XPathExpression exprEX = xpath.compile("//bpmn:extensionElements");
+//				Object resultEX= exprEX.evaluate(doc, XPathConstants.NODESET);
+//				NodeList nodesEX = (NodeList) resultEX;
+//				doc.getDocumentElement().normalize();  
+//				nExtensionElement = nodesEX.getLength();   
+//				
 				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationLink)>0) 
 				modelType = "Conversation";
 				
@@ -4308,16 +4317,13 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nTextAnnotation+",");
 				bw.write(ExecutionTime+",");      
 				bw.write(TotalElements+"\n");				
-
-				//System.out.println(fileName);
 				 
 				} catch (Exception e) {
-
+								
 					continue;
 				}
 			}
 			
-			writer.close();
 			bw.flush();
 			bw.close();
 
