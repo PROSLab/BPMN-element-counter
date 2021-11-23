@@ -336,7 +336,8 @@ public class XPathParserDemo {
 			bw.write("nGroup,");
 			bw.write("nTextAnnotation,");
 			bw.write("Model's Execution Time,");
-			bw.write("TotalElements"); 
+			bw.write("TotalElements,"); 
+			bw.write("File Size"); 
 			bw.write("\n"); 
 
 
@@ -663,7 +664,7 @@ public class XPathParserDemo {
 				//SubProcesses Analysis variables
 				int nExtendedSubProcess=0;
 				int nExtensionElement=0;
-
+				int FileSize=0;
 				//Set BPMN models name
 				fileName= listOfFiles[x].getName();
 
@@ -680,6 +681,8 @@ public class XPathParserDemo {
 					File xmlFile = new File(folderString+"/"+fileName);
 					
 					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
+					
+					FileSize = (int) xmlFile.length();
 					
 //					if(xml.isEmpty())
 //						break;
@@ -4323,7 +4326,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nGroup+",");
 				bw.write(nTextAnnotation+",");
 				bw.write(ExecutionTime+",");      
-				bw.write(TotalElements+"\n");				
+				bw.write(TotalElements+",");	
+				bw.write(FileSize+"\n");
 				 
 				} catch (Exception e) {
 								
