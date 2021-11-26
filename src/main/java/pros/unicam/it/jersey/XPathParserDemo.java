@@ -120,9 +120,12 @@ public class XPathParserDemo {
 					File xmlFile = new File(folderString+"/"+fileName);
 
 					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);   
-					xml = xml.replaceAll("&#10;", "");		
+					xml = xml.replaceAll("&#10;", "");	
+					xml = xml.replaceAll(";&#10;", "");	
+					xml = xml.replaceAll("&#13;", "");	
+					xml = xml.replaceAll(";&#13;", "");
 					xml = xml.replaceAll("xA","");
-
+					
 					DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 					domFactory.setNamespaceAware(true);
 					DocumentBuilder builder = domFactory.newDocumentBuilder();
@@ -217,9 +220,7 @@ public class XPathParserDemo {
 			        	tempVar += Math.pow(modelWordsLenght.elementAt(i)-Media, 2);
 			        	}	    
 			        
-				Varianza = tempVar/modelWordsLenght.size();
-				
-				modelWords.toString().replace(";", "");
+				Varianza = tempVar/modelWordsLenght.size();				
 				
 				bw.write(fileName+";");
 				bw.write(isEnglish+";");		
