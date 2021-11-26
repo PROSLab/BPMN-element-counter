@@ -64,40 +64,39 @@ public class XPathParserDemoGithub {
 		 System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
 		 System.out.println("\nSelect the folder of BPMN models to be analysed: ");
 
-		 
-		 if(TextAnalysis==true) {
-			 
-			 try {
-					//Creation of the xls empty file
-					Workbook wb = new XSSFWorkbook();    
-					XSSFSheet sheet = (XSSFSheet) wb.createSheet("BPMN_DomainClassification"); 
-					XSSFRow rowhead = sheet.createRow((short)0);    
+			 if(TextAnalysis = true) {
+					try {
+						
+						String path = "./bpmn_label_stats.csv";		
+						//If the file already exist, it is overwrited
+						BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),false));	
+						
+						//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
+						bw.write("fileName;");
+						bw.write("is English;");
+						bw.write("Words;"); 
+						bw.write("Total number of words;"); 
+						bw.write("Total number of characters;"); 
+						bw.write("Media;"); 
+						bw.write("Mediana;"); 
+						bw.write("Moda;"); 
+						bw.write("Varianza");
+						bw.write("\n");  
+
+						String folderPath = "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\Crawler_Models";
+
+						String filePath= "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\GITHUBDEFINITIVO.csv";
+						BufferedReader br = new BufferedReader(new FileReader(filePath));
+						String line;
+						int x=-1;
+						BufferedWriter writer = new BufferedWriter(new FileWriter("check"));
+						while ((line = br.readLine()) != null) {
+						x++;
+						//System.out.println(x+" "+line);
+
+					    writer.write(x+" "+line);
 					
-					//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
-					rowhead.createCell(0).setCellValue("fileName");
-					rowhead.createCell(1).setCellValue("is English");
-					rowhead.createCell(2).setCellValue("Words"); 
-					rowhead.createCell(3).setCellValue("Total number of words"); 
-					rowhead.createCell(4).setCellValue("Total number of characters"); 
-					rowhead.createCell(5).setCellValue("Media"); 
-					rowhead.createCell(6).setCellValue("Mediana"); 
-					rowhead.createCell(7).setCellValue("Moda"); 
-					rowhead.createCell(8).setCellValue("Varianza");
-
-					// File's cycle of the testmodels folder
-
-					JFileChooser f = new JFileChooser();		
-					f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-					f.showSaveDialog(null);
-
-					File file = f.getSelectedFile();
-					String folderString = file.getAbsolutePath().toString();
-
-					File folder = new File(folderString);
-
-					File[] listOfFiles = folder.listFiles();
-
-					for (int x = 0; x < listOfFiles.length; x++) {
+						try {
 						
 						boolean isEnglish=false;
 						String fileName;
@@ -109,19 +108,15 @@ public class XPathParserDemoGithub {
 						double Varianza;
 						/* 1. Healthcare, 2. Environmental, 3. Commercial, 4. Industrial, 5. General Aspects, 6. Undefined */
 						//Set BPMN models name
-						fileName= listOfFiles[x].getName();
-
-						if(SystemUtils.IS_OS_WINDOWS) {
-							//System.out.println(folderString+"\\"+fileName);
-							if(!(folderString+"\\"+fileName).contains(".bpmn"))continue;
-						}else {
-							//System.out.println(folderString+"/"+fileName);
-							if(!(folderString+"/"+fileName).contains(".bpmn"))continue;
-						}
+						fileName= line;
+						
+						
 						//Read bpmn models
-						File xmlFile = new File(folderString+"/"+fileName);
-
-						String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);       
+						File xmlFile = new File(folderPath+"/"+line);
+						String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);   		
+						xml = xml.replaceAll("&#10;", "");		
+						xml = xml.replaceAll("xA","");
+						
 						DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
 						domFactory.setNamespaceAware(true);
 						DocumentBuilder builder = domFactory.newDocumentBuilder();
@@ -164,18 +159,18 @@ public class XPathParserDemoGithub {
 						}
 						
 						for(int a=0; a<nodesModelWords.getLength(); a++) {
-
-							modelWords.add(nodesModelWords.item(a).getTextContent());
+								modelWords.add(nodesModelWords.item(a).getTextContent());
+							
 							modelWordsLenght.add((double) nodesModelWords.item(a).getTextContent().length());				
 							Nofcharater= Nofcharater + nodesModelWords.item(a).getTextContent().length();   				
 							//wordsLenght.
 						}
 						
 					 Nofwords =	nodesModelWords.getLength();
-					 Media = Nofcharater/(double) Nofwords;
+					 Media = Nofcharater/Nofwords;
 					 
 					 Collections.sort(modelWordsLenght);
-					 System.out.println(modelWordsLenght);
+					 //System.out.println(modelWordsLenght);
 					 
 					 int middle = modelWordsLenght.size()/2;		 		 		 		
 					 
@@ -218,31 +213,31 @@ public class XPathParserDemoGithub {
 				        	}	    
 				        
 					Varianza = tempVar/modelWordsLenght.size();
-					System.out.println(Varianza);
-						//creating the rows 
-						XSSFRow row = sheet.createRow((short)x+1);  
+			     
+					bw.write(fileName+";");
+					bw.write(isEnglish+";");		
+					bw.write(modelWords.toString()+";");
+					bw.write(Nofwords+";");		
+					bw.write(Nofcharater+";");
+					bw.write(Media+";");
+					bw.write(Mediana+";");
+					bw.write(Moda+";");
+					bw.write(Varianza+"\n");
+					
+
+					//System.out.println(fileName+" "+modelWords.toString()+" "+Nofwords+" "+Nofcharater+" "+Media+" "+Mediana+" "+Moda+" "+Varianza);
+
+						} catch (Exception e) {
+							
+							
+					    }
 						
-						//inserting data        
-						row.createCell(0).setCellValue(fileName);
-						row.createCell(1).setCellValue(isEnglish);		
-						row.createCell(2).setCellValue(modelWords.toString());
-						row.createCell(3).setCellValue(Nofwords);		
-						row.createCell(4).setCellValue(Nofcharater);
-						row.createCell(5).setCellValue(Media);
-						row.createCell(6).setCellValue(Mediana);
-						row.createCell(7).setCellValue(Moda);
-						row.createCell(8).setCellValue(Varianza);
+						bw.flush();
 						
 					}
-						
-						FileOutputStream fileOut = new FileOutputStream("bpmn_label_stats.xlsx");
-						wb.write(fileOut);  
-						//closing the Stream  
-						fileOut.close();  
-						//System.out.println(fileName+": Analysis DONE");
 					
-					//closing the workbook  
-					wb.close(); 
+					bw.close();
+					
 					} catch (Exception e) {
 				        System.out.println("Exception: "+e.getMessage());
 				        //writer.write(fileEntry.getName()+","+"invalid"+", "+e.getMessage().replace(",", "-")+"\n");            
@@ -250,10 +245,13 @@ public class XPathParserDemoGithub {
 						return;
 
 				    }
+				
+
 					System.out.println("Analysis DONE");
-				}	 
-		 else
-		 {
+				}
+			 
+			 else {
+			 
 
 		try {
 			
