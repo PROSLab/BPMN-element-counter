@@ -67,7 +67,7 @@ public class XPathParserDemo {
 					
 					String path = "./bpmn_label_stats.csv";		
 					//If the file already exist, it is overwrited
-					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),false));	
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),StandardCharsets.UTF_8));	
 					
 					//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
 					bw.write("fileName;");
@@ -119,7 +119,8 @@ public class XPathParserDemo {
 					//Read bpmn models
 					File xmlFile = new File(folderString+"/"+fileName);
 
-					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);   
+					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
+					
 					xml = xml.replaceAll("&#10;", "");	
 					xml = xml.replaceAll(";&#10;", "");	
 					xml = xml.replaceAll("&#13;", "");	
