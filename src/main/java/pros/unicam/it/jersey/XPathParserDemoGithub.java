@@ -37,6 +37,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -112,9 +113,14 @@ public class XPathParserDemoGithub {
 						
 						
 						//Read bpmn models
-						File xmlFile = new File(folderPath+"/"+line);
-						String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);   		
-						xml = xml.replaceAll("&#10;", "");		
+						File xmlFile = new File(folderPath+"/"+fileName);
+
+						String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
+						
+						xml = xml.replaceAll("&#10;", "");	
+						xml = xml.replaceAll(";&#10;", "");	
+						xml = xml.replaceAll("&#13;", "");	
+						xml = xml.replaceAll(";&#13;", "");
 						xml = xml.replaceAll("xA","");
 						
 						DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
@@ -145,14 +151,49 @@ public class XPathParserDemoGithub {
 
 						//[TODO: Language]
 						// TRUE if model has labels in english
+//						XPathFactory xPathfactory = XPathFactory.newInstance();
+//						XPath xpathLang = xPathfactory.newXPath();
+//						XPathExpression expr = xpathLang.compile("//@name");
+//						Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
+//						NodeList nodesModelWords = (NodeList) resultModelWords;
+						
 						XPathFactory xPathfactory = XPathFactory.newInstance();
 						XPath xpathLang = xPathfactory.newXPath();
-						XPathExpression expr = xpathLang.compile("//@name");
+						XPathExpression expr = xpathLang.compile("//*[@name]");
 						Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
 						NodeList nodesModelWords = (NodeList) resultModelWords;
+						
+						
 						ArrayList<String> modelWords = new ArrayList<String>();   
 						Vector<Double> modelWordsLenght = new Vector<Double>();  
-
+						
+						// PER VERIFICA NODI STRANI
+						System.out.println(nodesModelWords.item(x).toString());
+						
+						for(int a=0; a<nodesModelWords.getLength(); a++) {
+							
+							System.out.println(nodesModelWords.item(a).toString());
+							
+							//AGGIUNGERE QUA I NODI DA ELIMINARE
+							if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
+								      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
+									  nodesModelWords.item(a).toString().contains("semantic:globalUserTask") ||
+									  nodesModelWords.item(a).toString().contains("dc:Font") ||
+									  nodesModelWords.item(a).toString().contains("bpmn2:definitions") ||
+									  nodesModelWords.item(a).toString().contains("bpmndi:BPMNDiagram") ||
+									  nodesModelWords.item(a).toString().contains("ixbpmn:customDataValue") ||
+									  nodesModelWords.item(a).toString().contains("signal:")	||
+									  nodesModelWords.item(a).toString().contains("error:")		)
+								continue;
+						
+							NamedNodeMap s = nodesModelWords.item(a).getAttributes();
+							Node name = s.getNamedItem("name");
+							
+							modelWords.add(name.getTextContent());
+							modelWordsLenght.add((double) name.getTextContent().length());				
+							Nofcharater= Nofcharater + name.getTextContent().length(); 
+							
+						}
 						
 						if(modelWords.isEmpty()) {
 							isEnglish=false;				
