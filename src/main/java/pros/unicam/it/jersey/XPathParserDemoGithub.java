@@ -74,14 +74,7 @@ public class XPathParserDemoGithub {
 						
 						//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
 						bw.write("fileName;");
-						bw.write("is English;");
 						bw.write("Words;"); 
-						bw.write("Total number of words;"); 
-						bw.write("Total number of characters;"); 
-						bw.write("Media;"); 
-						bw.write("Mediana;"); 
-						bw.write("Moda;"); 
-						bw.write("Varianza");
 						bw.write("\n");  
 
 						String folderPath = "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\Crawler_Models";
@@ -111,8 +104,7 @@ public class XPathParserDemoGithub {
 						//Set BPMN models name
 						fileName= line;
 						
-						
-						//Read bpmn models
+						System.out.println(fileName);						//Read bpmn models
 						File xmlFile = new File(folderPath+"/"+fileName);
 
 						String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
@@ -168,11 +160,9 @@ public class XPathParserDemoGithub {
 						Vector<Double> modelWordsLenght = new Vector<Double>();  
 						
 						// PER VERIFICA NODI STRANI
-						System.out.println(nodesModelWords.item(x).toString());
+						//System.out.println(nodesModelWords.item(x).toString());
 						
 						for(int a=0; a<nodesModelWords.getLength(); a++) {
-							
-							System.out.println(nodesModelWords.item(a).toString());
 							
 							//AGGIUNGERE QUA I NODI DA ELIMINARE
 							if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
@@ -187,8 +177,7 @@ public class XPathParserDemoGithub {
 								continue;
 						
 							NamedNodeMap s = nodesModelWords.item(a).getAttributes();
-							Node name = s.getNamedItem("name");
-							
+							Node name = s.getNamedItem("name");							
 							modelWords.add(name.getTextContent());
 							modelWordsLenght.add((double) name.getTextContent().length());				
 							Nofcharater= Nofcharater + name.getTextContent().length(); 
@@ -253,17 +242,10 @@ public class XPathParserDemoGithub {
 				        	tempVar += Math.pow(modelWordsLenght.elementAt(i)-Media, 2);
 				        	}	    
 				        
-					Varianza = tempVar/modelWordsLenght.size();
-			     
-					bw.write(fileName+";");
-					bw.write(isEnglish+";");		
-					bw.write(modelWords.toString()+";");
-					bw.write(Nofwords+";");		
-					bw.write(Nofcharater+";");
-					bw.write(Media+";");
-					bw.write(Mediana+";");
-					bw.write(Moda+";");
-					bw.write(Varianza+"\n");
+				        Varianza = tempVar/modelWordsLenght.size();				
+						
+						bw.write(fileName+";");		
+						bw.write(modelWords.toString()+"\n");
 					
 
 					//System.out.println(fileName+" "+modelWords.toString()+" "+Nofwords+" "+Nofcharater+" "+Media+" "+Mediana+" "+Moda+" "+Varianza);

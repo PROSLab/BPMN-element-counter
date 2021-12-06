@@ -172,11 +172,8 @@ public class XPathParserDemo {
 					ArrayList<String> modelWords = new ArrayList<String>();   
 					Vector<Double> modelWordsLenght = new Vector<Double>();  
 					
-					// PER VERIFICA NODI STRANI
-					System.out.println(nodesModelWords.item(x).toString());
 					
 					for(int a=0; a<nodesModelWords.getLength(); a++) {
-						
 						
 						System.out.println(nodesModelWords.item(a).toString());
 						//AGGIUNGERE QUA I NODI DA ELIMINARE
@@ -192,8 +189,7 @@ public class XPathParserDemo {
 							continue;
 					
 						NamedNodeMap s = nodesModelWords.item(a).getAttributes();
-						Node name = s.getNamedItem("name");
-						
+						Node name = s.getNamedItem("name");						
 						modelWords.add(name.getTextContent());
 						modelWordsLenght.add((double) name.getTextContent().length());				
 						Nofcharater= Nofcharater + name.getTextContent().length(); 
