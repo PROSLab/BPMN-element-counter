@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_0rlbsti" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="8.7.1">
+  <bpmn:process id="Process_0ryt5zs" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_10l0xy7" />
+    <bpmn:intermediateCatchEvent id="Event_1733pa5">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_05hzqa4" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="Event_0qt5huj" />
+    <bpmn:startEvent id="Event_1drqouz">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0768u2l" />
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Event_0ftk8jp">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0cmejms" />
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Event_0q2tldr">
+      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1yep4kp">
+        <bpmn:condition xsi:type="bpmn:tFormalExpression" />
+      </bpmn:conditionalEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:startEvent id="Event_1iovnp9">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1jn1l5p" />
+    </bpmn:startEvent>
+    <bpmn:intermediateThrowEvent id="Event_0l1871b" />
+    <bpmn:endEvent id="Event_17212tq">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1yxitif" />
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_12fsl20">
+      <bpmn:escalationEventDefinition id="EscalationEventDefinition_11lrgtq" />
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_01sg8hs">
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0qeeayj" />
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_1yd07tm">
+      <bpmn:compensateEventDefinition id="CompensateEventDefinition_1idjz20" />
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_0dlkf6u">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_0k7cmbt" />
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_194odch">
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_09jzvkm" />
+    </bpmn:endEvent>
+    <bpmn:intermediateThrowEvent id="Event_1fln9pl">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_16ngov2" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateCatchEvent id="Event_0ooe0e9">
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0gqii0v" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateThrowEvent id="Event_1vpogcu">
+      <bpmn:escalationEventDefinition id="EscalationEventDefinition_0bpeqe3" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateCatchEvent id="Event_1odod5m">
+      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_0wdhuwo">
+        <bpmn:condition xsi:type="bpmn:tFormalExpression" />
+      </bpmn:conditionalEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Event_0czs3gi">
+      <bpmn:linkEventDefinition id="LinkEventDefinition_0yh8ytb" name="" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateThrowEvent id="Event_0e1e9vn">
+      <bpmn:linkEventDefinition id="LinkEventDefinition_08ljf53" name="" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateThrowEvent id="Event_1xzxyct">
+      <bpmn:compensateEventDefinition id="CompensateEventDefinition_1io2zky" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateCatchEvent id="Event_1e42wfz">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_08ob0c2" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateThrowEvent id="Event_19wfxmo">
+      <bpmn:signalEventDefinition id="SignalEventDefinition_0hkze08" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:group id="Group_1afn9fu" categoryValueRef="CategoryValue_18brrto" />
+  </bpmn:process>
+  <bpmn:category id="Category_02lmmbj">
+    <bpmn:categoryValue id="CategoryValue_18brrto" />
+  </bpmn:category>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0ryt5zs">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_10l0xy7">
+        <dc:Bounds x="156" y="81" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_09vfemc_di" bpmnElement="Event_0ftk8jp">
+        <dc:Bounds x="472" y="62" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0mtbcyb_di" bpmnElement="Event_0q2tldr">
+        <dc:Bounds x="392" y="52" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_07no3j4_di" bpmnElement="Event_1iovnp9">
+        <dc:Bounds x="272" y="42" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1lpkbia_di" bpmnElement="Event_1drqouz">
+        <dc:Bounds x="332" y="52" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01s9um9_di" bpmnElement="Event_1733pa5">
+        <dc:Bounds x="252" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0qt5huj_di" bpmnElement="Event_0qt5huj">
+        <dc:Bounds x="242" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0hmkvdh_di" bpmnElement="Event_0l1871b">
+        <dc:Bounds x="192" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1k5vr9g_di" bpmnElement="Event_17212tq">
+        <dc:Bounds x="292" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0k5edka_di" bpmnElement="Event_12fsl20">
+        <dc:Bounds x="342" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1q4178u_di" bpmnElement="Event_01sg8hs">
+        <dc:Bounds x="392" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14u6hw2_di" bpmnElement="Event_1yd07tm">
+        <dc:Bounds x="442" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0uvxa3f_di" bpmnElement="Event_0dlkf6u">
+        <dc:Bounds x="502" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1526dvd_di" bpmnElement="Event_194odch">
+        <dc:Bounds x="572" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0srzm16_di" bpmnElement="Event_1fln9pl">
+        <dc:Bounds x="312" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0z804zi_di" bpmnElement="Event_0ooe0e9">
+        <dc:Bounds x="372" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1nozg0v_di" bpmnElement="Event_1vpogcu">
+        <dc:Bounds x="422" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ifnwwe_di" bpmnElement="Event_1odod5m">
+        <dc:Bounds x="472" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0j7d1uj_di" bpmnElement="Event_0czs3gi">
+        <dc:Bounds x="522" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ddvybc_di" bpmnElement="Event_0e1e9vn">
+        <dc:Bounds x="572" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_061wdzr_di" bpmnElement="Event_1xzxyct">
+        <dc:Bounds x="642" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lzhi2x_di" bpmnElement="Event_1e42wfz">
+        <dc:Bounds x="712" y="332" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1o1e8kq_di" bpmnElement="Event_19wfxmo">
+        <dc:Bounds x="772" y="322" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Group_1afn9fu_di" bpmnElement="Group_1afn9fu">
+        <dc:Bounds x="990" y="90" width="300" height="300" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
