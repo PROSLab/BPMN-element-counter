@@ -47,28 +47,15 @@ public class MyResource {
 			@FormDataParam("model") FormDataContentDisposition fileDetail ) throws Exception{
 		
 			  String xmlString = IOUtils.toString(uploadedInputStream, StandardCharsets.UTF_8.name());
-
-			  //String xmlString = new String(request, StandardCharsets.UTF_8);
 			  
-			  //ElementCounter.countElements(xmlString);
-			  
-			  System.out.println("Received this: "+xmlString);
-			  
-			  String resultingCsv = ElementCounter.countElements(xmlString);
-			  
-			  System.out.println("Produced this: "+resultingCsv);
-			  
-		      // set file (and path) to be download
-			  
+			  String resultingCsv = ElementCounter.countElements(xmlString);			  
 			  
 		      File file = new File("filename.csv");
 		      try {
 		          FileWriter myWriter = new FileWriter("filename.csv",false);
 		          myWriter.write(resultingCsv);
 		          myWriter.close();
-		          System.out.println("Successfully wrote to the file.");
 		        } catch (IOException e) {
-		          System.out.println("An error occurred.");
 		          e.printStackTrace();
 		        }
 		 
