@@ -69,7 +69,10 @@ public class ElementCounter {
 					
 					String path = folderString+"/bpmn_labels.csv";		
 					//If the file already exist, it is overwrited
-					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),StandardCharsets.UTF_8));	
+					//BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path)));	
+					
+					BufferedWriter bw = new BufferedWriter
+						    (new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
 					
 					//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
 					bw.write("fileName;");
