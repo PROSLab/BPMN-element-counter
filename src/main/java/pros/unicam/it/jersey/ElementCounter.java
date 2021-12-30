@@ -1,10 +1,8 @@
 package pros.unicam.it.jersey;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -56,229 +54,235 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;    
 
-public class XPathParserDemoGithub {
+public class ElementCounter {
 
-	private static boolean TextAnalysis = true;
+	//private static boolean TextAnalysis = true;
 
-	public static void main(String[] args) {
+	public static void countElements(File originalFile) {
 
 		 System.out.println("=========== :: BPMN-Metrics-Extractor :: ===========");
 		 System.out.println("\nSelect the folder of BPMN models to be analysed: ");
+		 String folderString = originalFile.getParent().toString();
+		 System.out.println("folderString: "+folderString);
+		 //if(TextAnalysis = true) {
+				try {				
+					
+					String path = folderString+"/bpmn_labels.csv";		
+					//If the file already exist, it is overwrited
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),StandardCharsets.UTF_8));	
+					
+					//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
+					bw.write("fileName;");
+					bw.write("is English;");
+					bw.write("Words;"); 
+					bw.write("Total number of words;"); 
+					bw.write("Total number of characters;"); 
+					bw.write("average;"); 
+					bw.write("median;"); 
+					bw.write("mode;"); 
+					bw.write("variance");
+					bw.write("\n");  
 
-			 if(TextAnalysis = true) {
+				/*JFileChooser f = new JFileChooser();		
+				f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				f.showSaveDialog(null);
+
+				File file = f.getSelectedFile();				
+				File folder = new File(folderString);
+				File[] listOfFiles = folder.listFiles();
+				for (int x = 0; x < listOfFiles.length; x++) {*/
+									
 					try {
-						
-						String path = "./bpmn_label_stats.csv";		
-						//If the file already exist, it is overwrited
-						BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),StandardCharsets.UTF_8));	
-						
-						//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
-						bw.write("fileName;");
-						bw.write("Words;"); 
-						bw.write("\n");  
-
-						String folderPath = "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\Crawler_Models";
-
-						String filePath= "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\GITHUBDEFINITIVO.csv";
-						BufferedReader br = new BufferedReader(new FileReader(filePath));
-						String line;
-						int x=-1;
-						BufferedWriter writer = new BufferedWriter(new FileWriter("check"));
-						while ((line = br.readLine()) != null) {
-						x++;
-						//System.out.println(x+" "+line);
-
-					    writer.write(x+" "+line);
 					
-						try {
-						
-						boolean isEnglish=false;
-						String fileName;
-						int Nofwords = 0;
-						int Nofcharater = 0;
-						double Media;
-						double Mediana;
-						double Moda;
-						double Varianza;
-						/* 1. Healthcare, 2. Environmental, 3. Commercial, 4. Industrial, 5. General Aspects, 6. Undefined */
-						//Set BPMN models name
-						fileName= line;
-						
-						System.out.println(fileName);						//Read bpmn models
-						File xmlFile = new File(folderPath+"/"+fileName);
+					boolean isEnglish=false;
+					String fileName;
+					int Nofwords = 0;
+					int Nofcharater = 0;
+					double average;
+					double median;
+					double mode;
+					double variance;
+					/* 1. Healthcare, 2. Environmental, 3. Commercial, 4. Industrial, 5. General Aspects, 6. Undefined */
+					//Set BPMN models name
+					fileName= originalFile.getName();
+					if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
 
-						String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
-						
-						xml = xml.replaceAll("&#10;", "");	
-						xml = xml.replaceAll(";&#10;", "");	
-						xml = xml.replaceAll("&#13;", "");	
-						xml = xml.replaceAll(";&#13;", "");
-						xml = xml.replaceAll("xA","");
-						
-						DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-						domFactory.setNamespaceAware(true);
-						DocumentBuilder builder = domFactory.newDocumentBuilder();
-						Document doc = builder.parse(new InputSource(new StringReader(xml)));
-						XPath xpath = XPathFactory.newInstance().newXPath();
-						xpath.setNamespaceContext(new NamespaceContext() {
+					/*if(SystemUtils.IS_OS_WINDOWS) {
+						//System.out.println(folderString+"\\"+fileName);
+						if(!(folderString+"\\"+fileName).contains(".bpmn"))continue;
+					}else {
+						//System.out.println(folderString+"/"+fileName);
+						if(!(folderString+"/"+fileName).contains(".bpmn"))continue;
+					}*/
+					//Read bpmn models
+					File xmlFile = new File(folderString+"/"+fileName);
 
-							@Override
-							public Iterator getPrefixes(String arg0) {
-								return null;
-							}
-
-							@Override
-							public String getPrefix(String arg0) {
-								return null;
-							}
-
-							@Override
-							public String getNamespaceURI(String arg0) {
-								if("bpmn".equals(arg0)) {
-									return "http://www.omg.org/spec/BPMN/20100524/MODEL";
-								}
-								return null;
-							}
-						});
-
-						//[TODO: Language]
-						// TRUE if model has labels in english
-//						XPathFactory xPathfactory = XPathFactory.newInstance();
-//						XPath xpathLang = xPathfactory.newXPath();
-//						XPathExpression expr = xpathLang.compile("//@name");
-//						Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
-//						NodeList nodesModelWords = (NodeList) resultModelWords;
-						
-						XPathFactory xPathfactory = XPathFactory.newInstance();
-						XPath xpathLang = xPathfactory.newXPath();
-						XPathExpression expr = xpathLang.compile("//*[@name]");
-						Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
-						NodeList nodesModelWords = (NodeList) resultModelWords;
-						
-						
-						ArrayList<String> modelWords = new ArrayList<String>();   
-						Vector<Double> modelWordsLenght = new Vector<Double>();  
-						
-						// PER VERIFICA NODI STRANI
-						//System.out.println(nodesModelWords.item(x).toString());
-						
-						for(int a=0; a<nodesModelWords.getLength(); a++) {
-							
-							//AGGIUNGERE QUA I NODI DA ELIMINARE
-							if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
-								      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
-									  nodesModelWords.item(a).toString().contains("semantic:globalUserTask") ||
-									  nodesModelWords.item(a).toString().contains("dc:Font") ||
-									  nodesModelWords.item(a).toString().contains("bpmn2:definitions") ||
-									  nodesModelWords.item(a).toString().contains("bpmndi:BPMNDiagram") ||
-									  nodesModelWords.item(a).toString().contains("ixbpmn:customDataValue") ||
-									  nodesModelWords.item(a).toString().contains("signal:")	||
-									  nodesModelWords.item(a).toString().contains("error:")		)
-								continue;
-						
-							NamedNodeMap s = nodesModelWords.item(a).getAttributes();
-							Node name = s.getNamedItem("name");							
-							modelWords.add(name.getTextContent());
-							modelWordsLenght.add((double) name.getTextContent().length());				
-							Nofcharater= Nofcharater + name.getTextContent().length(); 
-							
-						}
-						
-						if(modelWords.isEmpty()) {
-							isEnglish=false;				
-						}
-						
-						for(int a=0; a<nodesModelWords.getLength(); a++) {
-								modelWords.add(nodesModelWords.item(a).getTextContent());
-							
-							modelWordsLenght.add((double) nodesModelWords.item(a).getTextContent().length());				
-							Nofcharater= Nofcharater + nodesModelWords.item(a).getTextContent().length();   				
-							//wordsLenght.
-						}
-						
-					 Nofwords =	nodesModelWords.getLength();
-					 Media = Nofcharater/Nofwords;
-					 
-					 Collections.sort(modelWordsLenght);
-					 //System.out.println(modelWordsLenght);
-					 
-					 int middle = modelWordsLenght.size()/2;		 		 		 		
-					 
-					    if (modelWordsLenght.size()%2 == 1) {
-					    	Mediana = modelWordsLenght.elementAt(middle);
-					    	
-					    } else {
-					    	Mediana = (modelWordsLenght.elementAt(middle) + (modelWordsLenght.elementAt(middle-1)) )/2;
-					    	
-					    }
-					    
-					    HashMap<Double,Integer> hm = new HashMap<Double,Integer>();
-					    int max  = 1;
-					    Double temp = 0.0;
-
-					    for(int i = 0; i < modelWordsLenght.size(); i++) {
-
-					        if (hm.get(modelWordsLenght.elementAt(i)) != null) {
-
-					            int count = hm.get(modelWordsLenght.elementAt(i));
-					            count++;
-					            hm.put(modelWordsLenght.elementAt(i), count);
-
-					            if(count > max) {
-					                max  = count;
-					                temp = modelWordsLenght.elementAt(i);
-					            }
-					        }
-
-					        else 
-					            hm.put(modelWordsLenght.elementAt(i),1);
-					    }
-					    		
-							
-					Moda = temp;
-
-				        double tempVar = 0;	        
-				        for(int i = 0; i < modelWordsLenght.size(); i++) {
-				        	tempVar += Math.pow(modelWordsLenght.elementAt(i)-Media, 2);
-				        	}	    
-				        
-				        Varianza = tempVar/modelWordsLenght.size();				
-						
-						bw.write(fileName+";");		
-						bw.write(modelWords.toString()+"\n");
+					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
 					
+					xml = xml.replaceAll("&#10;", "");	
+					xml = xml.replaceAll(";&#10;", "");	
+					xml = xml.replaceAll("&#13;", "");	
+					xml = xml.replaceAll(";&#13;", "");
+					xml = xml.replaceAll("xA","");
+					
+					DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+					domFactory.setNamespaceAware(true);
+					DocumentBuilder builder = domFactory.newDocumentBuilder();
+					Document doc = builder.parse(new InputSource(new StringReader(xml)));
+					XPath xpath = XPathFactory.newInstance().newXPath();
+					xpath.setNamespaceContext(new NamespaceContext() {
 
-					//System.out.println(fileName+" "+modelWords.toString()+" "+Nofwords+" "+Nofcharater+" "+Media+" "+Mediana+" "+Moda+" "+Varianza);
+						@Override
+						public Iterator getPrefixes(String arg0) {
+							return null;
+						}
 
-						} catch (Exception e) {
-							
-							
-					    }
+						@Override
+						public String getPrefix(String arg0) {
+							return null;
+						}
+
+						@Override
+						public String getNamespaceURI(String arg0) {
+							if("bpmn".equals(arg0)) {
+								return "http://www.omg.org/spec/BPMN/20100524/MODEL";
+							}
+							return null;
+						}
+					});
+
+					//[TODO: Language]
+					// TRUE if model has labels in english
+//					XPathFactory xPathfactory = XPathFactory.newInstance();
+//					XPath xpathLang = xPathfactory.newXPath();
+//					XPathExpression expr = xpathLang.compile("//@name");
+//					Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
+//					NodeList nodesModelWords = (NodeList) resultModelWords;
+					
+					XPathFactory xPathfactory = XPathFactory.newInstance();
+					XPath xpathLang = xPathfactory.newXPath();
+					XPathExpression expr = xpathLang.compile("//*[@name]");
+					Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
+					NodeList nodesModelWords = (NodeList) resultModelWords;
+					
+					
+					ArrayList<String> modelWords = new ArrayList<String>();   
+					Vector<Double> modelWordsLenght = new Vector<Double>();  
+					
+					
+					for(int a=0; a<nodesModelWords.getLength(); a++) {
 						
-						bw.flush();
+						System.out.println(nodesModelWords.item(a).toString());
+						//AGGIUNGERE QUA I NODI DA ELIMINARE
+						if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
+							      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
+								  nodesModelWords.item(a).toString().contains("semantic:globalUserTask") ||
+								  nodesModelWords.item(a).toString().contains("dc:Font") ||
+								  nodesModelWords.item(a).toString().contains("bpmn2:definitions") ||
+								  nodesModelWords.item(a).toString().contains("bpmndi:BPMNDiagram") ||
+								  nodesModelWords.item(a).toString().contains("ixbpmn:customDataValue") ||
+								  nodesModelWords.item(a).toString().contains("signal:")	||
+								  nodesModelWords.item(a).toString().contains("error:")		)
+							continue;
+					
+						NamedNodeMap s = nodesModelWords.item(a).getAttributes();
+						Node name = s.getNamedItem("name");						
+						modelWords.add(name.getTextContent());
+						modelWordsLenght.add((double) name.getTextContent().length());				
+						Nofcharater= Nofcharater + name.getTextContent().length(); 
 						
 					}
 					
-					bw.close();
 					
-					} catch (Exception e) {
-				        System.out.println("Exception: "+e.getMessage());
-				        //writer.write(fileEntry.getName()+","+"invalid"+", "+e.getMessage().replace(",", "-")+"\n");            
-				        //writer.write(fileEntry.getName()+","+"invalid"+", "+exp+"\n"); 
-						return;
-
+					if(modelWords.isEmpty()) {
+						isEnglish=false;				
+					}
+					
+				 Nofwords =	nodesModelWords.getLength();
+				 average = Nofcharater/Nofwords;				 
+				 Collections.sort(modelWordsLenght);
+				 
+				 int middle = modelWordsLenght.size()/2;		 		 		 		
+				 
+				    if (modelWordsLenght.size()%2 == 1) {
+				    	median = modelWordsLenght.elementAt(middle);
+				    	
+				    } else {
+				    	median = (modelWordsLenght.elementAt(middle) + (modelWordsLenght.elementAt(middle-1)) )/2;
+				    	
 				    }
+				    
+				    HashMap<Double,Integer> hm = new HashMap<Double,Integer>();
+				    int max  = 1;
+				    Double temp = 0.0;
+
+				    for(int i = 0; i < modelWordsLenght.size(); i++) {
+
+				        if (hm.get(modelWordsLenght.elementAt(i)) != null) {
+
+				            int count = hm.get(modelWordsLenght.elementAt(i));
+				            count++;
+				            hm.put(modelWordsLenght.elementAt(i), count);
+
+				            if(count > max) {
+				                max  = count;
+				                temp = modelWordsLenght.elementAt(i);
+				            }
+				        }
+
+				        else 
+				            hm.put(modelWordsLenght.elementAt(i),1);
+				    }
+				    		
+						
+				mode = temp;
+
+			        double tempVar = 0;	        
+			        for(int i = 0; i < modelWordsLenght.size(); i++) {
+			        	tempVar += Math.pow(modelWordsLenght.elementAt(i)-average, 2);
+			        	}	    
+			        
+				variance = tempVar/modelWordsLenght.size();				
 				
+				bw.write(fileName+";");
+				bw.write(isEnglish+";");		
+				bw.write(modelWords.toString()+";");
+				bw.write(Nofwords+";");		
+				bw.write(Nofcharater+";");
+				bw.write(average+";");
+				bw.write(median+";");
+				bw.write(mode+";");
+				bw.write(variance+"\n");
+				
+				//System.out.println(fileName+" "+modelWords.toString()+" "+Nofwords+" "+Nofcharater+" "+average+" "+median+" "+mode+" "+variance);
 
-					System.out.println("Analysis DONE");
-				}
-			 
-			 else {
-			 
+					} catch (Exception e) {
+						
+						
+				    }
+					
+					bw.flush();
+					
+				//}
+				
+				bw.close();
+				
+				} catch (Exception e) {
+			        System.out.println("Exception: "+e.getMessage());
+			        //writer.write(fileEntry.getName()+","+"invalid"+", "+e.getMessage().replace(",", "-")+"\n");            
+			        //writer.write(fileEntry.getName()+","+"invalid"+", "+exp+"\n"); 
+					return;
 
+			    }			
+
+				System.out.println("Analysis DONE");
+		//	}
+		 
+		// else {
+		 
 		try {
-			
-			String path = "./bpmn_stats.csv";		
+			String path = folderString+"/bpmn_elements.csv";	
+			System.out.println("path: "+path);
 			//If the file already exist, it is overwrited
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),false));			
 			bw.write("fileName,");
@@ -557,23 +561,24 @@ public class XPathParserDemoGithub {
 			bw.write("File Size"); 
 			bw.write("\n"); 
 
-			
+
 			// File's cycle of the testmodels folder
 
+			/*
+			JFileChooser f = new JFileChooser();		
+			f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			f.showSaveDialog(null);
 
-			String folderPath = "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\Crawler_Models";
+			File file = f.getSelectedFile();
+			folderString = file.getAbsolutePath().toString();
 
-			String filePath= "C:\\Users\\User\\Desktop\\bpmnfiles\\Github_bpmn_files\\GITHUBDEFINITIVO.csv";
-			BufferedReader br = new BufferedReader(new FileReader(filePath));
-			String line;
-			int x=-1;
-			BufferedWriter writer = new BufferedWriter(new FileWriter("check"));
-			while ((line = br.readLine()) != null) {
+			File folder = new File(folderString);
+
+			File[] listOfFiles = folder.listFiles();
+					
+			for (int x = 0; x < listOfFiles.length; x++) {*/
+			
 				try {
-			x++;
-			//System.out.println(x+" "+line);
-
-		    writer.write(x+" "+line);
 				
 				long StartingtimeMillis = System.currentTimeMillis();
 				//Defining global variables
@@ -882,14 +887,16 @@ public class XPathParserDemoGithub {
 				int nExtensionElement=0;
 				int FileSize=0;
 				//Set BPMN models name
-				fileName= line;
-				
-				
-				//Read bpmn models
-				File xmlFile = new File(folderPath+"/"+line);
-				FileSize = (int) xmlFile.length();
-				String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
-				
+				fileName= originalFile.getName();
+				if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
+					
+					//Read bpmn models
+					File xmlFile = new File(folderString+"/"+fileName);
+					
+					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
+					
+					FileSize = (int) xmlFile.length();
+					
 //					if(xml.isEmpty())
 //						break;
 					DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
@@ -3947,7 +3954,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 //				NodeList nodesEX = (NodeList) resultEX;
 //				doc.getDocumentElement().normalize();  
 //				nExtensionElement = nodesEX.getLength();   
-//				
+				
 				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationLink)>0) 
 				modelType = "Conversation";
 				
@@ -4532,13 +4539,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(nGroup+",");
 				bw.write(nTextAnnotation+",");
 				bw.write(ExecutionTime+",");      
-				bw.write(TotalElements+",");				
+				bw.write(TotalElements+",");	
 				bw.write(FileSize+"\n");
+				 
 				} catch (Exception e) {
 								
-					continue;
+					return;
 				}
-			}
+			//}
 			
 			bw.flush();
 			bw.close();
@@ -4547,8 +4555,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 			return;
 		}
-	 }	
 		
+	//}
 		System.out.println("\n=========== :: Analysis succesfully DONE. The .txt file is ready :: ===========");
 
 	}
