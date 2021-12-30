@@ -9,7 +9,7 @@
 	<h1> BPMN Element Counter</h1>
 	<div class = "separate"></div>
 	<div class="wrapper">	
-		<form action="api/counter/fileUpload" method="post" enctype="multipart/form-data">
+		<form action="webapi/counter/fileUpload" method="post" enctype="multipart/form-data">
 	  			<div class="file-upload">
 	    			<input type="file" name="model"/>
 	   				<i class="fa fa-arrow-up"></i>

@@ -4702,9 +4702,17 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			        	tempVar += Math.pow(modelWordsLenght.elementAt(i)-average, 2);
 			        	}	    
 			        
-				variance = tempVar/modelWordsLenght.size();				
+				variance = tempVar/modelWordsLenght.size();
 				
-				resultingCSV+="uploadedModel"+","+isEnglish+","+modelWords.toString()+","+Nofwords+","+Nofcharater+","+average+","+median+","+mode+","+variance+",";
+				String wordList="";
+				for(int i=0; i<modelWords.size();i++) {
+					wordList+=modelWords.get(i).replace(",", " ")+"^";
+					
+				}
+				
+				
+				
+				resultingCSV+="uploadedModel"+","+isEnglish+","+wordList+","+Nofwords+","+Nofcharater+","+average+","+median+","+mode+","+variance+",";
 				
 				//System.out.println(fileName+" "+modelWords.toString()+" "+Nofwords+" "+Nofcharater+" "+average+" "+median+" "+mode+" "+variance);
 

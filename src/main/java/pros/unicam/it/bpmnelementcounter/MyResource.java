@@ -42,7 +42,7 @@ public class MyResource {
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
-    public byte[] elementCounter( 
+    public Response elementCounter( 
 			@FormDataParam("model") InputStream uploadedInputStream,
 			@FormDataParam("model") FormDataContentDisposition fileDetail ) throws Exception{
 		
@@ -74,8 +74,8 @@ public class MyResource {
 		 
 		      ResponseBuilder responseBuilder = Response.ok((Object) file);
 		      responseBuilder.header("Content-Disposition", "attachment; filename=\"bpmn_stats.csv\"");
-		      //return responseBuilder.build();
-			return null;
+		     return responseBuilder.build();
+
 	
     }
     
