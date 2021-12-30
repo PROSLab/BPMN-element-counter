@@ -1,4 +1,4 @@
-package pros.unicam.it.jersey;
+package pros.unicam.it.bpmnelementcounter;
 
 import org.w3c.dom.*;
 import org.xml.sax.*;
