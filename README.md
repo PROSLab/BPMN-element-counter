@@ -6,4 +6,4 @@ A Java application to count BPMN elements from a .bpmn file
 
 # How to use it:
 
-- Run BPMN
+- run "java -jar BPMN-Element-Counter.jar" to use the pre-built 
