@@ -175,7 +175,7 @@ public class ElementCounter {
 					
 					for(int a=0; a<nodesModelWords.getLength(); a++) {
 						
-						System.out.println(nodesModelWords.item(a).toString());
+						//System.out.println(nodesModelWords.item(a).toString());
 						//AGGIUNGERE QUA I NODI DA ELIMINARE
 						if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
 							      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
@@ -278,14 +278,14 @@ public class ElementCounter {
 
 			    }			
 
-				System.out.println("Analysis DONE");
+				//System.out.println("Analysis DONE");
 		//	}
 		 
 		// else {
 		 
 		try {
 			String path = folderString+"/bpmn_elements.csv";	
-			System.out.println("path: "+path);
+			//System.out.println("path: "+path);
 			//If the file already exist, it is overwrited
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),false));			
 			bw.write("fileName,");
