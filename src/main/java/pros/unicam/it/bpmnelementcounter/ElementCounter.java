@@ -1,14 +1,9 @@
 package pros.unicam.it.bpmnelementcounter;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.StringReader;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -16,43 +11,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Vector;
-import java.util.concurrent.TimeUnit;
-
-import javax.swing.JFileChooser;
-import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.*;
-import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import javax.xml.xpath.*;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import me.tongfei.progressbar.ProgressBar;
-import me.tongfei.progressbar.ProgressBarBuilder;
-import me.tongfei.progressbar.ProgressBarStyle;
-import me.tongfei.progressbar.*;
-
-import org.apache.commons.lang3.SystemUtils;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.Cell;  
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.IndexedColors;    
+   
 
 public class ElementCounter {
 
@@ -108,7 +76,7 @@ public class ElementCounter {
 					/* 1. Healthcare, 2. Environmental, 3. Commercial, 4. Industrial, 5. General Aspects, 6. Undefined */
 					//Set BPMN models name
 					fileName= originalFile.getName();
-					if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
+					/*if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
 
 					/*if(SystemUtils.IS_OS_WINDOWS) {
 						//System.out.println(folderString+"\\"+fileName);
@@ -287,7 +255,8 @@ public class ElementCounter {
 			String path = folderString+"/bpmn_elements.csv";	
 			//System.out.println("path: "+path);
 			//If the file already exist, it is overwrited
-			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path),false));			
+			
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));				    
 			bw.write("fileName,");
 			bw.write("bpmnModeler,");
 			bw.write("modelType,");
