@@ -2559,7 +2559,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 								+ nTaskScriptLoopMIParallelCompensate + nTaskScriptLoopMISequentialCompensateNone
 								+ nTaskScriptLoopMISequentialCompensate + nTaskScriptLoopMIParallelCompensateNone
 								+ nTaskScriptLoopStandardCompensate);
-
+				
 				//[TODO ARTIFACTS]
 				//[TODO TEXT ANNOTATION]
 				//Text Annotation
@@ -3882,6 +3882,35 @@ SUBPROCESS Collapsed EVENT + ADHOC
 //				doc.getDocumentElement().normalize();  
 //				nExtensionElement = nodesEX.getLength();   
 				
+				XPathFactory xPathfactory = XPathFactory.newInstance();
+				XPath xpathLang = xPathfactory.newXPath();
+				XPathExpression expr = xpathLang.compile("//*[@name]");
+				Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesModelWords = (NodeList) resultModelWords;										
+				ArrayList<String> modelWords = new ArrayList<String>();   
+				Vector<Double> modelWordsLenght = new Vector<Double>();  					
+				
+				for(int a=0; a<nodesModelWords.getLength(); a++) {
+					
+					//System.out.println(nodesModelWords.item(a).toString());
+					//AGGIUNGERE QUA I NODI DA ELIMINARE
+					if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
+						      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
+							  nodesModelWords.item(a).toString().contains("semantic:globalUserTask") ||
+							  nodesModelWords.item(a).toString().contains("dc:Font") ||
+							  nodesModelWords.item(a).toString().contains("bpmn2:definitions") ||
+							  nodesModelWords.item(a).toString().contains("bpmndi:BPMNDiagram") ||
+							  nodesModelWords.item(a).toString().contains("ixbpmn:customDataValue") ||
+							  nodesModelWords.item(a).toString().contains("signal:")	||
+							  nodesModelWords.item(a).toString().contains("error:")		)
+						continue;
+				
+					NamedNodeMap s = nodesModelWords.item(a).getAttributes();
+					Node name = s.getNamedItem("name");						
+					modelWords.add(name.getTextContent());
+					modelWordsLenght.add((double) name.getTextContent().length());									
+				}
+				
 				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationLink)>0) 
 				modelType = "Conversation";
 				
@@ -4733,7 +4762,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(TotalElements+";");	
 				bw.write(PracticalComplexity+";");	
 				bw.write(FileSize+";");
-				bw.write(DuplicateString+FileSize+"\n");
+				bw.write(DuplicateString+FileSize+modelWords.toString()+"\n");
 				 
 				} catch (Exception e) {
 								
