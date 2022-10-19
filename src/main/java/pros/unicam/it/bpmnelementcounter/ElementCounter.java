@@ -14,6 +14,9 @@ import java.util.Vector;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.*;
 import javax.xml.xpath.*;
+
+import org.bridj.util.Pair;
+import org.javatuples.Triplet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -4493,7 +4496,13 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				long EndingtimeMillis = System.currentTimeMillis();
 				
 				double ExecutionTime = (EndingtimeMillis - StartingtimeMillis);
-
+				
+				//Duplicate finding
+				
+				Triplet<Integer, String, String> ModelNameAndString  = new Triplet<Integer, String, String>(Integer.valueOf(1),fileName,DuplicateString+FileSize+modelWords.toString());				
+				ModelNameAndString.add(fileName,DuplicateString+FileSize+modelWords.toString());
+				System.out.println(ModelNameAndString);
+				
 				//inserting data        
 				bw.write(fileName+";");
 				bw.write(bpmnModeler+";");
