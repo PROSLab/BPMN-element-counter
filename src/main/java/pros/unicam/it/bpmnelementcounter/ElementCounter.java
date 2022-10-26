@@ -519,7 +519,7 @@ public class ElementCounter {
 			bw.write("Model's Execution Time;");
 			bw.write("TotalElements;"); 
 			bw.write("Practical Complexity;"); 
-			bw.write("File Size;");			
+			bw.write("File Size (Kb);");			
 			bw.write("Duplicate String;"); 			
 			bw.write("\n"); 
 
