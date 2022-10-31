@@ -36,208 +36,7 @@ public class ElementCounter {
 		 System.out.println("\nSelect the folder of BPMN models to be analysed: ");
 		 String folderString = originalFile.getParent().toString();
 		 System.out.println("folderString: "+folderString);
-		 //if(TextAnalysis = true) {
-				try {				
-					
-					String path = folderString+"/bpmn_labels.csv";		
-					//If the file already exist, it is overwrited
-					//BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path)));	
-					
-					BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
-					
-					//creating cell by using the createCell() method and setting the values to the cell by using the setCellValue() method  
-					bw.write("fileName;");
-					bw.write("is English;");
-					bw.write("Words;"); 
-					bw.write("Total number of words;"); 
-					bw.write("Total number of characters;"); 
-					bw.write("average;"); 
-					bw.write("median;"); 
-					bw.write("mode;"); 
-					bw.write("variance");
-					bw.write("\n");  
-
-				/*JFileChooser f = new JFileChooser();		
-				f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				f.showSaveDialog(null);
-				
-					
-				File file = f.getSelectedFile();				
-				File folder = new File(folderString);
-				File[] listOfFiles = folder.listFiles();
-				
-				for (int x = 0; x < listOfFiles.length; x++) {*/
-									
-					try {					
-					boolean isEnglish=false;
-					String fileName;
-					int Nofwords = 0;
-					int Nofcharater = 0;
-					double average;
-					double median;
-					double mode;
-					double variance;
-					
-					//Set BPMN models name
-					fileName= originalFile.getName();
-					/*if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
-
-					/*if(SystemUtils.IS_OS_WINDOWS) {
-						//System.out.println(folderString+"\\"+fileName);
-						if(!(folderString+"\\"+fileName).contains(".bpmn"))continue;
-					}else {
-						//System.out.println(folderString+"/"+fileName);
-						if(!(folderString+"/"+fileName).contains(".bpmn"))continue;
-					}*/
-					//Read bpmn models
-					File xmlFile = new File(folderString+"/"+fileName);
-
-					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  
-					
-					xml = xml.replaceAll("&#10;", "");	
-					xml = xml.replaceAll(";&#10;", "");	
-					xml = xml.replaceAll("&#13;", "");	
-					xml = xml.replaceAll(";&#13;", "");
-					xml = xml.replaceAll("xA","");
-					
-					DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-					domFactory.setNamespaceAware(true);
-					DocumentBuilder builder = domFactory.newDocumentBuilder();
-					Document doc = builder.parse(new InputSource(new StringReader(xml)));
-					XPath xpath = XPathFactory.newInstance().newXPath();
-					xpath.setNamespaceContext(new NamespaceContext() {
-
-						@Override
-						public Iterator getPrefixes(String arg0) {
-							return null;
-						}
-
-						@Override
-						public String getPrefix(String arg0) {
-							return null;
-						}
-
-						@Override
-						public String getNamespaceURI(String arg0) {
-							if("bpmn".equals(arg0)) {
-								return "http://www.omg.org/spec/BPMN/20100524/MODEL";
-							}
-							return null;
-						}
-					});
-					
-					XPathFactory xPathfactory = XPathFactory.newInstance();
-					XPath xpathLang = xPathfactory.newXPath();
-					XPathExpression expr = xpathLang.compile("//*[@name]");
-					Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
-					NodeList nodesModelWords = (NodeList) resultModelWords;										
-					ArrayList<String> modelWords = new ArrayList<String>();   
-					Vector<Double> modelWordsLenght = new Vector<Double>();  					
-					
-					for(int a=0; a<nodesModelWords.getLength(); a++) {
-						
-						//System.out.println(nodesModelWords.item(a).toString());
-						//AGGIUNGERE QUA I NODI DA ELIMINARE
-						if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
-							      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
-								  nodesModelWords.item(a).toString().contains("semantic:globalUserTask") ||
-								  nodesModelWords.item(a).toString().contains("dc:Font") ||
-								  nodesModelWords.item(a).toString().contains("bpmn2:definitions") ||
-								  nodesModelWords.item(a).toString().contains("bpmndi:BPMNDiagram") ||
-								  nodesModelWords.item(a).toString().contains("ixbpmn:customDataValue") ||
-								  nodesModelWords.item(a).toString().contains("signal:")	||
-								  nodesModelWords.item(a).toString().contains("error:")		)
-							continue;
-					
-						NamedNodeMap s = nodesModelWords.item(a).getAttributes();
-						Node name = s.getNamedItem("name");						
-						modelWords.add(name.getTextContent());
-						modelWordsLenght.add((double) name.getTextContent().length());				
-						Nofcharater= Nofcharater + name.getTextContent().length(); 
-						
-					}
-					
-					
-					if(modelWords.isEmpty()) {
-						isEnglish=false;				
-					}
-					
-				 Nofwords =	nodesModelWords.getLength();
-				 average = Nofcharater/Nofwords;				 
-				 Collections.sort(modelWordsLenght);
-				 
-				 int middle = modelWordsLenght.size()/2;		 		 		 		
-				 
-				    if (modelWordsLenght.size()%2 == 1) {
-				    	median = modelWordsLenght.elementAt(middle);
-				    	
-				    } else {
-				    	median = (modelWordsLenght.elementAt(middle) + (modelWordsLenght.elementAt(middle-1)) )/2;
-				    	
-				    }
-				    
-				    HashMap<Double,Integer> hm = new HashMap<Double,Integer>();
-				    int max  = 1;
-				    Double temp = 0.0;
-
-				    for(int i = 0; i < modelWordsLenght.size(); i++) {
-
-				        if (hm.get(modelWordsLenght.elementAt(i)) != null) {
-
-				            int count = hm.get(modelWordsLenght.elementAt(i));
-				            count++;
-				            hm.put(modelWordsLenght.elementAt(i), count);
-
-				            if(count > max) {
-				                max  = count;
-				                temp = modelWordsLenght.elementAt(i);
-				            }
-				        }
-
-				        else 
-				            hm.put(modelWordsLenght.elementAt(i),1);
-				    }
-				    		
-						
-				mode = temp;
-
-			        double tempVar = 0;	        
-			        for(int i = 0; i < modelWordsLenght.size(); i++) {
-			        	tempVar += Math.pow(modelWordsLenght.elementAt(i)-average, 2);
-			        	}	    
-			        
-				variance = tempVar/modelWordsLenght.size();				
-				
-				bw.write(fileName+";");
-				bw.write(isEnglish+";");		
-				bw.write(modelWords.toString()+";");
-				bw.write(Nofwords+";");		
-				bw.write(Nofcharater+";");
-				bw.write(average+";");
-				bw.write(median+";");
-				bw.write(mode+";");
-				bw.write(variance+"\n");
-				
-				//System.out.println(fileName+" "+modelWords.toString()+" "+Nofwords+" "+Nofcharater+" "+average+" "+median+" "+mode+" "+variance);
-
-					} catch (Exception e) {
-						
-						
-				    }
-					
-					bw.flush();
-					
-				//}
-				
-				bw.close();
-				
-				} catch (Exception e) {
-			        System.out.println("Exception: "+e.getMessage());
-			        //writer.write(fileEntry.getName()+","+"invalid"+", "+e.getMessage().replace(",", "-")+"\n");            
-			        //writer.write(fileEntry.getName()+","+"invalid"+", "+exp+"\n"); 
-					return;
-
-			    }					
+		 				
 		 
 		try {
 			String path = folderString+"/bpmn_elements.csv";	
@@ -520,7 +319,14 @@ public class ElementCounter {
 			bw.write("TotalElements;"); 
 			bw.write("Practical Complexity;"); 
 			bw.write("File Size (Kb);");			
-			bw.write("Duplicate String;"); 			
+			bw.write("Duplicate String;"); 	
+			bw.write("Words;"); 
+			bw.write("Total number of words;"); 
+			bw.write("Total number of characters;"); 
+			bw.write("average;"); 
+			bw.write("median;"); 
+			bw.write("mode;"); 
+			bw.write("variance");
 			bw.write("\n"); 
 
 
@@ -4238,60 +4044,60 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nTaskNoneLoopMISequentialCompensateCall+
 						nTaskSendLoopNoneCompensateNone+
 						nTaskSendLoopNoneCompensate+
-						nTaskSendLoopStandardCompensateNone+           
-						nTaskSendLoopStandardCompensate+ 
-						nTaskSendLoopMIParallelCompensateNone+ 
+						nTaskSendLoopStandardCompensateNone+
+						nTaskSendLoopStandardCompensate+
+						nTaskSendLoopMIParallelCompensateNone+
 						nTaskSendLoopMIParallelCompensate+
-						nTaskSendLoopMISequentialCompensateNone+ 
+						nTaskSendLoopMISequentialCompensateNone+
 						nTaskSendLoopMISequentialCompensate+
-						nTaskReceiveLoopNoneCompensateNone+            
-						nTaskReceiveLoopNoneCompensate+           
-						nTaskReceiveLoopStandardCompensateNone+            
-						nTaskReceiveLoopStandardCompensate+            
-						nTaskReceiveLoopMIParallelCompensateNone+                        
-						nTaskReceiveLoopMIParallelCompensate+            
-						nTaskReceiveLoopMISequentialCompensateNone+           
-						nTaskReceiveLoopMISequentialCompensate+            
-						nTaskUserLoopNoneCompensateNone+            
-						nTaskUserLoopNoneCompensate+           
-						nTaskUserLoopStandardCompensateNone+            
-						nTaskUserLoopStandardCompensate+           
-						nTaskUserLoopMIParallelCompensateNone+            
-						nTaskUserLoopMIParallelCompensate+            
-						nTaskUserLoopMISequentialCompensateNone+            
-						nTaskUserLoopMISequentialCompensate+            
-						nTaskManualLoopNoneCompensateNone+            
-						nTaskManualLoopNoneCompensate+            
-						nTaskManualLoopStandardCompensateNone+            
-						nTaskManualLoopStandardCompensate+            
-						nTaskManualLoopMIParallelCompensateNone+            
-						nTaskManualLoopMIParallelCompensate+            
-						nTaskManualLoopMISequentialCompensateNone+            
-						nTaskManualLoopMISequentialCompensate+            
-						nTaskBusinessRuleLoopNoneCompensateNone+            
-						nTaskBusinessRuleLoopNoneCompensate+            
-						nTaskBusinessRuleLoopStandardCompensateNone+            
-						nTaskBusinessRuleLoopStandardCompensate+            
-						nTaskBusinessRuleLoopMIParallelCompensateNone+           
-						nTaskBusinessRuleLoopMIParallelCompensate+            
-						nTaskBusinessRuleLoopMISequentialCompensateNone+           
-						nTaskBusinessRuleLoopMISequentialCompensate+            
-						nTaskServiceLoopNoneCompensateNone+            
-						nTaskServiceLoopNoneCompensate+            
-						nTaskServiceLoopStandardCompensateNone+            
-						nTaskServiceLoopStandardCompensate+            
-						nTaskServiceLoopMIParallelCompensateNone+            
-						nTaskServiceLoopMIParallelCompensate+            
-						nTaskServiceLoopMISequentialCompensateNone+            
-						nTaskServiceLoopMISequentialCompensate+            
-						nTaskScriptLoopNoneCompensateNone+            
-						nTaskScriptLoopNoneCompensate+           
-						nTaskScriptLoopStandardCompensateNone+            
-						nTaskScriptLoopStandardCompensate+            
-						nTaskScriptLoopMIParallelCompensateNone+            
-						nTaskScriptLoopMIParallelCompensate+            
-						nTaskScriptLoopMISequentialCompensateNone+            
-						nTaskScriptLoopMISequentialCompensate+            
+						nTaskReceiveLoopNoneCompensateNone+
+						nTaskReceiveLoopNoneCompensate+
+						nTaskReceiveLoopStandardCompensateNone+
+						nTaskReceiveLoopStandardCompensate+
+						nTaskReceiveLoopMIParallelCompensateNone+
+						nTaskReceiveLoopMIParallelCompensate+
+						nTaskReceiveLoopMISequentialCompensateNone+
+						nTaskReceiveLoopMISequentialCompensate+
+						nTaskUserLoopNoneCompensateNone+
+						nTaskUserLoopNoneCompensate+
+						nTaskUserLoopStandardCompensateNone+
+						nTaskUserLoopStandardCompensate+
+						nTaskUserLoopMIParallelCompensateNone+
+						nTaskUserLoopMIParallelCompensate+
+						nTaskUserLoopMISequentialCompensateNone+
+						nTaskUserLoopMISequentialCompensate+
+						nTaskManualLoopNoneCompensateNone+
+						nTaskManualLoopNoneCompensate+
+						nTaskManualLoopStandardCompensateNone+
+						nTaskManualLoopStandardCompensate+
+						nTaskManualLoopMIParallelCompensateNone+
+						nTaskManualLoopMIParallelCompensate+
+						nTaskManualLoopMISequentialCompensateNone+
+						nTaskManualLoopMISequentialCompensate+
+						nTaskBusinessRuleLoopNoneCompensateNone+
+						nTaskBusinessRuleLoopNoneCompensate+
+						nTaskBusinessRuleLoopStandardCompensateNone+
+						nTaskBusinessRuleLoopStandardCompensate+
+						nTaskBusinessRuleLoopMIParallelCompensateNone+
+						nTaskBusinessRuleLoopMIParallelCompensate+
+						nTaskBusinessRuleLoopMISequentialCompensateNone+
+						nTaskBusinessRuleLoopMISequentialCompensate+
+						nTaskServiceLoopNoneCompensateNone+
+						nTaskServiceLoopNoneCompensate+
+						nTaskServiceLoopStandardCompensateNone+
+						nTaskServiceLoopStandardCompensate+
+						nTaskServiceLoopMIParallelCompensateNone+
+						nTaskServiceLoopMIParallelCompensate+
+						nTaskServiceLoopMISequentialCompensateNone+
+						nTaskServiceLoopMISequentialCompensate+
+						nTaskScriptLoopNoneCompensateNone+
+						nTaskScriptLoopNoneCompensate+
+						nTaskScriptLoopStandardCompensateNone+
+						nTaskScriptLoopStandardCompensate+
+						nTaskScriptLoopMIParallelCompensateNone+
+						nTaskScriptLoopMIParallelCompensate+
+						nTaskScriptLoopMISequentialCompensateNone+
+						nTaskScriptLoopMISequentialCompensate+
 						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone+
 						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopNoneCompensate+
 						nSubProcessExtendedEventNoneAdHocNoneTransactionNoneLoopStandardCompensateNone+
@@ -4391,7 +4197,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nStartSignalEventDefinition+
 						nStartConditionalEventDefinition+
 						nStartTimerEventDefinition+
-						nStartMessageEventDefinition+
+						nStartMessageEventDefinition+			
 						nStartMessageEventSubProcessInterruptingDefinition+
 						nStartTimerEventSubProcessInterruptingDefinition+
 						nStartEscalationEventSubProcessInterruptingDefinition+
@@ -4434,7 +4240,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nIntermediateBoundaryMessageEvent+
 						nIntermediateBoundaryTimerEvent+
 						nIntermediateBoundaryCancelEvent+
-						nIntermediateBoundaryConditionalEvent+
+						nIntermediateBoundaryConditionalEvent +
 						nIntermediateBoundaryEscalationEvent+
 						nIntermediateBoundaryErrorEvent+
 						nIntermediateBoundarySignalEvent+
@@ -4452,13 +4258,12 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nSequenceFlow+
 						nDefaultFlow+
 						nConditionalFlow+
-						nLane+ 
+						nLane+
 						nPoolCollapsedMultiplicityNone+
 						nPoolCollapsedMultiplicity+
 						nPoolExpandedMultiplicityNone+
-						nPoolExpandedMultiplicity+
+						nPoolExpandedMultiplicity+       
 						nChoreographyTask+
-						nChoreographyMessage+            
 						nChoreographyTaskSequentialMultipleInstance+
 						nChoreographyTaskParallelMultipleInstance+
 						nChoreographyTaskLoop+
@@ -4473,7 +4278,10 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nChoreographySubprocessExpanded+
 						nChoreographySubprocessExpandedSequentialMultipleInstance+
 						nChoreographySubprocessExpandedParallelMultipleInstance+
-						nChoreographySubprocessExpandedLoop+      
+						nChoreographySubprocessExpandedLoop+
+						nChoreographyParticipant+
+						nChoreographyParticipantMultiple+   
+						nChoreographyMessage+
 						nConversationNone+
 						nConversationSubProcess+
 						nConversationCall+
@@ -4482,9 +4290,11 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						nAssociationUnidirectional+        
 						nAssociationBidirectional+
 						nAssociationDataOutput+
-						nAssociationDataInput+            
+						nAssociationDataInput+
 						nGroup+
 						nTextAnnotation;
+
+
 				
 				for(int s=0; s != DuplicateString.length(); s++) {
 					char temp = DuplicateString.charAt(s); 					
@@ -4503,6 +4313,121 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				ModelNameAndString.add(fileName,DuplicateString+FileSize+modelWords.toString());
 				System.out.println(ModelNameAndString);
 				
+				int Nofwords = 0;
+				int Nofcharater = 0;
+				double average;
+				double median;
+				double mode;
+				double variance;
+				
+				//Set BPMN models name
+				fileName= originalFile.getName();
+				/*if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
+
+				/*if(SystemUtils.IS_OS_WINDOWS) {
+					//System.out.println(folderString+"\\"+fileName);
+					if(!(folderString+"\\"+fileName).contains(".bpmn"))continue;
+				}else {
+					//System.out.println(folderString+"/"+fileName);
+					if(!(folderString+"/"+fileName).contains(".bpmn"))continue;
+				}*/
+			
+				
+				for(int a=0; a<nodesModelWords.getLength(); a++) {
+					
+					//System.out.println(nodesModelWords.item(a).toString());
+					//AGGIUNGERE QUA I NODI DA ELIMINARE
+					if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
+						      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
+							  nodesModelWords.item(a).toString().contains("semantic:globalUserTask") ||
+							  nodesModelWords.item(a).toString().contains("dc:Font") ||
+							  nodesModelWords.item(a).toString().contains("bpmn2:definitions") ||
+							  nodesModelWords.item(a).toString().contains("bpmndi:BPMNDiagram") ||
+							  nodesModelWords.item(a).toString().contains("ixbpmn:customDataValue") ||
+							  nodesModelWords.item(a).toString().contains("signal:")	||
+							  nodesModelWords.item(a).toString().contains("error:")		)
+						continue;
+				
+					NamedNodeMap s = nodesModelWords.item(a).getAttributes();
+					Node name = s.getNamedItem("name");						
+					modelWords.add(name.getTextContent());
+					modelWordsLenght.add((double) name.getTextContent().length());				
+					Nofcharater= Nofcharater + name.getTextContent().length(); 
+					
+				}
+				
+				
+				
+				String modelStamp = modelWords.toString();
+				
+				modelStamp = modelStamp.replaceAll("&#10;", "");	
+				modelStamp = modelStamp.replaceAll(";&#10;", "");	
+				modelStamp = modelStamp.replaceAll("&#13;", "");	
+				modelStamp = modelStamp.replaceAll(";&#13;", "");
+				modelStamp = modelStamp.replaceAll("xA","");
+				modelStamp = modelStamp.replaceAll("-","");
+				modelStamp = modelStamp.replaceAll("\n","");
+				modelStamp = modelStamp.replaceAll(" ","");
+				
+				
+				
+				
+				
+				if(modelWords.isEmpty()) {
+					isEnglish=false;				
+				}
+				
+
+				
+			 Nofwords =	nodesModelWords.getLength();
+			 average = Nofcharater/Nofwords;				 
+			 Collections.sort(modelWordsLenght);
+			 
+			 int middle = modelWordsLenght.size()/2;		 		 		 		
+			 
+			    if (modelWordsLenght.size()%2 == 1) {
+			    	median = modelWordsLenght.elementAt(middle);
+			    	
+			    } else {
+			    	median = (modelWordsLenght.elementAt(middle) + (modelWordsLenght.elementAt(middle-1)) )/2;
+			    	
+			    }
+			    
+			    HashMap<Double,Integer> hm = new HashMap<Double,Integer>();
+			    int max  = 1;
+			    Double temp = 0.0;
+
+			    for(int i = 0; i < modelWordsLenght.size(); i++) {
+
+			        if (hm.get(modelWordsLenght.elementAt(i)) != null) {
+
+			            int count = hm.get(modelWordsLenght.elementAt(i));
+			            count++;
+			            hm.put(modelWordsLenght.elementAt(i), count);
+
+			            if(count > max) {
+			                max  = count;
+			                temp = modelWordsLenght.elementAt(i);
+			            }
+			        }
+
+			        else 
+			            hm.put(modelWordsLenght.elementAt(i),1);
+			    }
+			    		
+					
+			mode = temp;
+
+		        double tempVar = 0;	        
+		        for(int i = 0; i < modelWordsLenght.size(); i++) {
+		        	tempVar += Math.pow(modelWordsLenght.elementAt(i)-average, 2);
+		        	}	    
+		        
+			variance = tempVar/modelWordsLenght.size();
+				
+			
+			
+			
 				//inserting data        
 				bw.write(fileName+";");
 				bw.write(bpmnModeler+";");
@@ -4771,7 +4696,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(TotalElements+";");	
 				bw.write(PracticalComplexity+";");	
 				bw.write(FileSize+";");
-				bw.write(DuplicateString+FileSize+modelWords.toString()+"\n");
+				bw.write(DuplicateString+FileSize+modelStamp.toString()+";");	
+				bw.write(modelStamp.toString()+";");
+				bw.write(Nofwords+";");		
+				bw.write(Nofcharater+";");
+				bw.write(average+";");
+				bw.write(median+";");
+				bw.write(mode+";");
+				bw.write(variance+"\n");
 				 
 				} catch (Exception e) {
 								
