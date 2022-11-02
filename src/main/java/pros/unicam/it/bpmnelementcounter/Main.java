@@ -3710,6 +3710,9 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					modelWordsLenght.add((double) name.getTextContent().length());									
 				}
 				
+				if(modelWords.size()==0)
+					modelWords.add("NoLabels");
+				
 				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationLink)>0) 
 				modelType = "Conversation";
 				
@@ -4607,7 +4610,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					
 				}
 				
-				
+			
 				
 				String modelStamp = modelWords.toString();
 							
@@ -4631,7 +4634,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					isEnglish=false;				
 				}
 				
-
+				if(nodesModelWords.getLength()>1) {
 				
 			 Nofwords =	nodesModelWords.getLength();
 			 average = Nofcharater/Nofwords;				 
@@ -4679,7 +4682,17 @@ SUBPROCESS Collapsed EVENT + ADHOC
 		        
 			variance = tempVar/modelWordsLenght.size();
 				
-			
+			}
+			else
+			{
+				Nofwords = 0;
+				Nofcharater = 0;
+				average = 0;
+				median = 0;
+				mode = 0;
+				variance = 0;	
+				modelWords.add("NoLabels"); 
+			}
 			
 			
 				//inserting data        
@@ -4957,24 +4970,25 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(average+";");
 				bw.write(median+";");
 				bw.write(mode+"\n");
+				
 				} catch (Exception e) {
+					
+					
 								
 				}
-			//}
-			
-						
+		
 			}
-			bw.flush();		
-			bw.close();
 			
+			bw.flush();		
+			bw.close();			
 			
 		} catch (Exception e) {
 			 System.out.println("Exception: "+e.getMessage());
+			 System.out.println("entro");
 		        //writer.write(fileEntry.getName()+","+"invalid"+", "+e.getMessage().replace(",", "-")+"\n");            
 		        //writer.write(fileEntry.getName()+","+"invalid"+", "+exp+"\n"); 
 				return;
-		}
-		
+		}		
 		
 		System.out.println("\n=========== :: Analysis succesfully DONE. The .txt file is ready :: ===========");
 	}	
