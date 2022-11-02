@@ -318,7 +318,8 @@ public class Main {
 			bw.write("Practical Complexity;"); 
 			bw.write("File Size (Kb);");			
 			bw.write("Duplicate String;"); 	
-			bw.write("Words;"); 
+			bw.write("Labels Separated by (^^^);"); 
+			bw.write("Concatenated Labels;");
 			bw.write("Total number of words;"); 
 			bw.write("Total number of characters;"); 
 			bw.write("average;"); 
@@ -4603,15 +4604,18 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						continue;
 				
 					NamedNodeMap s = nodesModelWords.item(a).getAttributes();
-					Node name = s.getNamedItem("name");						
-					modelWords.add(name.getTextContent());
-					modelWordsLenght.add((double) name.getTextContent().length());				
-					Nofcharater= Nofcharater + name.getTextContent().length(); 
+					Node name = s.getNamedItem("name");	
+					
+					if(!name.getTextContent().isEmpty() && !name.getTextContent().equals(" ") &&  !name.getTextContent().equals(null)) {
+						modelWords.add(name.getTextContent());
+						modelWordsLenght.add((double) name.getTextContent().length());				
+						Nofcharater= Nofcharater + name.getTextContent().length();
+					}
 					
 				}
 				
-			
-				
+				Collections.sort(modelWords, String.CASE_INSENSITIVE_ORDER);
+				String modelStampSeparated = String.join("^^^", modelWords);
 				String modelStamp = modelWords.toString();
 							
 				
@@ -4627,7 +4631,18 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				modelStamp = modelStamp.replaceAll(",","");	
 				modelStamp = modelStamp.replace("[","");
 				modelStamp = modelStamp.replace("]","");
-						
+				
+				modelStampSeparated = modelStampSeparated.replaceAll(" &#13;&#10;", "");	
+				modelStampSeparated = modelStampSeparated.replaceAll("&#10;", "");	
+				modelStampSeparated = modelStampSeparated.replaceAll(";&#10;", "");	
+				modelStampSeparated = modelStampSeparated.replaceAll("&#13;", "");	
+				modelStampSeparated = modelStampSeparated.replaceAll(";&#13;", "");
+				modelStampSeparated = modelStampSeparated.replaceAll("xA","");
+				modelStampSeparated = modelStampSeparated.replaceAll("-","");
+				modelStampSeparated = modelStampSeparated.replace("\n", "").replace("\r", "");
+				modelStampSeparated = modelStampSeparated.replaceAll(" ","");
+				
+				
 				//System.out.println(modelStamp);				
 				
 				if(modelWords.isEmpty()) {
@@ -4639,7 +4654,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			 Nofwords =	nodesModelWords.getLength();
 			 average = Nofcharater/Nofwords;				 
 			 Collections.sort(modelWordsLenght);
-			 
+			 			 
 			 int middle = modelWordsLenght.size()/2;		 		 		 		
 			 
 			    if (modelWordsLenght.size()%2 == 1) {
@@ -4964,6 +4979,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				bw.write(pComplexity+";");	
 				bw.write(FileSize+";");
 				bw.write(DuplicateString+FileSize+modelStamp.toString()+";");	
+				bw.write(modelStampSeparated.toString()+";");
 				bw.write(modelStamp.toString()+";");
 				bw.write(Nofwords+";");		
 				bw.write(Nofcharater+";");
