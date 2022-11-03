@@ -1,13 +1,14 @@
 # BPMN-Element-Counter
-A Python script to count BPMN elements from a .bpmn file
+A Java application to count BPMN elements from a .bpmn file
 
-# Installazione dipendenze:
-- pip3 install pandas
-- pip3 install xlrd
-- pip install xlsxwriter
+# Requirements:
+- Java 1.8 and above
 
-# How to use it:
+# How to use the Java Application:
 
-- Run with $python3 main.py path/to/bpmn/models/folder Output.csv
-- First argument is the path to models folder
-- Second argument is the output csv file name tha will be created in the script folder
+- The Main.java class, calls the method countElements within ElementCounter.java
+- Run Main.java as a Java application to execute it or export the project as a Runnable jar file then run "java -jar BPMN-Element-Counter.jar"  
+
+# How to use the Java Web Application:
+- Build the project with maven running "mvn clean install" to generate the BPMN-Element-Counter.war file
+- Deploy the web application on a Web Server such as Apache Tomcat.
