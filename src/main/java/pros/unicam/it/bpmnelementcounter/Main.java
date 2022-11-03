@@ -3724,7 +3724,9 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				Object resultModelWords = expr.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesModelWords = (NodeList) resultModelWords;										
 				ArrayList<String> modelWords = new ArrayList<String>();   
-				Vector<Double> modelWordsLenght = new Vector<Double>();  					
+				Vector<Double> modelWordsLenght = new Vector<Double>();  
+				
+				System.out.println(nodesModelWords.getLength());
 				
 				for(int a=0; a<nodesModelWords.getLength(); a++) {
 					
@@ -3744,6 +3746,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					NamedNodeMap s = nodesModelWords.item(a).getAttributes();
 					Node name = s.getNamedItem("name");						
 					modelWords.add(name.getTextContent());
+					System.out.println(name.getTextContent());
 					modelWordsLenght.add((double) name.getTextContent().length());									
 				}
 				
@@ -4624,7 +4627,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				}*/
 			
 				
-				for(int a=0; a<nodesModelWords.getLength(); a++) {
+				/*for(int a=0; a<nodesModelWords.getLength(); a++) {
 					
 					//System.out.println(nodesModelWords.item(a).toString());
 					//AGGIUNGERE QUA I NODI DA ELIMINARE
@@ -4648,7 +4651,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 						Nofcharater= Nofcharater + name.getTextContent().length();
 					}
 					
-				}
+				}*/
 				
 				Collections.sort(modelWords, String.CASE_INSENSITIVE_ORDER);
 				String modelStampSeparated = String.join("^^^", modelWords);
