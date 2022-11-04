@@ -1,7 +1,10 @@
 package pros.unicam.it.bpmnelementcounter;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
@@ -327,7 +330,8 @@ public class Main {
 			bw.write("mode;"); 
 			bw.write("\n"); 
 			
-			JFileChooser f = new JFileChooser();		
+//	If no github
+ 		    JFileChooser f = new JFileChooser();		
 			f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			f.showSaveDialog(null);
 			
@@ -338,12 +342,49 @@ public class Main {
 			File[] listOfFiles = folder.listFiles();
 					
 			for (int x = 0; x < listOfFiles.length; x++) {
-			
-				try {
+//if no github 
 				
+				
+				
+/*if github For github files stored in subfolder and which path is stored in a file
+				
+				 	
+				String folderPath = "/Users/fabriziofornari/Desktop/ANALISI SU MODELLI/Crawler_Models/";
+				String filePath= "/Users/fabriziofornari/Desktop/ANALISI SU MODELLI/GitHubPaths.csv";
+				BufferedReader br = new BufferedReader(new FileReader(filePath));
+				String line;
+				//int x=-1;
+				//BufferedWriter writer = new BufferedWriter(new FileWriter("check"));
+				while ((line = br.readLine()) != null) {
+				//System.out.println(line);
+end if github								
+*/			
+				try {
+					
+								
 				long StartingtimeMillis = System.currentTimeMillis();
 				//Defining global variables
 				String fileName;
+							
+				
+//if no GitHub				
+				fileName= listOfFiles[x].getName();
+				//if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
+						
+				//Read bpmn models
+				File xmlFile = new File(folderString+"/"+fileName);	
+// end if no github 
+				
+/*if GitHub
+				fileName= line;
+				//if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
+						
+				//Read bpmn models
+				File xmlFile = new File(folderPath+"/"+line);	
+				
+
+endif GitHub	*/			
+				
 				String bpmnModeler="Undefined";
 				boolean isEnglish=false;
 
@@ -647,12 +688,7 @@ public class Main {
 				int FileSize=0;
 				String DuplicateString ;
 				//Set BPMN models name
-				fileName= listOfFiles[x].getName();
-				//if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
 				
-				
-					//Read bpmn models
-					File xmlFile = new File(folderString+"/"+fileName);					
 					String xml = new String(Files.readAllBytes(xmlFile.toPath()), StandardCharsets.UTF_8);  					
 					FileSize = (int) xmlFile.length();
 					
@@ -890,6 +926,7 @@ public class Main {
 											
 									{
 										if(z==SPAdHocNodeChildNodes.getLength()-1) 
+											System.out.println("test");
 											nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone++;	
 									}
 
@@ -1495,8 +1532,9 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 						- nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate - nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate;
 
 				// [TODO: TRANSACTION COLLAPSED]		
-				// SubProcess transaction Collapsed
-				for(int i=0;i<nodesTransaction.getLength();i++) {
+				// SubProcess transaction Collapsed				
+				for(int i=0;i<nodesTransaction.getLength();i++) {					
+					
 					String SubprocessesID = (((Element) nodesTransaction.item(i)).getAttribute("id"));
 
 					Node TransactionNodeChild = nodesTransaction.item(i);  
@@ -1587,12 +1625,13 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 					}
 
 				}
+				
 				nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone = nSubProcessCollapsedEventNoneTransactionLoopNoneCompensateNone - nSubProcessCollapsedEventNoneTransactionLoopStandardCompensateNone
 						- nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensateNone - nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensateNone;
 
 				nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate = nSubProcessCollapsedEventNoneTransactionLoopNoneCompensate - nSubProcessCollapsedEventNoneTransactionLoopStandardCompensate
 						- nSubProcessCollapsedEventNoneTransactionLoopMIParallelCompensate - nSubProcessCollapsedEventNoneTransactionLoopMISequentialCompensate;
-
+				
 				// [TODO: EVENT SUBPROCESS COLLAPSED]
 				// SubProcess event Collapsed
 				for(int i=0;i<nodesSubprocessesEvent.getLength();i++) {
@@ -3674,13 +3713,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				Object resultConvLink = exprConvLink.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesConvLink = (NodeList) resultConvLink;
 				doc.getDocumentElement().normalize();  
-				nConversationLink = nodesConvLink.getLength();  
-
-//				XPathExpression exprEX = xpath.compile("//bpmn:extensionElements");
-//				Object resultEX= exprEX.evaluate(doc, XPathConstants.NODESET);
-//				NodeList nodesEX = (NodeList) resultEX;
-//				doc.getDocumentElement().normalize();  
-//				nExtensionElement = nodesEX.getLength();   
+				nConversationLink = nodesConvLink.getLength(); 
 				
 				XPathFactory xPathfactory = XPathFactory.newInstance();
 				XPath xpathLang = xPathfactory.newXPath();
@@ -3689,30 +3722,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				NodeList nodesModelWords = (NodeList) resultModelWords;										
 				ArrayList<String> modelWords = new ArrayList<String>();   
 				Vector<Double> modelWordsLenght = new Vector<Double>();  					
-				
-				for(int a=0; a<nodesModelWords.getLength(); a++) {
-					
-					//System.out.println(nodesModelWords.item(a).toString());
-					//AGGIUNGERE QUA I NODI DA ELIMINARE
-					if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
-						      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
-							  nodesModelWords.item(a).toString().contains("semantic:globalUserTask") ||
-							  nodesModelWords.item(a).toString().contains("dc:Font") ||
-							  nodesModelWords.item(a).toString().contains("bpmn2:definitions") ||
-							  nodesModelWords.item(a).toString().contains("bpmndi:BPMNDiagram") ||
-							  nodesModelWords.item(a).toString().contains("ixbpmn:customDataValue") ||
-							  nodesModelWords.item(a).toString().contains("signal:")	||
-							  nodesModelWords.item(a).toString().contains("error:")		)
-						continue;
-				
-					NamedNodeMap s = nodesModelWords.item(a).getAttributes();
-					Node name = s.getNamedItem("name");						
-					modelWords.add(name.getTextContent());
-					modelWordsLenght.add((double) name.getTextContent().length());									
-				}
-				
-				if(modelWords.size()==0)
-					modelWords.add("NoLabels");
+							
 				
 				if((nConversationNone+nConversationSubProcess+nConversationCall+nConversationLink)>0) 
 				modelType = "Conversation";
@@ -4576,22 +4586,21 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				double mode;
 				double variance;
 				
-				//Set BPMN models name
-				//fileName= listOfFiles[x].getName();
-				/*if(!fileName.contains(".bpmn")) {System.out.println("File does not have a .bpmn extension");return;}
-				/*if(SystemUtils.IS_OS_WINDOWS) {
-					//System.out.println(folderString+"\\"+fileName);
-					if(!(folderString+"\\"+fileName).contains(".bpmn"))continue;
-				}else {
-					//System.out.println(folderString+"/"+fileName);
-					if(!(folderString+"/"+fileName).contains(".bpmn"))continue;
-				}*/
-			
-				
 				for(int a=0; a<nodesModelWords.getLength(); a++) {
 					
-					//System.out.println(nodesModelWords.item(a).toString());
-					//AGGIUNGERE QUA I NODI DA ELIMINARE
+					
+					if (TotalElements==0)
+					{
+						Nofwords = 0;
+						Nofcharater = 0;
+						average = 0;
+						median = 0;
+						mode = 0;
+						variance = 0;	
+						modelWords.add("NoLabels"); 
+						break;
+					}
+					
 					if(nodesModelWords.item(a).toString().contains("omgdc:Font") ||
 						      nodesModelWords.item(a).toString().contains("semantic:definitions:") ||
 							  nodesModelWords.item(a).toString().contains("semantic:globalUserTask") ||
@@ -4608,11 +4617,13 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					
 					if(!name.getTextContent().isEmpty() && !name.getTextContent().equals(" ") &&  !name.getTextContent().equals(null)) {
 						modelWords.add(name.getTextContent());
-						modelWordsLenght.add((double) name.getTextContent().length());				
-						Nofcharater= Nofcharater + name.getTextContent().length();
+						modelWordsLenght.add((double) name.getTextContent().length());		
+						Nofcharater= Nofcharater + name.getTextContent().length()-1;
+						
 					}
 					
 				}
+				
 				
 				Collections.sort(modelWords, String.CASE_INSENSITIVE_ORDER);
 				String modelStampSeparated = String.join("^^^", modelWords);
@@ -4631,6 +4642,9 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				modelStamp = modelStamp.replaceAll(",","");	
 				modelStamp = modelStamp.replace("[","");
 				modelStamp = modelStamp.replace("]","");
+				modelStamp = modelStamp.replace(";","");
+				modelStamp = modelStamp.replace("&amp;","");
+				
 				
 				modelStampSeparated = modelStampSeparated.replaceAll(" &#13;&#10;", "");	
 				modelStampSeparated = modelStampSeparated.replaceAll("&#10;", "");	
@@ -4641,17 +4655,15 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				modelStampSeparated = modelStampSeparated.replaceAll("-","");
 				modelStampSeparated = modelStampSeparated.replace("\n", "").replace("\r", "");
 				modelStampSeparated = modelStampSeparated.replaceAll(" ","");
+				modelStampSeparated = modelStampSeparated.replace(";","");
+				modelStampSeparated = modelStampSeparated.replace("&amp;","");
 				
+				//Nofcharater= modelStamp.si
 				
-				//System.out.println(modelStamp);				
+				if(nodesModelWords.getLength()>1 && Nofcharater>0) {
 				
-				if(modelWords.isEmpty()) {
-					isEnglish=false;				
-				}
-				
-				if(nodesModelWords.getLength()>1) {
-				
-			 Nofwords =	nodesModelWords.getLength();
+			  Nofwords =modelWords.size();
+			  
 			 average = Nofcharater/Nofwords;				 
 			 Collections.sort(modelWordsLenght);
 			 			 
@@ -4661,8 +4673,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			    	median = modelWordsLenght.elementAt(middle);
 			    	
 			    } else {
-			    	median = (modelWordsLenght.elementAt(middle) + (modelWordsLenght.elementAt(middle-1)) )/2;
-			    	
+			    	median = (modelWordsLenght.elementAt(middle) + (modelWordsLenght.elementAt(middle-1)) )/2;			    	
 			    }
 			    
 			    HashMap<Double,Integer> hm = new HashMap<Double,Integer>();
@@ -4989,7 +5000,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				
 				} catch (Exception e) {
 					
-					
+					 System.out.println("Exception: "+e.getMessage());
 								
 				}
 		
@@ -5000,10 +5011,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			
 		} catch (Exception e) {
 			 System.out.println("Exception: "+e.getMessage());
-			 System.out.println("entro");
-		        //writer.write(fileEntry.getName()+","+"invalid"+", "+e.getMessage().replace(",", "-")+"\n");            
-		        //writer.write(fileEntry.getName()+","+"invalid"+", "+exp+"\n"); 
-				return;
+			 return;
 		}		
 		
 		System.out.println("\n=========== :: Analysis succesfully DONE. The .txt file is ready :: ===========");
