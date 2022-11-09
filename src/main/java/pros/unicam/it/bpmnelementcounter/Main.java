@@ -2767,7 +2767,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 							nStartNoneEventDefinition++;						
 
 						if(NumberOfChildsOfEachStartEventNode > 1 && ((Element) nodesStartEventInterrupting.item(i)).getAttribute("parallelMultiple").contains("true")==false)
-							nStartMultipleEventDefinition = nStartMultipleEventDefinition + nStartMultipleParallelEventDefinition;
+							nStartMultipleEventDefinition++;
 
 						else {
 							for(int j=0;j<StartEventInterruptingChildNodes.getLength(); j++) {
