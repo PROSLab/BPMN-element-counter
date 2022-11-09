@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.*;
@@ -2655,10 +2656,10 @@ SUBPROCESS Collapsed EVENT + ADHOC
 
 						if(GatewayID.equalsIgnoreCase(GatewayShapeID)) {
 							
-							if(((Element) nodesExclusiveGatewayShape.item(j)).getAttribute("isMarkerVisible").contains("false"))
-									nExclusiveGatewayNoMarker++;
+							if(((Element) nodesExclusiveGatewayShape.item(j)).getAttribute("isMarkerVisible").contains("true"))
+									nExclusiveGatewayMarker++;
 							else
-								    nExclusiveGatewayMarker++;
+								    nExclusiveGatewayNoMarker++;
 						}
 					}
 				}
@@ -2674,26 +2675,25 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				NodeList nodesInG = (NodeList) resultInG;
 				doc.getDocumentElement().normalize();  
 				nInclusiveGateway = nodesInG.getLength();
-
-				//TO TEST Event Based Gateway Exclusive Instantiation
-				XPathExpression exprEBGEI = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Exclusive' and @instantiate='true']");
-				Object resultEBGEI = exprEBGEI.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesEBGEI = (NodeList) resultEBGEI;
-				doc.getDocumentElement().normalize();  
-				nEventBasedGatewayExclusiveInstantiation = nodesEBGEI.getLength();
-
+				
 				//TO TEST Event Based Gateway Parallel Instantiation
 				XPathExpression exprEBGPI = xpath.compile("//bpmn:eventBasedGateway[@eventGatewayType='Parallel' and @instantiate='true']");
 				Object resultEBGPI = exprEBGPI.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesEBGPI = (NodeList) resultEBGPI;
 				doc.getDocumentElement().normalize();  
-				nEventBasedGatewayParallelInstantiation = nodesEBGPI.getLength();
+				nEventBasedGatewayParallelInstantiation = nodesEBGPI.getLength();				
+				
+				XPathExpression exprEBGEI = xpath.compile("//bpmn:eventBasedGateway[@instantiate='true']");
+				Object resultEBGEI = exprEBGEI.evaluate(doc, XPathConstants.NODESET);
+				NodeList nodesEBGEI = (NodeList) resultEBGEI;
+				doc.getDocumentElement().normalize();  
+				nEventBasedGatewayExclusiveInstantiation = nodesEBGEI.getLength() - nEventBasedGatewayParallelInstantiation;
 
 				XPathExpression exprEBG = xpath.compile("//bpmn:eventBasedGateway");
 				Object resultEBG = exprEBG.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesEBG = (NodeList) resultEBG;
 				doc.getDocumentElement().normalize();  
-				nEventBasedGateway = nodesEBG.getLength() - (nEventBasedGatewayExclusiveInstantiation+nEventBasedGatewayParallelInstantiation);
+				nEventBasedGateway = nodesEBG.getLength() - (nEventBasedGatewayParallelInstantiation+nEventBasedGatewayExclusiveInstantiation);				
 				
 				XPathExpression exprCoG = xpath.compile("//bpmn:complexGateway");
 				Object resultCoG = exprCoG.evaluate(doc, XPathConstants.NODESET);
@@ -2767,7 +2767,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 							nStartNoneEventDefinition++;						
 
 						if(NumberOfChildsOfEachStartEventNode > 1 && ((Element) nodesStartEventInterrupting.item(i)).getAttribute("parallelMultiple").contains("true")==false)
-							nStartMultipleEventDefinition++;
+							nStartMultipleEventDefinition = nStartMultipleEventDefinition + nStartMultipleParallelEventDefinition;
 
 						else {
 							for(int j=0;j<StartEventInterruptingChildNodes.getLength(); j++) {
@@ -3585,45 +3585,40 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					}
 
 				}
-				
-				XPathExpression exprChoPartSubM = xpath.compile("//bpmn:subChoreography//bpmn:participant//bpmn:participantMultiplicity");
-				Object resultChoPartSubM = exprChoPartSubM.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesChoPartSubM = (NodeList) resultChoPartSubM;
-				doc.getDocumentElement().normalize();  
-				int nChoreographyParticipantSubM = nodesChoPartSubM.getLength();
-				
-				XPathExpression exprChoPartCallM = xpath.compile("//bpmn:callChoreography//bpmn:participant//bpmn:participantMultiplicity");
-				Object resultChoPartCallM = exprChoPartCallM.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesChoPartCallM = (NodeList) resultChoPartCallM;
-				doc.getDocumentElement().normalize();  
-				int nChoreographyParticipantCallM = nodesChoPartCallM.getLength();
-				
+
 				//N° of Choreography participant multiple      
 				XPathExpression exprChoPartM = xpath.compile("//bpmn:choreography//bpmn:participant//bpmn:participantMultiplicity");
 				Object resultChoPartM = exprChoPartM.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesChoPartM = (NodeList) resultChoPartM;
 				doc.getDocumentElement().normalize();  
-				nChoreographyParticipantMultiple = nodesChoPartM.getLength() + (nChoreographyParticipantSubM+nChoreographyParticipantCallM); 
-
-				XPathExpression exprChoPartSub = xpath.compile("//bpmn:subChoreography//bpmn:participant");
-				Object resultChoPartSub = exprChoPartSub.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesChoPartSub = (NodeList) resultChoPartSub;
-				doc.getDocumentElement().normalize();  
-				int nChoreographyParticipantSub = nodesChoPartSub.getLength() - nChoreographyParticipantSubM;
-				
-				XPathExpression exprChoPartCall = xpath.compile("//bpmn:callChoreography//bpmn:participant");
-				Object resultChoPartCall = exprChoPartCall.evaluate(doc, XPathConstants.NODESET);
-				NodeList nodesChoPartCall = (NodeList) resultChoPartCall;
-				doc.getDocumentElement().normalize();  
-				int nChoreographyParticipantCall = nodesChoPartCall.getLength() - nChoreographyParticipantCallM;
-				
+				nChoreographyParticipantMultiple = nodesChoPartM.getLength();
 				//N° of Choreography participant
 				XPathExpression exprChoPart = xpath.compile("//bpmn:choreography//bpmn:participant");
 				Object resultChoPart = exprChoPart.evaluate(doc, XPathConstants.NODESET);
 				NodeList nodesChoPart = (NodeList) resultChoPart;
 				doc.getDocumentElement().normalize();  
-				nChoreographyParticipant = nodesChoPart.getLength()+(nChoreographyParticipantSub+nChoreographyParticipantCall) - nChoreographyParticipantMultiple; 
-
+				
+				Triplet<Integer, String, String> idArrayParticipant  = new Triplet<Integer, String, String>(Integer.valueOf(1),"","");				
+				
+				
+				for(int c = 0;c<nodesChoPart.getLength();c++) {
+					
+					try {
+						String idParticipant = (((Element) nodesChoPart.item(c)).getAttribute("name"));
+						
+						idArrayParticipant.add(idParticipant,"");
+						
+						if(idArrayParticipant.getValue1().equalsIgnoreCase(idParticipant))
+						{
+							continue;
+						}
+						else {
+							nChoreographyParticipant++; 
+						}
+					}catch (Exception e) {		
+					}
+				}
+				
 				//N° of Choreography tasks
 				XPathExpression exprChoTaskPI = xpath.compile("//bpmn:choreographyTask[@loopType='MultiInstanceParallel']");
 				Object resultChoTaskPI = exprChoTaskPI.evaluate(doc, XPathConstants.NODESET);
