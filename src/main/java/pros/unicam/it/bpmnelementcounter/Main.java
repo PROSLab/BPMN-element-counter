@@ -718,8 +718,8 @@ endif GitHub	*/
 						}
 						return null;
 					}
-				});      
-				
+				});   				
+					
 				//[TODO: Namespace]
 				// Check the modeler type
 				if(doc.getDocumentElement().getAttribute("targetNamespace").contains("bpmn.io")) {
@@ -728,8 +728,8 @@ endif GitHub	*/
 				else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("signavio")) {
 					bpmnModeler = "Signavio";
 				}
-				else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("signavio")) {
-					bpmnModeler = "Signavio";
+				else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("activiti")) {
+					bpmnModeler = "Activiti";
 				}
 				else if (doc.getDocumentElement().getAttribute("targetNamespace").contains("camunda")) {
 					bpmnModeler = "Camunda";
@@ -925,8 +925,7 @@ endif GitHub	*/
 											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false)
 											
 									{
-										if(z==SPAdHocNodeChildNodes.getLength()-1) 
-											System.out.println("test");
+										if(z==SPAdHocNodeChildNodes.getLength()-1) 											
 											nSubProcessExtendedEventNoneAdHocLoopNoneCompensateNone++;	
 									}
 
@@ -1343,7 +1342,7 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 											((Element) nodesSubprocesses.item(i)).getAttribute("isForCompensation").contains("true")==false)
 									{
 
-										if(z==SubPnodeChildNodes.getLength()-1) 												
+										if(z==SubPnodeChildNodes.getLength()-1) 		
 											nSubProcessCollapsedEventNoneAdHocNoneTransactionNoneLoopNoneCompensateNone++;
 									}
 
@@ -1423,35 +1422,66 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 
 				// [TODO: ADHOC COLLAPSED]
-				// SubProcess adhoc Collapsed
+				// SubProcess adhoc Collapsed				
+				//Vuol dire che c'è almeno un tag adHocSubProcess, entrare per scoprire cos'è
 				for(int i=0;i<nodesSubprocessesAdHoc.getLength();i++) {
+					
 					String SubprocessesID = (((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("id"));
 
 					Node SPAdHocNodeChild = nodesSubprocessesAdHoc.item(i);  
-
+					
 					for(int j=0;j<nodesShapesList.getLength();j++) {
+						
 						String SubprocessesShape = (((Element) nodesShapesList.item(j)).getAttribute("bpmnElement"));
-
+						
+						//QUA IL PROBLEMA, SIGNAVIO DICE 3 FIGLI MENTRE BPMN.IO 0 E QUINDI NON ENTRA NEL FOR
+						//FIN QUA ASSOLUTAMENTE TUTTO CORRETTO, NON SI CAPISCE PERCHè SPAdHocNodeChildNodes è LUNGO 0 SU BPMN.IO
+						
 						NodeList SPAdHocNodeChildNodes = SPAdHocNodeChild.getChildNodes();  
+						
 
-						for(int z=0;z<SPAdHocNodeChildNodes.getLength(); z++)
-						{
-							try {
-
-								if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
-										((Element) nodesShapesList.item(j)).getAttribute("isExpanded").contains("true")==false) {
-
+						System.out.println(SPAdHocNodeChildNodes.getLength());
+						
+						if(SubprocessesID.equalsIgnoreCase(SubprocessesShape) &&
+								((Element) nodesShapesList.item(j)).getAttribute("isExpanded").contains("true")==false) {
+							
+							System.out.println("isCollapsed");	
+					
+						if(SPAdHocNodeChildNodes.getLength()<=0) {
+							
+							if(((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
+									((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false)
+							{
+									nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone++;
+							}
+							
+							if(((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
+									((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false)
+							{
+								nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate++;
+							}
+														
+							
+						}
+						else {
+							for(int z=0;z<SPAdHocNodeChildNodes.getLength(); z++)
+							{
+								try {		
+									
+									System.out.println("entro");
+									
 									if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true")==false &&
 											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("triggeredByEvent").contains("true")==false)
 									{
 										if(z==SPAdHocNodeChildNodes.getLength()-1) 
-											nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone++;										    
-
+											nSubProcessCollapsedEventNoneAdHocLoopNoneCompensateNone++;
 									}
 
-
+									//nodesSubprocessesAdHoc.item(i).getAttributes();
+											
+											
 									if(SPAdHocNodeChildNodes.item(z).getNodeName().contains("standardLoopCharacteristics")==false &&
 											SPAdHocNodeChildNodes.item(z).getNodeName().contains("multiInstanceLoopCharacteristics")==false &&
 											((Element) nodesSubprocessesAdHoc.item(i)).getAttribute("isForCompensation").contains("true") &&
@@ -1519,7 +1549,9 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 									}    						
 
-								}}catch (Exception e) {}
+								}catch (Exception e) {}
+							}
+						}
 						}
 
 					}
@@ -1530,7 +1562,7 @@ SUBPROCESS EXPANDED EVENT + ADHOC
 
 				nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate = nSubProcessCollapsedEventNoneAdHocLoopNoneCompensate - nSubProcessCollapsedEventNoneAdHocLoopStandardCompensate
 						- nSubProcessCollapsedEventNoneAdHocLoopMIParallelCompensate - nSubProcessCollapsedEventNoneAdHocLoopMISequentialCompensate;
-
+				
 				// [TODO: TRANSACTION COLLAPSED]		
 				// SubProcess transaction Collapsed				
 				for(int i=0;i<nodesTransaction.getLength();i++) {					
