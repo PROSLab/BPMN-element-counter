@@ -4834,7 +4834,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 			 			 
 			 int middle = modelWordsLenght.size()/2;		 		 		 		
 			 
-			    if (modelWordsLenght.size()%2 == 1) {
+			    if (Nofwords%2 == 1) {
 			    	median = modelWordsLenght.elementAt(middle);
 			    	
 			    } else {
