@@ -4784,15 +4784,14 @@ SUBPROCESS Collapsed EVENT + ADHOC
 					
 					if(!name.getTextContent().isEmpty() && !name.getTextContent().equals(" ") &&  !name.getTextContent().equals(null)) {
 						modelWords.add(name.getTextContent());
-						modelWordsLenght.add((double) name.getTextContent().length());		
-						Nofcharater= Nofcharater + name.getTextContent().length()-1;
-						
+						modelWordsLenght.add((double) name.getTextContent().length());								
+
 					}
 					
 				}
 				
 				
-				Collections.sort(modelWords, String.CASE_INSENSITIVE_ORDER);
+				//Collections.sort(modelWords, String.CASE_INSENSITIVE_ORDER);
 				String modelStampSeparated = String.join("^^^", modelWords);
 				String modelStamp = modelWords.toString();
 							
@@ -4824,12 +4823,11 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				modelStampSeparated = modelStampSeparated.replaceAll(" ","");
 				modelStampSeparated = modelStampSeparated.replace(";","");
 				modelStampSeparated = modelStampSeparated.replace("&amp;","");
+			
+				if(nodesModelWords.getLength()>0) {
 				
-				//Nofcharater= modelStamp.si
-				
-				if(nodesModelWords.getLength()>1 && Nofcharater>0) {
-				
-			  Nofwords =modelWords.size();
+					Nofcharater= modelStamp.length();	
+					Nofwords = modelWords.size();
 			  
 			 average = Nofcharater/Nofwords;				 
 			 Collections.sort(modelWordsLenght);
