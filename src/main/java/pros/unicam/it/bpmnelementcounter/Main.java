@@ -4720,8 +4720,8 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				if(nChoreographySubprocessExpandedSequentialMultipleInstance>0)pComplexity++;
 				if(nChoreographySubprocessExpandedParallelMultipleInstance>0)pComplexity++;
 				if(nChoreographySubprocessExpandedLoop>0)pComplexity++;
-				if(nChoreographyParticipant>0)pComplexity++;
-				if(nChoreographyParticipantMultiple>0)pComplexity++;   
+				//if(nChoreographyParticipant>0)pComplexity++;
+				//if(nChoreographyParticipantMultiple>0)pComplexity++;   
 				if(nChoreographyMessage>0)pComplexity++;
 				if(nConversationNone>0)pComplexity++;
 				if(nConversationSubProcess>0)pComplexity++;
@@ -4795,7 +4795,6 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				String modelStampSeparated = String.join("^^^", modelWords);
 				String modelStamp = modelWords.toString();
 							
-				
 				modelStamp = modelStamp.replaceAll(" &#13;&#10;", "");	
 				modelStamp = modelStamp.replaceAll("&#10;", "");	
 				modelStamp = modelStamp.replaceAll(";&#10;", "");	
@@ -4809,8 +4808,7 @@ SUBPROCESS Collapsed EVENT + ADHOC
 				modelStamp = modelStamp.replace("[","");
 				modelStamp = modelStamp.replace("]","");
 				modelStamp = modelStamp.replace(";","");
-				modelStamp = modelStamp.replace("&amp;","");
-				
+				modelStamp = modelStamp.replace("&amp;","");				
 				
 				modelStampSeparated = modelStampSeparated.replaceAll(" &#13;&#10;", "");	
 				modelStampSeparated = modelStampSeparated.replaceAll("&#10;", "");	
